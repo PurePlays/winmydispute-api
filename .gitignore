@@ -2,3 +2,22 @@
 .env
 node_modules/
 .DS_Store
+# local backups / scratch files
+disputegpt-backup/
+temp.txt
+
+# local data stores (Stripe tokens / paid-users)
+paidUsers.json
+tokens.json
+
+# lockfile duplicates (if you accidentally have more than one)
+*/package-lock.json
+
+# built modules
+node_modules/
+gpt-config/node_modules/
+
+# OS cruft
+.DS_Store
+*.pdf
+.dbxignore
