@@ -21,3 +21,4 @@ gpt-config/node_modules/
 .DS_Store
 *.pdf
 .dbxignore
+gpt-config/ai-plugin.json
