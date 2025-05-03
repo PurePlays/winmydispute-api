@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: winmydispute-api
+    env: node
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+    autoDeploy: true
+    branch: main
+    repo: https://github.com/PurePlays/winmydispute-api
