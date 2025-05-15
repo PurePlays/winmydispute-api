@@ -1,0 +1,33 @@
+{
+    "fraud": {
+      "4837": "No Cardholder Authorization",
+      "4840": "Fraudulent Processing of Transactions",
+      "4849": "Questionable Merchant Activity",
+      "4863": "Cardholder Does Not Recognize—Potential Fraud",
+      "4870": "Chip Liability Shift",
+      "4871": "Chip/PIN Liability Shift"
+    },
+    "authorization": {
+      "4807": "Warning Bulletin File",
+      "4808": "Authorization-Related Chargeback",
+      "4812": "Account Number Not On File"
+    },
+    "pointOfInteractionError": {
+      "4834": "Point-of-Interaction Error",
+      "4831": "Transaction Amount Differs",
+      "4842": "Late Presentment",
+      "4846": "Correct Transaction Currency Code Not Provided"
+    },
+    "cardholderDisputes": {
+      "4853": "Cardholder Dispute",
+      "4841": "Canceled Recurring or Digital Goods Transactions",
+      "4854": "Cardholder Dispute—Not Elsewhere Classified (U.S. Region Only)",
+      "4855": "Goods or Services Not Provided",
+      "4859": "Addendum, No-show, or ATM Dispute",
+      "4860": "Credit Not Processed"
+    },
+    "miscellaneous": {
+      "4999": "Domestic Chargeback Dispute (Europe Region Only)"
+    }
+  }
+  

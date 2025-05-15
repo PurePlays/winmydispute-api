@@ -1,0 +1,30 @@
+[
+  { "network": "visa",       "scenarioPattern": "unauthorized",           "reasonCode": "10.4" },
+  { "network": "visa",       "scenarioPattern": "counterfeit",            "reasonCode": "10.1" },
+  { "network": "visa",       "scenarioPattern": "chip",                   "reasonCode": "10.2" },
+  { "network": "visa",       "scenarioPattern": "key-entered",            "reasonCode": "10.3" },
+  { "network": "visa",       "scenarioPattern": "not receive",            "reasonCode": "13.1" },
+  { "network": "visa",       "scenarioPattern": "cancel",                 "reasonCode": "13.2" },
+  { "network": "visa",       "scenarioPattern": "not as described",       "reasonCode": "13.3" },
+  { "network": "visa",       "scenarioPattern": "counterfeit merchandise","reasonCode": "13.4" },
+  { "network": "visa",       "scenarioPattern": "misrepresent",           "reasonCode": "13.5" },
+  { "network": "visa",       "scenarioPattern": "credit not processed",   "reasonCode": "13.6" },
+  { "network": "visa",       "scenarioPattern": "duplicate",              "reasonCode": "12.6.1" },
+
+  { "network": "mastercard", "scenarioPattern": "unauthorized",           "reasonCode": "4837" },
+  { "network": "mastercard", "scenarioPattern": "duplicate",              "reasonCode": "4834" },
+  { "network": "mastercard", "scenarioPattern": "not receive",            "reasonCode": "4853" },
+  { "network": "mastercard", "scenarioPattern": "not as described",       "reasonCode": "4853" },
+  { "network": "mastercard", "scenarioPattern": "forced auth",            "reasonCode": "4808" },
+
+  { "network": "amex",       "scenarioPattern": "unauthorized",           "reasonCode": "F29" },
+  { "network": "amex",       "scenarioPattern": "not receive",            "reasonCode": "C08" },
+  { "network": "amex",       "scenarioPattern": "not as described",       "reasonCode": "C31" },
+  { "network": "amex",       "scenarioPattern": "missing imprint",         "reasonCode": "F10" },
+  { "network": "amex",       "scenarioPattern": "duplicate",              "reasonCode": "P08" },
+
+  { "network": "discover",   "scenarioPattern": "unauthorized",           "reasonCode": "UA02" },
+  { "network": "discover",   "scenarioPattern": "not receive",            "reasonCode": "RG"   },
+  { "network": "discover",   "scenarioPattern": "not as described",       "reasonCode": "RM"   },
+  { "network": "discover",   "scenarioPattern": "duplicate",              "reasonCode": "DP"   }
+]

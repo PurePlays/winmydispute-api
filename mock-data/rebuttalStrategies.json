@@ -1,0 +1,1015 @@
+{
+  "visa": {
+    "13.1": {
+      "commonMerchantRebuttals": [
+        "Carrier tracking confirms delivery",
+        "Signature release authorizes drop-off",
+        "Digital platform logs show access",
+        "Package handed to someone at the address"
+      ],
+      "strategyTips": [
+        "Scrutinize carrier GPS timestamps vs. claimant’s timeline",
+        "Request full signature release forms from the merchant",
+        "Flag any address mismatches or incomplete delivery scans",
+        "Call out gaps in delivery windows or handoff procedures"
+      ],
+      "evidenceToFocusOn": [
+        "Detailed carrier GPS/scan logs",
+        "Full signature capture and release documentation",
+        "Screenshots of digital service access attempts",
+        "Customer’s own correspondence confirming non-receipt"
+      ],
+      "customerStrategy": "Emphasize that no authorized signature or delivery occurred at your address. Highlight any discrepancies between carrier logs and the merchant’s claim, and show your timely attempts to resolve directly with the seller."
+    },
+    "13.2": {
+      "commonMerchantRebuttals": [
+        "User credentials confirm account access",
+        "Subscription terms displayed clearly",
+        "Billing descriptor includes renewal notice"
+      ],
+      "strategyTips": [
+        "Provide timestamps of your cancellation request (email/chat logs)",
+        "Show hidden or hard-to-reach cancellation links",
+        "Demonstrate zero usage after the renewal date",
+        "Compare renewal notifications against your statement date"
+      ],
+      "evidenceToFocusOn": [
+        "Email headers and timestamps of cancellation",
+        "Screenshots of subscription management page",
+        "Server logs showing no login/activity post-renewal",
+        "Communication showing refund refusal or delay"
+      ],
+      "customerStrategy": "Stress that you followed all published cancellation steps before renewal, yet were still billed. Use exact timestamps and platform logs to prove you never accessed or benefited from the renewed service."
+    },
+    "13.3": {
+      "commonMerchantRebuttals": [
+        "Product matches advertised specifications",
+        "No defect reported within warranty period",
+        "Customer gave no prior notice to merchant"
+      ],
+      "strategyTips": [
+        "Side-by-side photo/video comparisons of advertised vs delivered",
+        "Highlight any differences in size, model, or features",
+        "Show timestamped messages requesting repair or return",
+        "Obtain a neutral expert appraisal if needed"
+      ],
+      "evidenceToFocusOn": [
+        "High-resolution photos/videos of the defect/mismatch",
+        "Product listing screenshots from date of purchase",
+        "Customer service transcripts with your complaints",
+        "Return instructions you followed (tracking info)"
+      ],
+      "customerStrategy": "Demonstrate how the item materially deviates from the listing. Present clear visual proof, document your early return/resolution efforts, and cite any expert opinions or third-party reports."
+    },
+    "10.1": {
+      "commonMerchantRebuttals": [
+        "EMV chip not required on legacy terminals",
+        "Terminal was up to code",
+        "Customer authorized transaction"
+      ],
+      "strategyTips": [
+        "Prove chip was never read despite requirement",
+        "Emphasize use of counterfeit card",
+        "Show absence of 3D Secure or PIN"
+      ],
+      "evidenceToFocusOn": [
+        "Terminal logs with chip-read failure",
+        "Transaction receipt",
+        "Issuer fraud report showing clone activity"
+      ],
+      "customerStrategy": "Show that the merchant processed a chip card without a chip-read, allowing a counterfeit transaction to go through improperly."
+    },
+    "10.2": {
+      "commonMerchantRebuttals": [
+        "Chip transaction processed properly",
+        "PIN verified at terminal",
+        "Cardholder failed to report card stolen"
+      ],
+      "strategyTips": [
+        "Show transaction occurred on a lost or stolen chip card",
+        "Highlight fraud report timing",
+        "Use issuer data on EMV shift rules"
+      ],
+      "evidenceToFocusOn": [
+        "Lost/stolen card report",
+        "Transaction time vs. card block time",
+        "Terminal chip read logs"
+      ],
+      "customerStrategy": "Prove the card was compromised and used despite being reported lost/stolen, and that the merchant failed to follow EMV liability protocols."
+    },
+    "10.3": {
+      "commonMerchantRebuttals": [
+        "Manual entry approved with verification",
+        "Customer signature matched",
+        "Device imprint used"
+      ],
+      "strategyTips": [
+        "Highlight that manual entry skips fraud checks",
+        "Request copy of signature or receipt",
+        "Show card was never in your possession"
+      ],
+      "evidenceToFocusOn": [
+        "Receipt without chip/swipe",
+        "Lack of signature confirmation",
+        "Issuer dispute form"
+      ],
+      "customerStrategy": "State that the card was not used properly (no chip/swipe) and the charge was unauthorized or manipulated."
+    },
+    "10.5": {
+      "commonMerchantRebuttals": [
+        "Merchant not part of VFMP",
+        "Charge was valid and authorized",
+        "Customer disputed outside allowed window"
+      ],
+      "strategyTips": [
+        "Emphasize fraud pattern if multiple charges occurred",
+        "Check if merchant appears on VFMP",
+        "Note your timely fraud report"
+      ],
+      "evidenceToFocusOn": [
+        "Multiple charges from flagged merchant",
+        "Issuer notice of VFMP status",
+        "Correspondence showing fraud escalation"
+      ],
+      "customerStrategy": "Demonstrate that this transaction occurred with a merchant under Visa’s fraud monitoring watch, and you were a victim of related unauthorized activity."
+    },
+    "11.1": {
+      "commonMerchantRebuttals": [
+        "CRB check was not required at time of sale",
+        "Customer presented valid card",
+        "Transaction had no authorization issues"
+      ],
+      "strategyTips": [
+        "Show that the merchant failed to check CRB",
+        "Request CRB log at time of transaction",
+        "Cite issuer policy on blocked cards"
+      ],
+      "evidenceToFocusOn": [
+        "CRB record at date/time of sale",
+        "Authorization denial details",
+        "Fraud report"
+      ],
+      "customerStrategy": "Prove that the transaction was processed without authorization and the card was listed in the recovery bulletin at the time."
+    },
+    "11.2": {
+      "commonMerchantRebuttals": [
+        "Authorization override approved",
+        "Customer insisted on completion",
+        "Decline code resolved on retry"
+      ],
+      "strategyTips": [
+        "Show the merchant completed the charge after a clear decline",
+        "Ask for authorization logs",
+        "Compare decline vs. post-settlement timestamps"
+      ],
+      "evidenceToFocusOn": [
+        "Decline message screenshot",
+        "Authorization record",
+        "Bank support correspondence"
+      ],
+      "customerStrategy": "State that the charge was forced after a decline and was never approved or authorized properly."
+    },
+    "11.3": {
+      "commonMerchantRebuttals": [
+        "Auth still valid during settlement",
+        "Tip added with consent",
+        "Customer did not dispute at time"
+      ],
+      "strategyTips": [
+        "Compare time between auth and charge",
+        "Show auth was expired or reused",
+        "Request Visa rules on settlement timing"
+      ],
+      "evidenceToFocusOn": [
+        "Transaction and auth timestamps",
+        "Visa policy screenshots",
+        "Statement showing delay"
+      ],
+      "customerStrategy": "Prove the merchant submitted the charge after the authorization window expired or without proper approval."
+    },
+    "12.2": {
+      "commonMerchantRebuttals": [
+        "Customer selected transaction type",
+        "Refund method explained at checkout",
+        "Transaction processed correctly"
+      ],
+      "strategyTips": [
+        "Point out mismatch between intended and actual transaction type",
+        "Request breakdown of credit vs. debit",
+        "Note errors in merchant’s POS settings"
+      ],
+      "evidenceToFocusOn": [
+        "POS logs",
+        "Statement showing wrong type (e.g., credit processed as debit)",
+        "Merchant reply email"
+      ],
+      "customerStrategy": "State the wrong transaction type was used (e.g., credit instead of refund), leading to billing or refund issues."
+    },
+    "12.3": {
+      "commonMerchantRebuttals": [
+        "DCC terms presented to customer",
+        "Exchange rate aligned with policy",
+        "Customer accepted currency choice"
+      ],
+      "strategyTips": [
+        "Show currency mismatch on receipt vs. account",
+        "Highlight lack of DCC opt-in confirmation",
+        "Request merchant rate documentation"
+      ],
+      "evidenceToFocusOn": [
+        "Transaction currency logs",
+        "Receipt with conversion details",
+        "Screenshots of conversion prompt (or lack of)"
+      ],
+      "customerStrategy": "Prove you were charged in the wrong currency without proper disclosure or approval."
+    },
+    "10.4": {
+      "commonMerchantRebuttals": [
+        "IP/AVS data match billed address",
+        "Successful SecureCode or 3D Secure authentication",
+        "Frequent transactions on file with same merchant"
+      ],
+      "strategyTips": [
+        "Highlight anomalies in device fingerprint or IP geolocation",
+        "Show block lists or fraud flags you submitted",
+        "Provide local police or bank fraud report",
+        "Illustrate lack of purchase context or order history"
+      ],
+      "evidenceToFocusOn": [
+        "Device‐fingerprint logs showing new/unrecognized device",
+        "IP geolocation vs. your known locations",
+        "Formal fraud report or incident number from issuer",
+        "Screenshots of SecureCode 3DS failures or lack thereof"
+      ],
+      "customerStrategy": "Position the charge as completely outside your normal usage patterns. Leverage geolocation, device logs, and formal fraud reports to prove you never initiated or approved the transaction."
+    }
+  },
+  "mastercard": {
+    "4853": {
+      "commonMerchantRebuttals": [
+        "Service was rendered per policy",
+        "Cancellation link was obvious",
+        "Terms required notice period"
+      ],
+      "strategyTips": [
+        "Document every step of your cancellation process",
+        "Capture ambiguous or buried policy language",
+        "Show complete inactivity logs post-cancellation",
+        "Compare email alerts vs. actual service cut-off"
+      ],
+      "evidenceToFocusOn": [
+        "Screenshots of cancellation workflow with timestamps",
+        "Emails/chat logs with support acknowledging your cancellation",
+        "Usage logs showing no access after cancellation",
+        "Archived policy page as it appeared at time of purchase"
+      ],
+      "customerStrategy": "Prove that you cancelled in strict accordance with their own policy yet still got charged. Emphasize confusion in their UI, and highlight the disparity between their stated terms and your real-world experience."
+    },
+    "4837": {
+      "commonMerchantRebuttals": [
+        "Final sale/no returns policy applied",
+        "Return window has closed",
+        "Customer didn’t follow specified return procedure"
+      ],
+      "strategyTips": [
+        "Pinpoint inconsistencies in return policy disclosures",
+        "Show defect or mis-description evidence beyond minor wear",
+        "Include proof of attempted returns within allowed window",
+        "Obtain third-party damage or authenticity report if applicable"
+      ],
+      "evidenceToFocusOn": [
+        "Photos/videos highlighting defect/incorrect item",
+        "Screenshots of the merchant’s return policy page at time of sale",
+        "Tracking proof of return shipment or refusal",
+        "Support ticket logs and merchant acknowledgement"
+      ],
+      "customerStrategy": "Argue that the product was unfit or not as represented, and that the merchant’s restrictive return policy was not properly disclosed or applied. Leverage your own documentation and timelines to force a resolution."
+    },
+    "4840": {
+      "commonMerchantRebuttals": [
+        "Charge was pre-authorized by customer",
+        "Multiple charges were separate valid purchases",
+        "Customer failed to report dispute promptly"
+      ],
+      "strategyTips": [
+        "Highlight the rapid timing of duplicate or excessive charges",
+        "Compare transaction timestamps and merchant descriptors",
+        "Show contradiction with your spending pattern or history"
+      ],
+      "evidenceToFocusOn": [
+        "Statement with grouped charges",
+        "Screenshots of single authorization flow",
+        "Communication showing confusion or lack of consent"
+      ],
+      "customerStrategy": "Argue that this charge was part of a batch of fraudulent or excessive transactions improperly processed after a single approval."
+    },
+    "4849": {
+      "commonMerchantRebuttals": [
+        "Merchant passed compliance audit",
+        "Transaction matched customer profile",
+        "Service/product was delivered as described"
+      ],
+      "strategyTips": [
+        "Point out GMAP/QMAP flags or policy issues with merchant",
+        "Use historical complaints or disputes",
+        "Show deviations from expected behavior"
+      ],
+      "evidenceToFocusOn": [
+        "Similar prior disputes with merchant",
+        "Merchant’s standing with Mastercard (if disclosed)",
+        "Screenshots of red flags on merchant platform"
+      ],
+      "customerStrategy": "Emphasize that the merchant has a history of questionable activity and that your charge fits the pattern of abuse or policy violation."
+    },
+    "4863": {
+      "commonMerchantRebuttals": [
+        "Descriptor clearly reflects merchant identity",
+        "Transaction processed per customer authorization",
+        "Prior purchases from same merchant on file"
+      ],
+      "strategyTips": [
+        "Highlight descriptor confusion and mismatch",
+        "Demonstrate you’ve never interacted with this merchant before",
+        "Show location/IP mismatch or device fingerprint mismatch"
+      ],
+      "evidenceToFocusOn": [
+        "Statement showing unrecognized descriptor",
+        "Device/IP login audit logs",
+        "Screenshots or receipts from known purchases"
+      ],
+      "customerStrategy": "Claim the charge appears completely unfamiliar and show it doesn’t match your prior purchase history or device access records."
+    },
+    "4870": {
+      "commonMerchantRebuttals": [
+        "EMV chip read confirmed",
+        "Customer present with valid ID",
+        "Transaction approved through valid channel"
+      ],
+      "strategyTips": [
+        "Prove EMV chip misuse or counterfeit usage",
+        "Show skimming or compromised device history",
+        "Challenge the legitimacy of the EMV read process"
+      ],
+      "evidenceToFocusOn": [
+        "Issuer fraud analysis report",
+        "Card replacement logs",
+        "Device compatibility verification"
+      ],
+      "customerStrategy": "Demonstrate that the transaction relied on counterfeit EMV data, processed at a terminal that shouldn't have allowed it."
+    },
+    "4871": {
+      "commonMerchantRebuttals": [
+        "PIN successfully entered",
+        "Chip authenticated without failure",
+        "Customer present and verified"
+      ],
+      "strategyTips": [
+        "Argue that PIN entry occurred without your knowledge",
+        "Point out device mismatch, stolen card use, or fraud pattern",
+        "Use evidence showing you weren’t present"
+      ],
+      "evidenceToFocusOn": [
+        "Transaction geolocation vs. known user location",
+        "Fraud affidavit",
+        "Card usage logs before/after dispute"
+      ],
+      "customerStrategy": "Explain how the chip/PIN was bypassed or used fraudulently, despite appearing secure on paper."
+    },
+    "4808": {
+      "commonMerchantRebuttals": [
+        "Authorization was confirmed",
+        "Transaction processed within allowed time",
+        "Customer received goods/services"
+      ],
+      "strategyTips": [
+        "Point out lack of valid authorization before transaction",
+        "Show that charge occurred after a decline",
+        "Cite Mastercard guidelines on forced authorizations"
+      ],
+      "evidenceToFocusOn": [
+        "Decline logs or failed auth screenshots",
+        "Terminal logs without authorization code",
+        "Issuer communication confirming no auth"
+      ],
+      "customerStrategy": "Prove the merchant processed the charge without proper authorization, in violation of Mastercard policy."
+    }
+  },
+  "amex": {
+    "C02": {
+      "commonMerchantRebuttals": [
+        "Refund was already issued",
+        "No return received from customer",
+        "Customer misunderstood refund timeline"
+      ],
+      "strategyTips": [
+        "Highlight lack of refund posted despite return confirmation",
+        "Include return tracking and merchant acknowledgment",
+        "Show merchant’s policy promising refund"
+      ],
+      "evidenceToFocusOn": [
+        "Shipping receipt with tracking",
+        "Email/chat confirming return",
+        "Statement screenshot showing refund missing"
+      ],
+      "customerStrategy": "Prove that you followed all return steps and that the merchant failed to issue the promised refund in a timely manner."
+    },
+    "C14": {
+      "commonMerchantRebuttals": [
+        "Alternative payment method not verified",
+        "Duplicate transactions intentional or confirmed",
+        "Customer failed to provide alternate payment receipt"
+      ],
+      "strategyTips": [
+        "Show matching receipt from another payment method",
+        "Provide date, time, and method of original transaction",
+        "Compare item descriptions and amounts"
+      ],
+      "evidenceToFocusOn": [
+        "Bank statement or payment receipt from alternate method",
+        "Invoice showing payment marked as complete",
+        "Customer service acknowledgment of duplicate payment"
+      ],
+      "customerStrategy": "Show that you already paid through another method, and that this charge was mistakenly duplicated. Use receipts and timestamps to differentiate."
+    },
+    "C18": {
+      "commonMerchantRebuttals": [
+        "No-show policy clearly disclosed",
+        "Reservation not canceled in time",
+        "Customer agreed to non-refundable terms"
+      ],
+      "strategyTips": [
+        "Prove cancellation or change was submitted within window",
+        "Show unclear or inaccessible cancellation policy",
+        "Highlight inability to use the service"
+      ],
+      "evidenceToFocusOn": [
+        "Cancellation email or screenshot with timestamp",
+        "Booking terms from time of reservation",
+        "Statement showing charge after cancellation"
+      ],
+      "customerStrategy": "Show that you canceled properly or never received the service. Emphasize confusing terms, early cancellation, or denial of use."
+    },
+    "C28": {
+      "commonMerchantRebuttals": [
+        "Subscription terms shown and accepted",
+        "Recurring charge authorized through login",
+        "Customer failed to follow cancellation steps"
+      ],
+      "strategyTips": [
+        "Document subscription cancellation before billing date",
+        "Show lack of clear renewal notice or cancel link",
+        "Demonstrate no account activity after billing"
+      ],
+      "evidenceToFocusOn": [
+        "Email cancel confirmation",
+        "Screenshot of confusing cancellation UI",
+        "Account logs showing no login after renewal"
+      ],
+      "customerStrategy": "Prove you canceled your subscription as instructed, or that you were misled or blocked from doing so. Document timeline and digital proof."
+    },
+    "C08": {
+      "commonMerchantRebuttals": [
+        "Item/service was fulfilled",
+        "Delivery proof was sufficient",
+        "Customer signed acceptance form"
+      ],
+      "strategyTips": [
+        "Request full delivery manifest and proof of signature",
+        "Highlight lack of delivery notification or attempt",
+        "Document any discrepancies in shipping address or carrier logs"
+      ],
+      "evidenceToFocusOn": [
+        "Carrier delivery confirmation vs. no-show reports",
+        "Signed delivery logs or lack thereof",
+        "Emails confirming non-delivery or reschedule requests",
+        "Witness statements if possible"
+      ],
+      "customerStrategy": "Undermine the merchant’s delivery claim by exposing missing or incomplete proof. Combine carrier records with your own communications to show the service/item was never received."
+    },
+    "F10": {
+      "commonMerchantRebuttals": [
+        "Imprint not required on chip-enabled terminals",
+        "Customer was present and signed receipt",
+        "Transaction approved electronically"
+      ],
+      "strategyTips": [
+        "Confirm if chip or contactless transaction occurred",
+        "Highlight lack of imprint requirement per device type",
+        "Request terminal logs if available"
+      ],
+      "evidenceToFocusOn": [
+        "Receipt showing method of authorization",
+        "Terminal transaction audit logs",
+        "Issuer guidance on imprint requirement"
+      ],
+      "customerStrategy": "Explain why the missing imprint indicates a fraudulent or unauthorized transaction, particularly if card was not physically present or authorization process was abnormal."
+    },
+    "F14": {
+      "commonMerchantRebuttals": [
+        "Signature was captured electronically",
+        "Cardholder identity verified at checkout",
+        "No discrepancy raised at time of purchase"
+      ],
+      "strategyTips": [
+        "Call out lack of signature on key documents",
+        "Show your card wasn’t in your possession",
+        "Use location/IP mismatch to discredit merchant"
+      ],
+      "evidenceToFocusOn": [
+        "Copy of unsigned receipt",
+        "Travel records or phone location data",
+        "Bank statement showing transaction geography"
+      ],
+      "customerStrategy": "Argue that no valid signature was obtained, and that your card was either not present or not used by you at the time of charge."
+    },
+    "F24": {
+      "commonMerchantRebuttals": [
+        "Authorization code was issued",
+        "Transaction approved by issuer",
+        "Cardholder participated in purchase"
+      ],
+      "strategyTips": [
+        "Emphasize you never consented to this transaction",
+        "Request issuer logs to show lack of CVV or OTP use",
+        "Note absence of SecureCode/3DS authentication"
+      ],
+      "evidenceToFocusOn": [
+        "Bank fraud claim receipt",
+        "SecureCode or 3DS enrollment screenshots",
+        "Chat/email logs where you reported unauthorized activity"
+      ],
+      "customerStrategy": "State that this charge was unauthorized, and back it with formal fraud reports, card security settings, and your contact with the bank."
+    },
+    "F29": {
+      "commonMerchantRebuttals": [
+        "Order placed through verified online account",
+        "CVV and billing zip matched",
+        "Cardholder IP address logged"
+      ],
+      "strategyTips": [
+        "Point out mismatch between your usual IP/location",
+        "Show lack of 2FA or fraud filters",
+        "Provide proof of physical card possession during transaction"
+      ],
+      "evidenceToFocusOn": [
+        "IP geolocation analysis",
+        "Device logs or screenshots",
+        "Police or bank fraud reports"
+      ],
+      "customerStrategy": "Show that this card-not-present charge originated from a device or region unrelated to you, and that no additional verification was triggered."
+    },
+    "F30": {
+      "commonMerchantRebuttals": [
+        "Chip was read successfully",
+        "Customer entered PIN or signed",
+        "Transaction logged as valid EMV"
+      ],
+      "strategyTips": [
+        "Challenge the authenticity of chip data used",
+        "Point out stolen card usage or skimming signs",
+        "Request forensic review if applicable"
+      ],
+      "evidenceToFocusOn": [
+        "Fraud report with EMV misuse details",
+        "Card replacement history",
+        "Chip tampering records if available"
+      ],
+      "customerStrategy": "Explain this charge used cloned or counterfeited EMV data and that you were not in control of the card or device during the transaction."
+    },
+    "F31": {
+      "commonMerchantRebuttals": [
+        "PIN was entered correctly",
+        "Card was physically present",
+        "Transaction was chip-verified"
+      ],
+      "strategyTips": [
+        "Establish you never received or lost the card",
+        "Show issue date and delivery failure logs",
+        "Use activity timestamps to prove non-ownership"
+      ],
+      "evidenceToFocusOn": [
+        "Bank letter showing non-receipt report",
+        "Account notes or fraud alert history",
+        "Delivery confirmation failures"
+      ],
+      "customerStrategy": "Make it clear the card was lost or stolen before you could activate or use it, and that this charge was made fraudulently with no valid consent."
+    },
+    "P03": {
+      "commonMerchantRebuttals": [
+        "Transaction reflected as intended",
+        "Merchant processed correct transaction type",
+        "Customer misread statement"
+      ],
+      "strategyTips": [
+        "Highlight account debit where a credit was expected",
+        "Provide invoice or email confirming refund",
+        "Compare original and reversal transaction IDs"
+      ],
+      "evidenceToFocusOn": [
+        "Statement showing charge instead of credit",
+        "Refund confirmation or credit memo",
+        "Merchant email acknowledging refund"
+      ],
+      "customerStrategy": "Prove that the transaction processed was the opposite of what was promised — you were owed a credit but charged again instead."
+    },
+    "P04": {
+      "commonMerchantRebuttals": [
+        "Credit issued properly",
+        "Transaction misinterpreted by customer",
+        "System reflected refund as expected"
+      ],
+      "strategyTips": [
+        "Show that a credit listed was actually a new charge",
+        "Compare amounts and reference IDs to prior orders",
+        "Provide account impact view (balance change)"
+      ],
+      "evidenceToFocusOn": [
+        "Transaction logs or merchant confirmation",
+        "Statement showing balance behavior",
+        "Prior charge and related correspondence"
+      ],
+      "customerStrategy": "Demonstrate that a refund was promised but instead a new debit occurred, disguised as a credit."
+    },
+    "P05": {
+      "commonMerchantRebuttals": [
+        "Amount matched order confirmation",
+        "Tips or fees disclosed at checkout",
+        "Customer approved revised total"
+      ],
+      "strategyTips": [
+        "Compare expected vs. charged amount",
+        "Show pricing breakdown from receipt or checkout page",
+        "Include any merchant promises or promotional pricing"
+      ],
+      "evidenceToFocusOn": [
+        "Receipt or invoice with price",
+        "Final transaction amount screenshot",
+        "Merchant correspondence"
+      ],
+      "customerStrategy": "Point out the exact dollar difference and show that you never approved or were informed of the final higher charge."
+    },
+    "P07": {
+      "commonMerchantRebuttals": [
+        "Authorization was still valid",
+        "Delayed due to third-party processor",
+        "Terms disclosed late billing timeline"
+      ],
+      "strategyTips": [
+        "Compare transaction date vs. posting date",
+        "Highlight merchant delay or system lag",
+        "Show timeframe violated network standards"
+      ],
+      "evidenceToFocusOn": [
+        "Bank statement with post date",
+        "Order receipt or in-store timestamp",
+        "Network policy on timely submissions"
+      ],
+      "customerStrategy": "Explain the charge posted far too late to be recognized or authorized, and violated charge timeliness standards."
+    },
+    "P08": {
+      "commonMerchantRebuttals": [
+        "Customer placed multiple orders",
+        "Amounts reflected different items or services",
+        "Order system logs show separate authorizations"
+      ],
+      "strategyTips": [
+        "Match timestamps and dollar amounts",
+        "Point out same merchant, card, and value",
+        "Request explanation from merchant on duplication"
+      ],
+      "evidenceToFocusOn": [
+        "Side-by-side transaction screenshots",
+        "Email or support logs disputing duplicate",
+        "Shipping or fulfillment records showing one item"
+      ],
+      "customerStrategy": "Show that you were charged twice for the same transaction or order, and only received one product/service."
+    },
+    "M01": {
+      "commonMerchantRebuttals": [
+        "Authorization not required under policy",
+        "Merchant cooperated with issuer request",
+        "Transaction exempt from special approval"
+      ],
+      "strategyTips": [
+        "Highlight lack of required chargeback authorization record",
+        "Show merchant processed reversal without proper flow",
+        "Include network rules requiring pre-approval"
+      ],
+      "evidenceToFocusOn": [
+        "Dispute processing timeline",
+        "Chargeback system response",
+        "Bank communication records"
+      ],
+      "customerStrategy": "Show that this chargeback lacked the required pre-authorization and was processed without your knowledge or consent."
+    },
+    "M10": {
+      "commonMerchantRebuttals": [
+        "Customer signed damage waiver",
+        "Photos confirm vehicle condition at return",
+        "Charge assessed per rental agreement"
+      ],
+      "strategyTips": [
+        "Dispute the claimed damage origin and timing",
+        "Highlight clean inspection at drop-off",
+        "Challenge validity of damage estimate"
+      ],
+      "evidenceToFocusOn": [
+        "Before-and-after photos",
+        "Signed rental condition report",
+        "Repair estimate breakdown"
+      ],
+      "customerStrategy": "Prove you returned the vehicle in good condition and the damage was either pre-existing or fabricated."
+    },
+    "M49": {
+      "commonMerchantRebuttals": [
+        "Loss terms disclosed in rental agreement",
+        "Customer responsible under policy",
+        "Vehicle not recovered in time window"
+      ],
+      "strategyTips": [
+        "Check liability waiver and insurance status",
+        "Request proof of loss, theft report",
+        "Evaluate how merchant calculated loss-of-use fees"
+      ],
+      "evidenceToFocusOn": [
+        "Police report or insurance claim",
+        "Rental agreement with liability terms",
+        "Timeline of vehicle recovery"
+      ],
+      "customerStrategy": "Argue that theft or loss-of-use fees were excessive, unverified, or not your contractual responsibility."
+    },
+    "R03": {
+      "commonMerchantRebuttals": [
+        "All required documentation submitted",
+        "Reply met content requirements",
+        "Delay caused by issuer system"
+      ],
+      "strategyTips": [
+        "Show you didn’t receive requested documentation",
+        "Highlight incomplete or irrelevant response",
+        "Timeline showing late or evasive reply"
+      ],
+      "evidenceToFocusOn": [
+        "Issuer correspondence requesting info",
+        "Merchant reply comparison",
+        "Email logs or ticket ID history"
+      ],
+      "customerStrategy": "Demonstrate that the reply lacked critical info needed to resolve the issue, delaying your refund or resolution."
+    },
+    "R13": {
+      "commonMerchantRebuttals": [
+        "Merchant responded through alternate channel",
+        "Reply may have gone to spam/junk",
+        "Customer didn’t check portal or email"
+      ],
+      "strategyTips": [
+        "Show lack of reply within timeframe",
+        "Document your repeated follow-ups",
+        "Highlight radio silence despite clear issue"
+      ],
+      "evidenceToFocusOn": [
+        "Your email or chat attempts",
+        "Timestamped messages with no reply",
+        "Issuer notification of unresolved issue"
+      ],
+      "customerStrategy": "Prove the merchant ignored or refused to respond, even after you made multiple legitimate attempts to reach a resolution."
+    }
+  },
+  "discover": {
+    "4755": {
+      "commonMerchantRebuttals": [
+        "Customer accessed digital portal",
+        "Service delivery logs",
+        "Agreement to recurring terms"
+      ],
+      "strategyTips": [
+        "Obtain server logs showing no customer login",
+        "Highlight any auto-renewal without clear notice",
+        "Show your attempts to unsubscribe prior to charge"
+      ],
+      "evidenceToFocusOn": [
+        "Digital access logs (or absence thereof)",
+        "Archived terms & conditions at time of billing",
+        "Customer correspondence requesting cancellation",
+        "Screenshots of misleading renewal banners"
+      ],
+      "customerStrategy": "Demonstrate that you never accessed or benefited from the service, and that auto-renewal terms were not properly communicated. Use platform logs and your own cancellation attempts as proof."
+    },
+    "RN2": {
+      "commonMerchantRebuttals": [
+        "Return policy disallows refund",
+        "Credit issued after cutoff",
+        "Customer failed to complete return"
+      ],
+      "strategyTips": [
+        "Show tracking confirming return received",
+        "Highlight merchant acknowledgment of return",
+        "Prove credit not issued despite confirmation"
+      ],
+      "evidenceToFocusOn": [
+        "Return tracking details",
+        "Email confirming item receipt",
+        "Statement missing refund"
+      ],
+      "customerStrategy": "Show the item was returned per policy and the merchant failed to process the refund as promised."
+    },
+    "RG": {
+      "commonMerchantRebuttals": [
+        "Delivery confirmation provided",
+        "Service delivered as agreed",
+        "Customer failed to follow up"
+      ],
+      "strategyTips": [
+        "Highlight that delivery or service was never completed",
+        "Document delivery delays or misrouting",
+        "Provide timestamps showing non-fulfillment"
+      ],
+      "evidenceToFocusOn": [
+        "Carrier logs or confirmation gaps",
+        "Support tickets showing service outage",
+        "Customer correspondence showing complaint"
+      ],
+      "customerStrategy": "Prove you paid for something that was never delivered, by showing tracking or fulfillment breakdown."
+    },
+    "RM": {
+      "commonMerchantRebuttals": [
+        "Product met specifications",
+        "Service rendered in full",
+        "No complaint received before charge"
+      ],
+      "strategyTips": [
+        "Provide photos or transcripts proving poor quality",
+        "Compare actual result to promised outcome",
+        "Highlight attempts to resolve issue"
+      ],
+      "evidenceToFocusOn": [
+        "Visual proof of defect or service issue",
+        "Listing vs. item received comparison",
+        "Support tickets raising concerns"
+      ],
+      "customerStrategy": "Show the goods/services were not as advertised or poorly executed. Use visual proof and your resolution attempts."
+    },
+    "DP": {
+      "commonMerchantRebuttals": [
+        "Customer placed multiple orders",
+        "Different authorizations used",
+        "Customer approved both charges"
+      ],
+      "strategyTips": [
+        "Compare timestamps and descriptions",
+        "Highlight identical amounts for same service",
+        "Show only one item or service was received"
+      ],
+      "evidenceToFocusOn": [
+        "Statement showing duplicate charges",
+        "Proof only one item was delivered",
+        "Customer communication with merchant"
+      ],
+      "customerStrategy": "Prove that two identical charges were made for the same transaction, and that you only received the service once."
+    },
+    "CD": {
+      "commonMerchantRebuttals": [
+        "Correct transaction type processed",
+        "Customer requested refund reversal",
+        "Transaction labeled accurately"
+      ],
+      "strategyTips": [
+        "Prove you were due a credit but a debit was applied",
+        "Use merchant confirmation as supporting evidence",
+        "Highlight reversal mismatch"
+      ],
+      "evidenceToFocusOn": [
+        "Refund agreement or merchant note",
+        "Bank statement with charge not credit",
+        "Merchant correspondence"
+      ],
+      "customerStrategy": "Show that a refund was expected but instead a debit was applied in error, causing double billing or negative balance."
+    },
+    "AW": {
+      "commonMerchantRebuttals": [
+        "Amount changed with customer approval",
+        "System auto-adjusted during settlement",
+        "Customer tipped and acknowledged"
+      ],
+      "strategyTips": [
+        "Compare initial auth with final posted amount",
+        "Confirm no secondary approval occurred",
+        "Reference receipt with original pricing"
+      ],
+      "evidenceToFocusOn": [
+        "Initial authorization or receipt",
+        "Final posted charge",
+        "Chat/email confirming disputed amount"
+      ],
+      "customerStrategy": "Show that the amount was altered from what you approved, and no updated consent was captured before processing."
+    },
+    "AA": {
+      "commonMerchantRebuttals": [
+        "Descriptor clearly reflects business name",
+        "Support contact info provided",
+        "Customer previously purchased"
+      ],
+      "strategyTips": [
+        "Request descriptor breakdown from bank",
+        "Show merchant name mismatch",
+        "Compare descriptor with past transactions"
+      ],
+      "evidenceToFocusOn": [
+        "Statement highlighting unrecognizable charge",
+        "Chat logs seeking clarification",
+        "Screenshots of descriptor display"
+      ],
+      "customerStrategy": "Explain that the charge appeared under an unfamiliar name or code, and you had no knowledge or context of the transaction."
+    },
+    "UA01": {
+      "commonMerchantRebuttals": [
+        "Transaction processed with valid card swipe",
+        "Authorization received at point of sale",
+        "Customer did not report card stolen"
+      ],
+      "strategyTips": [
+        "Show card was in your possession at time of charge",
+        "Highlight location mismatch or travel restrictions",
+        "Submit fraud affidavit if unauthorized"
+      ],
+      "evidenceToFocusOn": [
+        "Police or fraud report",
+        "Card activity timeline",
+        "Geolocation or ATM logs"
+      ],
+      "customerStrategy": "Prove that this transaction was made without your knowledge or presence, even though the card was used in person."
+    },
+    "UA02": {
+      "commonMerchantRebuttals": [
+        "AVS/CVV matched at checkout",
+        "Digital receipt emailed to customer",
+        "Transaction completed with 3D Secure"
+      ],
+      "strategyTips": [
+        "Point out lack of device/IP recognition",
+        "Cite evidence of fraud or compromised credentials",
+        "Use logs showing no platform access"
+      ],
+      "evidenceToFocusOn": [
+        "Device/IP mismatch data",
+        "Screenshots of no login or usage",
+        "Fraud report filed with bank"
+      ],
+      "customerStrategy": "Emphasize that this card-not-present charge occurred without your authorization, and no platform or account usage supports it."
+    },
+    "NA": {
+      "commonMerchantRebuttals": [
+        "Authorization obtained via fallback method",
+        "Authorization delayed due to gateway issues",
+        "Amount within tolerance of pre-auth"
+      ],
+      "strategyTips": [
+        "Compare timestamp of charge vs. auth",
+        "Show no authorization ever received",
+        "Highlight that fallback wasn’t disclosed"
+      ],
+      "evidenceToFocusOn": [
+        "Transaction vs. authorization timestamps",
+        "Processor or gateway log (if available)",
+        "Statement showing unauthorized charge"
+      ],
+      "customerStrategy": "Argue that no proper authorization occurred before the charge, which should invalidate it per network rules."
+    },
+    "DA": {
+      "commonMerchantRebuttals": [
+        "Authorization override allowed per policy",
+        "Customer approved at time of transaction",
+        "Decline was temporary or network-related"
+      ],
+      "strategyTips": [
+        "Highlight repeated decline attempts",
+        "Show no later valid auth occurred",
+        "Demonstrate lack of fallback logic"
+      ],
+      "evidenceToFocusOn": [
+        "Decline message screenshots",
+        "Statement logs of repeated attempts",
+        "Support emails about payment failure"
+      ],
+      "customerStrategy": "Prove the charge occurred after your card was declined, without your approval or retry."
+    },
+    "LP": {
+      "commonMerchantRebuttals": [
+        "System delay caused late batch submission",
+        "Authorization was still valid",
+        "Customer notified of delay"
+      ],
+      "strategyTips": [
+        "Compare transaction date and post date",
+        "Show expired authorization window",
+        "Point out confusion caused by late posting"
+      ],
+      "evidenceToFocusOn": [
+        "POS receipt date vs. statement post date",
+        "Merchant support logs",
+        "Timeline showing settlement gap"
+      ],
+      "customerStrategy": "Prove the charge was processed too late to be valid or recognizable, and settlement window expired."
+    }
+  }
+}

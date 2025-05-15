@@ -1,0 +1,40 @@
+{
+    "fraud": {
+      "UA01": "Fraud – Card Present Transaction",
+      "UA02": "Fraud – Card Not Present Transaction",
+      "UA05": "Fraud – Chip Counterfeit Transaction",
+      "UA06": "Fraud – Chip and PIN Transaction",
+      "UA10": "Request Transaction Receipt",
+      "UA11": "Cardholder Claims Fraud"
+    },
+    "authorization": {
+      "NA": "No Authorization",
+      "DA": "Declined Authorization",
+      "AT": "Authorization Noncompliance"
+    },
+    "processingErrors": {
+      "IN": "Invalid Card Number",
+      "LP": "Late Presentation"
+    },
+    "services": {
+      "5": "Good Faith Investigation",
+      "AA": "Does Not Recognize",
+      "AP": "Recurring Payments",
+      "AW": "Altered Amount",
+      "CD": "Credit/Debit Posted Incorrectly",
+      "DP": "Duplicate Processing",
+      "IC": "Illegible Sales Data",
+      "NF": "Non-Receipt of Cash from ATM",
+      "PM": "Paid by Other Means",
+      "RG": "Non-Receipt of Goods, Services, or Cash",
+      "RM": "Cardholder Disputes Quality of Goods or Services",
+      "RN2": "Credit Not Processed"
+    },
+    "disputeCompliance": {
+      "DC": "Dispute Compliance"
+    },
+    "notClassified": {
+      "NC": "Not Classified"
+    }
+  }
+  

@@ -1,0 +1,740 @@
+openapi: 3.1.0
+info:
+  title: WinMyDispute API
+  version: 2.1.0
+  description: |
+    WinMyDispute — a strategic, legally-informed assistant for U.S. consumers
+    seeking to win credit-card chargebacks across Visa, Mastercard, Amex, and Discover.
+  contact:
+    name: Daniel Neville
+    email: pureplays@icloud.com
+    url: https://pure-plays.com
+  termsOfService: https://pure-plays.com/terms
+  x-copyright:
+    holder: Daniel Neville / PurePlays
+    year: 2025
+    notice: |
+      This API and its OpenAPI schema are proprietary intellectual property of
+      Daniel Neville and PurePlays. Reuse, reproduction, or commercial adaptation
+      without express permission is prohibited. All rights reserved under U.S. law.
+
+servers:
+  - url: https://winmydispute-api.onrender.com
+    description: Live Render deployment
+  - url: https://pure-plays.com
+    description: Production (your custom domain)
+  - url: http://localhost:{port}
+    description: Local development
+    variables:
+      port:
+        default: "3000"
+
+tags:
+  - name: health
+    description: Service status checks
+  - name: bins
+    description: Lookup by Bank Identification Number (BIN)
+  - name: issuers
+    description: Credit card issuer contact information
+  - name: reasons
+    description: Chargeback reason code lookup & details
+  - name: builder
+    description: Evidence-packet building
+  - name: letter
+    description: Dispute letter generation & download
+  - name: disputes
+    description: Dispute success estimation & merchant rebuttal
+  - name: cfpb
+    description: CFPB complaint summary generation
+  - name: test
+    description: Internal testing endpoints
+
+security:
+  - api_key: []
+  - oauth2: []
+
+paths:
+  /health:
+    get:
+      tags: [health]
+      summary: Service health check
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+
+  /bins/{bin}:
+    get:
+      tags: [bins]
+      summary: Identify issuer & network from a BIN
+      parameters:
+        - $ref: "#/components/parameters/BinParam"
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            example: 1
+      security:
+        - api_key: []
+        - oauth2: []
+      responses:
+        "200":
+          description: BIN lookup result with pagination
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/BinLookup"
+                  pagination:
+                    type: object
+                    properties:
+                      currentPage:
+                        type: integer
+                        example: 1
+                      totalPages:
+                        type: integer
+                        example: 5
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "You have exceeded the rate limit. Please try again later."
+
+  /issuers/{issuer}/contact:
+    get:
+      tags: [issuers]
+      summary: Get dispute contact information for an issuer
+      parameters:
+        - $ref: "#/components/parameters/IssuerParam"
+      responses:
+        "200":
+          description: Issuer contact details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IssuerContact"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /reasons/lookup:
+    get:
+      tags: [reasons]
+      summary: Suggest a reason code by scenario description
+      parameters:
+        - $ref: "#/components/parameters/NetworkQuery"
+        - in: query
+          name: scenario
+          required: true
+          schema:
+            type: string
+          description: User’s dispute scenario description
+        - in: query
+          name: email
+          required: true
+          schema:
+            type: string
+            format: email
+            example: "user@example.com"
+      responses:
+        "200":
+          description: Best-matching reason code
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReasonLookup"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /reasons/{network}/{code}:
+    get:
+      tags: [reasons]
+      summary: Get official rules for a chargeback reason code
+      parameters:
+        - $ref: "#/components/parameters/NetworkPath"
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Reason code identifier (e.g. “13.1”)
+      responses:
+        "200":
+          description: Reason code details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReasonDetails"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /builder/evidence-packet:
+    post:
+      tags: [builder]
+      summary: Build a structured evidence checklist with file uploads
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                receiptFile:
+                  type: string
+                  format: binary
+                screenshotFile:
+                  type: string
+                  format: binary
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EvidencePacketRequest"
+      responses:
+        "200":
+          description: Evidence packet with file uploads
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EvidencePacket"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /letter/generate:
+    post:
+      tags: [letter]
+      summary: Generate a personalized dispute letter (JSON)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateLetterRequest"
+      responses:
+        "200":
+          description: Letter output
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenerateLetterResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /letter/download:
+    post:
+      tags: [letter]
+      summary: Download dispute letter as PDF
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DownloadLetterRequest"
+      responses:
+        "200":
+          description: PDF download URL
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DownloadLetterResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /disputes/estimate-success:
+    post:
+      tags: [disputes]
+      summary: Predict likelihood of dispute success with machine learning
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EstimateSuccessRequest"
+      security:
+        - api_key: []
+        - oauth2: []
+      responses:
+        "200":
+          description: Success estimate with machine learning model
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EstimateSuccessResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "You have exceeded the rate limit. Please try again later."
+
+  /disputes/get-status:
+    get:
+      tags: [disputes]
+      summary: Retrieve status of a specific dispute
+      parameters:
+        - name: disputeId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Dispute status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DisputeStatus"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /disputes/recommendations:
+    post:
+      tags: [disputes]
+      summary: Get dispute recommendations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DisputeRecommendationsRequest"
+      responses:
+        "200":
+          description: Recommendations
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DisputeRecommendationsResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /rebuttal/strategy:
+    post:
+      tags: [disputes]
+      summary: Get merchant rebuttal strategies & customer tips
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RebuttalStrategyRequest"
+      responses:
+        "200":
+          description: Rebuttal strategy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RebuttalStrategyResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /cfpb/complaint-summary:
+    post:
+      tags: [cfpb]
+      summary: Generate a CFPB complaint summary for escalation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CfpbComplaintRequest"
+      responses:
+        "200":
+          description: CFPB complaint draft
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CfpbComplaintResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /test/visa/keyword/{keyword}:
+    get:
+      tags: [test]
+      summary: Internal – lookup by keyword
+      parameters:
+        - name: keyword
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Matching reason codes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ReasonDetails"
+        "404":
+          description: No matches found
+
+  /test/match-scenario:
+    post:
+      tags: [test]
+      summary: Internal – scenario→reason mapping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: "I never received my package"
+      responses:
+        "200":
+          description: Matched reason
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReasonLookup"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      in: header
+      name: Authorization
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: "https://accounts.google.com/o/oauth2/auth"
+          tokenUrl: "https://oauth2.googleapis.com/token"
+          scopes:
+            "read:disputes": "Read dispute data"
+
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Invalid parameter: missing 'network'"
+              suggestion:
+                type: string
+                example: "Please provide a valid 'network' parameter."
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+  parameters:
+    BinParam:
+      name: bin
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^\d{6}$'
+      description: 6-digit Bank Identification Number
+    IssuerParam:
+      name: issuer
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Exact issuer name (case-sensitive)
+    NetworkPath:
+      name: network
+      in: path
+      required: true
+      schema:
+        type: string
+        enum: [visa, mastercard, amex, discover]
+    NetworkQuery:
+      name: network
+      in: query
+      required: true
+      schema:
+        type: string
+        enum: [visa, mastercard, amex, discover]
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+      example:
+        error: "Missing required parameter"
+
+    Health:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
+        uptime:
+          type: number
+          format: float
+
+    BinLookup:
+      type: object
+      properties:
+        bin:         { type: string }
+        network:     { type: string, nullable: true }
+        issuer:      { type: string, nullable: true }
+        cardType:    { type: string, nullable: true }
+        cardSubType: { type: string, nullable: true }
+        country:     { type: string, nullable: true }
+
+    IssuerContact:
+      type: object
+      properties:
+        issuer:         { type: string }
+        phoneSupport:   { type: string, nullable: true }
+        fax:            { type: string, nullable: true }
+        uploadPortal:   { type: string, format: uri, nullable: true }
+        mailingAddress: { type: string }
+        submissionNotes:
+          type: array
+          items: { type: string }
+
+    ReasonLookup:
+      type: object
+      properties:
+        reasonCode:  { type: string, nullable: true }
+        title:       { type: string, nullable: true }
+        description: { type: string, nullable: true }
+        network:     { type: string, nullable: true }
+
+    ReasonDetails:
+      type: object
+      properties:
+        reasonCode:
+          type: string
+          example: "13.1"
+        title:
+          type: string
+          example: "Transaction not authorized"
+        description:
+          type: string
+          example: "The transaction was not authorized by the cardholder."
+        evidenceRequirements:
+          type: array
+          items: { type: string }
+          example: ["Proof of cardholder communication", "Copy of transaction receipt"]
+        strategyTips:
+          type: array
+          items: { type: string }
+          example: ["Emphasize lack of authorization", "Reference network rules"]
+        typicalCauses:
+          type: array
+          items: { type: string }
+          example: ["Stolen card", "Account takeover"]
+        preventionSteps:
+          type: array
+          items: { type: string }
+          example: ["Enable 2FA", "Monitor suspicious activity"]
+        transactionModifiers:
+          type: array
+          items: { type: string }
+          example: ["Card-present", "Card-not-present"]
+        timeLimitIssuer:
+          type: string
+          nullable: true
+          example: "120 days"
+        timeLimitAcquirer:
+          type: string
+          nullable: true
+          example: "60 days"
+
+    EvidencePacketRequest:
+      type: object
+      required: [network, reasonCode]
+      properties:
+        network:
+          $ref: "#/components/parameters/NetworkQuery".schema
+        reasonCode:
+          type: string
+
+    EvidencePacket:
+      type: object
+      properties:
+        compiledEvidence:
+          type: array
+          items: { type: string }
+        submissionTips:
+          type: array
+          items: { type: string }
+        estimatedSuccessRate:
+          type: number
+          format: float
+
+    GenerateLetterRequest:
+      type: object
+      required:
+        - network
+        - reasonCode
+        - cardholderName
+        - issuer
+        - merchantName
+        - transactionDate
+        - transactionAmount
+      properties:
+        network:
+          $ref: "#/components/parameters/NetworkQuery".schema
+        reasonCode:     { type: string }
+        cardholderName: { type: string }
+        issuer:         { type: string }
+        merchantName:   { type: string }
+        transactionDate:
+          type: string
+          format: date
+        transactionAmount:
+          type: number
+
+    GenerateLetterResponse:
+      type: object
+      properties:
+        letterText:             { type: string }
+        recommendedSubjectLine: { type: string }
+        letterPdfUrl:
+          type: string
+          format: uri
+          nullable: true
+
+    DownloadLetterRequest:
+      type: object
+      required: [letterHtml]
+      properties:
+        letterHtml: { type: string }
+
+    DownloadLetterResponse:
+      type: object
+      properties:
+        downloadUrl:
+          type: string
+          format: uri
+
+    EstimateSuccessRequest:
+      type: object
+      properties:
+        network:               { type: string }
+        reasonCode:            { type: string }
+        merchantResponse:      { type: string }
+        consumerEvidence:      { type: string }
+        transactionAmount:     { type: number }
+        priorAttemptsToResolve:{ type: boolean }
+
+    EstimateSuccessResponse:
+      type: object
+      properties:
+        estimatedSuccessRate: { type: number }
+        rationale:            { type: string }
+
+    RebuttalStrategyRequest:
+      type: object
+      properties:
+        network:      { type: string }
+        reasonCode:   { type: string }
+        merchantType: { type: string, nullable: true }
+
+    RebuttalStrategyResponse:
+      type: object
+      properties:
+        merchantArguments:
+          type: array
+          items: { type: string }
+          example: ["Customer was aware of terms", "Transaction is valid per terms of service"]
+        rebuttalTips:
+          type: array
+          items: { type: string }
+          example: ["Provide transaction logs", "Show communication with customer"]
+        customerStrategy:
+          type: string
+          example: "Dispute based on lack of authorization"
+
+    DisputeStatus:
+      type: object
+      properties:
+        disputeId:
+          type: string
+          example: "dsp-123456"
+        status:
+          type: string
+          example: "pending"
+        lastUpdated:
+          type: string
+          format: date-time
+          example: "2024-05-10T12:34:56Z"
+
+    DisputeRecommendationsRequest:
+      type: object
+      properties:
+        network:
+          type: string
+        reasonCode:
+          type: string
+        transactionDetails:
+          type: object
+          properties:
+            amount: { type: number }
+            merchant: { type: string }
+            date: { type: string, format: date }
+
+    DisputeRecommendationsResponse:
+      type: object
+      properties:
+        recommendations:
+          type: array
+          items: { type: string }
+          example: ["Gather receipts", "Document all communications"]
+        additionalTips:
+          type: array
+          items: { type: string }
+          example: ["Contact issuer promptly", "Check for similar disputes"]
+
+    CfpbComplaintRequest:
+      type: object
+      properties:
+        network:    { type: string }
+        issuer:     { type: string }
+        transaction:
+          type: object
+          required: [date, amount, merchant]
+          properties:
+            date:     { type: string }
+            amount:   { type: number }
+            merchant: { type: string }
+        summary: { type: string }
+
+    CfpbComplaintResponse:
+      type: object
+      properties:
+        summary: { type: string }

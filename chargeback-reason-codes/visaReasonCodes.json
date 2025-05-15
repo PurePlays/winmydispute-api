@@ -1,0 +1,191 @@
+    "10.1": {
+        "category": "Fraud",
+        "title": "EMV Liability Shift Counterfeit Fraud",
+        "description": "Counterfeit chip card used without chip read.",
+        "timeLimitIssuer": "120 days",
+        "timeLimitAcquirer": "30 days",
+        "typicalCauses": [
+            "Transaction not chip-read.",
+            "Terminal not EMV-compliant or chip data not transmitted."
+        ],
+        "preventionSteps": [
+            "Upgrade to compliant terminals",
+            "Obtain proper Cardholder Verification Method (PIN/signature)",
+            "Take electronic/manual imprints for card-present sales",
+            "Train staff on terminal use"
+        ]
+    },
+    "10.2": {
+        "category": "Fraud",
+        "title": "EMV Liability Shift Non-Counterfeit Fraud",
+        "description": "Unauthorized transaction on a lost/stolen/not-received EMV chip card.",
+        "timeLimitIssuer": "120 days",
+        "timeLimitAcquirer": "30 days",
+        "typicalCauses": [
+            "Terminal not EMV-PIN compliant",
+            "Chip data not transmitted"
+        ],
+        "preventionSteps": [
+            "Upgrade to EMV PIN-compliant terminals",
+            "Obtain proper CVM",
+            "Use card imprints for card-present transactions"
+        ]
+    },
+    "10.3": {
+        "category": "Fraud",
+        "title": "Other Fraud — Card-Present Environment",
+        "description": "Transaction keyed instead of chip/swipe, cardholder denies it.",
+        "timeLimitIssuer": "120 days",
+        "timeLimitAcquirer": "30 days",
+        "typicalCauses": [
+            "Manual key-entry without chip or swipe",
+            "No imprint obtained"
+        ],
+        "preventionSteps": [
+            "Chip-read or swipe all card-present transactions",
+            "Imprint and validate manually entered sales",
+            "Upgrade terminals"
+        ]
+    },
+    "10.4": {
+        "category": "Fraud",
+        "title": "Other Fraud — Card-absent Environment",
+        "description": "CNP fraud claim by cardholder.",
+        "timeLimitIssuer": "120 days",
+        "timeLimitAcquirer": "30 days",
+        "typicalCauses": [
+            "Cardholder did not authorize transaction",
+            "Fraudster used stolen details online"
+        ],
+        "preventionSteps": [
+            "Use Visa Secure and AVS/CVV2",
+            "Authenticate all CNP transactions",
+            "Use device/IP fingerprinting",
+            "Provide clear billing descriptors"
+        ]
+    },
+    "10.5": {
+        "category": "Fraud",
+        "title": "Visa Fraud Monitoring Program",
+        "description": "Dispute filed under VFMP rules.",
+        "timeLimitIssuer": "120 days",
+        "timeLimitAcquirer": "30 days",
+        "typicalCauses": [
+            "Merchant flagged in Visa's fraud program"
+        ],
+        "preventionSteps": [
+            "Monitor fraud-to-sale ratios",
+            "Keep accurate records"
+        ]
+    },
+    "11.1": {
+        "category": "Authorization",
+        "title": "Card Recovery Bulletin",
+        "description": "No authorization and card was listed in Visa's CRB.",
+        "timeLimitIssuer": "75 days",
+        "timeLimitAcquirer": "30 days",
+        "typicalCauses": [
+            "No auth and failed to check CRB"
+        ],
+        "preventionSteps": [
+            "Always check CRB before authorizing transactions"
+        ]
+    },
+    "11.2": {
+        "category": "Authorization",
+        "title": "Declined Authorization",
+        "description": "Transaction forced after decline response.",
+        "timeLimitIssuer": "75 days",
+        "timeLimitAcquirer": "30 days",
+        "typicalCauses": [
+            "Processed sale after decline or pickup response"
+        ],
+        "preventionSteps": [
+            "Do not proceed after decline",
+            "Request alternate payment"
+        ]
+    },
+    "11.3": {
+        "category": "Authorization",
+        "title": "No Authorization/Late Presentment",
+        "description": "Transaction processed without or after expired authorization.",
+        "timeLimitIssuer": "75 days",
+        "timeLimitAcquirer": "30 days",
+        "typicalCauses": [
+            "No auth obtained",
+            "Settlement after auth expired"
+        ],
+        "preventionSteps": [
+            "Authorize transactions on sale day",
+            "Re-auth if tip or delay occurs",
+            "Follow Visa rules"
+        ]
+    },
+    "12.2": {
+        "category": "Processing Errors",
+        "title": "Incorrect Transaction Code",
+        "description": "Wrong type: credit vs. debit vs. reversal.",
+        "timeLimitIssuer": "120 days",
+        "timeLimitAcquirer": "30 days",
+        "typicalCauses": [
+            "Debited instead of credit",
+            "Wrong transaction type"
+        ],
+        "preventionSteps": [
+            "Train staff",
+            "Double-check transaction type before processing"
+        ]
+    }
+    "12.3": {
+        "category": "Processing Errors",
+        "title": "Incorrect Currency",
+        "description": "The merchant made one or more errors related to the transaction currency.",
+        "timeLimitIssuer": "120 Days",
+        "timeLimitAcquirer": "30 days",
+        "typicalCauses": [
+            "Cardholder was not advised about Dynamic Currency Conversion",
+            "Transaction currency differed from that transmitted to Visa"
+        ],
+        "preventionSteps": [
+            "Always inform cardholder about DCC fees",
+            "Give cardholder the choice of local currency",
+            "Train staff properly on currency handling"
+        ]
+    },
+    "13.1": {
+        "category": "Consumer Disputes",
+        "title": "Merchandise/Services Not Received",
+        "description": "Cardholder claims goods or services were not received or not received by the agreed upon date.",
+        "timeLimitIssuer": "120 Days",
+        "timeLimitAcquirer": "30 days",
+        "typicalCauses": [
+            "Delayed delivery",
+            "Pre-shipping charge without communication",
+            "No confirmation of pick-up or shipment"
+        ],
+        "preventionSteps": [
+            "Don’t charge card before shipping",
+            "Use tracking and confirm delivery",
+            "Notify customers of shipping updates"
+        ]
+    },
+    "13.2": {
+        "category": "Consumer Disputes",
+        "title": "Canceled Recurring Transaction",
+        "description": "The cardholder claims to have been charged for a canceled recurring transaction.",
+        "timeLimitIssuer": "120 Days",
+        "timeLimitAcquirer": "30 days",
+        "typicalCauses": [
+            "Charge after customer cancelled subscription",
+            "Continued billing after account closure"
+        ],
+        "preventionSteps": [
+            "Stop charges immediately after cancellation",
+            "Send advance notice for recurring charges",
+            "Use Visa Account Updater to detect closed accounts"
+        ]
+    }
+}
+
+
+

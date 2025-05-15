@@ -1,0 +1,1553 @@
+{
+  "visa": {
+    "10.1": {
+      "category": "Fraud",
+      "title": "EMV Liability Shift Counterfeit Fraud",
+      "description": "Counterfeit chip card used on non-EMV terminal.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Counterfeit chip transaction at legacy terminal.",
+        "Chip data not fully transmitted."
+      ],
+      "preventionSteps": [
+        "Use EMV-compliant terminals.",
+        "Obtain proper Cardholder Verification Method (PIN/signature).",
+        "Take electronic or manual imprints on fallback."
+      ]
+    },
+    "10.2": {
+      "category": "Fraud",
+      "title": "EMV Liability Shift Non-Counterfeit Fraud",
+      "description": "Lost/stolen chip card used without cardholder’s knowledge.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Unauthorized use of valid chip card data.",
+        "Terminal did not capture full chip information."
+      ],
+      "preventionSteps": [
+        "Upgrade to EMV-PIN-capable terminals.",
+        "Always obtain correct CVM.",
+        "Train staff on chip handling."
+      ]
+    },
+    "10.3": {
+      "category": "Fraud",
+      "title": "Other Fraud — Card-Present Environment",
+      "description": "Key-entered card-present transaction disputed as unauthorized.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Merchant failed to swipe/dip or imprint card.",
+        "Key-entered transaction not clearly flagged."
+      ],
+      "preventionSteps": [
+        "Ensure chip or mag-stripe read on every sale.",
+        "Obtain manual imprint when fallback is used."
+      ]
+    },
+    "10.4": {
+      "category": "Fraud",
+      "title": "Other Fraud — Card-Absent Environment",
+      "description": "Card-not-present transaction denied by cardholder.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Fraudulent online/mail/phone order.",
+        "Descriptor confusing or mismatched."
+      ],
+      "preventionSteps": [
+        "Always request authorization for CNP/recurring orders.",
+        "Use 3-D Secure/CVV2/AVS.",
+        "Tag CNP vs. card-present in clearing."
+      ]
+    },
+    "10.5": {
+      "category": "Fraud",
+      "title": "Visa Fraud Monitoring Program",
+      "description": "Transaction flagged by Visa Fraud Monitoring Program.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Merchant entered into VFMP due to high fraud ratio."
+      ],
+      "preventionSteps": [
+        "Maintain low fraud-to-transaction ratios.",
+        "Respond promptly to retrieval requests."
+      ]
+    },
+    "11.1": {
+      "category": "Authorization",
+      "title": "Card Recovery Bulletin",
+      "description": "No auth for transaction listed in CRB.",
+      "timeLimitIssuer": "75 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Merchant didn’t check Card Recovery Bulletin."
+      ],
+      "preventionSteps": [
+        "Always verify against CRB when required."
+      ]
+    },
+    "11.2": {
+      "category": "Authorization",
+      "title": "Declined Authorization",
+      "description": "Transaction forced after a decline or pickup response.",
+      "timeLimitIssuer": "75 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Merchant submitted after receiving a decline."
+      ],
+      "preventionSteps": [
+        "Discontinue if auth is declined.",
+        "Ask for alternate payment."
+      ]
+    },
+    "11.3": {
+      "category": "Authorization",
+      "title": "No Authorization / Late Presentment",
+      "description": "Auth missing, expired, or submitted late.",
+      "timeLimitIssuer": "75 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "No auth requested or auth expired before capture.",
+        "Transaction submitted past allowed timeframe."
+      ],
+      "preventionSteps": [
+        "Obtain auth on day of sale.",
+        "Submit in-window captures promptly."
+      ]
+    },
+    "12.2": {
+      "category": "Processing Errors",
+      "title": "Incorrect Transaction Code",
+      "description": "Debit vs. credit mis-processed.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Operator selected wrong transaction type."
+      ],
+      "preventionSteps": [
+        "Double-check transaction type before finalizing."
+      ]
+    },
+    "12.3": {
+      "category": "Processing Errors",
+      "title": "Incorrect Currency",
+      "description": "Wrong currency or DCC without consent.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Auto-applied DCC or manual currency entry error."
+      ],
+      "preventionSteps": [
+        "Offer DCC opt-in; disclose all fees clearly."
+      ]
+    },
+    "12.4": {
+      "category": "Processing Errors",
+      "title": "Incorrect Account Number",
+      "description": "Settlement to wrong account or closed account.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Manual entry mistakes.",
+        "Adjustment posted late or to closed account."
+      ],
+      "preventionSteps": [
+        "Swipe/dip cards when possible.",
+        "Verify adjustments and batch promptly."
+      ]
+    },
+    "12.5": {
+      "category": "Processing Errors",
+      "title": "Incorrect Amount",
+      "description": "Settled amount differs from auth.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Post-auth tip added or input typo."
+      ],
+      "preventionSteps": [
+        "Confirm final amount with cardholder before capture."
+      ]
+    },
+    "12.6.1": {
+      "category": "Processing Errors",
+      "title": "Duplicate Processing",
+      "description": "Single transaction settled multiple times.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "System/batch replay or operator re-submission."
+      ],
+      "preventionSteps": [
+        "Implement duplicate-check at batch submission.",
+        "Void and refund duplicates immediately."
+      ]
+    },
+    "12.6.2": {
+      "category": "Processing Errors",
+      "title": "Paid by Other Means",
+      "description": "Card charged after alternative payment used.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Customer switched payment mid-transaction; original not voided."
+      ],
+      "preventionSteps": [
+        "Void original sale when alternate payment chosen."
+      ]
+    },
+    "12.7": {
+      "category": "Processing Errors",
+      "title": "Invalid Data",
+      "description": "Auth request contained malformed or missing fields.",
+      "timeLimitIssuer": "75 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Missing required auth data (MCC, country code, date)."
+      ],
+      "preventionSteps": [
+        "Validate all auth fields before submission."
+      ]
+    },
+    "13.1": {
+      "category": "Consumer Disputes",
+      "title": "Merchandise/Services Not Received",
+      "description": "Customer paid but goods/services never delivered.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Merchant failed to ship or notify delays.",
+        "Carrier delivery failure."
+      ],
+      "preventionSteps": [
+        "Provide tracking links and delivery confirmations.",
+        "Communicate proactively on any delays."
+      ]
+    },
+    "13.2": {
+      "category": "Consumer Disputes",
+      "title": "Canceled Recurring Transaction",
+      "description": "Cardholder charged after canceling subscription.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Merchant neglected subscription cancellation.",
+        "Rebilling after account closure."
+      ],
+      "preventionSteps": [
+        "Terminate recurring billing immediately upon request.",
+        "Notify cardholder of upcoming charges."
+      ]
+    },
+    "13.3": {
+      "category": "Consumer Disputes",
+      "title": "Not As Described / Defective",
+      "description": "Goods/services differ from description or are defective.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Misleading listings.",
+        "Damaged item on arrival."
+      ],
+      "preventionSteps": [
+        "Use detailed, accurate descriptions.",
+        "Inspect and package items carefully."
+      ]
+    },
+    "13.4": {
+      "category": "Consumer Disputes",
+      "title": "Counterfeit Merchandise",
+      "description": "Goods found to be counterfeit by authority or expert.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Merchant unknowingly selling fakes."
+      ],
+      "preventionSteps": [
+        "Source only authentic products.",
+        "Document authenticity before shipping."
+      ]
+    },
+    "13.5": {
+      "category": "Consumer Disputes",
+      "title": "Misrepresentation",
+      "description": "Merchant’s advertising or disclosures were misleading.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Vague or hidden terms.",
+        "False marketing claims."
+      ],
+      "preventionSteps": [
+        "Publish clear, honest terms and pricing.",
+        "Provide detailed product/service information."
+      ]
+    },
+    "13.6": {
+      "category": "Consumer Disputes",
+      "title": "Credit Not Processed",
+      "description": "Promised refund/credit not posted.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Merchant delay or system error."
+      ],
+      "preventionSteps": [
+        "Issue credits promptly.",
+        "Confirm posting to customer statements."
+      ]
+    },
+    "13.7": {
+      "category": "Consumer Disputes",
+      "title": "Cancelled Merchandise/Services",
+      "description": "Returned or canceled but no credit applied.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Merchant failed to process credit."
+      ],
+      "preventionSteps": [
+        "Document return policies clearly.",
+        "Post credits immediately."
+      ]
+    },
+    "13.8": {
+      "category": "Consumer Disputes",
+      "title": "Original Credit Transaction Not Accepted",
+      "description": "Issuer refused or disallowed OCT.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Local laws prohibit OCT.",
+        "Cardholder opted out."
+      ],
+      "preventionSteps": [
+        "Maintain accurate OCT documentation.",
+        "Verify OCT rules per region."
+      ]
+    },
+    "13.9": {
+      "category": "Consumer Disputes",
+      "title": "Non-Receipt of Cash at ATM",
+      "description": "ATM did not dispense full withdrawal.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "ATM malfunction or reconciliation error."
+      ],
+      "preventionSteps": [
+        "Reconcile ATM balances regularly.",
+        "Issue reversal/credit promptly."
+      ]
+    },
+    "57": {
+      "category": "Fraud",
+      "title": "Fraudulent Multiple Transactions",
+      "description": "Multiple unauthorized charges on same card.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Duplicate authorization attempts.",
+        "Intentional or error-based multiple charges."
+      ],
+      "preventionSteps": [
+        "Void redundant transactions immediately.",
+        "Issue refunds on duplicates.",
+        "Train staff on void procedures."
+      ]
+    },
+    "62": {
+      "category": "Fraud",
+      "title": "Counterfeit Transaction",
+      "description": "Counterfeit card used in person.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Non-EMV terminal acceptance of fake cards."
+      ],
+      "preventionSteps": [
+        "Use chip readers on all POS.",
+        "Train staff on counterfeit detection."
+      ]
+    },
+    "81": {
+      "category": "Fraud",
+      "title": "Fraud – Card-Present Environment",
+      "description": "In-person fraud with invalid card.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Stolen or unauthorized in-person use."
+      ],
+      "preventionSteps": [
+        "Verify ID and chip read on every sale."
+      ]
+    },
+    "83": {
+      "category": "Fraud",
+      "title": "Fraud – Card-Absent Environment",
+      "description": "Unauthorized CNP transaction using invalid card.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "Stolen credentials used online."
+      ],
+      "preventionSteps": [
+        "Implement strong CNP fraud controls."
+      ]
+    },
+    "93": {
+      "category": "Fraud",
+      "title": "Visa Fraud Monitoring Program",
+      "description": "VFMP-flagged fraud not under another code.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "typicalCauses": [
+        "High-fraud ratio merchants enrolled in VFMP."
+      ],
+      "preventionSteps": [
+        "Maintain low fraud rates; respond to inquiries."
+      ]
+    },
+    "70": {
+      "category": "Authorization",
+      "title": "Card Recovery Bulletin / Exception File",
+      "description": "Below-floor-limit sale on card in recovery bulletin.",
+      "typicalCauses": [
+        "No auth for bulletin-listed account."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Check CRB before floor-limit sales."
+      ]
+    },
+    "71": {
+      "category": "Authorization",
+      "title": "Declined Authorization",
+      "description": "Sale completed after decline/pickup response.",
+      "typicalCauses": [
+        "Merchant forced transaction post-decline."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Terminate sale if declined."
+      ]
+    },
+    "72": {
+      "category": "Authorization",
+      "title": "No Authorization",
+      "description": "No valid auth request sent.",
+      "typicalCauses": [
+        "Auth omitted entirely."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Always request auth before sale."
+      ]
+    },
+    "73": {
+      "category": "Authorization",
+      "title": "Expired Card",
+      "description": "Card expired without re-auth before sale.",
+      "typicalCauses": [
+        "Merchant used expired account data."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Verify card expiry on every transaction."
+      ]
+    },
+    "78": {
+      "category": "Authorization",
+      "title": "Service Code Violation",
+      "description": "Mag-stripe used despite service code requiring chip/online auth.",
+      "typicalCauses": [
+        "Terminal fallback used improperly."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Honor service-code requirements."
+      ]
+    },
+    "74": {
+      "category": "Processing Errors",
+      "title": "Late Presentment",
+      "description": "Transaction submitted outside allowable window.",
+      "typicalCauses": [
+        "Batch delay >180 days or out-of-window capture."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Submit batch daily; avoid long delays."
+      ]
+    },
+    "76": {
+      "category": "Processing Errors",
+      "title": "Incorrect Currency or Transaction Code",
+      "description": "Wrong currency or code used at POS.",
+      "typicalCauses": [
+        "Merchant selected wrong currency.",
+        "DCC offered without consent."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Train staff on correct DCC and codes."
+      ]
+    },
+    "77": {
+      "category": "Processing Errors",
+      "title": "Non-Matching Account Number",
+      "description": "Posted account number does not match issuer records.",
+      "typicalCauses": [
+        "Typo in key-entry."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Use mag-stripe/chip read where possible."
+      ]
+    },
+    "80": {
+      "category": "Processing Errors",
+      "title": "Incorrect Transaction Amount or Account Number",
+      "description": "ATM or POS adjustment errors.",
+      "typicalCauses": [
+        "ATM mis-dispense or post to closed account."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Reconcile ATM disbursements; verify adjustments."
+      ]
+    },
+    "82": {
+      "category": "Processing Errors",
+      "title": "Duplicate Processing (ATM/Terminal)",
+      "description": "Transaction processed more than once at POI.",
+      "typicalCauses": [
+        "Repeated batch submission."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Implement duplicate detection; train staff."
+      ]
+    },
+    "86": {
+      "category": "Processing Errors",
+      "title": "Paid by Other Means",
+      "description": "Customer paid via alternate method post-charge.",
+      "typicalCauses": [
+        "Alternate payment not voiding original."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Void original sale when alternate payment used."
+      ]
+    },
+    "30": {
+      "category": "Consumer Disputes",
+      "title": "Services Not Provided / Merchandise Not Received",
+      "description": "Paid but neither goods nor services delivered.",
+      "typicalCauses": [
+        "Merchant failed to deliver or notify customer."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Communicate delivery status; use tracking."
+      ]
+    },
+    "41": {
+      "category": "Consumer Disputes",
+      "title": "Cancelled Recurring Transaction",
+      "description": "Recurring charge after cancelation or closure.",
+      "typicalCauses": [
+        "Merchant failed to honor cancellation."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Stop billing immediately on cancel."
+      ]
+    },
+    "53": {
+      "category": "Consumer Disputes",
+      "title": "Not as Described / Defective Merchandise",
+      "description": "Goods differ from description or are defective.",
+      "typicalCauses": [
+        "Misleading terms or damaged goods."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Provide accurate descriptions; inspect items."
+      ]
+    },
+    "75": {
+      "category": "Consumer Disputes",
+      "title": "Transaction Not Recognized",
+      "description": "Cardholder does not recognize the charge.",
+      "typicalCauses": [
+        "Obscure billing descriptor."
+      ],
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Use clear, consistent merchant descriptors."
+      ]
+    },
+    "85": {
+      "category": "Consumer Disputes",
+      "title": "Credit Not Processed",
+      "description": "Refund or credit never posted.",
+      "typicalCauses": [
+        "Merchant delay or system failure."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Issue credits promptly; confirm posting."
+      ]
+    },
+    "90": {
+      "category": "Consumer Disputes",
+      "title": "Non-Receipt of Cash / Load at ATM",
+      "description": "ATM did not dispense full amount.",
+      "typicalCauses": [
+        "ATM malfunction."
+      ],
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "30 days",
+      "preventionSteps": [
+        "Reconcile and credit as needed."
+      ]
+    }
+  },
+
+  "mastercard": {
+    "4837": {
+      "category": "Fraud",
+      "title": "No Cardholder Authorization",
+      "description": "Cardholder denies participation in transaction.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "45 days",
+      "typicalCauses": [
+        "Unauthorized use of account data."
+      ],
+      "preventionSteps": [
+        "Use CVC2, AVS, SecureCode.",
+        "Display clear billing descriptors."
+      ]
+    },
+    "4840": {
+      "category": "Fraud",
+      "title": "Fraudulent Processing of Transactions",
+      "description": "Additional unauthorized charges after a valid auth.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "45 days",
+      "typicalCauses": [
+        "Rapid successive charges without separate auths."
+      ],
+      "preventionSteps": [
+        "Void duplicates; monitor for rapid‐fire charges."
+      ]
+    },
+    "4849": {
+      "category": "Fraud",
+      "title": "Questionable Merchant Activity",
+      "description": "Flagged by Global Merchant Audit Program.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "45 days",
+      "typicalCauses": [
+        "Non-compliance with Mastercard security rules."
+      ],
+      "preventionSteps": [
+        "Adhere to GMAP/QMAP bulletins."
+      ]
+    },
+    "4863": {
+      "category": "Fraud",
+      "title": "Cardholder Does Not Recognize—Potential Fraud",
+      "description": "Unfamiliar CNP transaction disputed.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "45 days",
+      "typicalCauses": [
+        "Unrecognized online/mail order."
+      ],
+      "preventionSteps": [
+        "Use fraud-detection tools; clear descriptors."
+      ]
+    },
+    "4870": {
+      "category": "Fraud",
+      "title": "Chip Liability Shift",
+      "description": "Counterfeit chip at non-EMV terminal.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "45 days",
+      "typicalCauses": [
+        "Processed chip transaction on legacy POS."
+      ],
+      "preventionSteps": [
+        "Use EMV-compliant terminals."
+      ]
+    },
+    "4871": {
+      "category": "Fraud",
+      "title": "Chip/PIN Liability Shift",
+      "description": "Chip-and-PIN card processed without PIN.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "45 days",
+      "typicalCauses": [
+        "PIN not captured on chip sale."
+      ],
+      "preventionSteps": [
+        "Enforce PIN on chip transactions."
+      ]
+    },
+    "4807": {
+      "category": "Authorization",
+      "title": "Warning Bulletin File",
+      "description": "Deprecated – use 4808.",
+      "timeLimitIssuer": "45 days",
+      "timeLimitAcquirer": "45 days",
+      "preventionSteps": [
+        "Follow 4808 guidelines."
+      ]
+    },
+    "4808": {
+      "category": "Authorization",
+      "title": "Authorization-Related Chargeback",
+      "description": "No or forced auth after decline.",
+      "timeLimitIssuer": "90 days",
+      "timeLimitAcquirer": "45 days",
+      "typicalCauses": [
+        "Forced post-decline."
+      ],
+      "preventionSteps": [
+        "Never override declines; obtain valid auth."
+      ]
+    },
+    "4812": {
+      "category": "Authorization",
+      "title": "Account Number Not On File",
+      "description": "Deprecated – merged into 4808.",
+      "timeLimitIssuer": "45 days",
+      "timeLimitAcquirer": "45 days"
+    },
+    "4834": {
+      "category": "Processing Errors",
+      "title": "Point-of-Interaction Error",
+      "description": "Batch or receipt submitted multiple times or data mismatch.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "45 days",
+      "typicalCauses": [
+        "Duplicate submissions; key-entry errors."
+      ],
+      "preventionSteps": [
+        "Implement duplicate checks; train staff."
+      ]
+    },
+    "4831": {
+      "category": "Processing Errors",
+      "title": "Transaction Amount Differs",
+      "description": "Deprecated – merged into 4834.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "45 days"
+    },
+    "4842": {
+      "category": "Processing Errors",
+      "title": "Late Presentment",
+      "description": "Presented past card or batch window.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "45 days"
+    },
+    "4846": {
+      "category": "Processing Errors",
+      "title": "Incorrect Transaction Currency Code",
+      "description": "Wrong currency or improper DCC handling.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "45 days",
+      "preventionSteps": [
+        "Offer DCC opt-in; disclose fees."
+      ]
+    },
+    "4850": {
+      "category": "Processing Errors",
+      "title": "Installment Billing Dispute",
+      "description": "Incorrectly processed installment transaction.",
+      "timeLimitIssuer": "45 days",
+      "timeLimitAcquirer": "45 days"
+    },
+    "4999": {
+      "category": "Processing Errors",
+      "title": "Domestic Chargeback Dispute",
+      "description": "Filtered for Europe region only.",
+      "timeLimitIssuer": "45 days",
+      "timeLimitAcquirer": "45 days"
+    },
+    "4853": {
+      "category": "Cardholder Disputes",
+      "title": "Cardholder Dispute – Wrong Item / Quality Issue",
+      "description": "Wrong, defective, or mis-described goods/services.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "45 days",
+      "typicalCauses": [
+        "Damaged or incorrect merchandise."
+      ],
+      "preventionSteps": [
+        "Inspect items; confirm accuracy before shipping."
+      ]
+    },
+    "4841": {
+      "category": "Cardholder Disputes",
+      "title": "Canceled Recurring or Digital Goods Transactions",
+      "description": "Deprecated – use 4853.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "45 days"
+    },
+    "4854": {
+      "category": "Cardholder Disputes",
+      "title": "Cardholder Dispute—Not Elsewhere Classified",
+      "description": "Good-faith attempt to resolve before chargeback.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "45 days",
+      "preventionSteps": [
+        "Resolve complaints promptly."
+      ]
+    }
+  },
+
+  "amex": {
+    "F10": {
+      "category": "Fraud",
+      "title": "Missing Imprint",
+      "description": "Mag-stripe not read; no imprint or chip read.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Fallback used without imprint."
+      ],
+      "preventionSteps": [
+        "Capture imprint or chip data on every sale."
+      ]
+    },
+    "F14": {
+      "category": "Fraud",
+      "title": "Missing Signature",
+      "description": "Signed receipt missing or illegible.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Faded or blank signature line."
+      ],
+      "preventionSteps": [
+        "Ensure clear signature on all receipts."
+      ]
+    },
+    "F24": {
+      "category": "Fraud",
+      "title": "No Card Member Authorization",
+      "description": "Cardholder denies specific approved transaction.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Authorized merchant but denies charge."
+      ],
+      "preventionSteps": [
+        "Use AVS/CID and clear descriptors."
+      ]
+    },
+    "F29": {
+      "category": "Fraud",
+      "title": "Card Not Present",
+      "description": "CNP order denied by cardholder.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "CNP sale without cardholder involvement."
+      ],
+      "preventionSteps": [
+        "Require CID/AVS/signature for mail orders."
+      ]
+    },
+    "F30": {
+      "category": "Fraud",
+      "title": "EMV Counterfeit",
+      "description": "Counterfeit chip used without chip read.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Non-EMV terminal at chip card sale."
+      ],
+      "preventionSteps": [
+        "Use EMV-compliant POS devices."
+      ]
+    },
+    "F31": {
+      "category": "Fraud",
+      "title": "EMV Lost/Stolen/Non-Received",
+      "description": "Lost/stolen chip card keyed in.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Manual key-entry at non-chip/PIN terminal."
+      ],
+      "preventionSteps": [
+        "Use chip-and-PIN terminals."
+      ]
+    },
+    "A01": {
+      "category": "Authorization",
+      "title": "Charge > Auth Amount",
+      "description": "Settled amount exceeds auth approval.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Added tip/adjustment beyond tolerance."
+      ],
+      "preventionSteps": [
+        "Do not alter auth amount post-approval."
+      ]
+    },
+    "A02": {
+      "category": "Authorization",
+      "title": "No Valid Authorization",
+      "description": "No auth obtained or expired/declined.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Used declined or expired auth."
+      ],
+      "preventionSteps": [
+        "Authorize before every sale; abort on decline."
+      ]
+    },
+    "A08": {
+      "category": "Authorization",
+      "title": "Auth Approval Expired",
+      "description": "Auth expired before capture.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Delay between auth and settlement."
+      ],
+      "preventionSteps": [
+        "Capture on day of sale."
+      ]
+    },
+    "P01": {
+      "category": "Processing Errors",
+      "title": "Unassigned Card Number",
+      "description": "Invalid/unassigned number used.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Typo or expired account number."
+      ],
+      "preventionSteps": [
+        "Swipe/dip only; fallback as last resort."
+      ]
+    },
+    "P03": {
+      "category": "Processing Errors",
+      "title": "Credit Processed as Charge",
+      "description": "Refund processed as sale.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Operator/system error on type."
+      ],
+      "preventionSteps": [
+        "Verify transaction type before processing."
+      ]
+    },
+    "P04": {
+      "category": "Processing Errors",
+      "title": "Charge Processed as Credit",
+      "description": "Sale processed as refund.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Incorrect transaction type selection."
+      ],
+      "preventionSteps": [
+        "Double-check before finalizing."
+      ]
+    },
+    "P05": {
+      "category": "Processing Errors",
+      "title": "Incorrect Charge Amount",
+      "description": "Settled amount ≠ agreed amount.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Manual entry mistake."
+      ],
+      "preventionSteps": [
+        "Confirm with cardholder prior to capture."
+      ]
+    },
+    "P07": {
+      "category": "Processing Errors",
+      "title": "Late Submission",
+      "description": "Submitted past allowed timeframe.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Submit same-day if possible."
+      ]
+    },
+    "P08": {
+      "category": "Processing Errors",
+      "title": "Duplicate Charge",
+      "description": "Same sale submitted more than once.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Batch resubmission."
+      ],
+      "preventionSteps": [
+        "Void original before reprocessing."
+      ]
+    },
+    "P22": {
+      "category": "Processing Errors",
+      "title": "Non-Matching Card Number",
+      "description": "Submitted number ≠ original.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Hand-key typo."
+      ],
+      "preventionSteps": [
+        "Use chip/swipe data when possible."
+      ]
+    },
+    "P23": {
+      "category": "Processing Errors",
+      "title": "Currency Discrepancy",
+      "description": "Incorrect currency used.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Train staff on currency selection."
+      ]
+    },
+    "C02": {
+      "category": "Card Member Disputes",
+      "title": "Credit Not Processed",
+      "description": "Promised refund not posted.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Process refunds promptly."
+      ]
+    },
+    "C04": {
+      "category": "Card Member Disputes",
+      "title": "Goods/Services Returned or Refused",
+      "description": "Returned merchandise not credited.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Honor return policies promptly."
+      ]
+    },
+    "C05": {
+      "category": "Card Member Disputes",
+      "title": "Goods/Services Canceled",
+      "description": "Canceled order without refund.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Process cancellations immediately."
+      ]
+    },
+    "C08": {
+      "category": "Card Member Disputes",
+      "title": "Goods/Services Not Received or Partially Received",
+      "description": "Non-receipt or partial receipt.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Merchant shipping failure."
+      ],
+      "preventionSteps": [
+        "Provide tracking; confirm delivery/pick-up."
+      ]
+    },
+    "C14": {
+      "category": "Card Member Disputes",
+      "title": "Paid by Other Means",
+      "description": "Alternate payment used before credit.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Void original sale if other payment chosen."
+      ]
+    },
+    "C18": {
+      "category": "Card Member Disputes",
+      "title": "\"No Show\" or Card Deposit Canceled",
+      "description": "Lodging no-show billed despite cancellation.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Follow lodging program cancellation rules."
+      ]
+    },
+    "C28": {
+      "category": "Card Member Disputes",
+      "title": "Canceled Recurring Billing",
+      "description": "Recurring charge after cancelation request.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Stop billing immediately on request."
+      ]
+    },
+    "C31": {
+      "category": "Card Member Disputes",
+      "title": "Goods/Services Not As Described",
+      "description": "Received item differs from description.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Ensure listings match shipped items."
+      ]
+    },
+    "C32": {
+      "category": "Card Member Disputes",
+      "title": "Goods/Services Damaged or Defective",
+      "description": "Received defective goods/services.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Package securely; inspect before dispatch."
+      ]
+    },
+    "M10": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Vehicle Rental – Capital Damages",
+      "description": "Dispute over billed capital damages.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Obtain signed damage acknowledgement."
+      ]
+    },
+    "M49": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Vehicle Rental – Theft or Loss of Use",
+      "description": "Dispute for theft or loss-of-use fees.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Document valid charges vs. credits."
+      ]
+    },
+    "M01": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Chargeback Authorization",
+      "description": "Merchant authorized AmEx to proceed with chargeback.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Keep complete transaction records."
+      ]
+    },
+    "R03": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Insufficient Reply",
+      "description": "Response lacked sufficient detail.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Provide full documentation promptly."
+      ]
+    },
+    "R13": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "No Reply",
+      "description": "No response to inquiry.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Respond within stated timeframes."
+      ]
+    },
+    "FR2": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Fraud Full Recourse Program",
+      "description": "Merchant in full recourse fraud program.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Show proof of offset credit or non-enrollment."
+      ]
+    },
+    "FR4": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Immediate Chargeback Program",
+      "description": "Merchant in immediate chargeback program.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Issue refunds within 7 days."
+      ]
+    },
+    "FR6": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Partial Immediate Chargeback Program",
+      "description": "Merchant in partial immediate CB program.",
+      "timeLimitIssuer": "Varies",
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Issue refunds within 7 days."
+      ]
+    }
+  },
+
+  "discover": {
+    "UA01": {
+      "category": "Fraud",
+      "title": "Fraud – Card Present Transaction",
+      "description": "In-person fraudulent transaction with real card.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "120 days",
+      "typicalCauses": [
+        "Card swiped without holder’s knowledge."
+      ],
+      "preventionSteps": [
+        "Wait for proper authorization.",
+        "Use fraud-prevention policies."
+      ]
+    },
+    "UA02": {
+      "category": "Fraud",
+      "title": "Fraud – Card Not Present Transaction",
+      "description": "CNP transaction denied by cardholder.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "120 days",
+      "typicalCauses": [
+        "No CNP authorization requested."
+      ],
+      "preventionSteps": [
+        "Obtain CNP authorization; never force auth."
+      ]
+    },
+    "UA05": {
+      "category": "Fraud",
+      "title": "Fraud – Chip Counterfeit Transaction",
+      "description": "Counterfeit chip use on non-EMV POS.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "120 days",
+      "typicalCauses": [
+        "Terminal not configured for EMV."
+      ],
+      "preventionSteps": [
+        "Upgrade to EMV-compliant devices."
+      ]
+    },
+    "UA06": {
+      "category": "Fraud",
+      "title": "Fraud – Chip and PIN Transaction",
+      "description": "Chip-and-PIN card used on signature-only POS.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "120 days",
+      "typicalCauses": [
+        "Terminal not accepting PIN CVM."
+      ],
+      "preventionSteps": [
+        "Use PIN-capable EMV terminals."
+      ]
+    },
+    "UA10": {
+      "category": "Fraud",
+      "title": "Request Transaction Receipt",
+      "description": "Issuer requests receipt for suspected fraud.",
+      "timeLimitIssuer": "120 days",
+      "timeLimitAcquirer": "120 days",
+      "typicalCauses": [
+        "Signature mismatch on receipt."
+      ],
+      "preventionSteps": [
+        "Capture legible signed receipts."
+      ]
+    },
+    "UA11": {
+      "category": "Fraud",  
+      "title": "Cardholder Claims Fraud (No Signature)",
+      "description": "Swipe transaction without signature disputed as fraud.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "No signature on slip."  
+      ],  
+      "preventionSteps": [  
+        "Obtain signature or imprint on every transaction."  
+      ]  
+    },  
+    "NA": {  
+      "category": "Authorization",  
+      "title": "No Authorization",  
+      "description": "Transaction processed without any authorization.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Auth omitted or expired."  
+      ],  
+      "preventionSteps": [  
+        "Always obtain auth before sale."  
+      ]  
+    },  
+    "DA": {  
+      "category": "Authorization",  
+      "title": "Declined Authorization",  
+      "description": "Forced transaction after decline.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Merchant ignored decline."  
+      ],  
+      "preventionSteps": [  
+        "Terminate on decline or request alternate payment."  
+      ]  
+    },  
+    "AT": {  
+      "category": "Authorization",  
+      "title": "Authorization Noncompliance",  
+      "description": "Processed with expired or no positive auth.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Forced post-decline or expired auth."  
+      ],  
+      "preventionSteps": [  
+        "Adhere to auth amount tolerances."  
+      ]  
+    },  
+    "IN": {  
+      "category": "Processing Errors",  
+      "title": "Invalid Card Number",  
+      "description": "Unassigned or expired number.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Typo or expired card used."  
+      ],  
+      "preventionSteps": [  
+        "Double-check card data."  
+      ]  
+    },  
+    "LP": {  
+      "category": "Processing Errors",  
+      "title": "Late Presentation",  
+      "description": "Submitted past allowed timeframe.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Batch delay or POS issues."  
+      ],  
+      "preventionSteps": [  
+        "Submit transactions same day."  
+      ]  
+    },  
+    "NC": {  
+      "category": "Processing Errors",  
+      "title": "Not Classified",  
+      "description": "Does not fit other categories.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Catch-all for misc disputes."  
+      ]  
+    },  
+    "EX": {  
+      "category": "Processing Errors",  
+      "title": "Expired Card",  
+      "description": "Card expired before settlement.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Merchant processed expired card."  
+      ],  
+      "preventionSteps": [  
+        "Verify expiry on every sale."  
+      ]  
+    },  
+    "5": {  
+      "category": "Services",  
+      "title": "Good Faith Investigation",  
+      "description": "Merchant accepted responsibility in good faith.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Merchant conceded liability."  
+      ]  
+    },  
+    "AA": {  
+      "category": "Services",  
+      "title": "Does Not Recognize",  
+      "description": "Cardholder doesn’t recognize charge.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Unfamiliar descriptor used."  
+      ],  
+      "preventionSteps": [  
+        "Use clear billing descriptors."  
+      ]  
+    },  
+    "AP": {  
+      "category": "Services",  
+      "title": "Recurring Payments",  
+      "description": "Charge after cancellation request.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Subscription not terminated promptly."  
+      ],  
+      "preventionSteps": [  
+        "Honor cancelations immediately."  
+      ]  
+    },  
+    "AW": {  
+      "category": "Services",  
+      "title": "Altered Amount",  
+      "description": "Settled amount differs from auth.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "ATM/POS dispensed wrong amount."  
+      ],  
+      "preventionSteps": [  
+        "Verify final amount before posting."  
+      ]  
+    },  
+    "CD": {  
+      "category": "Services",  
+      "title": "Credit/Debit Posted Incorrectly",  
+      "description": "Debit vs. credit mis-posted.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Reversal vs. credit confusion."  
+      ],  
+      "preventionSteps": [  
+        "Train staff on credit/debit workflows."  
+      ]  
+    },  
+    "DP": {  
+      "category": "Services",  
+      "title": "Duplicate Processing",  
+      "description": "Same transaction settled twice.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Batch or system replay."  
+      ],  
+      "preventionSteps": [  
+        "Implement duplicate-detection checks."  
+      ]  
+    },  
+    "IC": {  
+      "category": "Services",  
+      "title": "Illegible Sales Data",  
+      "description": "Requested receipt unreadable.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Poor scan or fading ink."  
+      ]  
+    },  
+    "NF": {  
+      "category": "Services",  
+      "title": "Non-Receipt of Cash from ATM",  
+      "description": "ATM did not dispense cash.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "ATM malfunction."  
+      ],  
+      "preventionSteps": [  
+        "Reconcile ATM balances; credit discrepancies."  
+      ]  
+    },  
+    "PM": {  
+      "category": "Services",  
+      "title": "Paid by Other Means",  
+      "description": "Customer paid by alternate method.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Alternate payment not voided."  
+      ],  
+      "preventionSteps": [  
+        "Void original sale on alternate payment."  
+      ]  
+    },  
+    "RG": {  
+      "category": "Services",  
+      "title": "Non-Receipt of Goods/Services/Cash",  
+      "description": "Paid but no delivery or pick-up occurred.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Merchant delayed or failed delivery."  
+      ],  
+      "preventionSteps": [  
+        "Deliver or notify delays proactively."  
+      ]  
+    },  
+    "RM": {  
+      "category": "Services",  
+      "title": "Cardholder Disputes Quality",  
+      "description": "Defective or mis-described goods/services.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Damaged item; poor service."  
+      ],  
+      "preventionSteps": [  
+        "Inspect goods; document quality."  
+      ]  
+    },  
+    "RN2": {  
+      "category": "Services",  
+      "title": "Credit Not Processed",  
+      "description": "Returned/refused goods not credited.",  
+      "timeLimitIssuer": "120 days",  
+      "timeLimitAcquirer": "120 days",  
+      "typicalCauses": [  
+        "Refund not issued post-return."  
+      ],  
+      "preventionSteps": [  
+        "Process credits promptly."  
+      ]  
+    },  
+    "DC": {  
+      "category": "Dispute Compliance",  
+      "title": "Dispute Compliance",  
+      "description": "Merchant non-compliance with Discover rules.",  
+      "typicalCauses": [  
+        "Failure to follow operating regulations."  
+      ],  
+      "timeLimitIssuer": null,  
+      "timeLimitAcquirer": null  
+    }  
+  }
+}

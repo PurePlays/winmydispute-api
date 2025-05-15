@@ -1,0 +1,84 @@
+<!-- static/generate.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Dispute Letter</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    label { display: block; margin-top: 20px; }
+    input, textarea { width: 100%; padding: 10px; margin-top: 5px; }
+    button { margin-top: 20px; padding: 10px 20px; background: #0070f3; color: white; border: none; cursor: pointer; }
+    button:hover { background: #005bb5; }
+    pre { background: #f4f4f4; padding: 10px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Dispute Letter Generator</h1>
+  <form id="generate-form">
+    <label>Token (from payment)</label>
+    <input type="text" id="token" required>
+
+    <label>Cardholder Name</label>
+    <input type="text" id="cardholderName" required>
+
+    <label>Issuer</label>
+    <input type="text" id="issuer" required>
+
+    <label>Merchant Name</label>
+    <input type="text" id="merchantName" required>
+
+    <label>Statement Date</label>
+    <input type="date" id="statementDate" required>
+
+    <label>Reason Code</label>
+    <input type="text" id="reasonCode" required>
+
+    <label>Transaction Amount</label>
+    <input type="number" id="transactionAmount" step="0.01" required>
+
+    <label>Transaction Date</label>
+    <input type="date" id="transactionDate" required>
+
+    <button type="submit">Generate Letter</button>
+  </form>
+
+  <div id="result" style="display:none;">
+    <h2>Generated Letter</h2>
+    <pre id="letterText"></pre>
+  </div>
+
+  <script>
+    document.getElementById('generate-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const payload = {
+        token:            document.getElementById('token').value,
+        cardholderName:   document.getElementById('cardholderName').value,
+        issuer:           document.getElementById('issuer').value,
+        merchantName:     document.getElementById('merchantName').value,
+        statementDate:    document.getElementById('statementDate').value,
+        reasonCode:       document.getElementById('reasonCode').value,
+        transactionAmount: document.getElementById('transactionAmount').value,
+        transactionDate:  document.getElementById('transactionDate').value
+      };
+
+      const res = await fetch('/letter/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+      if (data.letterText) {
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('letterText').textContent = data.letterText;
+      } else {
+        alert('Error: ' + (data.message || JSON.stringify(data)));
+      }
+    });
+  </script>
+</body>
+</html>
+ß

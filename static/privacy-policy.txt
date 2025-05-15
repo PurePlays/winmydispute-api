@@ -1,0 +1,9 @@
+Privacy Policy for WinMyDispute GPT
+
+WinMyDispute GPT does not collect, store, or share any personal information. Any details shared during use are processed in real-time and are not saved or logged.
+
+This GPT uses secure external APIs to generate personalized dispute letters, evidence strategies, and strategic advice. These APIs are used solely for response generation and do not store user data.
+
+We do not use cookies or tracking tools, and we do not sell or share any user information.
+
+For any questions or privacy concerns, contact: support@winthisdispute.com

@@ -1,0 +1,498 @@
+{
+    "F10": {
+      "category": "Fraud",
+      "title": "Missing Imprint",
+      "description": "Processed without reading chip/mag-stripe; cardholder denies participation.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Transaction keyed without imprint.",
+        "No chip read on EMV-capable terminal."
+      ],
+      "preventionSteps": [
+        "Capture electronic/manual imprint on every card-present sale.",
+        "Use EMV-compliant terminals.",
+        "Differentiate card-present vs. card-absent in clearing."
+      ]
+    },
+    "F14": {
+      "category": "Fraud",
+      "title": "Missing Signature",
+      "description": "Signed receipt not provided or illegible.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Signature line blank or faded.",
+        "Receipt copy mishandled or undersized scan."
+      ],
+      "preventionSteps": [
+        "Provide full-sized copy of signed receipt.",
+        "Maintain printer ink/toner.",
+        "Always give the cardholder a copy."
+      ]
+    },
+    "F24": {
+      "category": "Fraud",
+      "title": "No Card Member Authorization",
+      "description": "Cardholder claims prior transactions but denies this one.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Authorized merchant but denies this specific purchase."
+      ],
+      "preventionSteps": [
+        "Use AVS/CID fraud tools.",
+        "Submit all transactions for pre-sale fraud screening.",
+        "Use clear billing descriptors."
+      ]
+    },
+    "F29": {
+      "category": "Fraud",
+      "title": "Card Not Present",
+      "description": "Mail/telephone/internet order denied by cardholder.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "CNP transaction without cardholder involvement."
+      ],
+      "transactionModifiers": [
+        "Airline Transaction"
+      ],
+      "preventionSteps": [
+        "Use CID and AVS on CNP sales.",
+        "Submit all CNP transactions for authorization."
+      ]
+    },
+    "F30": {
+      "category": "Fraud",
+      "title": "EMV Counterfeit",
+      "description": "Counterfeit-chip transaction processed without chip read.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Counterfeit chip used on non-EMV terminal."
+      ],
+      "preventionSteps": [
+        "Use EMV-compliant terminals.",
+        "Differentiate card-absent vs. card-present."
+      ]
+    },
+    "F31": {
+      "category": "Fraud",
+      "title": "EMV Lost/Stolen/Non-Received",
+      "description": "Card lost/stolen/never received; manual key-entry used.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Lost/stolen card keyed at non-chip/PIN terminal."
+      ],
+      "preventionSteps": [
+        "Use EMV-compliant terminals with PIN.",
+        "Differentiate transaction environments."
+      ]
+    },
+    "A01": {
+      "category": "Authorization",
+      "title": "Charge Amount Exceeds Authorization Amount",
+      "description": "You charged more than the approved auth amount.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Gratuities or adjustments exceeded auth tolerance."
+      ],
+      "preventionSteps": [
+        "Do not alter amount post-authorization."
+      ]
+    },
+    "A02": {
+      "category": "Authorization",
+      "title": "No Valid Authorization",
+      "description": "No authorization obtained or auth was declined/expired.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Declined or expired auth used to process sale."
+      ],
+      "preventionSteps": [
+        "Always send auth request before sale.",
+        "Terminate on decline or re-request auth."
+      ]
+    },
+    "A08": {
+      "category": "Authorization",
+      "title": "Authorization Approval Expired",
+      "description": "Auth approval expired before capture.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Delay between auth and settlement exceeded window."
+      ],
+      "preventionSteps": [
+        "Capture on day of sale or promptly thereafter."
+      ]
+    },
+    "P01": {
+      "category": "Processing Errors",
+      "title": "Unassigned Card Number",
+      "description": "Invalid or unassigned card number used.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Mistyped or expired card number."
+      ],
+      "preventionSteps": [
+        "Swipe/dip card; only use fallback in emergencies."
+      ]
+    },
+    "P03": {
+      "category": "Processing Errors",
+      "title": "Credit Processed as Charge",
+      "description": "Refund processed as sale.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "System or operator error in transaction type."
+      ],
+      "preventionSteps": [
+        "Verify transaction type before processing."
+      ]
+    },
+    "P04": {
+      "category": "Processing Errors",
+      "title": "Charge Processed as Credit",
+      "description": "Sale processed as refund.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Operator selected wrong transaction type."
+      ],
+      "preventionSteps": [
+        "Verify type—charge vs. credit—before finalize."
+      ]
+    },
+    "P05": {
+      "category": "Processing Errors",
+      "title": "Incorrect Charge Amount",
+      "description": "Amount differs from agreed value.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Manual entry error; unauthorized change."
+      ],
+      "preventionSteps": [
+        "Confirm amount with cardholder before capture."
+      ]
+    },
+    "P07": {
+      "category": "Processing Errors",
+      "title": "Late Submission",
+      "description": "Transaction not submitted in time.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Submit transactions promptly—same day if possible."
+      ]
+    },
+    "P08": {
+      "category": "Processing Errors",
+      "title": "Duplicate Charge",
+      "description": "Same transaction submitted more than once.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Batch resubmitted; duplicate receipts."
+      ],
+      "preventionSteps": [
+        "Void original when reprocessing; credit duplicates."
+      ]
+    },
+    "P22": {
+      "category": "Processing Errors",
+      "title": "Non-Matching Card Number",
+      "description": "Submitted card number doesn’t match original.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Hand-keyed number error."
+      ],
+      "preventionSteps": [
+        "Use fallback only when necessary; verify imprint."
+      ]
+    },
+    "P23": {
+      "category": "Processing Errors",
+      "title": "Currency Discrepancy",
+      "description": "Wrong currency used.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Allow opt-in for currency conversion; train staff."
+      ]
+    },
+    "C02": {
+      "category": "Card Member Disputes",
+      "title": "Credit Not Processed",
+      "description": "Refund/credit not posted to statement.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Make policy visible; process refunds promptly."
+      ]
+    },
+    "C04": {
+      "category": "Card Member Disputes",
+      "title": "Goods/Services Returned or Refused",
+      "description": "Returned merchandise or refused service without credit.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Disclose return policy on receipt/website.",
+        "Process qualified refunds promptly."
+      ],
+      "commonMerchantRebuttals": [
+        "Return was outside policy window",
+        "Item received but refund denied",
+        "Customer failed to follow return instructions"
+      ],
+      "strategyTips": [
+        "Show return tracking and delivery confirmation",
+        "Include merchant policy proving compliance",
+        "Document refund request timeline"
+      ],
+      "evidenceToFocusOn": [
+        "Return shipment tracking",
+        "Screenshot of return/refund policy",
+        "Support tickets/emails showing refund request"
+      ],
+      "customerStrategy": "Demonstrate that the return was made according to the merchant’s stated policy and that a refund was improperly denied or delayed."
+    },
+    "C05": {
+      "category": "Card Member Disputes",
+      "title": "Goods/Services Canceled",
+      "description": "Canceled order without refund.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Disclose cancellation policy; honor requests promptly."
+      ],
+      "commonMerchantRebuttals": [
+        "Cancellation not received",
+        "Service already performed",
+        "No refund promised for cancellations"
+      ],
+      "strategyTips": [
+        "Show timestamps of cancellation request",
+        "Prove that cancellation occurred before fulfillment",
+        "Highlight refund terms or exceptions in policy"
+      ],
+      "evidenceToFocusOn": [
+        "Cancellation confirmation email or chat log",
+        "Screenshot of refund policy at time of purchase",
+        "Timeline showing cancellation vs. service delivery"
+      ],
+      "customerStrategy": "Prove that you canceled in line with the merchant's policy and timeline, and that they failed to issue the appropriate refund."
+    },
+    "C08": {
+      "category": "Card Member Disputes",
+      "title": "Goods/Services Not Received or Partially Received",
+      "description": "Full or partial non-receipt of goods/services.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "transactionModifiers": [
+        "Airline Transaction",
+        "Digital Goods Download",
+        "Site to Store"
+      ],
+      "preventionSteps": [
+        "Meet promised delivery/pick-up dates.",
+        "Notify customer of delays promptly."
+      ],
+      "commonMerchantRebuttals": [
+        "Goods/services marked delivered",
+        "Partial service fulfilled",
+        "Pickup or usage confirmed by logs"
+      ],
+      "strategyTips": [
+        "Distinguish between what was promised vs. received",
+        "Highlight missing components or access issues",
+        "Show communication requesting fulfillment"
+      ],
+      "evidenceToFocusOn": [
+        "Screenshots of delivery confirmation vs. missing items",
+        "Logs showing no access to service",
+        "Emails requesting missing products/services"
+      ],
+      "customerStrategy": "Clarify the difference between what you paid for and what was actually received, using specific delivery records and follow-up communications."
+    },
+    "C14": {
+      "category": "Card Member Disputes",
+      "title": "Paid by Other Means",
+      "description": "Customer used alternate payment method.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Void original charge if switching payment."
+      ]
+    },
+    "C18": {
+      "category": "Card Member Disputes",
+      "title": "“No Show” or CARDeposit Canceled",
+      "description": "Lodging no-show billed despite cancellation.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Log reservations/cancellations per program rules."
+      ]
+    },
+    "C28": {
+      "category": "Card Member Disputes",
+      "title": "Canceled Recurring Billing",
+      "description": "Recurring charge after cancellation request.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Immediately stop billing on cancellation.",
+        "Notify and remind customers of upcoming charges."
+      ]
+    },
+    "C31": {
+      "category": "Card Member Disputes",
+      "title": "Goods/Services Not As Described",
+      "description": "Received item differs from description.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Use accurate, complete descriptions.",
+        "Provide prompt customer support."
+      ],
+      "commonMerchantRebuttals": [
+        "Merchant claims item matches description",
+        "Photos provided by seller support accuracy",
+        "No prior complaint filed by customer"
+      ],
+      "strategyTips": [
+        "Highlight specific deviations from listed specs or photos",
+        "Provide third-party confirmation of discrepancies if possible",
+        "Document early attempts to resolve directly with merchant"
+      ],
+      "evidenceToFocusOn": [
+        "Product listing screenshots from time of purchase",
+        "Photos/videos of received item",
+        "Support chat or email threads highlighting the issue"
+      ],
+      "customerStrategy": "Show how the product or service failed to match its description at the time of sale. Use timestamps, comparison visuals, and support records to build your case."
+    },
+    "C32": {
+      "category": "Card Member Disputes",
+      "title": "Goods/Services Damaged or Defective",
+      "description": "Received damaged or defective goods/services.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Ensure proper packaging and handling.",
+        "Resolve issues directly; issue refunds promptly."
+      ],
+      "commonMerchantRebuttals": [
+        "Item passed inspection before shipping",
+        "Customer failed to report issue in time",
+        "No damage evident upon return"
+      ],
+      "strategyTips": [
+        "Provide timestamped unboxing videos or photos",
+        "Document damage immediately and notify seller",
+        "Request neutral third-party verification if feasible"
+      ],
+      "evidenceToFocusOn": [
+        "Photos of damaged goods at receipt",
+        "Time-stamped communication with seller",
+        "Expert evaluation or repair quotes"
+      ],
+      "customerStrategy": "Prove that damage or defect was present upon delivery, and that you acted quickly to report and resolve the issue. Support claims with clear visuals and written timelines."
+    },
+    "M10": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Vehicle Rental – Capital Damages",
+      "description": "Dispute over billed capital damages.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "typicalCauses": [
+        "Damage charges exceed agreement."
+      ],
+      "preventionSteps": [
+        "Obtain signed damage acknowledgement."
+      ]
+    },
+    "M49": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Vehicle Rental – Theft or Loss of Use",
+      "description": "Dispute for theft or loss-of-use fees.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Document valid charges and offset credits."
+      ]
+    },
+    "M01": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Chargeback Authorization",
+      "description": "Merchant authorized AmEx to proceed with CB.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Keep complete transaction records."
+      ]
+    },
+    "R03": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Insufficient Reply",
+      "description": "Response to AmEx inquiry lacked detail.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Provide full supporting documentation promptly."
+      ]
+    },
+    "R13": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "No Reply",
+      "description": "No response received to AmEx inquiry.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Respond within stated timeframes."
+      ]
+    },
+    "FR2": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Fraud Full Recourse Program",
+      "description": "Merchant enrolled in full recourse fraud program.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Demonstrate non-enrollment or proof of offset credit."
+      ]
+    },
+    "FR4": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Immediate Chargeback Program",
+      "description": "Merchant enrolled in immediate CB program.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Issue refunds within 7 days.",
+        "Clarify refund timing in policy."
+      ]
+    },
+    "FR6": {
+      "category": "Inquiry/Miscellaneous",
+      "title": "Partial Immediate Chargeback Program",
+      "description": "Merchant enrolled in partial immediate CB program.",
+      "timeLimitIssuer": null,
+      "timeLimitAcquirer": "20 days",
+      "preventionSteps": [
+        "Issue refunds within 7 days.",
+        "Clarify refund timing in policy."
+      ]
+    }
+  }
+  

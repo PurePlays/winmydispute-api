@@ -1,0 +1,680 @@
+[
+  {
+    "issuer": "American Express",
+    "contact": {
+      "phoneSupport": "800-528-4800",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 981535, El Paso, TX 79998",
+      "submissionNotes": [
+        "Include a copy of the front and back of the statement page showing the charge",
+        "Send via certified mail for proof of delivery"
+      ]
+    }
+  },
+  {
+    "issuer": "Bank of America",
+    "contact": {
+      "phoneSupport": "800-732-9194",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 672050, Dallas, TX 75267-2050",
+      "submissionNotes": [
+        "Provide account number and statement date",
+        "Attach copies of receipts or emails with the merchant"
+      ]
+    }
+  },
+  {
+    "issuer": "Capital One",
+    "contact": {
+      "phoneSupport": "800-227-4825",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "ATTN: Disputes P.O. Box 30279, Salt Lake City, UT 84130-0279",
+      "submissionNotes": [
+        "Reference the transaction date and amount",
+        "Include screenshots of any cancellation confirmations"
+      ]
+    }
+  },
+  {
+    "issuer": "Chase",
+    "contact": {
+      "phoneSupport": "800-432-3117",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 15299, Wilmington, DE 19850-5299",
+      "submissionNotes": [
+        "List the session ID or reference number from checkout",
+        "Include proof of attempted resolution with the merchant"
+      ]
+    }
+  },
+  {
+    "issuer": "Citi",
+    "contact": {
+      "phoneSupport": "800-950-5114",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 6241, Sioux Falls, SD 57117",
+      "submissionNotes": [
+        "Enclose a copy of the billing statement highlighting the disputed charge",
+        "Send via certified mail to track delivery"
+      ]
+    }
+  },
+  {
+    "issuer": "Discover",
+    "contact": {
+      "phoneSupport": "800-347-2683",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 30945, Salt Lake City, UT 84130-0945",
+      "submissionNotes": [
+        "Include your Discover card number",
+        "Attach any related transaction receipts or communications"
+      ]
+    }
+  },
+  {
+    "issuer": "Wells Fargo",
+    "contact": {
+      "phoneSupport": "800-642-4720",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 51193, Los Angeles, CA 90051-5493",
+      "submissionNotes": [
+        "Reference the disputed transaction date in your cover letter",
+        "Provide clear copies of any supporting documents"
+      ]
+    }
+  },
+  {
+    "issuer": "Barclays",
+    "contact": {
+      "phoneSupport": "888-232-0780",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 8803, Wilmington, DE 19899-8803",
+      "submissionNotes": [
+        "Include your account number and details of the disputed transaction",
+        "Attach any supporting documentation"
+      ]
+    }
+  },
+  {
+    "issuer": "Synchrony",
+    "contact": {
+      "phoneSupport": "877-295-2080",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 965035, Orlando, FL 32896-5035",
+      "submissionNotes": [
+        "Provide account details and transaction information",
+        "Include copies of any relevant receipts or correspondence"
+      ]
+    }
+  },
+  {
+    "issuer": "U.S. Bank",
+    "contact": {
+      "phoneSupport": "800-872-2657",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 6353, Fargo, ND 58125-6353",
+      "submissionNotes": [
+        "Include your account number and details of the disputed charge",
+        "Attach any supporting documents"
+      ]
+    }
+  },
+  {
+    "issuer": "PNC Bank",
+    "contact": {
+      "phoneSupport": "888-762-2265",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 3429, Pittsburgh, PA 15230-3429",
+      "submissionNotes": [
+        "Provide account and transaction details",
+        "Include any relevant documentation"
+      ]
+    }
+  },
+  {
+    "issuer": "USAA",
+    "contact": {
+      "phoneSupport": "800-531-8722",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "10750 McDermott Freeway, San Antonio, TX 78288",
+      "submissionNotes": [
+        "Include your member number and transaction details",
+        "Attach any supporting evidence"
+      ]
+    }
+  },
+  {
+    "issuer": "Comerica",
+    "contact": {
+      "phoneSupport": "866-486-1015",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 650785, Dallas, TX 75265-0785",
+      "submissionNotes": [
+        "Provide account number and details of the disputed transaction",
+        "Include any relevant documentation"
+      ]
+    }
+  },
+
+
+  {
+    "issuer": "Ally Bank",
+    "contact": {
+      "phoneSupport": "877-247-2559",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 951, Horsham, PA 19044",
+      "submissionNotes": [
+        "Include your account number and transaction date",
+        "Attach receipts or proof of communication with the merchant"
+      ]
+    }
+  },
+  {
+    "issuer": "HSBC",
+    "contact": {
+      "phoneSupport": "800-975-4722",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 52513, New Orleans, LA 70153",
+      "submissionNotes": [
+        "Provide your card number and date of the disputed charge",
+        "Include any relevant emails or order confirmations"
+      ]
+    }
+  },
+  {
+    "issuer": "TD Bank",
+    "contact": {
+      "phoneSupport": "888-561-8861",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 2198, Lewiston, ME 04243-2198",
+      "submissionNotes": [
+        "Reference the transaction amount and date",
+        "Attach copies of receipts or screenshots"
+      ]
+    }
+  },
+  {
+    "issuer": "Truist",
+    "contact": {
+      "phoneSupport": "800-354-3946",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 105262, Atlanta, GA 30348",
+      "submissionNotes": [
+        "List the disputed charge details clearly",
+        "Attach proof of attempted resolution with the merchant"
+      ]
+    }
+  },
+  {
+    "issuer": "Fifth Third Bank",
+    "contact": {
+      "phoneSupport": "800-972-3030",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 630042, Cincinnati, OH 45263",
+      "submissionNotes": [
+        "Include your account number and disputed transaction info",
+        "Provide copies of any relevant documentation"
+      ]
+    }
+  },
+  {
+    "issuer": "Regions Bank",
+    "contact": {
+      "phoneSupport": "800-734-4667",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 11007, Birmingham, AL 35202",
+      "submissionNotes": [
+        "Reference your account and transaction details",
+        "Attach any supporting receipts or correspondence"
+      ]
+    }
+  },
+  {
+    "issuer": "SoFi",
+    "contact": {
+      "phoneSupport": "855-456-7634",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 741512, Los Angeles, CA 90074",
+      "submissionNotes": [
+        "Provide your member ID and disputed charge details",
+        "Include proof of purchase and communication logs"
+      ]
+    }
+  },
+  {
+    "issuer": "Affirm",
+    "contact": {
+      "phoneSupport": "855-423-3729",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "650 California St, Floor 12, San Francisco, CA 94108",
+      "submissionNotes": [
+        "Include your account/reference number",
+        "Attach order confirmations and payment screenshots"
+      ]
+    }
+  },
+  {
+    "issuer": "Klarna",
+    "contact": {
+      "phoneSupport": "855-632-5272",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 1600, Clifton, NJ 07015",
+      "submissionNotes": [
+        "Reference your Klarna purchase ID",
+        "Attach any delivery or payment communications"
+      ]
+    }
+  },
+  {
+    "issuer": "Afterpay",
+    "contact": {
+      "phoneSupport": "855-500-1777",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 700, Irvine, CA 92614",
+      "submissionNotes": [
+        "Include your Afterpay order number",
+        "Provide proof of non-delivery or defective item"
+      ]
+    }
+  },
+  {
+    "issuer": "Sezzle",
+    "contact": {
+      "phoneSupport": "952-666-7399",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "2140 Xenium Ln N #300, Plymouth, MN 55441",
+      "submissionNotes": [
+        "Provide your Sezzle transaction ID",
+        "Attach any relevant receipts or chat logs"
+      ]
+    }
+  },
+  {
+    "issuer": "Upstart",
+    "contact": {
+      "phoneSupport": "855-340-5139",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 5127, Hayward, CA 94540",
+      "submissionNotes": [
+        "Reference your loan or purchase agreement",
+        "Include proof of default or non-delivery"
+      ]
+    }
+  },
+  {
+    "issuer": "Chime",
+    "contact": {
+      "phoneSupport": "844-244-6363",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 417, San Bruno, CA 94066",
+      "submissionNotes": [
+        "Include your Chime account and transaction details",
+        "Attach any supporting documentation"
+      ]
+    }
+  },
+  {
+    "issuer": "Apple Card (Goldman Sachs)",
+    "contact": {
+      "phoneSupport": "877-255-5923",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 7247-6198, Philadelphia, PA 19170",
+      "submissionNotes": [
+        "Include your Apple Card number",
+        "Attach proof of attempted merchant resolution"
+      ]
+    }
+  },
+  {
+    "issuer": "Marcus by Goldman Sachs",
+    "contact": {
+      "phoneSupport": "855-730-7283",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 45400, Salt Lake City, UT 84145",
+      "submissionNotes": [
+        "Reference your Marcus account number",
+        "Include any receipts or email correspondence"
+      ]
+    }
+  },
+  {
+    "issuer": "PayPal Credit",
+    "contact": {
+      "phoneSupport": "800-236-7977",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 45950, Omaha, NE 68145",
+      "submissionNotes": [
+        "Include your PayPal Credit account number",
+        "Attach related transaction receipts or communications"
+      ]
+    }
+  },
+  {
+    "issuer": "Credit One Bank",
+    "contact": {
+      "phoneSupport": "877-825-3242",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "ATTN: Dispute Dept., P.O. Box 98876, Las Vegas, NV 89193-8876",
+      "submissionNotes": [
+        "Reference the transaction date and amount",
+        "Include copies of any related email or cancellation confirmations"
+      ]
+    }
+  },
+  {
+    "issuer": "Navy Federal Credit Union",
+    "contact": {
+      "phoneSupport": "888-842-6328",
+      "fax": null,
+      "uploadPortal": "https://www.navyfederal.org/account/cards/disputes.html",
+      "mailingAddress": "Navy Federal, P.O. Box 3000, Merrifield, VA 22119-3000",
+      "submissionNotes": [
+        "Use the Dispute Center in online banking first",
+        "Send all supporting docs via certified mail to track delivery"
+      ]
+    }
+  },
+  {
+    "issuer": "Regions Bank",
+    "contact": {
+      "phoneSupport": "800-417-2859",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "Regions Bank, P.O. Box 11007, Birmingham, AL 35202-1007",
+      "submissionNotes": [
+        "Call 1-800-295-8472 to open a dispute case",
+        "Include clear copies of receipts and transaction records"
+      ]
+    }
+  },
+  {
+    "issuer": "Huntington National Bank",
+    "contact": {
+      "phoneSupport": "800-340-4165",
+      "fax": "877-211-1631",
+      "uploadPortal": null,
+      "mailingAddress": "Huntington National Bank, P.O. Box 1558, GW4W26, Columbus, OH 43216",
+      "submissionNotes": [
+        "Include your account number and transaction date",
+        "Fax documentation to 877-211-1631 or mail to above address"
+      ]
+    }
+  },
+  {
+    "issuer": "Truist (formerly SunTrust & BB&T)",
+    "contact": {
+      "phoneSupport": "800-685-8860",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "Truist Bank, P.O. Box 530885, Atlanta, GA 30353-0885",
+      "submissionNotes": [
+        "Reference your card number and statement date",
+        "Attach any proof of attempted resolution with merchant"
+      ]
+    }
+  },
+  {
+    "issuer": "SoFi Bank",
+    "contact": {
+      "phoneSupport": "855-456-7634",
+      "fax": null,
+      "uploadPortal": "https://www.sofi.com/legal/dispute-center/",
+      "mailingAddress": "SoFi Bank, Attn: Disputes, 234 1st Street, San Francisco, CA 94105",
+      "submissionNotes": [
+        "Use the online Dispute Center for fastest processing",
+        "Include transaction details and any merchant correspondence"
+      ]
+    }
+  },
+  {
+    "issuer": "Chime Bank",
+    "contact": {
+      "phoneSupport": "844-244-6363",
+      "fax": null,
+      "uploadPortal": "https://help.chime.com/hc/en-us/articles/360058223294-Disputing-Transactions",
+      "mailingAddress": "Chime, P.O. Box 417, San Francisco, CA 94104",
+      "submissionNotes": [
+        "Disputes filed via online help portal are prioritized",
+        "List the date, amount, and merchant name clearly"
+      ]
+    }
+  },
+  {
+    "issuer": "Varo Bank",
+    "contact": {
+      "phoneSupport": "800-981-9130",
+      "fax": null,
+      "uploadPortal": "https://www.varomoney.com/dispute/",
+      "mailingAddress": "Varo Bank, Attn: Dispute Dept., P.O. Box 12345, San Francisco, CA 94104",
+      "submissionNotes": [
+        "Submit disputes via the Varo mobile app or link above",
+        "Provide card-last-4, transaction date, and reason code"
+      ]
+    }
+  },
+  {
+    "issuer": "Comenity Bank",
+    "contact": {
+      "phoneSupport": "866-547-1556",
+      "fax": null,
+      "uploadPortal": "https://customer.comenity.net/",
+      "mailingAddress": "Comenity Bank, P.O. Box 182273, Columbus, OH 43218-2273",
+      "submissionNotes": [
+        "Log into Comenity customer portal to start dispute",
+        "Attach screenshots of receipts or order confirmations"
+      ]
+    }
+  },
+  {
+    "issuer": "Credit Union of America",
+    "contact": {
+      "phoneSupport": "800-233-2328",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "Credit Union of America, P.O. Box 1028, Kingston, NY 12402",
+      "submissionNotes": [
+        "Call member services to initiate a dispute",
+        "Mail signed dispute letter with account details"
+      ]
+    }
+  },
+  {
+    "issuer": "KeyBank",
+    "contact": {
+      "phoneSupport": "800-539-2968",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "KeyBank, Attn: Card Disputes, P.O. Box 95982, Cleveland, OH 44101-4982",
+      "submissionNotes": [
+        "Include copy of your statement highlighting the charge",
+        "Reference card-last-4 and date of transaction"
+      ]
+    }
+  },
+  {
+    "issuer": "TD Bank",
+    "contact": {
+      "phoneSupport": "888-751-9000",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "P.O. Box 84037, Columbus, GA 31908-4037",
+      "submissionNotes": [
+        "Include your account number and details of the disputed transaction",
+        "Attach any supporting documentation"
+      ]
+    }
+  },
+  {
+    "issuer": "Fifth Third Bank",
+    "contact": {
+      "phoneSupport": "800-972-3030",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "Fifth Third Bank, P.O. Box 630778, Cincinnati, OH 45263-0778",
+      "submissionNotes": [
+        "Provide account and transaction details",
+        "Include any relevant documentation"
+      ]
+    }
+  },
+  {
+    "issuer": "Citizens Bank",
+    "contact": {
+      "phoneSupport": "800-922-9999",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "Citizens Bank, P.O. Box 42010, Providence, RI 02940-2010",
+      "submissionNotes": [
+        "Include your account number and details of the disputed charge",
+        "Attach any supporting documents"
+      ]
+    }
+  },
+  {
+    "issuer": "M&T Bank",
+    "contact": {
+      "phoneSupport": "800-724-2440",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "M&T Bank, P.O. Box 900, Millsboro, DE 19966",
+      "submissionNotes": [
+        "Provide account details and transaction information",
+        "Include copies of any relevant receipts or correspondence"
+      ]
+    }
+  },
+  {
+    "issuer": "BECU (Boeing Employees Credit Union)",
+    "contact": {
+      "phoneSupport": "800-233-2328",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "BECU, P.O. Box 97050, Seattle, WA 98124-9750",
+      "submissionNotes": [
+        "Provide account and transaction details",
+        "Include any relevant documentation"
+      ]
+    }
+  },
+  {
+    "issuer": "First Citizens Bank",
+    "contact": {
+      "phoneSupport": "800-423-1602",
+      "fax": null,
+      "uploadPortal": null,
+      "mailingAddress": "First Citizens Bank, P.O. Box 27131, Raleigh, NC 27611-7131",
+      "submissionNotes": [
+        "Include your account number and details of the disputed charge",
+        "Attach any supporting documents"
+      ]
+    }
+  },
+  {
+    "issuer": "Brex",
+    "contact": {
+      "phoneSupport": "844-725-3739",
+      "fax": null,
+      "uploadPortal": "https://support.brex.com",
+      "mailingAddress": "Brex Inc., 430 California Street, San Francisco, CA 94104",
+      "submissionNotes": [
+        "Use the online support portal for dispute submissions",
+        "Provide transaction details and any supporting documentation"
+      ]
+    }
+  },
+  {
+    "issuer": "Divvy",
+    "contact": {
+      "phoneSupport": "855-229-3111",
+      "fax": null,
+      "uploadPortal": "https://help.divvy.co",
+      "mailingAddress": "Divvy Inc., 13707 S 200 W, Suite 100, Draper, UT 84020",
+      "submissionNotes": [
+        "Submit disputes through the online help center",
+        "Include transaction details and any relevant documentation"
+      ]
+    }
+  },
+  {
+    "issuer": "Bluevine",
+    "contact": {
+      "phoneSupport": "888-216-9619",
+      "fax": null,
+      "uploadPortal": "https://www.bluevine.com/contact-us/",
+      "mailingAddress": "Bluevine Inc., 401 Warren St, Redwood City, CA 94063",
+      "submissionNotes": [
+        "Use the contact form on the website for dispute submissions",
+        "Provide transaction details and any supporting documentation"
+      ]
+    }
+  },
+  {
+    "issuer": "Ramp",
+    "contact": {
+      "phoneSupport": "855-746-7754",
+      "fax": null,
+      "uploadPortal": "https://support.ramp.com",
+      "mailingAddress": "Ramp Business Corporation, 71 Broadway, Floor 3, New York, NY 10006",
+      "submissionNotes": [
+        "Submit disputes through the online support portal",
+        "Include transaction details and any relevant documentation"
+      ]
+    }
+  },
+  {
+    "issuer": "Stripe",
+    "contact": {
+      "phoneSupport": "888-963-8955",
+      "fax": null,
+      "uploadPortal": "https://support.stripe.com",
+      "mailingAddress": "Stripe Inc., 354 Oyster Point Blvd, South San Francisco, CA 94080",
+      "submissionNotes": [
+        "Use the online support portal for dispute submissions",
+        "Provide transaction details and any supporting documentation"
+      ]
+    }
+  },
+  {
+    "issuer": "Cred.ai",
+    "contact": {
+      "phoneSupport": "888-219-5988",
+      "fax": null,
+      "uploadPortal": "https://support.cred.ai",
+      "mailingAddress": "Cred.ai Inc., 1234 Market Street, Philadelphia, PA 19107",
+      "submissionNotes": [
+        "Submit disputes through the online support portal",
+        "Include transaction details and any relevant documentation"
+      ]
+    }
+  }
+]

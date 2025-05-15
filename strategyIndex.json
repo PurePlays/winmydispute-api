@@ -1,0 +1,4905 @@
+{
+  "authorizes": [
+    "visa:13.1"
+  ],
+  "call": [
+    "amex:F14",
+    "visa:13.1"
+  ],
+  "scrutinize": [
+    "visa:13.1"
+  ],
+  "documentation": [
+    "amex:R03",
+    "mastercard:4837",
+    "visa:12.3",
+    "visa:13.1"
+  ],
+  "gaps": [
+    "discover:RG",
+    "visa:13.1"
+  ],
+  "customer": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C14",
+    "amex:C18",
+    "amex:C28",
+    "amex:F10",
+    "amex:F30",
+    "amex:M10",
+    "amex:M49",
+    "amex:P03",
+    "amex:P04",
+    "amex:P05",
+    "amex:P08",
+    "amex:R13",
+    "discover:4755",
+    "discover:AA",
+    "discover:AW",
+    "discover:CD",
+    "discover:DA",
+    "discover:DP",
+    "discover:LP",
+    "discover:RG",
+    "discover:RN2",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4863",
+    "mastercard:4870",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.3",
+    "visa:10.5",
+    "visa:11.1",
+    "visa:11.2",
+    "visa:11.3",
+    "visa:12.2",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.3"
+  ],
+  "handoff": [
+    "visa:13.1"
+  ],
+  "handed": [
+    "visa:13.1"
+  ],
+  "seller": [
+    "visa:13.1"
+  ],
+  "occurred": [
+    "amex:F10",
+    "amex:P04",
+    "discover:AW",
+    "discover:DA",
+    "discover:NA",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4871",
+    "visa:10.2",
+    "visa:10.5",
+    "visa:13.1"
+  ],
+  "attempts": [
+    "amex:R13",
+    "discover:4755",
+    "discover:DA",
+    "discover:RM",
+    "visa:13.1"
+  ],
+  "show": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C14",
+    "amex:C18",
+    "amex:C28",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F31",
+    "amex:M01",
+    "amex:P04",
+    "amex:P05",
+    "amex:P07",
+    "amex:P08",
+    "amex:R03",
+    "amex:R13",
+    "discover:4755",
+    "discover:AA",
+    "discover:AW",
+    "discover:CD",
+    "discover:DA",
+    "discover:DP",
+    "discover:LP",
+    "discover:NA",
+    "discover:RM",
+    "discover:RN2",
+    "discover:UA01",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4853",
+    "mastercard:4863",
+    "mastercard:4870",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:11.1",
+    "visa:11.2",
+    "visa:11.3",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "claimant": [
+    "visa:13.1"
+  ],
+  "13": [
+    "visa:13.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "timeline": [
+    "amex:C02",
+    "amex:C28",
+    "amex:M01",
+    "amex:M49",
+    "amex:P07",
+    "amex:R03",
+    "discover:LP",
+    "discover:UA01",
+    "visa:13.1"
+  ],
+  "confirms": [
+    "visa:13.1"
+  ],
+  "off": [
+    "amex:M10",
+    "mastercard:4853",
+    "visa:13.1"
+  ],
+  "non": [
+    "amex:C08",
+    "amex:C18",
+    "amex:F31",
+    "discover:RG",
+    "visa:13.1"
+  ],
+  "receipt": [
+    "amex:C02",
+    "amex:C14",
+    "amex:F10",
+    "amex:F14",
+    "amex:F24",
+    "amex:F31",
+    "amex:P05",
+    "amex:P07",
+    "discover:AW",
+    "discover:LP",
+    "discover:RN2",
+    "discover:UA02",
+    "visa:10.1",
+    "visa:10.3",
+    "visa:12.3",
+    "visa:13.1"
+  ],
+  "resolve": [
+    "amex:R03",
+    "discover:RM",
+    "visa:13.1"
+  ],
+  "between": [
+    "amex:F29",
+    "mastercard:4853",
+    "visa:11.3",
+    "visa:12.2",
+    "visa:13.1"
+  ],
+  "screenshots": [
+    "amex:F24",
+    "amex:F29",
+    "amex:P08",
+    "discover:4755",
+    "discover:AA",
+    "discover:DA",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4853",
+    "mastercard:4863",
+    "visa:10.4",
+    "visa:11.3",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "forms": [
+    "visa:13.1"
+  ],
+  "out": [
+    "amex:F14",
+    "amex:F29",
+    "amex:F30",
+    "amex:P05",
+    "amex:P08",
+    "discover:LP",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4849",
+    "mastercard:4871",
+    "visa:12.2",
+    "visa:13.1"
+  ],
+  "merchant": [
+    "amex:C02",
+    "amex:C08",
+    "amex:F14",
+    "amex:M01",
+    "amex:M49",
+    "amex:P03",
+    "amex:P04",
+    "amex:P05",
+    "amex:P07",
+    "amex:P08",
+    "amex:R03",
+    "amex:R13",
+    "discover:AA",
+    "discover:CD",
+    "discover:DP",
+    "discover:LP",
+    "discover:RN2",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4863",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:11.1",
+    "visa:11.2",
+    "visa:11.3",
+    "visa:12.2",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.3"
+  ],
+  "emphasize": [
+    "amex:C18",
+    "amex:F24",
+    "discover:UA02",
+    "mastercard:4849",
+    "mastercard:4853",
+    "visa:10.1",
+    "visa:10.5",
+    "visa:13.1"
+  ],
+  "visa": [
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:11.1",
+    "visa:11.2",
+    "visa:11.3",
+    "visa:12.2",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "at": [
+    "amex:F14",
+    "amex:M10",
+    "amex:P05",
+    "discover:4755",
+    "discover:DA",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4837",
+    "mastercard:4853",
+    "mastercard:4870",
+    "visa:10.2",
+    "visa:11.1",
+    "visa:11.3",
+    "visa:12.2",
+    "visa:13.1"
+  ],
+  "or": [
+    "amex:C08",
+    "amex:C14",
+    "amex:C18",
+    "amex:C28",
+    "amex:F10",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F30",
+    "amex:F31",
+    "amex:M01",
+    "amex:M10",
+    "amex:M49",
+    "amex:P03",
+    "amex:P04",
+    "amex:P05",
+    "amex:P07",
+    "amex:P08",
+    "amex:R03",
+    "amex:R13",
+    "discover:4755",
+    "discover:AA",
+    "discover:AW",
+    "discover:CD",
+    "discover:DA",
+    "discover:DP",
+    "discover:LP",
+    "discover:NA",
+    "discover:RG",
+    "discover:RM",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4853",
+    "mastercard:4863",
+    "mastercard:4870",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:11.2",
+    "visa:11.3",
+    "visa:12.2",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "gps": [
+    "visa:13.1"
+  ],
+  "highlight": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C18",
+    "amex:F10",
+    "amex:M01",
+    "amex:M10",
+    "amex:P03",
+    "amex:P07",
+    "amex:R03",
+    "amex:R13",
+    "discover:4755",
+    "discover:CD",
+    "discover:DA",
+    "discover:DP",
+    "discover:NA",
+    "discover:RG",
+    "discover:RM",
+    "discover:RN2",
+    "discover:UA01",
+    "mastercard:4840",
+    "mastercard:4853",
+    "mastercard:4863",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.3"
+  ],
+  "vs": [
+    "amex:C08",
+    "amex:P05",
+    "amex:P07",
+    "discover:LP",
+    "discover:NA",
+    "discover:RM",
+    "mastercard:4853",
+    "mastercard:4871",
+    "visa:10.2",
+    "visa:10.4",
+    "visa:11.2",
+    "visa:12.2",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.3"
+  ],
+  "drop": [
+    "amex:M10",
+    "visa:13.1"
+  ],
+  "platform": [
+    "discover:4755",
+    "discover:UA02",
+    "mastercard:4849",
+    "visa:13.1",
+    "visa:13.2"
+  ],
+  "someone": [
+    "visa:13.1"
+  ],
+  "timely": [
+    "amex:C02",
+    "amex:P07",
+    "visa:10.5",
+    "visa:13.1"
+  ],
+  "access": [
+    "discover:4755",
+    "discover:UA02",
+    "mastercard:4853",
+    "mastercard:4863",
+    "visa:13.1",
+    "visa:13.2"
+  ],
+  "service": [
+    "amex:C08",
+    "amex:C14",
+    "amex:C18",
+    "amex:P08",
+    "discover:4755",
+    "discover:DP",
+    "discover:RG",
+    "discover:RM",
+    "mastercard:4849",
+    "mastercard:4853",
+    "visa:13.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "package": [
+    "visa:13.1"
+  ],
+  "own": [
+    "amex:C08",
+    "discover:4755",
+    "mastercard:4837",
+    "mastercard:4853",
+    "visa:13.1"
+  ],
+  "of": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C14",
+    "amex:C18",
+    "amex:C28",
+    "amex:F10",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F30",
+    "amex:M01",
+    "amex:M10",
+    "amex:M49",
+    "amex:P03",
+    "amex:P05",
+    "amex:R13",
+    "discover:4755",
+    "discover:AA",
+    "discover:DA",
+    "discover:LP",
+    "discover:NA",
+    "discover:RM",
+    "discover:RN2",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4853",
+    "mastercard:4870",
+    "visa:10.1",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:11.1",
+    "visa:12.2",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "carrier": [
+    "amex:C08",
+    "discover:RG",
+    "visa:13.1"
+  ],
+  "windows": [
+    "visa:13.1"
+  ],
+  "directly": [
+    "visa:13.1"
+  ],
+  "any": [
+    "amex:C08",
+    "amex:P05",
+    "discover:4755",
+    "visa:13.1",
+    "visa:13.3"
+  ],
+  "that": [
+    "amex:C02",
+    "amex:C14",
+    "amex:C18",
+    "amex:C28",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F30",
+    "amex:F31",
+    "amex:M01",
+    "amex:M49",
+    "amex:P03",
+    "amex:P04",
+    "amex:P05",
+    "amex:P08",
+    "amex:R03",
+    "discover:4755",
+    "discover:AA",
+    "discover:AW",
+    "discover:CD",
+    "discover:DP",
+    "discover:NA",
+    "discover:RG",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4853",
+    "mastercard:4870",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:10.5",
+    "visa:11.1",
+    "visa:11.2",
+    "visa:13.1",
+    "visa:13.2"
+  ],
+  "discrepancies": [
+    "amex:C08",
+    "visa:13.1"
+  ],
+  "in": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C18",
+    "amex:F14",
+    "amex:F24",
+    "amex:F30",
+    "amex:M10",
+    "amex:M49",
+    "amex:P07",
+    "discover:CD",
+    "discover:RM",
+    "discover:UA01",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4853",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:11.1",
+    "visa:12.2",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.3"
+  ],
+  "digital": [
+    "amex:C28",
+    "discover:4755",
+    "discover:UA02",
+    "visa:13.1"
+  ],
+  "full": [
+    "amex:C08",
+    "discover:RM",
+    "visa:13.1"
+  ],
+  "procedures": [
+    "visa:13.1"
+  ],
+  "to": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C14",
+    "amex:C18",
+    "amex:C28",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F31",
+    "amex:P04",
+    "amex:P07",
+    "amex:R03",
+    "amex:R13",
+    "discover:4755",
+    "discover:LP",
+    "discover:NA",
+    "discover:RG",
+    "discover:RM",
+    "discover:RN2",
+    "discover:UA02",
+    "mastercard:4837",
+    "mastercard:4840",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.4",
+    "visa:11.1",
+    "visa:12.2",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "flag": [
+    "visa:13.1"
+  ],
+  "correspondence": [
+    "amex:P04",
+    "amex:P05",
+    "amex:R03",
+    "discover:4755",
+    "discover:CD",
+    "discover:RG",
+    "visa:10.5",
+    "visa:11.2",
+    "visa:13.1"
+  ],
+  "capture": [
+    "mastercard:4853",
+    "visa:13.1"
+  ],
+  "detailed": [
+    "visa:13.1"
+  ],
+  "scan": [
+    "visa:13.1"
+  ],
+  "claim": [
+    "amex:C08",
+    "amex:F24",
+    "amex:M49",
+    "mastercard:4863",
+    "visa:13.1"
+  ],
+  "timestamps": [
+    "amex:C14",
+    "amex:F31",
+    "amex:P08",
+    "discover:DP",
+    "discover:NA",
+    "discover:RG",
+    "mastercard:4840",
+    "mastercard:4853",
+    "visa:11.2",
+    "visa:11.3",
+    "visa:13.1",
+    "visa:13.2"
+  ],
+  "delivery": [
+    "amex:C08",
+    "amex:F31",
+    "discover:4755",
+    "discover:RG",
+    "visa:13.1"
+  ],
+  "no": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C18",
+    "amex:C28",
+    "amex:F14",
+    "amex:F29",
+    "amex:F31",
+    "amex:R13",
+    "discover:4755",
+    "discover:AA",
+    "discover:AW",
+    "discover:DA",
+    "discover:NA",
+    "discover:RM",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4853",
+    "visa:10.3",
+    "visa:11.1",
+    "visa:13.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "address": [
+    "amex:C08",
+    "amex:F29",
+    "visa:10.4",
+    "visa:13.1"
+  ],
+  "incomplete": [
+    "amex:C08",
+    "amex:R03",
+    "visa:13.1"
+  ],
+  "request": [
+    "amex:C08",
+    "amex:F10",
+    "amex:F24",
+    "amex:F30",
+    "amex:M01",
+    "amex:M49",
+    "amex:P08",
+    "discover:AA",
+    "visa:10.3",
+    "visa:11.1",
+    "visa:11.3",
+    "visa:12.2",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.2"
+  ],
+  "release": [
+    "visa:13.1"
+  ],
+  "authorized": [
+    "amex:C28",
+    "amex:P07",
+    "mastercard:4840",
+    "visa:10.1",
+    "visa:10.5",
+    "visa:11.2",
+    "visa:13.1"
+  ],
+  "tracking": [
+    "amex:C02",
+    "discover:RG",
+    "discover:RN2",
+    "mastercard:4837",
+    "visa:13.1",
+    "visa:13.3"
+  ],
+  "with": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C18",
+    "amex:F24",
+    "amex:F30",
+    "amex:F31",
+    "amex:M01",
+    "amex:M49",
+    "amex:P05",
+    "amex:P07",
+    "amex:R13",
+    "discover:AA",
+    "discover:AW",
+    "discover:CD",
+    "discover:DP",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4853",
+    "mastercard:4863",
+    "mastercard:4870",
+    "visa:10.1",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:11.3",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.3"
+  ],
+  "scans": [
+    "visa:13.1"
+  ],
+  "confirming": [
+    "amex:C02",
+    "amex:C08",
+    "amex:P03",
+    "discover:AW",
+    "discover:RN2",
+    "mastercard:4808",
+    "visa:13.1"
+  ],
+  "from": [
+    "amex:C02",
+    "amex:C14",
+    "amex:C18",
+    "amex:C28",
+    "amex:F29",
+    "amex:M01",
+    "amex:P05",
+    "amex:P08",
+    "discover:4755",
+    "discover:AA",
+    "discover:AW",
+    "mastercard:4849",
+    "mastercard:4863",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:13.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "signature": [
+    "amex:C08",
+    "amex:F14",
+    "visa:10.3",
+    "visa:13.1"
+  ],
+  "mismatches": [
+    "visa:13.1"
+  ],
+  "your": [
+    "amex:C08",
+    "amex:C28",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:M01",
+    "amex:M49",
+    "amex:R03",
+    "amex:R13",
+    "discover:4755",
+    "discover:DA",
+    "discover:RM",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4853",
+    "mastercard:4863",
+    "mastercard:4871",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:13.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "and": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C14",
+    "amex:C28",
+    "amex:F10",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F30",
+    "amex:F31",
+    "amex:M01",
+    "amex:M10",
+    "amex:M49",
+    "amex:P03",
+    "amex:P04",
+    "amex:P05",
+    "amex:P07",
+    "amex:P08",
+    "discover:4755",
+    "discover:AA",
+    "discover:AW",
+    "discover:DP",
+    "discover:LP",
+    "discover:RM",
+    "discover:RN2",
+    "discover:UA02",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4853",
+    "mastercard:4863",
+    "mastercard:4871",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:11.1",
+    "visa:11.2",
+    "visa:11.3",
+    "visa:12.2",
+    "visa:13.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "the": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C18",
+    "amex:F10",
+    "amex:F14",
+    "amex:F24",
+    "amex:F30",
+    "amex:F31",
+    "amex:M01",
+    "amex:M10",
+    "amex:P03",
+    "amex:P05",
+    "amex:P07",
+    "amex:P08",
+    "amex:R03",
+    "amex:R13",
+    "discover:4755",
+    "discover:AA",
+    "discover:AW",
+    "discover:DA",
+    "discover:DP",
+    "discover:LP",
+    "discover:NA",
+    "discover:RM",
+    "discover:RN2",
+    "discover:UA01",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4853",
+    "mastercard:4863",
+    "mastercard:4870",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:11.1",
+    "visa:11.2",
+    "visa:11.3",
+    "visa:12.2",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "logs": [
+    "amex:C08",
+    "amex:C28",
+    "amex:F10",
+    "amex:F24",
+    "amex:F29",
+    "amex:F31",
+    "amex:P04",
+    "amex:P08",
+    "amex:R03",
+    "discover:4755",
+    "discover:AA",
+    "discover:DA",
+    "discover:LP",
+    "discover:RG",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4853",
+    "mastercard:4863",
+    "mastercard:4870",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.4",
+    "visa:11.2",
+    "visa:12.2",
+    "visa:12.3",
+    "visa:13.1",
+    "visa:13.2"
+  ],
+  "notifications": [
+    "visa:13.2"
+  ],
+  "email": [
+    "amex:C02",
+    "amex:C18",
+    "amex:C28",
+    "amex:F24",
+    "amex:P03",
+    "amex:P08",
+    "amex:R03",
+    "amex:R13",
+    "discover:AW",
+    "discover:RN2",
+    "mastercard:4853",
+    "visa:12.2",
+    "visa:13.2"
+  ],
+  "management": [
+    "visa:13.2"
+  ],
+  "account": [
+    "amex:C28",
+    "amex:F29",
+    "amex:F31",
+    "amex:P03",
+    "amex:P04",
+    "discover:UA02",
+    "visa:12.3",
+    "visa:13.2"
+  ],
+  "prove": [
+    "amex:C02",
+    "amex:C18",
+    "amex:C28",
+    "amex:F31",
+    "amex:M10",
+    "amex:P03",
+    "amex:R13",
+    "discover:CD",
+    "discover:DA",
+    "discover:DP",
+    "discover:LP",
+    "discover:RG",
+    "discover:RN2",
+    "discover:UA01",
+    "mastercard:4808",
+    "mastercard:4853",
+    "mastercard:4870",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.4",
+    "visa:11.1",
+    "visa:11.3",
+    "visa:12.3",
+    "visa:13.2"
+  ],
+  "reach": [
+    "amex:R13",
+    "visa:13.2"
+  ],
+  "you": [
+    "amex:C02",
+    "amex:C14",
+    "amex:C18",
+    "amex:C28",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F30",
+    "amex:F31",
+    "amex:M10",
+    "amex:P03",
+    "amex:P05",
+    "amex:P08",
+    "amex:R03",
+    "amex:R13",
+    "discover:4755",
+    "discover:AA",
+    "discover:AW",
+    "discover:CD",
+    "discover:DP",
+    "discover:RG",
+    "mastercard:4853",
+    "mastercard:4863",
+    "mastercard:4871",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:12.3",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "page": [
+    "amex:P05",
+    "mastercard:4837",
+    "mastercard:4853",
+    "visa:13.2"
+  ],
+  "still": [
+    "amex:P07",
+    "discover:LP",
+    "mastercard:4853",
+    "visa:11.3",
+    "visa:13.2"
+  ],
+  "published": [
+    "visa:13.2"
+  ],
+  "cancellation": [
+    "amex:C18",
+    "amex:C28",
+    "discover:4755",
+    "mastercard:4853",
+    "visa:13.2"
+  ],
+  "benefited": [
+    "discover:4755",
+    "visa:13.2"
+  ],
+  "billing": [
+    "amex:C28",
+    "amex:F29",
+    "amex:P07",
+    "discover:4755",
+    "discover:CD",
+    "visa:12.2",
+    "visa:13.2"
+  ],
+  "post": [
+    "amex:P07",
+    "discover:LP",
+    "mastercard:4853",
+    "visa:11.2",
+    "visa:13.2"
+  ],
+  "descriptor": [
+    "discover:AA",
+    "mastercard:4863",
+    "visa:13.2"
+  ],
+  "terms": [
+    "amex:C18",
+    "amex:C28",
+    "amex:M49",
+    "amex:P07",
+    "discover:4755",
+    "mastercard:4853",
+    "visa:12.3",
+    "visa:13.2"
+  ],
+  "communication": [
+    "amex:M01",
+    "discover:DP",
+    "mastercard:4808",
+    "mastercard:4840",
+    "visa:13.2"
+  ],
+  "login": [
+    "amex:C28",
+    "discover:4755",
+    "discover:UA02",
+    "mastercard:4863",
+    "visa:13.2"
+  ],
+  "demonstrate": [
+    "amex:C28",
+    "amex:P04",
+    "amex:R03",
+    "discover:4755",
+    "discover:DA",
+    "mastercard:4863",
+    "mastercard:4870",
+    "visa:10.5",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "displayed": [
+    "visa:13.2"
+  ],
+  "notice": [
+    "amex:C28",
+    "discover:4755",
+    "mastercard:4853",
+    "visa:10.5",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "hard": [
+    "visa:13.2"
+  ],
+  "stress": [
+    "visa:13.2"
+  ],
+  "statement": [
+    "amex:C02",
+    "amex:C14",
+    "amex:C18",
+    "amex:F14",
+    "amex:P03",
+    "amex:P04",
+    "amex:P07",
+    "discover:AA",
+    "discover:CD",
+    "discover:DA",
+    "discover:DP",
+    "discover:LP",
+    "discover:NA",
+    "discover:RN2",
+    "mastercard:4840",
+    "mastercard:4863",
+    "visa:11.3",
+    "visa:12.2",
+    "visa:13.2"
+  ],
+  "clearly": [
+    "amex:C18",
+    "discover:AA",
+    "mastercard:4863",
+    "visa:13.2"
+  ],
+  "zero": [
+    "visa:13.2"
+  ],
+  "date": [
+    "amex:C14",
+    "amex:C28",
+    "amex:F31",
+    "amex:P07",
+    "discover:LP",
+    "visa:11.1",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "refusal": [
+    "mastercard:4837",
+    "visa:13.2"
+  ],
+  "compare": [
+    "amex:C14",
+    "amex:P03",
+    "amex:P04",
+    "amex:P05",
+    "amex:P07",
+    "discover:AA",
+    "discover:AW",
+    "discover:DP",
+    "discover:LP",
+    "discover:NA",
+    "discover:RM",
+    "mastercard:4840",
+    "mastercard:4853",
+    "visa:11.2",
+    "visa:11.3",
+    "visa:13.2"
+  ],
+  "use": [
+    "amex:C14",
+    "amex:C18",
+    "amex:F14",
+    "amex:F24",
+    "amex:F31",
+    "amex:M49",
+    "discover:4755",
+    "discover:CD",
+    "discover:RM",
+    "discover:UA02",
+    "mastercard:4849",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:13.2"
+  ],
+  "accessed": [
+    "discover:4755",
+    "visa:13.2"
+  ],
+  "usage": [
+    "amex:F30",
+    "discover:UA02",
+    "mastercard:4853",
+    "mastercard:4870",
+    "mastercard:4871",
+    "visa:10.4",
+    "visa:13.2"
+  ],
+  "exact": [
+    "amex:P05",
+    "visa:13.2"
+  ],
+  "activity": [
+    "amex:C28",
+    "amex:F24",
+    "amex:F31",
+    "discover:UA01",
+    "mastercard:4849",
+    "visa:10.1",
+    "visa:10.5",
+    "visa:13.2"
+  ],
+  "refund": [
+    "amex:C02",
+    "amex:P03",
+    "amex:P04",
+    "amex:R03",
+    "discover:CD",
+    "discover:RN2",
+    "visa:12.2",
+    "visa:13.2"
+  ],
+  "headers": [
+    "visa:13.2"
+  ],
+  "chat": [
+    "amex:C02",
+    "amex:F24",
+    "amex:R13",
+    "discover:AA",
+    "discover:AW",
+    "mastercard:4853",
+    "visa:13.2"
+  ],
+  "against": [
+    "visa:13.2"
+  ],
+  "showing": [
+    "amex:C02",
+    "amex:C14",
+    "amex:C18",
+    "amex:C28",
+    "amex:F10",
+    "amex:F14",
+    "amex:F31",
+    "amex:P03",
+    "amex:P04",
+    "amex:P08",
+    "amex:R03",
+    "discover:4755",
+    "discover:DP",
+    "discover:LP",
+    "discover:NA",
+    "discover:RG",
+    "discover:UA02",
+    "mastercard:4840",
+    "mastercard:4853",
+    "mastercard:4863",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:11.3",
+    "visa:12.2",
+    "visa:13.2"
+  ],
+  "server": [
+    "discover:4755",
+    "visa:13.2"
+  ],
+  "delay": [
+    "amex:P07",
+    "amex:R03",
+    "discover:LP",
+    "visa:11.3",
+    "visa:13.2"
+  ],
+  "all": [
+    "amex:C02",
+    "amex:R03",
+    "visa:13.2"
+  ],
+  "subscription": [
+    "amex:C28",
+    "visa:13.2"
+  ],
+  "includes": [
+    "visa:13.2"
+  ],
+  "before": [
+    "amex:C28",
+    "amex:F31",
+    "amex:M10",
+    "discover:AW",
+    "discover:NA",
+    "discover:RM",
+    "mastercard:4808",
+    "mastercard:4863",
+    "mastercard:4871",
+    "visa:13.2"
+  ],
+  "confirm": [
+    "amex:F10",
+    "amex:M10",
+    "discover:AW",
+    "visa:13.2"
+  ],
+  "provide": [
+    "amex:C14",
+    "amex:F29",
+    "amex:P03",
+    "amex:P04",
+    "discover:RG",
+    "discover:RM",
+    "visa:10.4",
+    "visa:13.2"
+  ],
+  "after": [
+    "amex:C18",
+    "amex:C28",
+    "amex:M10",
+    "amex:R13",
+    "discover:DA",
+    "discover:RN2",
+    "mastercard:4808",
+    "mastercard:4840",
+    "mastercard:4853",
+    "mastercard:4871",
+    "visa:11.2",
+    "visa:11.3",
+    "visa:13.2"
+  ],
+  "were": [
+    "amex:C28",
+    "amex:F30",
+    "amex:M49",
+    "amex:P03",
+    "amex:P05",
+    "amex:P08",
+    "discover:4755",
+    "discover:CD",
+    "discover:DP",
+    "discover:RM",
+    "mastercard:4840",
+    "visa:10.5",
+    "visa:12.3",
+    "visa:13.2"
+  ],
+  "renewed": [
+    "visa:13.2"
+  ],
+  "followed": [
+    "amex:C02",
+    "visa:13.2",
+    "visa:13.3"
+  ],
+  "billed": [
+    "visa:10.4",
+    "visa:13.2"
+  ],
+  "yet": [
+    "mastercard:4853",
+    "visa:13.2"
+  ],
+  "never": [
+    "amex:C08",
+    "amex:C18",
+    "amex:F24",
+    "amex:F31",
+    "amex:P05",
+    "discover:4755",
+    "discover:RG",
+    "mastercard:4863",
+    "visa:10.1",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:11.2",
+    "visa:13.2"
+  ],
+  "hidden": [
+    "visa:13.2"
+  ],
+  "user": [
+    "mastercard:4871",
+    "visa:13.2"
+  ],
+  "steps": [
+    "amex:C02",
+    "amex:C28",
+    "visa:13.2"
+  ],
+  "links": [
+    "visa:13.2"
+  ],
+  "credentials": [
+    "discover:UA02",
+    "visa:13.2"
+  ],
+  "renewal": [
+    "amex:C28",
+    "discover:4755",
+    "visa:13.2"
+  ],
+  "period": [
+    "mastercard:4853",
+    "visa:13.3"
+  ],
+  "high": [
+    "visa:13.3"
+  ],
+  "info": [
+    "amex:R03",
+    "discover:AA",
+    "visa:13.3"
+  ],
+  "cite": [
+    "discover:UA02",
+    "mastercard:4808",
+    "visa:11.1",
+    "visa:13.3"
+  ],
+  "differences": [
+    "visa:13.3"
+  ],
+  "messages": [
+    "amex:R13",
+    "visa:13.3"
+  ],
+  "requesting": [
+    "amex:R03",
+    "discover:4755",
+    "visa:13.3"
+  ],
+  "delivered": [
+    "discover:DP",
+    "discover:RG",
+    "mastercard:4849",
+    "visa:13.3"
+  ],
+  "resolution": [
+    "amex:R03",
+    "amex:R13",
+    "discover:RM",
+    "mastercard:4837",
+    "visa:13.3"
+  ],
+  "photo": [
+    "visa:13.3"
+  ],
+  "product": [
+    "amex:P08",
+    "discover:RM",
+    "mastercard:4837",
+    "mastercard:4849",
+    "visa:13.3"
+  ],
+  "by": [
+    "amex:C08",
+    "amex:F14",
+    "amex:F24",
+    "amex:P04",
+    "amex:P08",
+    "amex:R03",
+    "discover:LP",
+    "discover:RG",
+    "mastercard:4840",
+    "visa:13.3"
+  ],
+  "how": [
+    "amex:M49",
+    "mastercard:4871",
+    "visa:13.3"
+  ],
+  "document": [
+    "amex:C08",
+    "amex:C28",
+    "amex:R13",
+    "discover:RG",
+    "mastercard:4853",
+    "visa:13.3"
+  ],
+  "video": [
+    "visa:13.3"
+  ],
+  "matches": [
+    "visa:13.3"
+  ],
+  "clear": [
+    "amex:C28",
+    "amex:F31",
+    "amex:R13",
+    "discover:4755",
+    "visa:11.2",
+    "visa:13.3"
+  ],
+  "appraisal": [
+    "visa:13.3"
+  ],
+  "complaints": [
+    "mastercard:4849",
+    "visa:13.3"
+  ],
+  "proof": [
+    "amex:C08",
+    "amex:C28",
+    "amex:F29",
+    "amex:M49",
+    "discover:4755",
+    "discover:DP",
+    "discover:RM",
+    "mastercard:4837",
+    "visa:13.3"
+  ],
+  "prior": [
+    "amex:P04",
+    "discover:4755",
+    "mastercard:4849",
+    "mastercard:4863",
+    "visa:13.3"
+  ],
+  "defect": [
+    "discover:RM",
+    "mastercard:4837",
+    "visa:13.3"
+  ],
+  "visual": [
+    "discover:RM",
+    "visa:13.3"
+  ],
+  "deviates": [
+    "visa:13.3"
+  ],
+  "opinions": [
+    "visa:13.3"
+  ],
+  "gave": [
+    "visa:13.3"
+  ],
+  "warranty": [
+    "visa:13.3"
+  ],
+  "advertised": [
+    "discover:RM",
+    "visa:13.3"
+  ],
+  "timestamped": [
+    "amex:R13",
+    "visa:13.3"
+  ],
+  "early": [
+    "amex:C18",
+    "visa:13.3"
+  ],
+  "materially": [
+    "visa:13.3"
+  ],
+  "model": [
+    "visa:13.3"
+  ],
+  "specifications": [
+    "discover:RM",
+    "visa:13.3"
+  ],
+  "transcripts": [
+    "discover:RM",
+    "visa:13.3"
+  ],
+  "obtain": [
+    "discover:4755",
+    "mastercard:4837",
+    "visa:13.3"
+  ],
+  "photos": [
+    "amex:M10",
+    "discover:RM",
+    "mastercard:4837",
+    "visa:13.3"
+  ],
+  "party": [
+    "amex:P07",
+    "mastercard:4837",
+    "visa:13.3"
+  ],
+  "purchase": [
+    "amex:F14",
+    "amex:F24",
+    "mastercard:4853",
+    "mastercard:4863",
+    "visa:10.4",
+    "visa:13.3"
+  ],
+  "instructions": [
+    "visa:13.3"
+  ],
+  "listing": [
+    "discover:RM",
+    "visa:13.3"
+  ],
+  "reports": [
+    "amex:C08",
+    "amex:F24",
+    "amex:F29",
+    "visa:10.4",
+    "visa:13.3"
+  ],
+  "side": [
+    "amex:P08",
+    "visa:13.3"
+  ],
+  "neutral": [
+    "visa:13.3"
+  ],
+  "efforts": [
+    "visa:13.3"
+  ],
+  "reported": [
+    "amex:F24",
+    "visa:10.2",
+    "visa:13.3"
+  ],
+  "videos": [
+    "mastercard:4837",
+    "visa:13.3"
+  ],
+  "if": [
+    "amex:C08",
+    "amex:F10",
+    "amex:F30",
+    "discover:NA",
+    "discover:UA01",
+    "mastercard:4837",
+    "mastercard:4849",
+    "visa:10.5",
+    "visa:13.3"
+  ],
+  "features": [
+    "visa:13.3"
+  ],
+  "return": [
+    "amex:C02",
+    "amex:M10",
+    "discover:RN2",
+    "mastercard:4837",
+    "visa:13.3"
+  ],
+  "size": [
+    "visa:13.3"
+  ],
+  "mismatch": [
+    "amex:F14",
+    "amex:F29",
+    "discover:AA",
+    "discover:CD",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4863",
+    "mastercard:4871",
+    "visa:12.2",
+    "visa:12.3",
+    "visa:13.3"
+  ],
+  "item": [
+    "amex:C08",
+    "amex:C14",
+    "amex:P08",
+    "discover:DP",
+    "discover:RM",
+    "discover:RN2",
+    "mastercard:4837",
+    "visa:13.3"
+  ],
+  "comparisons": [
+    "visa:13.3"
+  ],
+  "needed": [
+    "amex:R03",
+    "visa:13.3"
+  ],
+  "third": [
+    "amex:P07",
+    "mastercard:4837",
+    "visa:13.3"
+  ],
+  "within": [
+    "amex:C18",
+    "amex:R13",
+    "discover:NA",
+    "mastercard:4808",
+    "mastercard:4837",
+    "visa:13.3"
+  ],
+  "present": [
+    "amex:F10",
+    "amex:F14",
+    "amex:F29",
+    "amex:F31",
+    "discover:UA02",
+    "mastercard:4870",
+    "mastercard:4871",
+    "visa:13.3"
+  ],
+  "expert": [
+    "visa:13.3"
+  ],
+  "repair": [
+    "amex:M10",
+    "visa:13.3"
+  ],
+  "chip": [
+    "amex:F10",
+    "amex:F30",
+    "amex:F31",
+    "mastercard:4870",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.3"
+  ],
+  "allowing": [
+    "visa:10.1"
+  ],
+  "despite": [
+    "amex:C02",
+    "amex:R13",
+    "discover:RN2",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.2"
+  ],
+  "card": [
+    "amex:F10",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F30",
+    "amex:F31",
+    "amex:P08",
+    "discover:DA",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4870",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:11.1"
+  ],
+  "requirement": [
+    "amex:F10",
+    "visa:10.1"
+  ],
+  "issuer": [
+    "amex:F10",
+    "amex:F24",
+    "amex:M01",
+    "amex:R03",
+    "amex:R13",
+    "mastercard:4808",
+    "mastercard:4870",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:11.1"
+  ],
+  "terminals": [
+    "amex:F10",
+    "visa:10.1"
+  ],
+  "was": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C14",
+    "amex:C18",
+    "amex:F10",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F30",
+    "amex:F31",
+    "amex:M01",
+    "amex:M10",
+    "amex:P03",
+    "amex:P04",
+    "amex:P07",
+    "discover:AW",
+    "discover:CD",
+    "discover:DA",
+    "discover:DP",
+    "discover:LP",
+    "discover:RG",
+    "discover:RN2",
+    "discover:UA01",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4853",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:10.5",
+    "visa:11.1",
+    "visa:11.2",
+    "visa:11.3",
+    "visa:12.2"
+  ],
+  "processed": [
+    "amex:M01",
+    "amex:P03",
+    "discover:CD",
+    "discover:LP",
+    "discover:UA01",
+    "mastercard:4808",
+    "mastercard:4840",
+    "mastercard:4863",
+    "mastercard:4870",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:11.1",
+    "visa:12.2"
+  ],
+  "without": [
+    "amex:M01",
+    "discover:4755",
+    "discover:DA",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.3",
+    "visa:11.1",
+    "visa:11.3",
+    "visa:12.3"
+  ],
+  "go": [
+    "visa:10.1"
+  ],
+  "through": [
+    "amex:C14",
+    "amex:C28",
+    "amex:F29",
+    "amex:R13",
+    "mastercard:4870",
+    "visa:10.1"
+  ],
+  "10": [
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:10.5"
+  ],
+  "secure": [
+    "discover:UA02",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.4"
+  ],
+  "clone": [
+    "visa:10.1"
+  ],
+  "absence": [
+    "amex:F24",
+    "discover:4755",
+    "visa:10.1"
+  ],
+  "read": [
+    "amex:F30",
+    "mastercard:4870",
+    "visa:10.1",
+    "visa:10.2"
+  ],
+  "3d": [
+    "discover:UA02",
+    "visa:10.1",
+    "visa:10.4"
+  ],
+  "legacy": [
+    "visa:10.1"
+  ],
+  "fraud": [
+    "amex:F24",
+    "amex:F29",
+    "amex:F30",
+    "amex:F31",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4870",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:11.1"
+  ],
+  "pin": [
+    "amex:F30",
+    "amex:F31",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.2"
+  ],
+  "up": [
+    "discover:RG",
+    "visa:10.1"
+  ],
+  "emv": [
+    "amex:F30",
+    "mastercard:4870",
+    "visa:10.1",
+    "visa:10.2"
+  ],
+  "report": [
+    "amex:F30",
+    "amex:F31",
+    "amex:M10",
+    "amex:M49",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4870",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:11.1"
+  ],
+  "on": [
+    "amex:F10",
+    "amex:F14",
+    "amex:P07",
+    "amex:P08",
+    "mastercard:4808",
+    "mastercard:4849",
+    "mastercard:4863",
+    "mastercard:4870",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:11.1",
+    "visa:11.2",
+    "visa:11.3",
+    "visa:12.3"
+  ],
+  "transaction": [
+    "amex:C14",
+    "amex:F10",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F30",
+    "amex:F31",
+    "amex:M01",
+    "amex:P03",
+    "amex:P04",
+    "amex:P05",
+    "amex:P07",
+    "amex:P08",
+    "discover:AA",
+    "discover:CD",
+    "discover:DA",
+    "discover:DP",
+    "discover:LP",
+    "discover:NA",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4863",
+    "mastercard:4870",
+    "mastercard:4871",
+    "visa:10.1",
+    "visa:10.2",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:11.1",
+    "visa:11.3",
+    "visa:12.2",
+    "visa:12.3"
+  ],
+  "not": [
+    "amex:C14",
+    "amex:C18",
+    "amex:F10",
+    "amex:F14",
+    "amex:F29",
+    "amex:F30",
+    "amex:M01",
+    "amex:M49",
+    "discover:4755",
+    "discover:CD",
+    "discover:RM",
+    "discover:RN2",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4837",
+    "visa:10.1",
+    "visa:10.3",
+    "visa:10.5",
+    "visa:11.1",
+    "visa:11.3"
+  ],
+  "terminal": [
+    "amex:F10",
+    "mastercard:4808",
+    "mastercard:4870",
+    "visa:10.1",
+    "visa:10.2"
+  ],
+  "code": [
+    "amex:F24",
+    "discover:AA",
+    "mastercard:4808",
+    "visa:10.1",
+    "visa:11.2"
+  ],
+  "required": [
+    "amex:F10",
+    "amex:M01",
+    "amex:R03",
+    "mastercard:4853",
+    "visa:10.1",
+    "visa:11.1"
+  ],
+  "failure": [
+    "amex:F31",
+    "discover:DA",
+    "mastercard:4871",
+    "visa:10.1"
+  ],
+  "counterfeit": [
+    "mastercard:4870",
+    "visa:10.1"
+  ],
+  "improperly": [
+    "mastercard:4840",
+    "visa:10.1"
+  ],
+  "time": [
+    "amex:C14",
+    "amex:C18",
+    "amex:F14",
+    "amex:M49",
+    "discover:4755",
+    "discover:DA",
+    "discover:UA01",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4853",
+    "visa:10.2",
+    "visa:11.1",
+    "visa:11.3"
+  ],
+  "timing": [
+    "amex:M10",
+    "mastercard:4840",
+    "visa:10.2",
+    "visa:11.3"
+  ],
+  "cardholder": [
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "visa:10.2"
+  ],
+  "lost": [
+    "amex:F31",
+    "visa:10.2"
+  ],
+  "data": [
+    "amex:F14",
+    "amex:F30",
+    "discover:UA02",
+    "mastercard:4870",
+    "visa:10.2",
+    "visa:10.4"
+  ],
+  "block": [
+    "visa:10.2",
+    "visa:10.4"
+  ],
+  "failed": [
+    "amex:C02",
+    "amex:C14",
+    "amex:C28",
+    "discover:RG",
+    "discover:RN2",
+    "mastercard:4808",
+    "mastercard:4840",
+    "visa:10.2",
+    "visa:11.1"
+  ],
+  "shift": [
+    "visa:10.2"
+  ],
+  "being": [
+    "visa:10.2"
+  ],
+  "protocols": [
+    "visa:10.2"
+  ],
+  "liability": [
+    "amex:M49",
+    "visa:10.2"
+  ],
+  "used": [
+    "amex:F14",
+    "amex:F30",
+    "discover:DP",
+    "discover:UA01",
+    "mastercard:4871",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:12.2"
+  ],
+  "rules": [
+    "amex:M01",
+    "discover:NA",
+    "visa:10.2",
+    "visa:11.3"
+  ],
+  "follow": [
+    "amex:C28",
+    "amex:R13",
+    "discover:RG",
+    "mastercard:4837",
+    "visa:10.2"
+  ],
+  "stolen": [
+    "amex:F30",
+    "amex:F31",
+    "discover:UA01",
+    "mastercard:4871",
+    "visa:10.2"
+  ],
+  "properly": [
+    "amex:C18",
+    "amex:P04",
+    "discover:4755",
+    "mastercard:4837",
+    "visa:10.2",
+    "visa:10.3",
+    "visa:11.2"
+  ],
+  "compromised": [
+    "discover:UA02",
+    "mastercard:4870",
+    "visa:10.2"
+  ],
+  "verified": [
+    "amex:C14",
+    "amex:F14",
+    "amex:F29",
+    "amex:F31",
+    "mastercard:4871",
+    "visa:10.2"
+  ],
+  "charge": [
+    "amex:C14",
+    "amex:C18",
+    "amex:C28",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F30",
+    "amex:F31",
+    "amex:M10",
+    "amex:P03",
+    "amex:P04",
+    "amex:P05",
+    "amex:P07",
+    "discover:4755",
+    "discover:AA",
+    "discover:AW",
+    "discover:CD",
+    "discover:DA",
+    "discover:LP",
+    "discover:NA",
+    "discover:RM",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4863",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:10.5",
+    "visa:11.2",
+    "visa:11.3"
+  ],
+  "possession": [
+    "amex:F14",
+    "amex:F29",
+    "discover:UA01",
+    "visa:10.3"
+  ],
+  "lack": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C28",
+    "amex:F10",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:M01",
+    "amex:R13",
+    "discover:DA",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4840",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:12.3"
+  ],
+  "device": [
+    "amex:F10",
+    "amex:F29",
+    "amex:F30",
+    "discover:UA02",
+    "mastercard:4863",
+    "mastercard:4870",
+    "mastercard:4871",
+    "visa:10.3",
+    "visa:10.4"
+  ],
+  "swipe": [
+    "discover:UA01",
+    "visa:10.3"
+  ],
+  "checks": [
+    "visa:10.3"
+  ],
+  "state": [
+    "amex:F24",
+    "visa:10.3",
+    "visa:11.2",
+    "visa:12.2"
+  ],
+  "verification": [
+    "amex:F29",
+    "mastercard:4870",
+    "visa:10.3"
+  ],
+  "matched": [
+    "amex:F29",
+    "amex:P05",
+    "discover:UA02",
+    "mastercard:4849",
+    "visa:10.3"
+  ],
+  "dispute": [
+    "amex:M01",
+    "amex:M10",
+    "mastercard:4840",
+    "mastercard:4871",
+    "visa:10.3",
+    "visa:11.3"
+  ],
+  "skips": [
+    "visa:10.3"
+  ],
+  "confirmation": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C28",
+    "amex:F31",
+    "amex:P03",
+    "amex:P04",
+    "amex:P05",
+    "discover:CD",
+    "discover:RG",
+    "discover:RN2",
+    "visa:10.3",
+    "visa:12.3"
+  ],
+  "manipulated": [
+    "visa:10.3"
+  ],
+  "copy": [
+    "amex:F14",
+    "visa:10.3"
+  ],
+  "entry": [
+    "mastercard:4871",
+    "visa:10.3"
+  ],
+  "unauthorized": [
+    "amex:F10",
+    "amex:F24",
+    "discover:NA",
+    "discover:UA01",
+    "visa:10.3",
+    "visa:10.5"
+  ],
+  "manual": [
+    "visa:10.3"
+  ],
+  "form": [
+    "amex:C08",
+    "visa:10.3"
+  ],
+  "imprint": [
+    "amex:F10",
+    "visa:10.3"
+  ],
+  "approved": [
+    "amex:F10",
+    "amex:F24",
+    "amex:P05",
+    "discover:AW",
+    "discover:DA",
+    "discover:DP",
+    "mastercard:4870",
+    "visa:10.3",
+    "visa:10.4",
+    "visa:11.2"
+  ],
+  "appears": [
+    "mastercard:4863",
+    "visa:10.5"
+  ],
+  "disputed": [
+    "discover:AW",
+    "visa:10.5"
+  ],
+  "check": [
+    "amex:M49",
+    "amex:R13",
+    "visa:10.5",
+    "visa:11.1"
+  ],
+  "vfmp": [
+    "visa:10.5"
+  ],
+  "valid": [
+    "amex:F14",
+    "amex:F30",
+    "amex:F31",
+    "amex:P07",
+    "discover:DA",
+    "discover:LP",
+    "discover:UA01",
+    "mastercard:4808",
+    "mastercard:4840",
+    "mastercard:4870",
+    "visa:10.5",
+    "visa:11.1",
+    "visa:11.3"
+  ],
+  "allowed": [
+    "discover:DA",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4870",
+    "visa:10.5"
+  ],
+  "multiple": [
+    "amex:P08",
+    "amex:R13",
+    "discover:DP",
+    "mastercard:4840",
+    "visa:10.5"
+  ],
+  "flagged": [
+    "visa:10.5"
+  ],
+  "escalation": [
+    "visa:10.5"
+  ],
+  "watch": [
+    "visa:10.5"
+  ],
+  "related": [
+    "amex:P04",
+    "discover:DA",
+    "visa:10.5"
+  ],
+  "under": [
+    "amex:M01",
+    "amex:M49",
+    "discover:AA",
+    "visa:10.5"
+  ],
+  "note": [
+    "amex:F24",
+    "discover:CD",
+    "visa:10.5",
+    "visa:12.2"
+  ],
+  "charges": [
+    "discover:DP",
+    "mastercard:4840",
+    "visa:10.5"
+  ],
+  "window": [
+    "amex:C18",
+    "amex:M49",
+    "discover:LP",
+    "mastercard:4837",
+    "visa:10.5",
+    "visa:11.3"
+  ],
+  "this": [
+    "amex:C14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F30",
+    "amex:F31",
+    "amex:M01",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4840",
+    "mastercard:4863",
+    "visa:10.5"
+  ],
+  "part": [
+    "mastercard:4840",
+    "visa:10.5"
+  ],
+  "status": [
+    "amex:M49",
+    "visa:10.5"
+  ],
+  "monitoring": [
+    "visa:10.5"
+  ],
+  "pattern": [
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4871",
+    "visa:10.5"
+  ],
+  "outside": [
+    "visa:10.4",
+    "visa:10.5"
+  ],
+  "victim": [
+    "visa:10.5"
+  ],
+  "crb": [
+    "visa:11.1"
+  ],
+  "cards": [
+    "visa:11.1"
+  ],
+  "listed": [
+    "amex:P04",
+    "visa:11.1"
+  ],
+  "11": [
+    "visa:11.1",
+    "visa:11.2",
+    "visa:11.3"
+  ],
+  "bulletin": [
+    "visa:11.1"
+  ],
+  "policy": [
+    "amex:C02",
+    "amex:C18",
+    "amex:M01",
+    "amex:M49",
+    "amex:P07",
+    "discover:DA",
+    "discover:RN2",
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4849",
+    "mastercard:4853",
+    "visa:11.1",
+    "visa:11.3",
+    "visa:12.3"
+  ],
+  "details": [
+    "amex:F30",
+    "discover:RN2",
+    "visa:11.1",
+    "visa:12.3"
+  ],
+  "issues": [
+    "discover:NA",
+    "mastercard:4849",
+    "visa:11.1",
+    "visa:12.2"
+  ],
+  "authorization": [
+    "amex:F10",
+    "amex:F24",
+    "amex:M01",
+    "amex:P07",
+    "discover:AW",
+    "discover:DA",
+    "discover:LP",
+    "discover:NA",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4840",
+    "mastercard:4863",
+    "visa:11.1",
+    "visa:11.2",
+    "visa:11.3"
+  ],
+  "recovery": [
+    "amex:M49",
+    "visa:11.1"
+  ],
+  "had": [
+    "discover:AA",
+    "visa:11.1"
+  ],
+  "denial": [
+    "amex:C18",
+    "visa:11.1"
+  ],
+  "sale": [
+    "discover:UA01",
+    "mastercard:4837",
+    "visa:11.1"
+  ],
+  "log": [
+    "discover:NA",
+    "visa:11.1"
+  ],
+  "record": [
+    "amex:M01",
+    "visa:11.1",
+    "visa:11.2"
+  ],
+  "blocked": [
+    "amex:C28",
+    "visa:11.1"
+  ],
+  "presented": [
+    "visa:11.1",
+    "visa:12.3"
+  ],
+  "override": [
+    "discover:DA",
+    "visa:11.2"
+  ],
+  "bank": [
+    "amex:C14",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F31",
+    "amex:M01",
+    "amex:P07",
+    "discover:AA",
+    "discover:CD",
+    "discover:UA02",
+    "visa:10.4",
+    "visa:11.2"
+  ],
+  "ask": [
+    "visa:11.2"
+  ],
+  "settlement": [
+    "discover:AW",
+    "discover:LP",
+    "visa:11.2",
+    "visa:11.3"
+  ],
+  "decline": [
+    "discover:DA",
+    "mastercard:4808",
+    "visa:11.2"
+  ],
+  "message": [
+    "discover:DA",
+    "visa:11.2"
+  ],
+  "completion": [
+    "visa:11.2"
+  ],
+  "retry": [
+    "discover:DA",
+    "visa:11.2"
+  ],
+  "support": [
+    "amex:P08",
+    "discover:AA",
+    "discover:DA",
+    "discover:LP",
+    "discover:RG",
+    "discover:RM",
+    "mastercard:4837",
+    "mastercard:4853",
+    "visa:11.2"
+  ],
+  "completed": [
+    "discover:RG",
+    "discover:UA02",
+    "visa:11.2"
+  ],
+  "for": [
+    "amex:P08",
+    "discover:DP",
+    "discover:RG",
+    "visa:11.2"
+  ],
+  "screenshot": [
+    "amex:C02",
+    "amex:C18",
+    "amex:C28",
+    "amex:P05",
+    "visa:11.2"
+  ],
+  "forced": [
+    "mastercard:4808",
+    "visa:11.2"
+  ],
+  "insisted": [
+    "visa:11.2"
+  ],
+  "resolved": [
+    "visa:11.2"
+  ],
+  "submitted": [
+    "amex:C18",
+    "amex:R03",
+    "visa:10.4",
+    "visa:11.3"
+  ],
+  "consent": [
+    "amex:F31",
+    "amex:M01",
+    "discover:AW",
+    "mastercard:4840",
+    "visa:11.3"
+  ],
+  "did": [
+    "discover:UA01",
+    "visa:11.3"
+  ],
+  "during": [
+    "amex:F29",
+    "amex:F30",
+    "discover:AW",
+    "visa:11.3"
+  ],
+  "tip": [
+    "visa:11.3"
+  ],
+  "added": [
+    "visa:11.3"
+  ],
+  "proper": [
+    "amex:M01",
+    "discover:NA",
+    "mastercard:4808",
+    "visa:11.3",
+    "visa:12.3"
+  ],
+  "expired": [
+    "discover:LP",
+    "visa:11.3"
+  ],
+  "reused": [
+    "visa:11.3"
+  ],
+  "auth": [
+    "discover:AW",
+    "discover:DA",
+    "discover:NA",
+    "mastercard:4808",
+    "visa:11.3"
+  ],
+  "approval": [
+    "amex:M01",
+    "discover:AW",
+    "discover:DA",
+    "mastercard:4840",
+    "visa:11.3",
+    "visa:12.3"
+  ],
+  "wrong": [
+    "visa:12.2",
+    "visa:12.3"
+  ],
+  "method": [
+    "amex:C14",
+    "amex:F10",
+    "discover:NA",
+    "visa:12.2"
+  ],
+  "credit": [
+    "amex:P03",
+    "amex:P04",
+    "discover:CD",
+    "discover:RN2",
+    "visa:12.2"
+  ],
+  "point": [
+    "amex:F29",
+    "amex:F30",
+    "amex:P05",
+    "amex:P08",
+    "discover:LP",
+    "discover:UA01",
+    "discover:UA02",
+    "mastercard:4808",
+    "mastercard:4849",
+    "mastercard:4871",
+    "visa:12.2"
+  ],
+  "pos": [
+    "discover:LP",
+    "visa:12.2"
+  ],
+  "errors": [
+    "visa:12.2"
+  ],
+  "settings": [
+    "amex:F24",
+    "visa:12.2"
+  ],
+  "actual": [
+    "discover:RM",
+    "mastercard:4853",
+    "visa:12.2"
+  ],
+  "type": [
+    "amex:F10",
+    "amex:P03",
+    "discover:CD",
+    "visa:12.2"
+  ],
+  "intended": [
+    "amex:P03",
+    "visa:12.2"
+  ],
+  "selected": [
+    "visa:12.2"
+  ],
+  "instead": [
+    "amex:P03",
+    "amex:P04",
+    "discover:CD",
+    "visa:12.2"
+  ],
+  "checkout": [
+    "amex:F14",
+    "amex:P05",
+    "discover:UA02",
+    "visa:12.2"
+  ],
+  "as": [
+    "amex:C14",
+    "amex:C28",
+    "amex:F30",
+    "amex:P03",
+    "amex:P04",
+    "discover:4755",
+    "discover:CD",
+    "discover:RG",
+    "discover:RM",
+    "discover:RN2",
+    "mastercard:4837",
+    "mastercard:4849",
+    "mastercard:4853",
+    "visa:10.4",
+    "visa:12.2"
+  ],
+  "leading": [
+    "visa:12.2"
+  ],
+  "breakdown": [
+    "amex:M10",
+    "amex:P05",
+    "discover:AA",
+    "discover:RG",
+    "visa:12.2"
+  ],
+  "explained": [
+    "visa:12.2"
+  ],
+  "reply": [
+    "amex:R03",
+    "amex:R13",
+    "visa:12.2"
+  ],
+  "correctly": [
+    "amex:F31",
+    "visa:12.2"
+  ],
+  "debit": [
+    "amex:P03",
+    "amex:P04",
+    "discover:CD",
+    "visa:12.2"
+  ],
+  "12": [
+    "visa:12.2",
+    "visa:12.3"
+  ],
+  "disclosure": [
+    "visa:12.3"
+  ],
+  "opt": [
+    "visa:12.3"
+  ],
+  "currency": [
+    "visa:12.3"
+  ],
+  "aligned": [
+    "visa:12.3"
+  ],
+  "charged": [
+    "amex:P03",
+    "amex:P05",
+    "amex:P08",
+    "mastercard:4853",
+    "visa:12.3"
+  ],
+  "choice": [
+    "visa:12.3"
+  ],
+  "exchange": [
+    "visa:12.3"
+  ],
+  "accepted": [
+    "amex:C28",
+    "visa:12.3"
+  ],
+  "rate": [
+    "visa:12.3"
+  ],
+  "conversion": [
+    "visa:12.3"
+  ],
+  "prompt": [
+    "visa:12.3"
+  ],
+  "dcc": [
+    "visa:12.3"
+  ],
+  "geolocation": [
+    "amex:F29",
+    "discover:UA01",
+    "mastercard:4871",
+    "visa:10.4"
+  ],
+  "file": [
+    "mastercard:4863",
+    "visa:10.4"
+  ],
+  "initiated": [
+    "visa:10.4"
+  ],
+  "3ds": [
+    "amex:F24",
+    "visa:10.4"
+  ],
+  "leverage": [
+    "mastercard:4837",
+    "visa:10.4"
+  ],
+  "patterns": [
+    "visa:10.4"
+  ],
+  "avs": [
+    "discover:UA02",
+    "visa:10.4"
+  ],
+  "same": [
+    "amex:P08",
+    "discover:DP",
+    "mastercard:4863",
+    "visa:10.4"
+  ],
+  "normal": [
+    "visa:10.4"
+  ],
+  "new": [
+    "amex:P04",
+    "visa:10.4"
+  ],
+  "formal": [
+    "amex:F24",
+    "visa:10.4"
+  ],
+  "number": [
+    "visa:10.4"
+  ],
+  "known": [
+    "mastercard:4863",
+    "mastercard:4871",
+    "visa:10.4"
+  ],
+  "anomalies": [
+    "visa:10.4"
+  ],
+  "locations": [
+    "visa:10.4"
+  ],
+  "frequent": [
+    "visa:10.4"
+  ],
+  "position": [
+    "visa:10.4"
+  ],
+  "successful": [
+    "visa:10.4"
+  ],
+  "incident": [
+    "visa:10.4"
+  ],
+  "unrecognized": [
+    "mastercard:4863",
+    "visa:10.4"
+  ],
+  "fingerprint": [
+    "mastercard:4863",
+    "visa:10.4"
+  ],
+  "ip": [
+    "amex:F14",
+    "amex:F29",
+    "discover:UA02",
+    "mastercard:4863",
+    "visa:10.4"
+  ],
+  "police": [
+    "amex:F29",
+    "amex:M49",
+    "discover:UA01",
+    "visa:10.4"
+  ],
+  "transactions": [
+    "amex:C14",
+    "discover:AA",
+    "mastercard:4840",
+    "visa:10.4"
+  ],
+  "securecode": [
+    "amex:F24",
+    "visa:10.4"
+  ],
+  "history": [
+    "amex:F30",
+    "amex:F31",
+    "amex:R03",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4863",
+    "mastercard:4870",
+    "visa:10.4"
+  ],
+  "match": [
+    "amex:P08",
+    "mastercard:4863",
+    "visa:10.4"
+  ],
+  "local": [
+    "visa:10.4"
+  ],
+  "completely": [
+    "mastercard:4863",
+    "visa:10.4"
+  ],
+  "lists": [
+    "visa:10.4"
+  ],
+  "authentication": [
+    "amex:F24",
+    "visa:10.4"
+  ],
+  "order": [
+    "amex:F29",
+    "amex:P05",
+    "amex:P07",
+    "amex:P08",
+    "visa:10.4"
+  ],
+  "context": [
+    "discover:AA",
+    "visa:10.4"
+  ],
+  "failures": [
+    "amex:F31",
+    "visa:10.4"
+  ],
+  "illustrate": [
+    "visa:10.4"
+  ],
+  "thereof": [
+    "amex:C08",
+    "discover:4755",
+    "visa:10.4"
+  ],
+  "flags": [
+    "mastercard:4849",
+    "visa:10.4"
+  ],
+  "confusion": [
+    "discover:LP",
+    "mastercard:4840",
+    "mastercard:4853",
+    "mastercard:4863"
+  ],
+  "archived": [
+    "discover:4755",
+    "mastercard:4853"
+  ],
+  "it": [
+    "amex:F24",
+    "amex:F31",
+    "discover:NA",
+    "discover:UA02",
+    "mastercard:4853",
+    "mastercard:4863",
+    "mastercard:4870"
+  ],
+  "mastercard": [
+    "mastercard:4808",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4849",
+    "mastercard:4853",
+    "mastercard:4863",
+    "mastercard:4870",
+    "mastercard:4871"
+  ],
+  "their": [
+    "mastercard:4853"
+  ],
+  "every": [
+    "mastercard:4853"
+  ],
+  "workflow": [
+    "mastercard:4853"
+  ],
+  "cut": [
+    "mastercard:4853"
+  ],
+  "language": [
+    "mastercard:4853"
+  ],
+  "process": [
+    "amex:F10",
+    "discover:RN2",
+    "mastercard:4853",
+    "mastercard:4870"
+  ],
+  "per": [
+    "amex:F10",
+    "amex:M10",
+    "discover:DA",
+    "discover:NA",
+    "discover:RN2",
+    "mastercard:4853",
+    "mastercard:4863"
+  ],
+  "world": [
+    "mastercard:4853"
+  ],
+  "appeared": [
+    "discover:AA",
+    "mastercard:4853"
+  ],
+  "obvious": [
+    "mastercard:4853"
+  ],
+  "ambiguous": [
+    "mastercard:4853"
+  ],
+  "alerts": [
+    "mastercard:4853"
+  ],
+  "cancelled": [
+    "mastercard:4853"
+  ],
+  "real": [
+    "mastercard:4853"
+  ],
+  "4853": [
+    "mastercard:4853"
+  ],
+  "rendered": [
+    "discover:RM",
+    "mastercard:4853"
+  ],
+  "ui": [
+    "amex:C28",
+    "mastercard:4853"
+  ],
+  "buried": [
+    "mastercard:4853"
+  ],
+  "complete": [
+    "amex:C14",
+    "discover:RN2",
+    "mastercard:4853"
+  ],
+  "step": [
+    "mastercard:4853"
+  ],
+  "emails": [
+    "amex:C08",
+    "discover:DA",
+    "mastercard:4853"
+  ],
+  "stated": [
+    "mastercard:4853"
+  ],
+  "accordance": [
+    "mastercard:4853"
+  ],
+  "acknowledging": [
+    "amex:P03",
+    "mastercard:4853"
+  ],
+  "experience": [
+    "mastercard:4853"
+  ],
+  "strict": [
+    "mastercard:4853"
+  ],
+  "link": [
+    "amex:C28",
+    "mastercard:4853"
+  ],
+  "inactivity": [
+    "mastercard:4853"
+  ],
+  "got": [
+    "mastercard:4853"
+  ],
+  "disparity": [
+    "mastercard:4853"
+  ],
+  "specified": [
+    "mastercard:4837"
+  ],
+  "disclosed": [
+    "amex:C18",
+    "amex:M49",
+    "amex:P05",
+    "amex:P07",
+    "discover:NA",
+    "mastercard:4837",
+    "mastercard:4849"
+  ],
+  "didn": [
+    "amex:R03",
+    "amex:R13",
+    "mastercard:4837"
+  ],
+  "pinpoint": [
+    "mastercard:4837"
+  ],
+  "incorrect": [
+    "mastercard:4837"
+  ],
+  "force": [
+    "mastercard:4837"
+  ],
+  "beyond": [
+    "mastercard:4837"
+  ],
+  "attempted": [
+    "mastercard:4837"
+  ],
+  "highlighting": [
+    "discover:AA",
+    "mastercard:4837"
+  ],
+  "unfit": [
+    "mastercard:4837"
+  ],
+  "inconsistencies": [
+    "mastercard:4837"
+  ],
+  "mis": [
+    "mastercard:4837"
+  ],
+  "disclosures": [
+    "mastercard:4837"
+  ],
+  "damage": [
+    "amex:M10",
+    "mastercard:4837"
+  ],
+  "procedure": [
+    "mastercard:4837"
+  ],
+  "timelines": [
+    "mastercard:4837"
+  ],
+  "acknowledgement": [
+    "mastercard:4837"
+  ],
+  "4837": [
+    "mastercard:4837"
+  ],
+  "applied": [
+    "discover:CD",
+    "mastercard:4837"
+  ],
+  "applicable": [
+    "amex:F30",
+    "mastercard:4837"
+  ],
+  "has": [
+    "mastercard:4837",
+    "mastercard:4849"
+  ],
+  "returns": [
+    "mastercard:4837"
+  ],
+  "ticket": [
+    "amex:R03",
+    "mastercard:4837"
+  ],
+  "authenticity": [
+    "amex:F30",
+    "mastercard:4837"
+  ],
+  "restrictive": [
+    "mastercard:4837"
+  ],
+  "description": [
+    "mastercard:4837"
+  ],
+  "argue": [
+    "amex:F14",
+    "amex:M49",
+    "discover:NA",
+    "mastercard:4837",
+    "mastercard:4840",
+    "mastercard:4871"
+  ],
+  "closed": [
+    "mastercard:4837"
+  ],
+  "represented": [
+    "mastercard:4837"
+  ],
+  "minor": [
+    "mastercard:4837"
+  ],
+  "wear": [
+    "mastercard:4837"
+  ],
+  "shipment": [
+    "mastercard:4837"
+  ],
+  "evidence": [
+    "discover:CD",
+    "discover:UA02",
+    "mastercard:4837",
+    "mastercard:4871"
+  ],
+  "include": [
+    "amex:C02",
+    "amex:M01",
+    "amex:P05",
+    "mastercard:4837"
+  ],
+  "final": [
+    "amex:P05",
+    "discover:AW",
+    "mastercard:4837"
+  ],
+  "excessive": [
+    "amex:M49",
+    "mastercard:4840"
+  ],
+  "fraudulent": [
+    "amex:F10",
+    "mastercard:4840"
+  ],
+  "descriptors": [
+    "mastercard:4840"
+  ],
+  "pre": [
+    "amex:M01",
+    "amex:M10",
+    "discover:NA",
+    "mastercard:4840"
+  ],
+  "separate": [
+    "amex:P08",
+    "mastercard:4840"
+  ],
+  "duplicate": [
+    "amex:C14",
+    "amex:P08",
+    "discover:DP",
+    "mastercard:4840"
+  ],
+  "contradiction": [
+    "mastercard:4840"
+  ],
+  "spending": [
+    "mastercard:4840"
+  ],
+  "4840": [
+    "mastercard:4840"
+  ],
+  "batch": [
+    "discover:LP",
+    "mastercard:4840"
+  ],
+  "single": [
+    "mastercard:4840"
+  ],
+  "flow": [
+    "amex:M01",
+    "mastercard:4840"
+  ],
+  "promptly": [
+    "mastercard:4840"
+  ],
+  "rapid": [
+    "mastercard:4840"
+  ],
+  "grouped": [
+    "mastercard:4840"
+  ],
+  "purchases": [
+    "mastercard:4840",
+    "mastercard:4863"
+  ],
+  "passed": [
+    "mastercard:4849"
+  ],
+  "fits": [
+    "mastercard:4849"
+  ],
+  "abuse": [
+    "mastercard:4849"
+  ],
+  "gmap": [
+    "mastercard:4849"
+  ],
+  "historical": [
+    "mastercard:4849"
+  ],
+  "4849": [
+    "mastercard:4849"
+  ],
+  "disputes": [
+    "mastercard:4849"
+  ],
+  "similar": [
+    "mastercard:4849"
+  ],
+  "profile": [
+    "mastercard:4849"
+  ],
+  "expected": [
+    "amex:P03",
+    "amex:P04",
+    "amex:P05",
+    "discover:CD",
+    "mastercard:4849"
+  ],
+  "audit": [
+    "amex:F10",
+    "mastercard:4849",
+    "mastercard:4863"
+  ],
+  "deviations": [
+    "mastercard:4849"
+  ],
+  "violation": [
+    "mastercard:4808",
+    "mastercard:4849"
+  ],
+  "qmap": [
+    "mastercard:4849"
+  ],
+  "described": [
+    "mastercard:4849"
+  ],
+  "standing": [
+    "mastercard:4849"
+  ],
+  "behavior": [
+    "amex:P04",
+    "mastercard:4849"
+  ],
+  "red": [
+    "mastercard:4849"
+  ],
+  "compliance": [
+    "mastercard:4849"
+  ],
+  "questionable": [
+    "mastercard:4849"
+  ],
+  "records": [
+    "amex:C08",
+    "amex:F14",
+    "amex:F30",
+    "amex:M01",
+    "amex:P08",
+    "mastercard:4863"
+  ],
+  "interacted": [
+    "mastercard:4863"
+  ],
+  "identity": [
+    "amex:F14",
+    "mastercard:4863"
+  ],
+  "unfamiliar": [
+    "discover:AA",
+    "mastercard:4863"
+  ],
+  "receipts": [
+    "amex:C14",
+    "mastercard:4863"
+  ],
+  "location": [
+    "amex:F14",
+    "amex:F29",
+    "discover:UA01",
+    "mastercard:4863",
+    "mastercard:4871"
+  ],
+  "4863": [
+    "mastercard:4863"
+  ],
+  "reflects": [
+    "discover:AA",
+    "mastercard:4863"
+  ],
+  "doesn": [
+    "mastercard:4863"
+  ],
+  "ve": [
+    "mastercard:4863"
+  ],
+  "skimming": [
+    "amex:F30",
+    "mastercard:4870"
+  ],
+  "channel": [
+    "amex:R13",
+    "mastercard:4870"
+  ],
+  "relied": [
+    "mastercard:4870"
+  ],
+  "id": [
+    "amex:R03",
+    "mastercard:4870"
+  ],
+  "4870": [
+    "mastercard:4870"
+  ],
+  "analysis": [
+    "amex:F29",
+    "mastercard:4870"
+  ],
+  "misuse": [
+    "amex:F30",
+    "mastercard:4870"
+  ],
+  "have": [
+    "amex:R13",
+    "mastercard:4870"
+  ],
+  "legitimacy": [
+    "mastercard:4870"
+  ],
+  "replacement": [
+    "amex:F30",
+    "mastercard:4870"
+  ],
+  "shouldn": [
+    "mastercard:4870"
+  ],
+  "challenge": [
+    "amex:F30",
+    "amex:M10",
+    "mastercard:4870"
+  ],
+  "confirmed": [
+    "amex:C14",
+    "mastercard:4808",
+    "mastercard:4870"
+  ],
+  "compatibility": [
+    "mastercard:4870"
+  ],
+  "4871": [
+    "mastercard:4871"
+  ],
+  "bypassed": [
+    "mastercard:4871"
+  ],
+  "fraudulently": [
+    "amex:F31",
+    "mastercard:4871"
+  ],
+  "knowledge": [
+    "amex:M01",
+    "discover:AA",
+    "discover:UA01",
+    "mastercard:4871"
+  ],
+  "affidavit": [
+    "discover:UA01",
+    "mastercard:4871"
+  ],
+  "weren": [
+    "mastercard:4871"
+  ],
+  "appearing": [
+    "mastercard:4871"
+  ],
+  "entered": [
+    "amex:F30",
+    "amex:F31",
+    "mastercard:4871"
+  ],
+  "paper": [
+    "mastercard:4871"
+  ],
+  "successfully": [
+    "amex:F30",
+    "mastercard:4871"
+  ],
+  "authenticated": [
+    "mastercard:4871"
+  ],
+  "explain": [
+    "amex:F10",
+    "amex:F30",
+    "amex:P07",
+    "discover:AA",
+    "mastercard:4871"
+  ],
+  "guidelines": [
+    "mastercard:4808"
+  ],
+  "received": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C18",
+    "amex:F31",
+    "amex:P08",
+    "discover:DP",
+    "discover:NA",
+    "discover:RM",
+    "discover:RN2",
+    "discover:UA01",
+    "mastercard:4808"
+  ],
+  "goods": [
+    "discover:RM",
+    "mastercard:4808"
+  ],
+  "services": [
+    "amex:P08",
+    "discover:RM",
+    "mastercard:4808"
+  ],
+  "4808": [
+    "mastercard:4808"
+  ],
+  "authorizations": [
+    "amex:P08",
+    "discover:DP",
+    "mastercard:4808"
+  ],
+  "acknowledgment": [
+    "amex:C02",
+    "amex:C14",
+    "discover:RN2"
+  ],
+  "amex": [
+    "amex:C02",
+    "amex:C08",
+    "amex:C14",
+    "amex:C18",
+    "amex:C28",
+    "amex:F10",
+    "amex:F14",
+    "amex:F24",
+    "amex:F29",
+    "amex:F30",
+    "amex:F31",
+    "amex:M01",
+    "amex:M10",
+    "amex:M49",
+    "amex:P03",
+    "amex:P04",
+    "amex:P05",
+    "amex:P07",
+    "amex:P08",
+    "amex:R03",
+    "amex:R13"
+  ],
+  "missing": [
+    "amex:C02",
+    "amex:C08",
+    "amex:F10",
+    "discover:RN2"
+  ],
+  "already": [
+    "amex:C02",
+    "amex:C14"
+  ],
+  "issue": [
+    "amex:C02",
+    "amex:F31",
+    "amex:R03",
+    "amex:R13",
+    "discover:RM"
+  ],
+  "promising": [
+    "amex:C02"
+  ],
+  "posted": [
+    "amex:C02",
+    "amex:P07",
+    "discover:AW"
+  ],
+  "misunderstood": [
+    "amex:C02"
+  ],
+  "shipping": [
+    "amex:C02",
+    "amex:C08",
+    "amex:P08"
+  ],
+  "c02": [
+    "amex:C02"
+  ],
+  "manner": [
+    "amex:C02"
+  ],
+  "issued": [
+    "amex:C02",
+    "amex:F24",
+    "amex:P04",
+    "discover:RN2"
+  ],
+  "promised": [
+    "amex:C02",
+    "amex:P03",
+    "amex:P04",
+    "discover:RM",
+    "discover:RN2"
+  ],
+  "matching": [
+    "amex:C14"
+  ],
+  "mistakenly": [
+    "amex:C14"
+  ],
+  "amounts": [
+    "amex:C14",
+    "amex:P04",
+    "amex:P08",
+    "discover:DP"
+  ],
+  "payment": [
+    "amex:C14",
+    "discover:DA"
+  ],
+  "c14": [
+    "amex:C14"
+  ],
+  "original": [
+    "amex:C14",
+    "amex:P03",
+    "discover:AW"
+  ],
+  "differentiate": [
+    "amex:C14"
+  ],
+  "intentional": [
+    "amex:C14"
+  ],
+  "descriptions": [
+    "amex:C14",
+    "discover:DP"
+  ],
+  "another": [
+    "amex:C14"
+  ],
+  "alternative": [
+    "amex:C14"
+  ],
+  "alternate": [
+    "amex:C14",
+    "amex:R13"
+  ],
+  "paid": [
+    "amex:C14",
+    "discover:RG"
+  ],
+  "marked": [
+    "amex:C14"
+  ],
+  "duplicated": [
+    "amex:C14"
+  ],
+  "invoice": [
+    "amex:C14",
+    "amex:P03",
+    "amex:P05"
+  ],
+  "booking": [
+    "amex:C18"
+  ],
+  "confusing": [
+    "amex:C18",
+    "amex:C28"
+  ],
+  "c18": [
+    "amex:C18"
+  ],
+  "agreed": [
+    "amex:C18",
+    "discover:RG"
+  ],
+  "inaccessible": [
+    "amex:C18"
+  ],
+  "change": [
+    "amex:C18",
+    "amex:P04"
+  ],
+  "refundable": [
+    "amex:C18"
+  ],
+  "timestamp": [
+    "amex:C18",
+    "amex:P07",
+    "discover:NA"
+  ],
+  "canceled": [
+    "amex:C18",
+    "amex:C28"
+  ],
+  "unclear": [
+    "amex:C18"
+  ],
+  "reservation": [
+    "amex:C18"
+  ],
+  "inability": [
+    "amex:C18"
+  ],
+  "c28": [
+    "amex:C28"
+  ],
+  "misled": [
+    "amex:C28"
+  ],
+  "instructed": [
+    "amex:C28"
+  ],
+  "shown": [
+    "amex:C28"
+  ],
+  "recurring": [
+    "amex:C28",
+    "discover:4755"
+  ],
+  "cancel": [
+    "amex:C28"
+  ],
+  "doing": [
+    "amex:C28"
+  ],
+  "so": [
+    "amex:C28"
+  ],
+  "possible": [
+    "amex:C08"
+  ],
+  "notification": [
+    "amex:C08",
+    "amex:R13"
+  ],
+  "attempt": [
+    "amex:C08"
+  ],
+  "fulfilled": [
+    "amex:C08"
+  ],
+  "manifest": [
+    "amex:C08"
+  ],
+  "witness": [
+    "amex:C08"
+  ],
+  "sufficient": [
+    "amex:C08"
+  ],
+  "communications": [
+    "amex:C08"
+  ],
+  "statements": [
+    "amex:C08"
+  ],
+  "combine": [
+    "amex:C08"
+  ],
+  "signed": [
+    "amex:C08",
+    "amex:F10",
+    "amex:F30",
+    "amex:M10"
+  ],
+  "undermine": [
+    "amex:C08"
+  ],
+  "reschedule": [
+    "amex:C08"
+  ],
+  "exposing": [
+    "amex:C08"
+  ],
+  "requests": [
+    "amex:C08"
+  ],
+  "acceptance": [
+    "amex:C08"
+  ],
+  "c08": [
+    "amex:C08"
+  ],
+  "electronically": [
+    "amex:F10",
+    "amex:F14"
+  ],
+  "f10": [
+    "amex:F10"
+  ],
+  "indicates": [
+    "amex:F10"
+  ],
+  "physically": [
+    "amex:F10",
+    "amex:F31"
+  ],
+  "enabled": [
+    "amex:F10"
+  ],
+  "abnormal": [
+    "amex:F10"
+  ],
+  "available": [
+    "amex:F10",
+    "amex:F30",
+    "discover:NA"
+  ],
+  "why": [
+    "amex:F10"
+  ],
+  "guidance": [
+    "amex:F10"
+  ],
+  "particularly": [
+    "amex:F10"
+  ],
+  "contactless": [
+    "amex:F10"
+  ],
+  "discrepancy": [
+    "amex:F14"
+  ],
+  "raised": [
+    "amex:F14"
+  ],
+  "obtained": [
+    "amex:F14",
+    "discover:NA"
+  ],
+  "key": [
+    "amex:F14"
+  ],
+  "wasn": [
+    "amex:F14",
+    "discover:NA"
+  ],
+  "captured": [
+    "amex:F14",
+    "discover:AW"
+  ],
+  "discredit": [
+    "amex:F14"
+  ],
+  "unsigned": [
+    "amex:F14"
+  ],
+  "either": [
+    "amex:F14",
+    "amex:M10"
+  ],
+  "f14": [
+    "amex:F14"
+  ],
+  "phone": [
+    "amex:F14"
+  ],
+  "travel": [
+    "amex:F14",
+    "discover:UA01"
+  ],
+  "documents": [
+    "amex:F14"
+  ],
+  "geography": [
+    "amex:F14"
+  ],
+  "participated": [
+    "amex:F24"
+  ],
+  "back": [
+    "amex:F24"
+  ],
+  "otp": [
+    "amex:F24"
+  ],
+  "security": [
+    "amex:F24"
+  ],
+  "contact": [
+    "amex:F24",
+    "discover:AA"
+  ],
+  "enrollment": [
+    "amex:F24"
+  ],
+  "consented": [
+    "amex:F24"
+  ],
+  "f24": [
+    "amex:F24"
+  ],
+  "where": [
+    "amex:F24",
+    "amex:P03"
+  ],
+  "cvv": [
+    "amex:F24",
+    "amex:F29",
+    "discover:UA02"
+  ],
+  "logged": [
+    "amex:F29",
+    "amex:F30"
+  ],
+  "originated": [
+    "amex:F29"
+  ],
+  "triggered": [
+    "amex:F29"
+  ],
+  "f29": [
+    "amex:F29"
+  ],
+  "filters": [
+    "amex:F29"
+  ],
+  "physical": [
+    "amex:F29"
+  ],
+  "usual": [
+    "amex:F29"
+  ],
+  "2fa": [
+    "amex:F29"
+  ],
+  "zip": [
+    "amex:F29"
+  ],
+  "region": [
+    "amex:F29"
+  ],
+  "unrelated": [
+    "amex:F29"
+  ],
+  "placed": [
+    "amex:F29",
+    "amex:P08",
+    "discover:DP"
+  ],
+  "online": [
+    "amex:F29"
+  ],
+  "additional": [
+    "amex:F29"
+  ],
+  "f30": [
+    "amex:F30"
+  ],
+  "cloned": [
+    "amex:F30"
+  ],
+  "forensic": [
+    "amex:F30"
+  ],
+  "control": [
+    "amex:F30"
+  ],
+  "signs": [
+    "amex:F30"
+  ],
+  "review": [
+    "amex:F30"
+  ],
+  "tampering": [
+    "amex:F30"
+  ],
+  "counterfeited": [
+    "amex:F30"
+  ],
+  "could": [
+    "amex:F31"
+  ],
+  "make": [
+    "amex:F31"
+  ],
+  "activate": [
+    "amex:F31"
+  ],
+  "notes": [
+    "amex:F31"
+  ],
+  "letter": [
+    "amex:F31"
+  ],
+  "establish": [
+    "amex:F31"
+  ],
+  "ownership": [
+    "amex:F31"
+  ],
+  "made": [
+    "amex:F31",
+    "amex:R13",
+    "discover:DP",
+    "discover:UA01"
+  ],
+  "alert": [
+    "amex:F31"
+  ],
+  "f31": [
+    "amex:F31"
+  ],
+  "p03": [
+    "amex:P03"
+  ],
+  "owed": [
+    "amex:P03"
+  ],
+  "misread": [
+    "amex:P03"
+  ],
+  "again": [
+    "amex:P03"
+  ],
+  "opposite": [
+    "amex:P03"
+  ],
+  "what": [
+    "amex:P03",
+    "discover:AW"
+  ],
+  "but": [
+    "amex:P03",
+    "amex:P04",
+    "discover:CD"
+  ],
+  "ids": [
+    "amex:P03",
+    "amex:P04"
+  ],
+  "memo": [
+    "amex:P03"
+  ],
+  "reflected": [
+    "amex:P03",
+    "amex:P04",
+    "amex:P08"
+  ],
+  "reversal": [
+    "amex:M01",
+    "amex:P03",
+    "discover:CD"
+  ],
+  "correct": [
+    "amex:P03",
+    "discover:CD"
+  ],
+  "balance": [
+    "amex:P04",
+    "discover:CD"
+  ],
+  "actually": [
+    "amex:P04"
+  ],
+  "disguised": [
+    "amex:P04"
+  ],
+  "system": [
+    "amex:M01",
+    "amex:P04",
+    "amex:P07",
+    "amex:P08",
+    "amex:R03",
+    "discover:AW",
+    "discover:LP"
+  ],
+  "impact": [
+    "amex:P04"
+  ],
+  "reference": [
+    "amex:P04",
+    "discover:AW"
+  ],
+  "orders": [
+    "amex:P04",
+    "amex:P08",
+    "discover:DP"
+  ],
+  "view": [
+    "amex:P04"
+  ],
+  "misinterpreted": [
+    "amex:P04"
+  ],
+  "p04": [
+    "amex:P04"
+  ],
+  "promotional": [
+    "amex:P05"
+  ],
+  "higher": [
+    "amex:P05"
+  ],
+  "fees": [
+    "amex:M49",
+    "amex:P05"
+  ],
+  "amount": [
+    "amex:P05",
+    "discover:AW",
+    "discover:NA"
+  ],
+  "tips": [
+    "amex:P05"
+  ],
+  "promises": [
+    "amex:P05"
+  ],
+  "price": [
+    "amex:P05"
+  ],
+  "total": [
+    "amex:P05"
+  ],
+  "p05": [
+    "amex:P05"
+  ],
+  "difference": [
+    "amex:P05"
+  ],
+  "revised": [
+    "amex:P05"
+  ],
+  "dollar": [
+    "amex:P05",
+    "amex:P08"
+  ],
+  "informed": [
+    "amex:P05"
+  ],
+  "pricing": [
+    "amex:P05",
+    "discover:AW"
+  ],
+  "lag": [
+    "amex:P07"
+  ],
+  "too": [
+    "amex:P07",
+    "discover:LP"
+  ],
+  "be": [
+    "amex:P07",
+    "discover:LP"
+  ],
+  "timeframe": [
+    "amex:P07",
+    "amex:R13"
+  ],
+  "far": [
+    "amex:P07"
+  ],
+  "standards": [
+    "amex:P07"
+  ],
+  "store": [
+    "amex:P07"
+  ],
+  "violated": [
+    "amex:P07"
+  ],
+  "recognized": [
+    "amex:P07"
+  ],
+  "p07": [
+    "amex:P07"
+  ],
+  "timeliness": [
+    "amex:P07"
+  ],
+  "due": [
+    "amex:P07",
+    "discover:CD",
+    "discover:NA"
+  ],
+  "late": [
+    "amex:P07",
+    "amex:R03",
+    "discover:LP"
+  ],
+  "network": [
+    "amex:M01",
+    "amex:P07",
+    "discover:DA",
+    "discover:NA"
+  ],
+  "posting": [
+    "amex:P07",
+    "discover:LP"
+  ],
+  "delayed": [
+    "amex:P07",
+    "discover:NA"
+  ],
+  "processor": [
+    "amex:P07",
+    "discover:NA"
+  ],
+  "submissions": [
+    "amex:P07"
+  ],
+  "only": [
+    "amex:P08",
+    "discover:DP"
+  ],
+  "value": [
+    "amex:P08"
+  ],
+  "explanation": [
+    "amex:P08"
+  ],
+  "disputing": [
+    "amex:P08"
+  ],
+  "fulfillment": [
+    "amex:P08",
+    "discover:RG"
+  ],
+  "duplication": [
+    "amex:P08"
+  ],
+  "p08": [
+    "amex:P08"
+  ],
+  "one": [
+    "amex:P08",
+    "discover:DP"
+  ],
+  "twice": [
+    "amex:P08"
+  ],
+  "different": [
+    "amex:P08",
+    "discover:DP"
+  ],
+  "items": [
+    "amex:P08"
+  ],
+  "requiring": [
+    "amex:M01"
+  ],
+  "response": [
+    "amex:M01",
+    "amex:R03"
+  ],
+  "processing": [
+    "amex:M01",
+    "discover:AW"
+  ],
+  "chargeback": [
+    "amex:M01"
+  ],
+  "exempt": [
+    "amex:M01"
+  ],
+  "special": [
+    "amex:M01"
+  ],
+  "lacked": [
+    "amex:M01",
+    "amex:R03"
+  ],
+  "m01": [
+    "amex:M01"
+  ],
+  "cooperated": [
+    "amex:M01"
+  ],
+  "good": [
+    "amex:M10"
+  ],
+  "m10": [
+    "amex:M10"
+  ],
+  "fabricated": [
+    "amex:M10"
+  ],
+  "inspection": [
+    "amex:M10"
+  ],
+  "origin": [
+    "amex:M10"
+  ],
+  "vehicle": [
+    "amex:M10",
+    "amex:M49"
+  ],
+  "validity": [
+    "amex:M10"
+  ],
+  "condition": [
+    "amex:M10"
+  ],
+  "existing": [
+    "amex:M10"
+  ],
+  "clean": [
+    "amex:M10"
+  ],
+  "waiver": [
+    "amex:M10",
+    "amex:M49"
+  ],
+  "agreement": [
+    "amex:M10",
+    "amex:M49",
+    "discover:4755",
+    "discover:CD"
+  ],
+  "estimate": [
+    "amex:M10"
+  ],
+  "assessed": [
+    "amex:M10"
+  ],
+  "claimed": [
+    "amex:M10"
+  ],
+  "rental": [
+    "amex:M10",
+    "amex:M49"
+  ],
+  "returned": [
+    "amex:M10",
+    "discover:RN2"
+  ],
+  "responsible": [
+    "amex:M49"
+  ],
+  "responsibility": [
+    "amex:M49"
+  ],
+  "evaluate": [
+    "amex:M49"
+  ],
+  "recovered": [
+    "amex:M49"
+  ],
+  "calculated": [
+    "amex:M49"
+  ],
+  "theft": [
+    "amex:M49"
+  ],
+  "loss": [
+    "amex:M49"
+  ],
+  "insurance": [
+    "amex:M49"
+  ],
+  "m49": [
+    "amex:M49"
+  ],
+  "unverified": [
+    "amex:M49"
+  ],
+  "contractual": [
+    "amex:M49"
+  ],
+  "receive": [
+    "amex:R03"
+  ],
+  "caused": [
+    "amex:R03",
+    "discover:LP"
+  ],
+  "comparison": [
+    "amex:R03",
+    "discover:RM"
+  ],
+  "r03": [
+    "amex:R03"
+  ],
+  "met": [
+    "amex:R03",
+    "discover:RM"
+  ],
+  "critical": [
+    "amex:R03"
+  ],
+  "content": [
+    "amex:R03"
+  ],
+  "requested": [
+    "amex:R03",
+    "discover:CD"
+  ],
+  "requirements": [
+    "amex:R03"
+  ],
+  "evasive": [
+    "amex:R03"
+  ],
+  "delaying": [
+    "amex:R03"
+  ],
+  "irrelevant": [
+    "amex:R03"
+  ],
+  "unresolved": [
+    "amex:R13"
+  ],
+  "portal": [
+    "amex:R13",
+    "discover:4755"
+  ],
+  "r13": [
+    "amex:R13"
+  ],
+  "ups": [
+    "amex:R13"
+  ],
+  "ignored": [
+    "amex:R13"
+  ],
+  "silence": [
+    "amex:R13"
+  ],
+  "responded": [
+    "amex:R13"
+  ],
+  "radio": [
+    "amex:R13"
+  ],
+  "gone": [
+    "amex:R13"
+  ],
+  "legitimate": [
+    "amex:R13"
+  ],
+  "refused": [
+    "amex:R13"
+  ],
+  "repeated": [
+    "amex:R13",
+    "discover:DA"
+  ],
+  "spam": [
+    "amex:R13"
+  ],
+  "may": [
+    "amex:R13"
+  ],
+  "junk": [
+    "amex:R13"
+  ],
+  "respond": [
+    "amex:R13"
+  ],
+  "even": [
+    "amex:R13",
+    "discover:UA01"
+  ],
+  "unsubscribe": [
+    "discover:4755"
+  ],
+  "auto": [
+    "discover:4755",
+    "discover:AW"
+  ],
+  "discover": [
+    "discover:4755",
+    "discover:AA",
+    "discover:AW",
+    "discover:CD",
+    "discover:DA",
+    "discover:DP",
+    "discover:LP",
+    "discover:NA",
+    "discover:RG",
+    "discover:RM",
+    "discover:RN2",
+    "discover:UA01",
+    "discover:UA02"
+  ],
+  "communicated": [
+    "discover:4755"
+  ],
+  "conditions": [
+    "discover:4755"
+  ],
+  "misleading": [
+    "discover:4755"
+  ],
+  "4755": [
+    "discover:4755"
+  ],
+  "banners": [
+    "discover:4755"
+  ],
+  "disallows": [
+    "discover:RN2"
+  ],
+  "cutoff": [
+    "discover:RN2"
+  ],
+  "rn2": [
+    "discover:RN2"
+  ],
+  "tickets": [
+    "discover:RG",
+    "discover:RM"
+  ],
+  "something": [
+    "discover:RG"
+  ],
+  "outage": [
+    "discover:RG"
+  ],
+  "complaint": [
+    "discover:RG",
+    "discover:RM"
+  ],
+  "rg": [
+    "discover:RG"
+  ],
+  "provided": [
+    "discover:AA",
+    "discover:RG"
+  ],
+  "delays": [
+    "discover:RG"
+  ],
+  "misrouting": [
+    "discover:RG"
+  ],
+  "poorly": [
+    "discover:RM"
+  ],
+  "quality": [
+    "discover:RM"
+  ],
+  "poor": [
+    "discover:RM"
+  ],
+  "executed": [
+    "discover:RM"
+  ],
+  "raising": [
+    "discover:RM"
+  ],
+  "proving": [
+    "discover:RM"
+  ],
+  "rm": [
+    "discover:RM"
+  ],
+  "concerns": [
+    "discover:RM"
+  ],
+  "result": [
+    "discover:RM"
+  ],
+  "outcome": [
+    "discover:RM"
+  ],
+  "once": [
+    "discover:DP"
+  ],
+  "both": [
+    "discover:DP"
+  ],
+  "two": [
+    "discover:DP"
+  ],
+  "identical": [
+    "discover:DP"
+  ],
+  "dp": [
+    "discover:DP"
+  ],
+  "negative": [
+    "discover:CD"
+  ],
+  "supporting": [
+    "discover:CD"
+  ],
+  "cd": [
+    "discover:CD"
+  ],
+  "accurately": [
+    "discover:CD"
+  ],
+  "error": [
+    "discover:CD"
+  ],
+  "labeled": [
+    "discover:CD"
+  ],
+  "double": [
+    "discover:CD"
+  ],
+  "causing": [
+    "discover:CD"
+  ],
+  "changed": [
+    "discover:AW"
+  ],
+  "secondary": [
+    "discover:AW"
+  ],
+  "acknowledged": [
+    "discover:AW"
+  ],
+  "altered": [
+    "discover:AW"
+  ],
+  "updated": [
+    "discover:AW"
+  ],
+  "adjusted": [
+    "discover:AW"
+  ],
+  "aw": [
+    "discover:AW"
+  ],
+  "initial": [
+    "discover:AW"
+  ],
+  "tipped": [
+    "discover:AW"
+  ],
+  "an": [
+    "discover:AA"
+  ],
+  "display": [
+    "discover:AA"
+  ],
+  "aa": [
+    "discover:AA"
+  ],
+  "past": [
+    "discover:AA"
+  ],
+  "business": [
+    "discover:AA"
+  ],
+  "previously": [
+    "discover:AA"
+  ],
+  "name": [
+    "discover:AA"
+  ],
+  "purchased": [
+    "discover:AA"
+  ],
+  "unrecognizable": [
+    "discover:AA"
+  ],
+  "clarification": [
+    "discover:AA"
+  ],
+  "seeking": [
+    "discover:AA"
+  ],
+  "though": [
+    "discover:UA01"
+  ],
+  "presence": [
+    "discover:UA01"
+  ],
+  "ua01": [
+    "discover:UA01"
+  ],
+  "atm": [
+    "discover:UA01"
+  ],
+  "submit": [
+    "discover:UA01"
+  ],
+  "restrictions": [
+    "discover:UA01"
+  ],
+  "person": [
+    "discover:UA01"
+  ],
+  "recognition": [
+    "discover:UA02"
+  ],
+  "emailed": [
+    "discover:UA02"
+  ],
+  "supports": [
+    "discover:UA02"
+  ],
+  "filed": [
+    "discover:UA02"
+  ],
+  "ua02": [
+    "discover:UA02"
+  ],
+  "tolerance": [
+    "discover:NA"
+  ],
+  "invalidate": [
+    "discover:NA"
+  ],
+  "na": [
+    "discover:NA"
+  ],
+  "gateway": [
+    "discover:NA"
+  ],
+  "which": [
+    "discover:NA"
+  ],
+  "fallback": [
+    "discover:DA",
+    "discover:NA"
+  ],
+  "should": [
+    "discover:NA"
+  ],
+  "via": [
+    "discover:NA"
+  ],
+  "ever": [
+    "discover:NA"
+  ],
+  "da": [
+    "discover:DA"
+  ],
+  "temporary": [
+    "discover:DA"
+  ],
+  "declined": [
+    "discover:DA"
+  ],
+  "about": [
+    "discover:DA"
+  ],
+  "logic": [
+    "discover:DA"
+  ],
+  "later": [
+    "discover:DA"
+  ],
+  "gap": [
+    "discover:LP"
+  ],
+  "notified": [
+    "discover:LP"
+  ],
+  "submission": [
+    "discover:LP"
+  ],
+  "recognizable": [
+    "discover:LP"
+  ],
+  "lp": [
+    "discover:LP"
+  ]
+}
