@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import Fuse from 'fuse.js';  // Fuzzy search library
 
 // Derive __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -24,20 +23,25 @@ async function loadJsonAsync(filename, defaultValue = {}) {
 let reasonDetails = {};
 let reasonScenarios = {};
 
-// Initialize Fuse.js fuzzy search options for scenarios
-const fuseOptions = {
-  includeScore: true,
-  keys: ['scenarioPattern', 'description'],  // Searching on specific fields
-  threshold: 0.4,  // Lower threshold for higher accuracy
-};
+function normalize(value = '') {
+  return String(value).toLowerCase();
+}
+
+function simpleSimilarityScore(source, query) {
+  const sourceText = normalize(source);
+  const queryText = normalize(query);
+  if (!queryText) return 0;
+  if (sourceText.includes(queryText)) return queryText.length + 5;
+
+  const queryTerms = queryText.split(/\W+/).filter(Boolean);
+  return queryTerms.reduce((score, term) => (sourceText.includes(term) ? score + term.length : score), 0);
+}
 
 // Cache initialization for data files
 async function initializeData() {
   reasonDetails = await loadJsonAsync('reasonDetails.json');
   reasonScenarios = await loadJsonAsync('reasonScenarios.json');
 
-  // Initialize the Fuse.js search object
-  reasonScenariosFuse = new Fuse(Object.values(reasonScenarios), fuseOptions);
 }
 
 // Start initialization
@@ -75,9 +79,17 @@ export function getReasonDetails(network, code) {
 export function lookupReasonCodeByScenario(network, scenario) {
   const key = String(network).toLowerCase();
   
-  // Fuzzy matching using Fuse.js
-  const result = reasonScenariosFuse.search(scenario);
-  const match = result[0]?.item;
+  const scenarios = Object.values(reasonScenarios);
+  let bestMatch = null;
+  let bestScore = 0;
+  for (const item of scenarios) {
+    const score = simpleSimilarityScore(`${item.scenarioPattern || ''} ${item.description || ''}`, scenario);
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = item;
+    }
+  }
+  const match = bestMatch;
 
   if (!match || !match.reasonCode) {
     return {
@@ -104,20 +116,15 @@ export function findReasonByKeyword(network, keyword) {
   const key = String(network).toLowerCase();
   const items = reasonDetails[key] || {};
 
-  // Set up Fuse.js for keyword search within title and description
-  const fuse = new Fuse(Object.values(items), {
-    includeScore: true,
-    keys: ['title', 'description'],
-  });
-
-  const result = fuse.search(keyword);
-
-  return result.map(item => ({
-    reasonCode: item.item.reasonCode,
-    title: item.item.title,
-    description: item.item.description,
-    evidenceRequirements: item.item.evidenceRequirements,
-    strategyTips: item.item.strategyTips,
+  const normalizedKeyword = normalize(keyword);
+  return Object.values(items)
+    .filter(item => normalize(item.title).includes(normalizedKeyword) || normalize(item.description).includes(normalizedKeyword))
+    .map(item => ({
+      reasonCode: item.reasonCode,
+      title: item.title,
+      description: item.description,
+      evidenceRequirements: item.evidenceRequirements,
+      strategyTips: item.strategyTips
   }));
 }
 

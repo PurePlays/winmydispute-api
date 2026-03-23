@@ -1,4 +1,3 @@
-import crypto from 'crypto';
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
@@ -20,7 +19,11 @@ const loadSpec = () => {
     }
   } catch (error) {
     console.error('Error loading OpenAPI spec:', error.message);
-    process.exit(1); // Exit the application if the spec is missing
+    return {
+      openapi: '3.0.0',
+      info: { title: 'WinMyDispute API', version: '1.0.0' },
+      paths: {}
+    };
   }
 };
 

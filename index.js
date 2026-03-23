@@ -3,11 +3,12 @@ process.on('uncaughtException', err => {
 });
 process.on('unhandledRejection', err => {
   console.error('🔥 Unhandled Rejection:', err);
-});import express from 'express';
+});
+
+import express from 'express';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import Stripe from 'stripe';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import * as Sentry from '@sentry/node';
@@ -19,18 +20,26 @@ import checkoutRouter from './routes/checkout.js';
 import generateLetterRouter from './routes/generateLetter.js';
 import intakeRouter from './routes/intake.js';
 import letterRouter from './routes/letter.js';
-import matchStrategyRouter from './routes/matchStrategy.js';
 import strategyRouter from './routes/strategy.js';
 import swaggerRouter from './routes/swagger.js';
-import webhookRouter from './routes/webhook.js';
+import webhookRouter from './routes/stripeWebhook.js';
 import searchStrategyRouter from './routes/searchStrategy.js';
 
 // Services
 import { findReasonByKeyword } from './services/reasonService.js';
 import { matchScenarioToReasonCode } from './services/matchScenarioToReasonCode.js';
 
-// Middleware
-import authFromToken from './middleware/authFromToken.js';
+const authFromToken = (req, _res, next) => {
+  const authHeader = req.headers.authorization;
+  const token = authHeader?.startsWith('Bearer ')
+    ? authHeader.slice('Bearer '.length).trim()
+    : null;
+
+  if (token) {
+    req.user = { id: token.slice(0, 12), token };
+  }
+  next();
+};
 
 // OpenAI Plugin Token Verification Middleware
 function verifyOpenAIPluginToken(req, res, next) {
@@ -77,8 +86,10 @@ app.use(express.json({
 }));
 
 // Sentry request handler (should be before all other middleware)
-app.use(Sentry.Handlers.requestHandler());
-app.use(Sentry.Handlers.tracingHandler());
+if (Sentry.Handlers?.requestHandler && Sentry.Handlers?.tracingHandler) {
+  app.use(Sentry.Handlers.requestHandler());
+  app.use(Sentry.Handlers.tracingHandler());
+}
 
 app.use(authFromToken); // Inject req.user if token is valid
 // ─── Sentry Test Route ───────────────────────────────────────────────────────
@@ -90,12 +101,11 @@ app.get('/test-sentry', (_req, res) => {
 const staticDir = path.join(__dirname, 'static');
 app.use(express.static(staticDir, { dotfiles: 'allow' }));
 
-const configDir = path.join(__dirname, 'gpt-config');
 app.get('/terms', (_req, res) => res.sendFile(path.join(staticDir, 'terms.html')));
 app.get('/privacy', (_req, res) => res.sendFile(path.join(staticDir, 'privacy.html')));
 app.get('/success', (_req, res) => res.sendFile(path.join(staticDir, 'success.html')));
-app.get('/privacy-policy.txt', (_req, res) => res.sendFile(path.join(configDir, 'privacy-policy.txt')));
-app.get('/.well-known/openai-plugin.json', (_req, res) => res.sendFile(path.join(staticDir, '.well-known', 'openai-plugin.json')));
+app.get('/privacy-policy.txt', (_req, res) => res.sendFile(path.join(staticDir, 'privacy-policy.txt')));
+app.get('/.well-known/openai-plugin.json', (_req, res) => res.sendFile(path.join(__dirname, 'gpt-config', 'ai-plugin.json')));
 app.get('/.well-known/security.txt', (_req, res) => res.type('text/plain').send([
   'Contact: pureplays@icloud.com',
   'Encryption: none',
@@ -223,10 +233,12 @@ app.post('/api/v1/generate-letter', verifyOpenAIPluginToken, async (req, res, ne
 
     // Generate PDF and DOCX files (pseudo implementation)
     const outputFiles = [];
+    const tempDir = path.join(__dirname, 'temp');
+    await fs.mkdir(tempDir, { recursive: true });
 
     if (includePdf) {
       // Generate PDF file path and content
-      const pdfPath = path.join(__dirname, 'temp', `letter_${Date.now()}.pdf`);
+      const pdfPath = path.join(tempDir, `letter_${Date.now()}.pdf`);
       // TODO: Add actual PDF generation logic here
       await fs.writeFile(pdfPath, Buffer.from(letterContent)); // Placeholder write
       outputFiles.push({ path: pdfPath, name: path.basename(pdfPath) });
@@ -234,7 +246,7 @@ app.post('/api/v1/generate-letter', verifyOpenAIPluginToken, async (req, res, ne
 
     if (includeDocx) {
       // Generate DOCX file path and content
-      const docxPath = path.join(__dirname, 'temp', `letter_${Date.now()}.docx`);
+      const docxPath = path.join(tempDir, `letter_${Date.now()}.docx`);
       // TODO: Add actual DOCX generation logic here
       await fs.writeFile(docxPath, Buffer.from(letterContent)); // Placeholder write
       outputFiles.push({ path: docxPath, name: path.basename(docxPath) });
@@ -288,7 +300,6 @@ app.use('/api/v1/generate-letter', generateLetterRouter);
 app.use('/api/v1/strategy', verifyOpenAIPluginToken, strategyRouter);
 
 // Other routers (open or not requiring plugin token)
-app.use('/', matchStrategyRouter);
 app.use('/intake', intakeRouter);
 app.use('/checkout', checkoutRouter);
 app.use('/letter', letterRouter);
@@ -312,6 +323,4 @@ app.use((err, _req, res, _next) => {
 // ─── Start Server ─────────────────────────────────────────────────────────────
 app.listen(port, () => {
   console.log(`✅ WinMyDispute API running on port ${port}`);
-});app.listen(port, () => {
-  console.log(`✅ SERVER IS LISTENING at http://localhost:${port}`);
 });

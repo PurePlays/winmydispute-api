@@ -1,14 +1,13 @@
 import { lookupReasonCodeByScenario } from './reasonService.js';
-import Fuse from 'fuse.js';  // Fuzzy matching library
 
 // Supported networks in order of priority
 const NETWORKS = ['visa', 'mastercard', 'amex', 'discover'];
 
-// Set up fuzzy search options (for enhanced matching)
-const fuseOptions = {
-  threshold: 0.3,  // Lower threshold means higher sensitivity to minor misspellings
-  keys: ['reasonCode', 'title', 'description'],  // Search within these fields
-};
+function scoreMatch(candidate, scenario) {
+  const haystack = `${candidate.reasonCode} ${candidate.title} ${candidate.description}`.toLowerCase();
+  const terms = scenario.toLowerCase().split(/\W+/).filter(Boolean);
+  return terms.reduce((score, term) => (haystack.includes(term) ? score + term.length : score), 0);
+}
 
 // Function to match user scenario to a reason code with fuzzy matching and detailed logging
 export function matchScenarioToReasonCode(description, additionalData = {}) {
@@ -58,11 +57,13 @@ export function matchScenarioToReasonCode(description, additionalData = {}) {
   return { reasonCode: null, title: null, description: null, network: null };
 }
 
-// Perform fuzzy search using a specified network
+// Perform lightweight fuzzy search using keyword-overlap scoring
 function performFuzzySearch(network, scenario) {
-  const reasonCodes = getReasonCodesForNetwork(network);  // Get the full list of reason codes for the network
-  const fuse = new Fuse(reasonCodes, fuseOptions);
-  return fuse.search(scenario);
+  const reasonCodes = getReasonCodesForNetwork(network);
+  return reasonCodes
+    .map(item => ({ item, score: scoreMatch(item, scenario) }))
+    .filter(result => result.score > 0)
+    .sort((a, b) => b.score - a.score);
 }
 
 // Select the best match from fuzzy search results
@@ -76,7 +77,7 @@ function selectBestMatchFromFuzzyResults(matches) {
 
   if (bestMatch) {
     console.log('Best fuzzy match found:', bestMatch);
-    return bestMatch.results[0]?.item;
+    return bestMatch.results[0]?.item || { reasonCode: null, title: null, description: null, network: null };
   }
 
   console.log('No fuzzy matches found.');
