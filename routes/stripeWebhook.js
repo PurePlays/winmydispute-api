@@ -1,8 +1,6 @@
-import crypto from 'crypto';
 import fs from 'fs/promises';
 import path from 'path';
 import Stripe from 'stripe';
-import { google } from 'googleapis';
 import express from 'express';
 
 const router = express.Router();
@@ -34,10 +32,18 @@ async function saveToLicenseSheet(productId, email, stripeId) {
     throw new Error('Unknown product ID');
   }
 
+  let google;
+  try {
+    ({ google } = await import('googleapis'));
+  } catch (_err) {
+    console.warn('⚠️ googleapis not installed. Skipping Google Sheets sync.');
+    return;
+  }
+
   // Setup Google Sheets authentication and client
   const auth = new google.auth.GoogleAuth({
     keyFile: './service-accounts/sheet-writer.json',
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    scopes: ['https://www.googleapis.com/auth/spreadsheets']
   });
 
   const client = await auth.getClient();

@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import pdf from 'html-pdf';
-import { google } from 'googleapis';
 
 // Derive __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -27,8 +26,9 @@ if (!fs.existsSync(DOWNLOADS_DIR)) {
 async function loadJsonAsync(filename, defaultValue) {
   const filePath = path.join(DATA_DIR, filename);
   try {
-    const raw = await fs.promises.readFile(filePath, 'utf8').trim();
-    return raw ? JSON.parse(raw) : defaultValue;
+    const raw = await fs.promises.readFile(filePath, 'utf8');
+    const trimmed = raw.trim();
+    return trimmed ? JSON.parse(trimmed) : defaultValue;
   } catch (err) {
     console.warn(`⚠️ [disputeService] could not load ${filename}: ${err.message}`);
     return defaultValue;

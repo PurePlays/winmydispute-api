@@ -5,9 +5,9 @@ import path from 'path';
 import Stripe from 'stripe';
 import dotenv from 'dotenv';
 import asyncHandler from '../services/asyncHandler.js';
-import crypto from 'crypto';
 
 dotenv.config();
+const router = express.Router();
 
 // Stripe setup for payment handling
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
