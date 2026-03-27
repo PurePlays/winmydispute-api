@@ -1,0 +1,18 @@
+[
+  {
+    "sessionId": "41a9xb5nb",
+    "timestamp": "2025-04-26T23:12:55.435Z",
+    "answers": {
+      "question1": "I never received the item I ordered.",
+      "question2": "Nike.com",
+      "question3": "99.99",
+      "question4": "april 2nd 2025",
+      "question5": "No response from merchant.",
+      "question6": "Yes, I have screenshots and email confirmations."
+    },
+    "matchedReason": {
+      "code": "13.1",
+      "description": "Merchandise/Services Not Received"
+    }
+  }
+]

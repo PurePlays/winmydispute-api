@@ -1,0 +1,16 @@
+node_modules/
+.env
+.DS_Store
+backups/
+
+# Local runtime artifacts
+mock-data/app.sqlite
+mock-data/case-files/
+static/downloads/
+
+# Legacy/local-only scratch files
+.dbxignore
+.gitignore.save
+.trigger
+hyhhhh
+package.json.bak

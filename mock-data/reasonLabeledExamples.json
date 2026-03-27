@@ -1,0 +1,90 @@
+{
+  "visa": {
+    "10.4": [
+      "I never made this online purchase and do not recognize the merchant or charge.",
+      "My card details were used on a website without my permission.",
+      "This card-not-present transaction was fraudulent and I received no benefit from it."
+    ],
+    "13.1": [
+      "The merchant charged me but the item never arrived.",
+      "Tracking says delivered, but I never received the package at my address.",
+      "I paid for the service and it was never provided."
+    ],
+    "13.2": [
+      "I canceled before the renewal date but they billed me anyway.",
+      "The subscription kept charging after I ended it.",
+      "I stopped the recurring service and they still ran another charge."
+    ],
+    "13.3": [
+      "The product I received was not what the listing promised.",
+      "The item was defective and the seller would not resolve it.",
+      "What arrived was materially different from what I paid for."
+    ],
+    "13.6": [
+      "The merchant promised a refund but the credit never posted.",
+      "I returned the item and still have not received the credit.",
+      "The seller said they refunded me but nothing appeared on my statement."
+    ],
+    "12.6.1": [
+      "I was charged twice for the same purchase.",
+      "The transaction posted two times even though I only bought it once.",
+      "This is a duplicate billing error."
+    ]
+  },
+  "mastercard": {
+    "4837": [
+      "I did not authorize this charge and do not recognize it.",
+      "This purchase was made without my permission.",
+      "The transaction was fraudulent and not approved by me."
+    ],
+    "4834": [
+      "The same transaction posted twice to my account.",
+      "I was billed two times for one purchase.",
+      "This appears to be a duplicate charge."
+    ],
+    "4853": [
+      "I canceled the service and they kept billing me.",
+      "The item or service was never delivered after I paid.",
+      "The merchant failed to provide what I purchased and would not fix it."
+    ]
+  },
+  "amex": {
+    "F29": [
+      "I do not recognize this charge and did not authorize it.",
+      "My card was used fraudulently without my permission.",
+      "This transaction was unauthorized."
+    ],
+    "C08": [
+      "I paid for the service but never received it.",
+      "The merchant kept charging me after cancellation.",
+      "The goods or service were not provided as promised."
+    ],
+    "C31": [
+      "The item was not as described in the listing.",
+      "The product I received was defective or materially different.",
+      "The seller misrepresented what I was buying."
+    ]
+  },
+  "discover": {
+    "UA02": [
+      "I did not authorize this Discover transaction.",
+      "This was a fraudulent charge on my card.",
+      "I do not recognize this merchant or purchase."
+    ],
+    "RG": [
+      "I paid but never received the goods or service.",
+      "I canceled the subscription and was still charged.",
+      "The merchant failed to deliver what I purchased."
+    ],
+    "RM": [
+      "The item was not what the seller described.",
+      "What arrived was damaged, defective, or materially different.",
+      "The seller misrepresented the purchase."
+    ],
+    "DP": [
+      "I was charged twice for the same order.",
+      "This is a duplicate posting for one purchase.",
+      "The merchant ran the same charge more than once."
+    ]
+  }
+}

@@ -1,0 +1,330 @@
+{
+    "UA01": {
+      "category": "Fraud",
+      "title": "Fraud – Card Present Transaction",
+      "description": "A fraudulent transaction was made using the actual credit card in person.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Merchant processed without authorization.",
+        "Card not swiped through mag-stripe reader or mis-flagged as card-not-present.",
+        "Cardholder did not approve or participate."
+      ],
+      "transactionModifiers": ["Site to Store"],
+      "preventionSteps": [
+        "Wait for proper authorization before completing sale.",
+        "Strengthen internal fraud-prevention policies.",
+        "Respond promptly to all retrieval requests."
+      ]
+    },
+    "UA02": {
+      "category": "Fraud",
+      "title": "Fraud – Card Not Present Transaction",
+      "description": "Cardholder claims a fraudulent transaction occurred in a card-absent environment.",
+      "timeLimitIssuer": "120 days",
+      "transactionModifiers": ["Site to Store", "Card Not Present"],
+      "typicalCauses": [
+        "Merchant didn’t request authorization.",
+        "Forced multiple auth attempts on a declined card."
+      ],
+      "preventionSteps": [
+        "Obtain authorization before processing.",
+        "Discontinue attempts if card is declined.",
+        "Ask for alternate payment; never force auth."
+      ]
+    },
+    "UA05": {
+      "category": "Fraud",
+      "title": "Fraud – Chip Counterfeit Transaction",
+      "description": "Counterfeit chip transaction at a non-EMV-compliant terminal.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Full chip data not transmitted.",
+        "Non-EMV-compliant terminal used."
+      ],
+      "preventionSteps": [
+        "Upgrade to EMV-compliant terminals.",
+        "Obtain correct CVM (PIN/signature).",
+        "Train staff on chip handling."
+      ]
+    },
+    "UA06": {
+      "category": "Fraud",
+      "title": "Fraud – Chip and PIN Transaction",
+      "description": "Hybrid chip-and-PIN card processed at stripe-only terminal.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Full chip data not transmitted.",
+        "Unauthorized person made transaction."
+      ],
+      "preventionSteps": [
+        "Upgrade to compliant terminals.",
+        "Obtain correct CVM (PIN/signature).",
+        "Train staff on proper terminal use."
+      ]
+    },
+    "UA10": {
+      "category": "Fraud",
+      "title": "Request Transaction Receipt",
+      "description": "Issuer requests receipt for suspected fraudulent swipe transaction.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Signature mismatch or illegible imprint.",
+        "Merchant didn’t obtain authorization."
+      ],
+      "preventionSteps": [
+        "Always obtain authorization.",
+        "Use chip or mag-stripe read properly.",
+        "Capture legible signed receipts."
+      ]
+    },
+    "UA11": {
+      "category": "Fraud",
+      "title": "Cardholder Claims Fraud (No Signature)",
+      "description": "Swipe transaction without signature disputed as fraud.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "No signature on receipt.",
+        "Imprint illegible or missing security features."
+      ],
+      "preventionSteps": [
+        "Obtain signature and authorization at sale.",
+        "Use manual imprint if mag-stripe unreadable.",
+        "Record approval codes on receipts."
+      ]
+    },
+    "NA": {
+      "category": "Authorization",
+      "title": "No Authorization",
+      "description": "Transaction processed without any authorization.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Auth requested too late or not at all.",
+        "Tip added after initial auth."
+      ],
+      "preventionSteps": [
+        "Always authorize on day of transaction.",
+        "Do not add tip after auth."
+      ]
+    },
+    "DA": {
+      "category": "Authorization",
+      "title": "Declined Authorization",
+      "description": "Transaction forced after a decline response.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Multiple force attempts on a declined card."
+      ],
+      "preventionSteps": [
+        "Obtain valid authorization.",
+        "Discontinue if card is declined."
+      ]
+    },
+    "AT": {
+      "category": "Authorization",
+      "title": "Authorization Noncompliance",
+      "description": "Processed without positive auth or with expired response.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Forced after decline or expired auth."
+      ],
+      "preventionSteps": [
+        "Never force post-decline.",
+        "Adhere to auth amount tolerances."
+      ]
+    },
+    "IN": {
+      "category": "Processing Errors",
+      "title": "Invalid Card Number",
+      "description": "Card number is unassigned or expired.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Typo or expired card."
+      ],
+      "preventionSteps": [
+        "Double-check card data before processing."
+      ]
+    },
+    "LP": {
+      "category": "Processing Errors",
+      "title": "Late Presentation",
+      "description": "Transaction submitted past allowed timeframe.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Delay due to POS or batching issues."
+      ],
+      "preventionSteps": [
+        "Submit transactions promptly (ideally same day)."
+      ]
+    },
+    "NC": {
+      "category": "Processing Errors",
+      "title": "Not Classified",
+      "description": "Does not fit any other chargeback category.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Other reasons specific to claim."
+      ]
+    },
+    "EX": {
+      "category": "Processing Errors",
+      "title": "Expired Card",
+      "description": "Card expired before processing.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Processed expired card without re-auth."
+      ],
+      "preventionSteps": [
+        "Check expiration for all transactions."
+      ]
+    },
+    "5": {
+      "category": "Services",
+      "title": "Good Faith Investigation",
+      "description": "Merchant accepted responsibility in response to Good Faith Inquiry.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Accepted responsibility after retrieval request."
+      ]
+    },
+    "AA": {
+      "category": "Services",
+      "title": "Does Not Recognize",
+      "description": "Cardholder does not recognize the transaction.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Unrecognized descriptor or forgotten transaction."
+      ],
+      "preventionSteps": [
+        "Use clear billing descriptors.",
+        "Include customer service info in descriptor."
+      ]
+    },
+    "AP": {
+      "category": "Services",
+      "title": "Recurring Payments",
+      "description": "Charge after cancelled subscription request.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Failed to cancel recurring billing promptly."
+      ],
+      "preventionSteps": [
+        "Honor cancellations immediately.",
+        "Notify cardholders before upcoming charges."
+      ]
+    },
+    "AW": {
+      "category": "Services",
+      "title": "Altered Amount",
+      "description": "Authorized amount differs from settled amount.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "ATM or POS dispensed/posted wrong amount."
+      ],
+      "preventionSteps": [
+        "Double-check final amounts before posting."
+      ]
+    },
+    "CD": {
+      "category": "Services",
+      "title": "Credit/Debit Posted Incorrectly",
+      "description": "Debit posted when credit or vice versa should have been applied.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Reversal vs. credit mis-processing."
+      ],
+      "preventionSteps": [
+        "Train staff on proper credit/debit procedures."
+      ]
+    },
+    "DP": {
+      "category": "Services",
+      "title": "Duplicate Processing",
+      "description": "Same transaction settled more than once.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Batch or system duplication."
+      ],
+      "preventionSteps": [
+        "Review receipts; submit batches only once."
+      ]
+    },
+    "IC": {
+      "category": "Services",
+      "title": "Illegible Sales Data",
+      "description": "Requested receipt was unreadable.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Faded ink, poor scan resolution."
+      ]
+    },
+    "NF": {
+      "category": "Services",
+      "title": "Non-Receipt of Cash from ATM",
+      "description": "ATM did not dispense full cash amount.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "ATM malfunction or reconciliation error."
+      ],
+      "preventionSteps": [
+        "Reconcile ATM balances regularly; credit discrepancies quickly."
+      ]
+    },
+    "PM": {
+      "category": "Services",
+      "title": "Paid by Other Means",
+      "description": "Cardholder paid by alternate method after initial card transaction.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Multiple transactions not voided when switching payment."
+      ],
+      "preventionSteps": [
+        "Void original sale if alternate payment chosen."
+      ]
+    },
+    "RG": {
+      "category": "Services",
+      "title": "Non-Receipt of Goods, Services, or Cash",
+      "description": "Goods/services not received despite payment.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Merchant delayed or failed to deliver as promised."
+      ],
+      "transactionModifiers": ["Airline Transaction", "Site to Store", "Card Not Present"],
+      "preventionSteps": [
+        "Deliver as promised; notify customers of delays."
+      ]
+    },
+    "RM": {
+      "category": "Services",
+      "title": "Cardholder Disputes Quality of Goods or Services",
+      "description": "Customer claims defective or mis-described goods/services.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Product damaged or not as described."
+      ],
+      "preventionSteps": [
+        "Ensure correct items; package properly; accept returns promptly."
+      ]
+    },
+    "RN2": {
+      "category": "Services",
+      "title": "Credit Not Processed",
+      "description": "Returned goods or refused delivery but no credit issued.",
+      "timeLimitIssuer": "120 days",
+      "typicalCauses": [
+        "Merchant failed to process refund after return."
+      ],
+      "preventionSteps": [
+        "Process all credits promptly; disclose return policies clearly."
+      ]
+    },
+    "DC": {
+      "category": "Dispute Compliance",
+      "title": "Dispute Compliance",
+      "description": "Acquirer/merchant failed to comply with operating regulations.",
+      "typicalCauses": [
+        "Non-compliance with Discover’s chargeback rules."
+      ]
+    }
+  }
+  

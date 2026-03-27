@@ -1,0 +1,280 @@
+{
+    "4837": {
+      "category": "Fraud",
+      "title": "No Cardholder Authorization",
+      "description": "Cardholder claims the transaction was unauthorized.",
+      "timeLimitIssuer": "120 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "typicalCauses": [
+        "Fraudulently obtained account information used.",
+        "Cardholder does not recognize descriptor.",
+        "Family member used account without permission."
+      ],
+      "transactionModifiers": [
+        "Digital Goods Download",
+        "Site to Store",
+        "CNP Airline Transaction",
+        "Customer Profile",
+        "Recurring Transaction"
+      ],
+      "preventionSteps": [
+        "Use SecureCode, CVC2, AVS.",
+        "Leverage pre-sale fraud detection services.",
+        "Use clear, recognizable billing descriptors.",
+        "Always submit authorization requests.",
+        "Differentiate card-present vs. card-absent in clearing.",
+        "Use EMV-compliant terminals & correct CVM.",
+        "Do not override declines; train staff."
+      ]
+    },
+    "4840": {
+      "category": "Fraud",
+      "title": "Fraudulent Processing of Transactions",
+      "description": "Multiple unauthorized transactions following a single auth.",
+      "timeLimitIssuer": "120 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "typicalCauses": [
+        "Additional charges within minutes of a valid auth."
+      ],
+      "preventionSteps": [
+        "Issue credit immediately on duplicates.",
+        "Double-check receipts before batching.",
+        "Submit each batch only once.",
+        "Void original sale if switching payment methods."
+      ]
+    },
+    "4849": {
+      "category": "Fraud",
+      "title": "Questionable Merchant Activity",
+      "description": "Transaction flagged under Global Merchant Audit Program.",
+      "timeLimitIssuer": "120 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "typicalCauses": [
+        "Violations found in Mastercard security or audit lists."
+      ],
+      "preventionSteps": [
+        "Adhere strictly to Mastercard rules.",
+        "Maintain accurate transaction records.",
+        "Monitor against GMAP/QMAP bulletin."
+      ]
+    },
+    "4863": {
+      "category": "Fraud",
+      "title": "Cardholder Does Not Recognize—Potential Fraud",
+      "description": "Cardholder disputes an unfamiliar CNP transaction.",
+      "timeLimitIssuer": "120 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "typicalCauses": [
+        "Unrecognized online or mail/phone order."
+      ],
+      "preventionSteps": [
+        "Use SecureCode, CVC2, AVS.",
+        "Implement fraud-detection tools.",
+        "Use clear billing descriptors.",
+        "Differentiate card-present vs. card-absent."
+      ]
+    },
+    "4870": {
+      "category": "Fraud",
+      "title": "Chip Liability Shift",
+      "description": "Counterfeit chip transaction at non-EMV terminal.",
+      "timeLimitIssuer": "120 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "typicalCauses": [
+        "Processed counterfeit chip on non-EMV device."
+      ],
+      "preventionSteps": [
+        "Use EMV-compliant terminals.",
+        "Always enforce correct CVM.",
+        "Capture manual imprints when needed."
+      ]
+    },
+    "4871": {
+      "category": "Fraud",
+      "title": "Chip/PIN Liability Shift",
+      "description": "PIN-capable chip card processed without PIN.",
+      "timeLimitIssuer": "120 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "typicalCauses": [
+        "PIN not captured on chip transaction."
+      ],
+      "preventionSteps": [
+        "Use EMV/PIN terminals.",
+        "Enforce correct CVM.",
+        "Capture imprints as backup."
+      ]
+    },
+    "4807": {
+      "category": "Authorization",
+      "title": "Warning Bulletin File",
+      "description": "Deprecated code; to be consolidated into 4808.",
+      "timeLimitIssuer": "45 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "preventionSteps": [
+        "Do not use; migrate to code 4808 compliance."
+      ]
+    },
+    "4808": {
+      "category": "Authorization",
+      "title": "Authorization-Related Chargeback",
+      "description": "No or forced authorization after decline.",
+      "timeLimitIssuer": "90 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "typicalCauses": [
+        "Auth requested after sale or forced post-decline."
+      ],
+      "preventionSteps": [
+        "Confirm auth before processing.",
+        "Use EMV terminals; never override declines."
+      ]
+    },
+    "4812": {
+      "category": "Authorization",
+      "title": "Account Number Not On File",
+      "description": "Deprecated code; to be consolidated into 4808.",
+      "timeLimitIssuer": "45 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "preventionSteps": [
+        "Do not use; follow 4808 guidelines."
+      ]
+    },
+    "4834": {
+      "category": "Point-of-Interaction Error",
+      "title": "Point-of-Interaction Error",
+      "description": "Single batch or receipt submitted multiple times.",
+      "timeLimitIssuer": "120 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "typicalCauses": [
+        "Duplicate batch or receipt submissions."
+      ],
+      "transactionModifiers": [
+        "DCC Selected by Merchant",
+        "DCC Unknown/Refused",
+        "Late Presentment",
+        "Incorrect Transaction Amount"
+      ],
+      "preventionSteps": [
+        "Review receipts before deposit.",
+        "Submit batch only once.",
+        "Train staff on batching procedures."
+      ]
+    },
+    "4831": {
+      "category": "Point-of-Interaction Error",
+      "title": "Transaction Amount Differs",
+      "description": "Deprecated; to be consolidated into 4834.",
+      "timeLimitIssuer": "120 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "preventionSteps": [
+        "Double-check amounts before processing."
+      ]
+    },
+    "4842": {
+      "category": "Point-of-Interaction Error",
+      "title": "Late Presentment",
+      "description": "Transaction presented after allowed window or to closed account.",
+      "timeLimitIssuer": "120 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "typicalCauses": [
+        "Presented >7 days post-sale or >180 days to closed account."
+      ],
+      "preventionSteps": [
+        "Submit transactions within time limits.",
+        "Process same-day or as soon as possible."
+      ]
+    },
+    "4846": {
+      "category": "Point-of-Interaction Error",
+      "title": "Correct Transaction Currency Code Not Provided",
+      "description": "Wrong currency or improper DCC handling.",
+      "timeLimitIssuer": "120 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "typicalCauses": [
+        "DCC used without cardholder consent."
+      ],
+      "preventionSteps": [
+        "Offer optional DCC; disclose fees.",
+        "Train staff on multi-currency handling."
+      ]
+    },
+    "4850": {
+      "category": "Point-of-Interaction Error",
+      "title": "Installment Billing Dispute",
+      "description": "Incorrectly processed installment transaction.",
+      "timeLimitIssuer": "45 calendar days",
+      "timeLimitAcquirer": "45 calendar days"
+    },
+    "4999": {
+      "category": "Point-of-Interaction Error",
+      "title": "Domestic Chargeback Dispute",
+      "description": "Filtered for Europe region only.",
+      "timeLimitIssuer": "45 calendar days",
+      "timeLimitAcquirer": "45 calendar days"
+    },
+    "4853": {
+      "category": "Cardholder Disputes",
+      "title": "Cardholder Dispute",
+      "description": "Wrong item, poor service, or quality issues.",
+      "timeLimitIssuer": "120 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "typicalCauses": [
+        "Incorrect/damaged item; mis-described goods.",
+        "Service not performed as expected; counterfeit products."
+      ],
+      "transactionModifiers": [
+        "Counterfeit Merchandise",
+        "Credit Not Processed",
+        "Digital Goods USD ≤25",
+        "Non-Receipt",
+        "Not As Described/Defective",
+        "Recurring Transaction",
+        "Timeshare Cancellation",
+        "Transaction Not Completed"
+      ],
+      "preventionSteps": [
+        "Provide clear product descriptions.",
+        "Confirm customer consent to terms.",
+        "Accept returns; issue credits promptly."
+      ]
+    },
+    "4841": {
+      "category": "Cardholder Disputes",
+      "title": "Canceled Recurring or Digital Goods Transactions",
+      "description": "Deprecated; to be consolidated into 4853.",
+      "timeLimitIssuer": "120 calendar days",
+      "timeLimitAcquirer": "45 calendar days"
+    },
+    "4854": {
+      "category": "Cardholder Disputes",
+      "title": "Cardholder Dispute—Not Elsewhere Classified",
+      "description": "Good-faith effort to resolve dispute before chargeback.",
+      "timeLimitIssuer": "120 calendar days or 60 days from discovery",
+      "timeLimitAcquirer": "45 calendar days",
+      "preventionSteps": [
+        "Resolve complaints promptly."
+      ]
+    },
+    "4855": {
+      "category": "Cardholder Disputes",
+      "title": "Goods or Services Not Provided",
+      "description": "Deprecated; to be consolidated into 4853."
+    },
+    "4859": {
+      "category": "Cardholder Disputes",
+      "title": "Addendum, No-show, or ATM Dispute",
+      "description": "ATM cash or service not received as expected.",
+      "timeLimitIssuer": "120 calendar days",
+      "timeLimitAcquirer": "45 calendar days",
+      "transactionModifiers": ["ATM Transaction"],
+      "preventionSteps": [
+        "Reconcile ATMs promptly.",
+        "Credit discrepancies immediately."
+      ]
+    },
+    "4860": {
+      "category": "Cardholder Disputes",
+      "title": "Credit Not Processed",
+      "description": "Deprecated; to be consolidated into 4853."
+    }
+  }
+  

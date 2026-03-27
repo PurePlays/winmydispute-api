@@ -1,0 +1,60 @@
+{
+  "fraud": {
+    "57": "Fraudulent Multiple Transactions",
+    "62": "Counterfeit Transaction",
+    "81": "Fraud – Card-Present Environment",
+    "83": "Fraud – Card-Absent Environment",
+    "93": "Visa Fraud Monitoring Program",
+    "10.1": "EMV Liability Shift Counterfeit Fraud",
+    "10.2": "EMV Liability Shift Non-Counterfeit Fraud",
+    "10.3": "Other Fraud: Card-Present Environment/Condition",
+    "10.4": "Other Fraud - Card- Absent Environment",
+    "10.5": "Visa Fraud Monitoring Program"
+  },
+  "authorization": {
+    "70": "Card Recovery Bulletin or Exception File",
+    "71": "Declined Authorization",
+    "72": "No Authorization",
+    "73": "Expired Card",
+    "78": "Service Code Violation",
+    "11.1": "Card Recovery Bulletin",
+    "11.2": "Declined Authorization",
+    "11.3": "No Authorization"
+  },
+  "processingErrors": {
+    "12.1": "Late Presentment",
+    "12.2": "Incorrect Transaction Code",
+    "12.3": "Incorrect Currency",
+    "12.4": "Incorrect Account Number",
+    "12.5": "Incorrect Amount",
+    "12.6": "Duplicate Processing/Paid By Other Means",
+    "12.6.1": "Duplicate Processing",
+    "12.6.2": "Paid By Other Means",
+    "12.7": "Invalid Data"
+  },
+  "pointOfInteractionError": {
+    "74": "Late Presentment",
+    "76": "Incorrect Currency or Transaction Code",
+    "77": "Non-Matching Account Number",
+    "80": "Incorrect Transaction Amount or Account Number",
+    "82": "Duplicate Processing",
+    "86": "Paid by Other Means"
+  },
+  "consumerDisputes": {
+    "30": "Services Not Provided or Merchandise Not Received",
+    "41": "Cancelled Recurring Transaction",
+    "53": "Not as Described or Defective Merchandise",
+    "75": "Transaction Not Recognized",
+    "85": "Credit Not Processed",
+    "90": "Non-Receipt of Cash or Load Transaction Value at ATM",
+    "13.1": "Merchandise/Services Not Received",
+    "13.2": "Cancelled Recurring Transaction",
+    "13.3": "Not As Described Or Defective Merchandise/Services",
+    "13.4": "Counterfeit Merchandise",
+    "13.5": "Misrepresentation",
+    "13.6": "Credit Not Processed",
+    "13.7": "Cancelled Merchandise / Services",
+    "13.8": "Original Credit Transaction Not Accepted",
+    "13.9": "Non-Receipt of Cash or Load Transaction Value"
+  }
+}

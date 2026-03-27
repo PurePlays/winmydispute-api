@@ -1,0 +1,41 @@
+{
+  "name": "winmydispute-api",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "license": "Proprietary",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "generate:secret": "node tools/generateSecret.js",
+    "generate:bins": "node tools/generateBins.js",
+    "generate:schema": "node tools/generateDisputeSchema.js",
+    "test": "node --test --test-concurrency=1"
+  },
+  "dependencies": {
+    "@sentry/node": "^9.19.0",
+    "body-parser": "^1.20.2",
+    "docx": "^9.6.1",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "formidable": "^3.5.4",
+    "helmet": "^8.1.0",
+    "html-pdf": "^3.0.1",
+    "html-pdf-node": "^1.0.8",
+    "jszip": "^3.10.1",
+    "pdf-parse": "^2.4.5",
+    "stripe": "^12.18.0",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^9.0.1",
+    "validator": "^13.9.0",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "csvtojson": "^2.0.10",
+    "nodemon": "^3.0.0",
+    "supertest": "^7.2.2"
+  },
+  "engines": {
+    "node": ">=22 <23"
+  }
+}

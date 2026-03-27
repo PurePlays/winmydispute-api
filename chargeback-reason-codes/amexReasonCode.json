@@ -1,0 +1,47 @@
+{
+    "fraud": [
+      { "code": "F10", "description": "Missing Imprint" },
+      { "code": "F14", "description": "Missing Signature" },
+      { "code": "F24", "description": "No Card Member Authorization" },
+      { "code": "F29", "description": "Card Not Present" },
+      { "code": "F30", "description": "EMV Counterfeit" },
+      { "code": "F31", "description": "EMV Lost/Stolen/Non-Received" },
+      { "code": "FR2", "description": "Fraud Full Recourse Program" },
+      { "code": "FR4", "description": "Immediate Chargeback Program" },
+      { "code": "FR6", "description": "Partial Immediate Chargeback Program" }
+    ],
+    "authorization": [
+      { "code": "A01", "description": "Charge Amount Exceeds Authorization Amount" },
+      { "code": "A02", "description": "No Valid Authorization" },
+      { "code": "A08", "description": "Authorization Approval Expired" }
+    ],
+    "processingErrors": [
+      { "code": "P01", "description": "Unassigned Card Number" },
+      { "code": "P03", "description": "Credit Processed as Charge" },
+      { "code": "P04", "description": "Charge Processed as Credit" },
+      { "code": "P05", "description": "Incorrect Charge Amount" },
+      { "code": "P07", "description": "Late Submission" },
+      { "code": "P08", "description": "Duplicate Charge" },
+      { "code": "P22", "description": "Non-Matching Card Number" },
+      { "code": "P23", "description": "Currency Discrepancy" }
+    ],
+    "cardMemberDisputes": [
+      { "code": "C02", "description": "Credit Not Processed" },
+      { "code": "C04", "description": "Goods/Services Returned or Refused" },
+      { "code": "C05", "description": "Goods/Services Canceled" },
+      { "code": "C08", "description": "Goods/Services Not Received or Only Partially Received" },
+      { "code": "C14", "description": "Paid by Other Means" },
+      { "code": "C18", "description": "No-Show or Deposit Canceled" },
+      { "code": "C28", "description": "Canceled Recurring Billing" },
+      { "code": "C31", "description": "Goods/Services Not As Described" },
+      { "code": "C32", "description": "Goods/Services Damaged or Defective" }
+    ],
+    "inquiryMiscellaneous": [
+      { "code": "M01", "description": "Chargeback Authorization" },
+      { "code": "M10", "description": "Vehicle Rental – Capital Damages" },
+      { "code": "M49", "description": "Vehicle Rental – Theft or Loss of Use" },
+      { "code": "R03", "description": "Insufficient Reply" },
+      { "code": "R13", "description": "No Reply" }
+    ]
+  }
+  
