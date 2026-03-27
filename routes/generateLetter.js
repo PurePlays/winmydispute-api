@@ -6,7 +6,10 @@ import { createRateLimit } from '../middleware/rateLimit.js';
 import { recordAuditEvent } from '../services/auditLogService.js';
 import { isEmailLicensed, normalizeEmail } from '../services/licenseStore.js';
 import { enqueueJob } from '../services/jobQueueService.js';
-import { getPremiumAccessDecision } from '../services/premiumAccessService.js';
+import {
+  extractPremiumAccessContext,
+  getPremiumAccessDecision
+} from '../services/premiumAccessService.js';
 import { createPremiumReportDocument } from '../services/reportDocumentService.js';
 import { saveCaseVersion } from '../services/caseFileService.js';
 import { createSubmissionBundle } from '../services/submissionBundleService.js';
@@ -66,20 +69,24 @@ async function ensurePremiumAccess(req, res, intake) {
   const decision = await getPremiumAccessDecision({
     email: intake.email,
     source: 'gpt',
-    intent: 'full-dispute-kit'
+    intent: 'full-dispute-kit',
+    ...extractPremiumAccessContext(req)
   });
   if (!decision.ok) {
     res.status(decision.statusCode).json({
       ...('error' in decision ? { error: decision.error } : {}),
       ...('upgradeRequired' in decision ? { upgradeRequired: decision.upgradeRequired } : {}),
       ...('checkoutUrl' in decision ? { checkoutUrl: decision.checkoutUrl } : {}),
+      ...('checkoutSessionId' in decision ? { checkoutSessionId: decision.checkoutSessionId } : {}),
+      ...('accessTokenRequired' in decision ? { accessTokenRequired: decision.accessTokenRequired } : {}),
+      ...('licensed' in decision ? { licensed: decision.licensed } : {}),
       ...('message' in decision ? { message: decision.message } : {}),
       requestId: req.requestId || null
     });
     return null;
   }
 
-  return decision.email;
+  return decision;
 }
 
 router.post(
@@ -121,20 +128,20 @@ router.post(
       return;
     }
 
-    const email = await ensurePremiumAccess(req, res, intake);
-    if (!email) {
+    const access = await ensurePremiumAccess(req, res, intake);
+    if (!access) {
       return;
     }
 
     const premiumResponse = await buildPremiumResponse({
       ...req.body,
-      email
+      email: access.email
     });
     const caseState = await saveCaseVersion({
       caseId: intake.caseId || undefined,
-      email,
+      email: access.email,
       stage: 'premium-generated',
-      intake: normalizeIntake({ ...req.body, email }),
+      intake: normalizeIntake({ ...req.body, email: access.email }),
       premium: premiumResponse,
       source: 'premium-api'
     });
@@ -144,7 +151,7 @@ router.post(
       requestId: req.requestId,
       actorType: 'gpt-token',
       actorId: req.auth?.tokenId || null,
-      email,
+      email: access.email,
       caseId: caseState.caseFile.caseId,
       status: 'success',
       message: 'Premium dispute package generated.'
@@ -152,6 +159,7 @@ router.post(
 
     return res.json({
       ...premiumResponse,
+      premiumAccessToken: access.premiumAccessToken,
       caseFile: caseState.caseFile,
       caseVersion: caseState.version
     });
@@ -168,19 +176,19 @@ router.post(
       return;
     }
 
-    const email = await ensurePremiumAccess(req, res, intake);
-    if (!email) {
+    const access = await ensurePremiumAccess(req, res, intake);
+    if (!access) {
       return;
     }
 
     if (wantsAsync(req.body)) {
       const job = await enqueueJob({
         kind: 'report.generate',
-        email,
+        email: access.email,
         caseId: intake.caseId || undefined,
         requestId: req.requestId || null,
         input: {
-          intake: { ...req.body, email },
+          intake: { ...req.body, email: access.email },
           format: req.body?.outputFormat || req.body?.documentFormat || intake.outputFormat
         }
       });
@@ -191,7 +199,7 @@ router.post(
         requestId: req.requestId,
         actorType: 'gpt-token',
         actorId: req.auth?.tokenId || null,
-        email,
+        email: access.email,
         caseId: intake.caseId || null,
         status: 'queued',
         message: 'Premium report generation queued asynchronously.',
@@ -203,24 +211,25 @@ router.post(
       return res.status(202).json({
         jobId: job.jobId,
         status: job.status,
-        email,
+        email: access.email,
+        premiumAccessToken: access.premiumAccessToken,
         requestId: req.requestId || null
       });
     }
     const premiumResponse = await buildPremiumResponse({
       ...req.body,
-      email
+      email: access.email
     });
     const document = await createPremiumReportDocument({
-      intake: normalizeIntake({ ...req.body, email }),
+      intake: normalizeIntake({ ...req.body, email: access.email }),
       premium: premiumResponse,
       format: req.body?.outputFormat || req.body?.documentFormat || intake.outputFormat
     });
     const caseState = await saveCaseVersion({
       caseId: intake.caseId || undefined,
-      email,
+      email: access.email,
       stage: 'document-generated',
-      intake: normalizeIntake({ ...req.body, email }),
+      intake: normalizeIntake({ ...req.body, email: access.email }),
       premium: premiumResponse,
       artifact: document,
       artifacts: document.artifacts || [],
@@ -232,7 +241,7 @@ router.post(
       requestId: req.requestId,
       actorType: 'gpt-token',
       actorId: req.auth?.tokenId || null,
-      email,
+      email: access.email,
       caseId: caseState.caseFile.caseId,
       status: 'success',
       message: 'Premium report document generated.',
@@ -244,6 +253,7 @@ router.post(
 
     return res.json({
       ...document,
+      premiumAccessToken: access.premiumAccessToken,
       caseFile: caseState.caseFile,
       caseVersion: caseState.version
     });
@@ -260,19 +270,19 @@ router.post(
       return;
     }
 
-    const email = await ensurePremiumAccess(req, res, intake);
-    if (!email) {
+    const access = await ensurePremiumAccess(req, res, intake);
+    if (!access) {
       return;
     }
 
     if (wantsAsync(req.body)) {
       const job = await enqueueJob({
         kind: 'bundle.generate',
-        email,
+        email: access.email,
         caseId: intake.caseId || undefined,
         requestId: req.requestId || null,
         input: {
-          intake: { ...req.body, email },
+          intake: { ...req.body, email: access.email },
           format: req.body?.outputFormat || req.body?.documentFormat || intake.outputFormat
         }
       });
@@ -283,7 +293,7 @@ router.post(
         requestId: req.requestId,
         actorType: 'gpt-token',
         actorId: req.auth?.tokenId || null,
-        email,
+        email: access.email,
         caseId: intake.caseId || null,
         status: 'queued',
         message: 'Submission bundle generation queued asynchronously.',
@@ -295,25 +305,26 @@ router.post(
       return res.status(202).json({
         jobId: job.jobId,
         status: job.status,
-        email,
+        email: access.email,
+        premiumAccessToken: access.premiumAccessToken,
         requestId: req.requestId || null
       });
     }
 
     const premiumResponse = await buildPremiumResponse({
       ...req.body,
-      email
+      email: access.email
     });
     const bundle = await createSubmissionBundle({
-      intake: normalizeIntake({ ...req.body, email }),
+      intake: normalizeIntake({ ...req.body, email: access.email }),
       premium: premiumResponse,
       format: req.body?.outputFormat || req.body?.documentFormat || intake.outputFormat
     });
     const caseState = await saveCaseVersion({
       caseId: intake.caseId || undefined,
-      email,
+      email: access.email,
       stage: 'bundle-generated',
-      intake: normalizeIntake({ ...req.body, email }),
+      intake: normalizeIntake({ ...req.body, email: access.email }),
       premium: premiumResponse,
       artifact: bundle,
       source: 'submission-bundle'
@@ -325,7 +336,7 @@ router.post(
       requestId: req.requestId,
       actorType: 'gpt-token',
       actorId: req.auth?.tokenId || null,
-      email,
+      email: access.email,
       caseId: caseState.caseFile.caseId,
       status: 'success',
       message: 'Submission bundle generated.',
@@ -336,6 +347,7 @@ router.post(
 
     return res.json({
       ...bundle,
+      premiumAccessToken: access.premiumAccessToken,
       caseFile: caseState.caseFile,
       caseVersion: caseState.version
     });

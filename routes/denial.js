@@ -5,7 +5,10 @@ import { createRateLimit } from '../middleware/rateLimit.js';
 import { recordAuditEvent } from '../services/auditLogService.js';
 import { saveCaseVersion } from '../services/caseFileService.js';
 import { buildDenialResponsePackage } from '../services/denialResponseService.js';
-import { getPremiumAccessDecision } from '../services/premiumAccessService.js';
+import {
+  extractPremiumAccessContext,
+  getPremiumAccessDecision
+} from '../services/premiumAccessService.js';
 import { normalizeEmail } from '../services/licenseStore.js';
 
 const router = express.Router();
@@ -24,7 +27,8 @@ router.post('/api/v1/denials/respond', verifyOpenAIBearer, denialLimiter, asyncH
   const decision = await getPremiumAccessDecision({
     email,
     source: 'gpt',
-    intent: 'full-dispute-kit'
+    intent: 'full-dispute-kit',
+    ...extractPremiumAccessContext(req)
   });
 
   if (!decision.ok) {
@@ -32,6 +36,9 @@ router.post('/api/v1/denials/respond', verifyOpenAIBearer, denialLimiter, asyncH
       ...('error' in decision ? { error: decision.error } : {}),
       ...('upgradeRequired' in decision ? { upgradeRequired: decision.upgradeRequired } : {}),
       ...('checkoutUrl' in decision ? { checkoutUrl: decision.checkoutUrl } : {}),
+      ...('checkoutSessionId' in decision ? { checkoutSessionId: decision.checkoutSessionId } : {}),
+      ...('accessTokenRequired' in decision ? { accessTokenRequired: decision.accessTokenRequired } : {}),
+      ...('licensed' in decision ? { licensed: decision.licensed } : {}),
       ...('message' in decision ? { message: decision.message } : {}),
       requestId: req.requestId || null
     });
@@ -64,6 +71,7 @@ router.post('/api/v1/denials/respond', verifyOpenAIBearer, denialLimiter, asyncH
 
   return res.json({
     ...responsePayload,
+    premiumAccessToken: decision.premiumAccessToken,
     caseFile: caseState.caseFile,
     caseVersion: caseState.version
   });

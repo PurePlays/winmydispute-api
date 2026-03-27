@@ -54,15 +54,6 @@ function ensureJsonObject(req, res) {
   return body;
 }
 
-function escapeHtml(value = '') {
-  return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
-}
-
 // GET /api/v1/bins/:bin - identify card issuer
 router.get('/api/v1/bins/:bin', asyncHandler(async (req, res) => {
   const result = await resolveBinToIssuer(req.params.bin);
@@ -173,20 +164,21 @@ router.post('/api/v1/letter/download', verifyOpenAIBearer, writeLimiter, asyncHa
     return;
   }
 
-  const html = typeof body.letterHtml === 'string' && body.letterHtml.trim()
-    ? body.letterHtml
-    : typeof body.letterText === 'string' && body.letterText.trim()
-      ? `<pre>${escapeHtml(body.letterText)}</pre>`
-      : '';
-
-  if (!html) {
+  if (typeof body.letterHtml === 'string' && body.letterHtml.trim()) {
     return res.status(400).json({
-      error: 'letterText or letterHtml is required',
+      error: 'Raw HTML uploads are no longer supported. Provide letterText instead.',
       requestId: req.requestId || null
     });
   }
 
-  const url = await downloadDisputeLetter(html, {
+  if (!(typeof body.letterText === 'string' && body.letterText.trim())) {
+    return res.status(400).json({
+      error: 'letterText is required',
+      requestId: req.requestId || null
+    });
+  }
+
+  const url = await downloadDisputeLetter(body.letterText, {
     email: typeof body.email === 'string' ? body.email : null
   });
   res.json({ downloadUrl: url });

@@ -219,6 +219,18 @@ paths:
             type: string
             format: email
             example: user@example.com
+        - name: sessionId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Matching Stripe Checkout session ID used to exchange a paid license for a premium access token.
+        - name: checkoutSessionId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Alias for sessionId.
       responses:
         "200":
           description: License state for the email
@@ -312,7 +324,8 @@ paths:
       tags: [disputes]
       summary: Generate the full premium dispute kit
       description: |
-        Requires a paid email license. When unpaid, the endpoint returns HTTP 402 with a checkout URL.
+        Requires a paid email license plus either a signed premium access token or the matching
+        Stripe checkout session ID. When unpaid, the endpoint returns HTTP 402 with a checkout URL.
         When paid, the endpoint returns the full premium package in one response, including issuer submission guidance,
         an exhibit packet, and a submission-ready action plan.
       requestBody:
@@ -351,7 +364,8 @@ paths:
       tags: [disputes]
       summary: Generate a premium dispute report document
       description: |
-        Requires a paid email license. Produces a downloadable, professionally formatted report package.
+        Requires a paid email license plus either a signed premium access token or the matching
+        Stripe checkout session ID. Produces a downloadable, professionally formatted report package.
         Supported formats are PDF, DOCX, Word-compatible RTF, and plain text. The endpoint can also
         generate a second redacted copy for privacy-safe sharing.
       requestBody:
@@ -396,7 +410,8 @@ paths:
       tags: [disputes]
       summary: Generate a downloadable submission bundle
       description: |
-        Requires a paid email license. Produces a ZIP package with the generated report,
+        Requires a paid email license plus either a signed premium access token or the matching
+        Stripe checkout session ID. Produces a ZIP package with the generated report,
         submission plan, exhibit index, and a compact case summary.
       requestBody:
         required: true
@@ -440,7 +455,8 @@ paths:
       tags: [disputes]
       summary: Generate a follow-up response after a denial
       description: |
-        Requires a paid email license. Builds a reconsideration package after an issuer or merchant denial.
+        Requires a paid email license plus either a signed premium access token or the matching
+        Stripe checkout session ID. Builds a reconsideration package after an issuer or merchant denial.
       requestBody:
         required: true
         content:
@@ -496,6 +512,24 @@ paths:
           schema:
             type: string
             format: email
+        - name: premiumAccessToken
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Signed premium access token returned by /auth/check-license after payment.
+        - name: sessionId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Matching Stripe Checkout session ID for token exchange.
+        - name: checkoutSessionId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Alias for sessionId.
       responses:
         "200":
           description: Saved case list
@@ -534,6 +568,24 @@ paths:
           schema:
             type: string
             format: email
+        - name: premiumAccessToken
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Signed premium access token returned by /auth/check-license after payment.
+        - name: sessionId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Matching Stripe Checkout session ID for token exchange.
+        - name: checkoutSessionId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Alias for sessionId.
       responses:
         "200":
           description: Saved case detail
@@ -567,7 +619,8 @@ paths:
       tags: [disputes]
       summary: Extract structured evidence from uploaded files
       description: |
-        Premium endpoint for evidence ingestion. Accepts multipart uploads and returns structured
+        Premium endpoint for evidence ingestion. Requires a paid email license plus either a signed
+        premium access token or the matching Stripe checkout session ID. Accepts multipart uploads and returns structured
         evidence items, timeline entries, rebuttal concerns, extracted text, and a combined summary.
         Text-like files are parsed directly, PDFs are parsed for embedded text when possible, and
         image/PDF OCR uses the configured OCR provider when available. Uploaded files are also turned
@@ -583,6 +636,12 @@ paths:
                 email:
                   type: string
                   format: email
+                premiumAccessToken:
+                  type: string
+                checkoutSessionId:
+                  type: string
+                sessionId:
+                  type: string
                 description:
                   type: string
                 merchantName:
@@ -677,6 +736,24 @@ paths:
           schema:
             type: string
             format: email
+        - name: premiumAccessToken
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Signed premium access token returned by /auth/check-license after payment.
+        - name: sessionId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Matching Stripe Checkout session ID for token exchange.
+        - name: checkoutSessionId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Alias for sessionId.
       responses:
         "200":
           description: Job status
@@ -955,6 +1032,15 @@ components:
           type: string
           format: email
           description: Optional for preview, required for premium generation and license lookup.
+        premiumAccessToken:
+          type: string
+          description: Signed premium access token returned by /auth/check-license after payment.
+        checkoutSessionId:
+          type: string
+          description: Matching Stripe Checkout session ID that can be exchanged for a premium access token.
+        sessionId:
+          type: string
+          description: Alias for checkoutSessionId.
         network:
           type: string
           enum: [visa, mastercard, amex, discover]
@@ -1410,6 +1496,10 @@ components:
         email:
           type: string
           format: email
+        premiumAccessToken:
+          type: string
+          nullable: true
+          description: Returned only when the caller provides the matching Stripe session ID for a paid license.
       required: [licensed, status, email]
 
     StrategySet:
@@ -1594,6 +1684,9 @@ components:
         email:
           type: string
           format: email
+        premiumAccessToken:
+          type: string
+          nullable: true
         extractedCount:
           type: integer
         files:
@@ -1904,6 +1997,9 @@ components:
         requestId:
           type: string
           nullable: true
+        premiumAccessToken:
+          type: string
+          nullable: true
         input:
           type: object
           additionalProperties: true
@@ -1945,6 +2041,9 @@ components:
         email:
           type: string
           format: email
+        premiumAccessToken:
+          type: string
+          nullable: true
         requestId:
           type: string
           nullable: true
@@ -1990,6 +2089,9 @@ components:
         email:
           type: string
           format: email
+        premiumAccessToken:
+          type: string
+          nullable: true
         count:
           type: integer
         cases:
@@ -2003,6 +2105,9 @@ components:
         - $ref: "#/components/schemas/CaseFileSummary"
         - type: object
           properties:
+            premiumAccessToken:
+              type: string
+              nullable: true
             versions:
               type: array
               items:
@@ -2015,6 +2120,9 @@ components:
         email:
           type: string
           format: email
+        premiumAccessToken:
+          type: string
+          nullable: true
         reasonCode:
           type: string
           nullable: true
@@ -2082,6 +2190,9 @@ components:
     ReportDocumentResponse:
       type: object
       properties:
+        premiumAccessToken:
+          type: string
+          nullable: true
         kind:
           type: string
           enum: [artifact]
@@ -2130,6 +2241,9 @@ components:
     SubmissionBundleResponse:
       type: object
       properties:
+        premiumAccessToken:
+          type: string
+          nullable: true
         kind:
           type: string
           enum: [artifact]
@@ -2169,6 +2283,9 @@ components:
         email:
           type: string
           format: email
+        premiumAccessToken:
+          type: string
+          nullable: true
         caseId:
           oneOf:
             - type: string
@@ -2306,7 +2423,10 @@ components:
           type: string
           format: uri
           example: https://checkout.stripe.com/pay/cs_test_123
+        checkoutSessionId:
+          type: string
+          example: cs_test_123
         message:
           type: string
           example: Premium access requires a one-time $6.99 payment.
-      required: [upgradeRequired, checkoutUrl, message]
+      required: [upgradeRequired, checkoutUrl, checkoutSessionId, message]

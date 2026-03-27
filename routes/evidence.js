@@ -4,7 +4,10 @@ import verifyOpenAIBearer from '../middleware/verifyOpenAIBearer.js';
 import { createRateLimit } from '../middleware/rateLimit.js';
 import { recordAuditEvent } from '../services/auditLogService.js';
 import { buildExhibitPacket } from '../services/exhibitPackagerService.js';
-import { getPremiumAccessDecision } from '../services/premiumAccessService.js';
+import {
+  extractPremiumAccessContext,
+  getPremiumAccessDecision
+} from '../services/premiumAccessService.js';
 import { saveCaseVersion } from '../services/caseFileService.js';
 import { storeUploadedFiles } from '../services/fileStorageService.js';
 import { enqueueJob } from '../services/jobQueueService.js';
@@ -37,7 +40,12 @@ router.post('/api/v1/evidence/extract', verifyOpenAIBearer, evidenceLimiter, asy
     const decision = await getPremiumAccessDecision({
       email: fields.email,
       source: 'gpt',
-      intent: 'full-dispute-kit'
+      intent: 'full-dispute-kit',
+      ...extractPremiumAccessContext({
+        body: fields,
+        query: req.query,
+        headers: req.headers
+      })
     });
 
     if (!decision.ok) {
@@ -45,6 +53,9 @@ router.post('/api/v1/evidence/extract', verifyOpenAIBearer, evidenceLimiter, asy
         ...('error' in decision ? { error: decision.error } : {}),
         ...('upgradeRequired' in decision ? { upgradeRequired: decision.upgradeRequired } : {}),
         ...('checkoutUrl' in decision ? { checkoutUrl: decision.checkoutUrl } : {}),
+        ...('checkoutSessionId' in decision ? { checkoutSessionId: decision.checkoutSessionId } : {}),
+        ...('accessTokenRequired' in decision ? { accessTokenRequired: decision.accessTokenRequired } : {}),
+        ...('licensed' in decision ? { licensed: decision.licensed } : {}),
         ...('message' in decision ? { message: decision.message } : {}),
         requestId: req.requestId || null
       });
@@ -94,6 +105,7 @@ router.post('/api/v1/evidence/extract', verifyOpenAIBearer, evidenceLimiter, asy
         email: decision.email,
         jobId: job.jobId,
         status: job.status,
+        premiumAccessToken: decision.premiumAccessToken,
         storedFiles: storedFiles.map(file => ({
           fileId: file.fileId,
           originalFilename: file.originalFilename,
@@ -150,6 +162,7 @@ router.post('/api/v1/evidence/extract', verifyOpenAIBearer, evidenceLimiter, asy
 
     return res.json({
       email: decision.email,
+      premiumAccessToken: decision.premiumAccessToken,
       ...extraction,
       exhibitPacket,
       storedFiles: storedFiles.map(file => ({

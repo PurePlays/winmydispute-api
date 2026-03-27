@@ -23,6 +23,21 @@ function formatAmount(value) {
   return value || 'the transaction amount';
 }
 
+function createHttpError(statusCode, message) {
+  const error = new Error(message);
+  error.statusCode = statusCode;
+  return error;
+}
+
+function escapeHtml(value = '') {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
 export async function resolveBinToIssuer(bin) {
   return await getBinMetadata(bin) || {
     bin,
@@ -65,7 +80,7 @@ export async function lookupReasonCodeByScenario(network, scenario) {
 export async function getReasonCodeDetails(network, code) {
   const reasonNode = getReasonNode(network, code);
   if (!reasonNode) {
-    throw new Error(`Reason code not found: ${network}/${code}`);
+    throw createHttpError(404, `Reason code not found: ${network}/${code}`);
   }
 
   return reasonNode;
@@ -176,7 +191,7 @@ export async function estimateDisputeSuccess({
 export async function getRebuttalStrategy({ network, reasonCode }) {
   const strategy = getSchemaRebuttalStrategy(network, reasonCode);
   if (!strategy) {
-    throw new Error(`No rebuttal strategy for ${network}/${reasonCode}`);
+    throw createHttpError(404, `No rebuttal strategy for ${network}/${reasonCode}`);
   }
 
   return strategy;
@@ -193,8 +208,8 @@ export async function generateCfpbComplaintSummary({ network, issuer, transactio
   ].join('\n');
 }
 
-export async function downloadDisputeLetter(letterHtml, { email = null } = {}) {
-  const html = `<html><head><meta charset="utf-8"><title>Dispute Letter</title></head><body>${letterHtml}</body></html>`;
+export async function downloadDisputeLetter(letterText, { email = null } = {}) {
+  const html = `<html><head><meta charset="utf-8"><title>Dispute Letter</title></head><body><pre>${escapeHtml(letterText)}</pre></body></html>`;
   const buffer = await new Promise((resolve, reject) => {
     pdf.create(html, { format: 'Letter' }).toBuffer((error, buf) => (error ? reject(error) : resolve(buf)));
   });

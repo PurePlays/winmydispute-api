@@ -4,6 +4,10 @@ import verifyOpenAIBearer from '../middleware/verifyOpenAIBearer.js';
 import { createRateLimit } from '../middleware/rateLimit.js';
 import { recordAuditEvent } from '../services/auditLogService.js';
 import { getLicenseByEmail, normalizeEmail } from '../services/licenseStore.js';
+import {
+  exchangePremiumAccessToken,
+  getPresentedCheckoutSessionId
+} from '../services/premiumAccessTokenService.js';
 
 const router = express.Router();
 
@@ -27,6 +31,28 @@ router.get('/auth/check-license', verifyOpenAIBearer, licenseLookupLimiter, asyn
     }
 
     const license = await getLicenseByEmail(email);
+    const checkoutSessionId = getPresentedCheckoutSessionId({
+      checkoutSessionId: req.query.checkoutSessionId,
+      sessionId: req.query.sessionId,
+      headers: req.headers
+    });
+    let premiumAccessToken = null;
+
+    if (license?.status === 'paid' && checkoutSessionId) {
+      const exchanged = await exchangePremiumAccessToken({
+        email,
+        sessionId: checkoutSessionId
+      });
+
+      if (!exchanged.ok) {
+        return res.status(exchanged.statusCode).json({
+          error: exchanged.error,
+          requestId: req.requestId || null
+        });
+      }
+
+      premiumAccessToken = exchanged.premiumAccessToken;
+    }
     await recordAuditEvent({
       eventType: 'license.lookup',
       category: 'payment',
@@ -40,7 +66,8 @@ router.get('/auth/check-license', verifyOpenAIBearer, licenseLookupLimiter, asyn
     res.json({
       licensed: license?.status === 'paid',
       status: license?.status || 'unpaid',
-      email
+      email,
+      ...(premiumAccessToken ? { premiumAccessToken } : {})
     });
   } catch (error) {
     next(error);

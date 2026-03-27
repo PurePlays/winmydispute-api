@@ -84,13 +84,6 @@ function getMissingRequiredConfiguration() {
     .map(check => check.label);
 }
 
-function assertRequiredConfiguration() {
-  const missingEnvVars = getMissingRequiredConfiguration();
-  if (missingEnvVars.length > 0) {
-    throw new Error(`Missing required environment variables: ${missingEnvVars.join(', ')}`);
-  }
-}
-
 const jsonBodyParser = express.json({
   verify: (req, _res, buf) => { req.rawBody = buf; }
 });
@@ -208,21 +201,37 @@ app.use('/', searchStrategyRouter);
 
 // ─── Global Error Handler ────────────────────────────────────────────────────
 app.use((err, _req, res, _next) => {
-  console.error('❌ Server error:', err);
-  Sentry.setContext('requestInfo', {
-    url: _req.originalUrl,
-    method: _req.method,
-    user: _req.user?.id || 'anonymous',
-  });
-  Sentry.captureException(err);  // Log the error in Sentry
-  res.status(500).json({
-    error: 'Internal server error',
+  const statusCode = Number(err?.statusCode);
+  const responseStatus = Number.isInteger(statusCode) && statusCode >= 400 && statusCode < 600
+    ? statusCode
+    : 500;
+
+  if (responseStatus >= 500) {
+    console.error('❌ Server error:', err);
+  } else {
+    console.warn(`⚠️ Request failed with ${responseStatus}: ${err?.message || 'Request failed'}`);
+  }
+
+  if (responseStatus >= 500) {
+    Sentry.setContext('requestInfo', {
+      url: _req.originalUrl,
+      method: _req.method,
+      user: _req.user?.id || 'anonymous',
+    });
+    Sentry.captureException(err);  // Log the error in Sentry
+  }
+
+  res.status(responseStatus).json({
+    error: responseStatus >= 500 ? 'Internal server error' : (err?.message || 'Request failed'),
     requestId: _req.requestId || null
   });
 });
 
 function startServer() {
-  assertRequiredConfiguration();
+  const missingConfiguration = getMissingRequiredConfiguration();
+  if (missingConfiguration.length > 0) {
+    console.warn(`⚠️ Starting in degraded mode. Missing required environment variables: ${missingConfiguration.join(', ')}`);
+  }
   resumePendingJobs();
   return app.listen(port, () => {
     console.log(`✅ WinMyDispute API running on port ${port}`);

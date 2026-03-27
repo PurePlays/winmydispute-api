@@ -55,6 +55,8 @@ test('OpenAPI documents the canonical GPT flow and rate-limit behavior', () => {
   assert.match(openapi, /SubmissionPlan/);
   assert.match(openapi, /ReportArtifact/);
   assert.match(openapi, /bearerAuth/);
+  assert.match(openapi, /premiumAccessToken:/);
+  assert.match(openapi, /checkoutSessionId:/);
   assert.match(openapi, /previewTip:/);
   assert.match(openapi, /redactionMode:/);
   assert.match(openapi, /requestId:/);

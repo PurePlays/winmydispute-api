@@ -268,6 +268,8 @@ export function normalizeEvidenceFields(fields = {}) {
     merchantName: normalizeText(firstValue(fields.merchantName)),
     issuer: normalizeText(firstValue(fields.issuer)),
     network: normalizeText(firstValue(fields.network)),
+    premiumAccessToken: normalizeText(firstValue(fields.premiumAccessToken || fields.accessToken)),
+    checkoutSessionId: normalizeText(firstValue(fields.checkoutSessionId || fields.sessionId)),
     async: ['true', '1', 'yes', 'on'].includes(normalizeText(firstValue(fields.async)).toLowerCase())
   };
 }

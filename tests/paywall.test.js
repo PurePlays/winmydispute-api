@@ -63,12 +63,17 @@ function authHeader() {
   return { Authorization: `Bearer ${process.env.OPENAI_BEARER}` };
 }
 
-async function waitForJob(jobId, email) {
+async function waitForJob(jobId, email, premiumAccessToken = '') {
   for (let attempt = 0; attempt < 40; attempt += 1) {
+    const query = { email };
+    if (premiumAccessToken) {
+      query.premiumAccessToken = premiumAccessToken;
+    }
+
     const response = await request(app)
       .get(`/api/v1/jobs/${jobId}`)
       .set(authHeader())
-      .query({ email });
+      .query(query);
 
     if (response.status === 200 && ['completed', 'failed'].includes(response.body.status)) {
       return response;
@@ -78,6 +83,53 @@ async function waitForJob(jobId, email) {
   }
 
   throw new Error(`Timed out waiting for job ${jobId}`);
+}
+
+async function fulfillPremiumLicense(email, sessionId) {
+  const event = {
+    type: 'checkout.session.completed',
+    data: {
+      object: {
+        id: sessionId,
+        payment_status: 'paid',
+        amount_total: 699,
+        customer_email: email,
+        metadata: {
+          email,
+          source: 'gpt',
+          intent: 'full-dispute-kit',
+          product: 'winmydispute-full-dispute-kit',
+          amount: '699'
+        }
+      }
+    }
+  };
+
+  const response = await request(app)
+    .post('/api/v1/stripe-webhook')
+    .set('stripe-signature', 'good-signature')
+    .set('Content-Type', 'application/json')
+    .send(JSON.stringify(event));
+
+  assert.equal(response.status, 200);
+}
+
+async function issuePremiumAccessToken(email, sessionId) {
+  const response = await request(app)
+    .get('/auth/check-license')
+    .set(authHeader())
+    .query({ email, sessionId });
+
+  assert.equal(response.status, 200);
+  assert.equal(response.body.licensed, true);
+  assert.equal(response.body.status, 'paid');
+  assert.match(response.body.premiumAccessToken, /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/);
+  return response.body.premiumAccessToken;
+}
+
+async function grantPremiumAccess(email, sessionId) {
+  await fulfillPremiumLicense(email, sessionId);
+  return issuePremiumAccessToken(email, sessionId);
 }
 
 function buildStripeMock() {
@@ -286,6 +338,39 @@ test('bin lookup returns canonical metadata from the configured bin store', asyn
   assert.equal(response.body.country, 'US');
 });
 
+test('invalid reason-code lookups return 404 instead of 500', async () => {
+  const response = await request(app).get('/api/v1/reasons/visa/not-a-real-code');
+
+  assert.equal(response.status, 404);
+  assert.match(response.body.error, /reason code not found/i);
+});
+
+test('invalid rebuttal strategy requests return 404 instead of 500', async () => {
+  const response = await request(app)
+    .post('/api/v1/rebuttal/strategy')
+    .set(authHeader())
+    .send({
+      network: 'visa',
+      reasonCode: 'not-a-real-code'
+    });
+
+  assert.equal(response.status, 404);
+  assert.match(response.body.error, /no rebuttal strategy/i);
+});
+
+test('legacy letter download rejects raw html uploads', async () => {
+  const response = await request(app)
+    .post('/api/v1/letter/download')
+    .set(authHeader())
+    .send({
+      email: 'legacy@example.com',
+      letterHtml: '<img src=\"file:///etc/passwd\">'
+    });
+
+  assert.equal(response.status, 400);
+  assert.match(response.body.error, /raw html uploads are no longer supported/i);
+});
+
 test('free preview returns one preview tip and premium feature locks', async () => {
   const response = await request(app)
     .post('/api/v1/disputes/preview')
@@ -420,39 +505,9 @@ test('license check flips from unpaid to paid after webhook fulfillment and rema
   assert.equal(before.status, 200);
   assert.equal(before.body.licensed, false);
 
-  const event = {
-    type: 'checkout.session.completed',
-    data: {
-      object: {
-        id: 'cs_paid_123',
-        payment_status: 'paid',
-        amount_total: 699,
-        customer_email: 'paid@example.com',
-        metadata: {
-          email: 'paid@example.com',
-          source: 'gpt',
-          intent: 'full-dispute-kit',
-          product: 'winmydispute-full-dispute-kit',
-          amount: '699'
-        }
-      }
-    }
-  };
+  await fulfillPremiumLicense('paid@example.com', 'cs_paid_123');
+  await fulfillPremiumLicense('paid@example.com', 'cs_paid_123');
 
-  const first = await request(app)
-    .post('/api/v1/stripe-webhook')
-    .set('stripe-signature', 'good-signature')
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify(event));
-
-  const second = await request(app)
-    .post('/api/v1/stripe-webhook')
-    .set('stripe-signature', 'good-signature')
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify(event));
-
-  assert.equal(first.status, 200);
-  assert.equal(second.status, 200);
 
   const licenses = await loadLicenses();
   assert.equal(licenses.length, 1);
@@ -467,6 +522,26 @@ test('license check flips from unpaid to paid after webhook fulfillment and rema
   assert.equal(after.status, 200);
   assert.equal(after.body.licensed, true);
   assert.equal(after.body.status, 'paid');
+
+  const exchanged = await request(app)
+    .get('/auth/check-license')
+    .set(authHeader())
+    .query({ email: 'paid@example.com', sessionId: 'cs_paid_123' });
+
+  assert.equal(exchanged.status, 200);
+  assert.match(exchanged.body.premiumAccessToken, /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/);
+});
+
+test('license exchange rejects a paid email when the checkout session does not match', async () => {
+  await fulfillPremiumLicense('paid-mismatch@example.com', 'cs_paid_mismatch_123');
+
+  const response = await request(app)
+    .get('/auth/check-license')
+    .set(authHeader())
+    .query({ email: 'paid-mismatch@example.com', sessionId: 'cs_wrong_123' });
+
+  assert.equal(response.status, 403);
+  assert.match(response.body.error, /does not match/i);
 });
 
 test('premium generation returns 402 plus checkout URL when unpaid', async () => {
@@ -486,38 +561,38 @@ test('premium generation returns 402 plus checkout URL when unpaid', async () =>
   assert.equal(response.status, 402);
   assert.equal(response.body.upgradeRequired, true);
   assert.match(response.body.checkoutUrl, /^https:\/\/checkout\.stripe\.com\/pay\//);
+  assert.match(response.body.checkoutSessionId, /^cs_test_/);
 });
 
-test('premium generation returns the full premium payload when licensed', async () => {
-  const event = {
-    type: 'checkout.session.completed',
-    data: {
-      object: {
-        id: 'cs_premium_123',
-        payment_status: 'paid',
-        amount_total: 699,
-        customer_email: 'licensed@example.com',
-        metadata: {
-          email: 'licensed@example.com',
-          source: 'gpt',
-          intent: 'full-dispute-kit',
-          product: 'winmydispute-full-dispute-kit',
-          amount: '699'
-        }
-      }
-    }
-  };
-
-  await request(app)
-    .post('/api/v1/stripe-webhook')
-    .set('stripe-signature', 'good-signature')
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify(event));
+test('paid emails still need a premium token or matching checkout session for premium generation', async () => {
+  await fulfillPremiumLicense('licensed-missing-token@example.com', 'cs_premium_missing_token_123');
 
   const response = await request(app)
     .post('/api/v1/generate-letter')
     .set(authHeader())
     .send({
+      email: 'licensed-missing-token@example.com',
+      network: 'visa',
+      issuer: 'Chase',
+      merchantName: 'Example Merchant',
+      transactionAmount: 89.99,
+      transactionDate: '2026-03-20',
+      description: 'I canceled before renewal but the merchant charged me anyway.'
+    });
+
+  assert.equal(response.status, 401);
+  assert.equal(response.body.accessTokenRequired, true);
+  assert.equal(response.body.licensed, true);
+});
+
+test('premium generation returns the full premium payload when licensed and session-bound', async () => {
+  const premiumAccessToken = await grantPremiumAccess('licensed@example.com', 'cs_premium_123');
+
+  const response = await request(app)
+    .post('/api/v1/generate-letter')
+    .set(authHeader())
+    .send({
+      premiumAccessToken,
       email: 'licensed@example.com',
       network: 'visa',
       issuer: 'Chase',
@@ -533,6 +608,7 @@ test('premium generation returns the full premium payload when licensed', async 
 
   assert.equal(response.status, 200);
   assert.equal(response.body.email, 'licensed@example.com');
+  assert.equal(response.body.premiumAccessToken, premiumAccessToken);
   assert.equal(typeof response.body.letter, 'string');
   assert.equal(typeof response.body.cfpbSummary, 'string');
   assert.ok(Array.isArray(response.body.evidenceChecklist));
@@ -557,35 +633,13 @@ test('premium generation returns the full premium payload when licensed', async 
 });
 
 test('premium generation normalizes structured evidence, flexible dates, and output preferences', async () => {
-  const event = {
-    type: 'checkout.session.completed',
-    data: {
-      object: {
-        id: 'cs_premium_norm_123',
-        payment_status: 'paid',
-        amount_total: 699,
-        customer_email: 'normalize@example.com',
-        metadata: {
-          email: 'normalize@example.com',
-          source: 'gpt',
-          intent: 'full-dispute-kit',
-          product: 'winmydispute-full-dispute-kit',
-          amount: '699'
-        }
-      }
-    }
-  };
-
-  await request(app)
-    .post('/api/v1/stripe-webhook')
-    .set('stripe-signature', 'good-signature')
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify(event));
+  const premiumAccessToken = await grantPremiumAccess('normalize@example.com', 'cs_premium_norm_123');
 
   const response = await request(app)
     .post('/api/v1/generate-letter')
     .set(authHeader())
     .send({
+      premiumAccessToken,
       email: 'normalize@example.com',
       network: 'visa',
       issuer: 'Chase',
@@ -621,35 +675,13 @@ test('premium generation normalizes structured evidence, flexible dates, and out
 });
 
 test('premium report generation returns a downloadable native docx document and saves artifact metadata', async () => {
-  const event = {
-    type: 'checkout.session.completed',
-    data: {
-      object: {
-        id: 'cs_report_123',
-        payment_status: 'paid',
-        amount_total: 699,
-        customer_email: 'report@example.com',
-        metadata: {
-          email: 'report@example.com',
-          source: 'gpt',
-          intent: 'full-dispute-kit',
-          product: 'winmydispute-full-dispute-kit',
-          amount: '699'
-        }
-      }
-    }
-  };
-
-  await request(app)
-    .post('/api/v1/stripe-webhook')
-    .set('stripe-signature', 'good-signature')
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify(event));
+  const premiumAccessToken = await grantPremiumAccess('report@example.com', 'cs_report_123');
 
   const response = await request(app)
     .post('/api/v1/generate-report-document')
     .set(authHeader())
     .send({
+      premiumAccessToken,
       email: 'report@example.com',
       network: 'visa',
       issuer: 'Chase',
@@ -663,6 +695,7 @@ test('premium report generation returns a downloadable native docx document and 
     });
 
   assert.equal(response.status, 200);
+  assert.equal(response.body.premiumAccessToken, premiumAccessToken);
   assert.equal(response.body.format, 'docx');
   assert.equal(response.body.variant, 'full');
   assert.equal(response.body.redactionMode, 'none');
@@ -685,36 +718,14 @@ test('premium report generation returns a downloadable native docx document and 
 });
 
 test('async report generation returns a job and completed result can be fetched later', async () => {
-  const event = {
-    type: 'checkout.session.completed',
-    data: {
-      object: {
-        id: 'cs_async_report_123',
-        payment_status: 'paid',
-        amount_total: 699,
-        customer_email: 'async-report@example.com',
-        metadata: {
-          email: 'async-report@example.com',
-          source: 'gpt',
-          intent: 'full-dispute-kit',
-          product: 'winmydispute-full-dispute-kit',
-          amount: '699'
-        }
-      }
-    }
-  };
-
-  await request(app)
-    .post('/api/v1/stripe-webhook')
-    .set('stripe-signature', 'good-signature')
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify(event));
+  const premiumAccessToken = await grantPremiumAccess('async-report@example.com', 'cs_async_report_123');
 
   const queued = await request(app)
     .post('/api/v1/generate-report-document')
     .set(authHeader())
     .send({
       async: true,
+      premiumAccessToken,
       email: 'async-report@example.com',
       network: 'visa',
       issuer: 'Chase',
@@ -729,44 +740,24 @@ test('async report generation returns a job and completed result can be fetched 
   assert.equal(queued.status, 202);
   assert.equal(queued.body.status, 'pending');
   assert.ok(queued.body.jobId);
+  assert.equal(queued.body.premiumAccessToken, premiumAccessToken);
 
-  const completed = await waitForJob(queued.body.jobId, 'async-report@example.com');
+  const completed = await waitForJob(queued.body.jobId, 'async-report@example.com', premiumAccessToken);
   assert.equal(completed.status, 200);
   assert.equal(completed.body.status, 'completed');
+  assert.equal(completed.body.premiumAccessToken, premiumAccessToken);
   assert.equal(completed.body.result.format, 'text');
   assert.ok(completed.body.result.caseFile.caseId);
 });
 
 test('report generation can return both full and redacted artifacts for shareable packets', async () => {
-  const event = {
-    type: 'checkout.session.completed',
-    data: {
-      object: {
-        id: 'cs_report_redacted_123',
-        payment_status: 'paid',
-        amount_total: 699,
-        customer_email: 'redacted@example.com',
-        metadata: {
-          email: 'redacted@example.com',
-          source: 'gpt',
-          intent: 'full-dispute-kit',
-          product: 'winmydispute-full-dispute-kit',
-          amount: '699'
-        }
-      }
-    }
-  };
-
-  await request(app)
-    .post('/api/v1/stripe-webhook')
-    .set('stripe-signature', 'good-signature')
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify(event));
+  const premiumAccessToken = await grantPremiumAccess('redacted@example.com', 'cs_report_redacted_123');
 
   const response = await request(app)
     .post('/api/v1/generate-report-document')
     .set(authHeader())
     .send({
+      premiumAccessToken,
       email: 'redacted@example.com',
       network: 'visa',
       issuer: 'Chase',
@@ -784,6 +775,7 @@ test('report generation can return both full and redacted artifacts for shareabl
     });
 
   assert.equal(response.status, 200);
+  assert.equal(response.body.premiumAccessToken, premiumAccessToken);
   assert.equal(response.body.format, 'text');
   assert.equal(response.body.variant, 'full');
   assert.equal(response.body.redactionMode, 'none');
@@ -814,33 +806,11 @@ test('evidence extraction returns 402 plus checkout URL when unpaid', async () =
   assert.equal(response.status, 402);
   assert.equal(response.body.upgradeRequired, true);
   assert.match(response.body.checkoutUrl, /^https:\/\/checkout\.stripe\.com\/pay\//);
+  assert.match(response.body.checkoutSessionId, /^cs_test_/);
 });
 
 test('evidence extraction returns structured evidence for text and OCR-backed image files', async () => {
-  const event = {
-    type: 'checkout.session.completed',
-    data: {
-      object: {
-        id: 'cs_evidence_123',
-        payment_status: 'paid',
-        amount_total: 699,
-        customer_email: 'evidence@example.com',
-        metadata: {
-          email: 'evidence@example.com',
-          source: 'gpt',
-          intent: 'full-dispute-kit',
-          product: 'winmydispute-full-dispute-kit',
-          amount: '699'
-        }
-      }
-    }
-  };
-
-  await request(app)
-    .post('/api/v1/stripe-webhook')
-    .set('stripe-signature', 'good-signature')
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify(event));
+  const premiumAccessToken = await grantPremiumAccess('evidence@example.com', 'cs_evidence_123');
 
   setEvidenceAiClientForTesting({
     extractStructuredEvidence: async () => ({
@@ -857,6 +827,7 @@ test('evidence extraction returns structured evidence for text and OCR-backed im
   const response = await request(app)
     .post('/api/v1/evidence/extract')
     .set(authHeader())
+    .field('premiumAccessToken', premiumAccessToken)
     .field('email', 'evidence@example.com')
     .field('description', 'I canceled before renewal but they charged me anyway.')
     .field('merchantName', 'Example Subscription')
@@ -876,6 +847,7 @@ test('evidence extraction returns structured evidence for text and OCR-backed im
 
   assert.equal(response.status, 200);
   assert.equal(response.body.email, 'evidence@example.com');
+  assert.equal(response.body.premiumAccessToken, premiumAccessToken);
   assert.equal(response.body.extractedCount, 2);
   assert.ok(Array.isArray(response.body.files));
   assert.ok(response.body.files.some(file => file.extractionMode === 'text-read'));
@@ -890,35 +862,13 @@ test('evidence extraction returns structured evidence for text and OCR-backed im
 });
 
 test('evidence extraction can run asynchronously and return the completed result via jobs', async () => {
-  const event = {
-    type: 'checkout.session.completed',
-    data: {
-      object: {
-        id: 'cs_evidence_async_123',
-        payment_status: 'paid',
-        amount_total: 699,
-        customer_email: 'evidence-async@example.com',
-        metadata: {
-          email: 'evidence-async@example.com',
-          source: 'gpt',
-          intent: 'full-dispute-kit',
-          product: 'winmydispute-full-dispute-kit',
-          amount: '699'
-        }
-      }
-    }
-  };
-
-  await request(app)
-    .post('/api/v1/stripe-webhook')
-    .set('stripe-signature', 'good-signature')
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify(event));
+  const premiumAccessToken = await grantPremiumAccess('evidence-async@example.com', 'cs_evidence_async_123');
 
   const queued = await request(app)
     .post('/api/v1/evidence/extract')
     .set(authHeader())
     .field('async', 'true')
+    .field('premiumAccessToken', premiumAccessToken)
     .field('email', 'evidence-async@example.com')
     .field('description', 'I canceled before renewal but they charged me anyway.')
     .attach('files', Buffer.from('03/18/2026 cancellation email\nRefund denied by support.'), {
@@ -929,44 +879,24 @@ test('evidence extraction can run asynchronously and return the completed result
   assert.equal(queued.status, 202);
   assert.ok(queued.body.jobId);
   assert.equal(queued.body.storedFiles.length, 1);
+  assert.equal(queued.body.premiumAccessToken, premiumAccessToken);
 
-  const completed = await waitForJob(queued.body.jobId, 'evidence-async@example.com');
+  const completed = await waitForJob(queued.body.jobId, 'evidence-async@example.com', premiumAccessToken);
   assert.equal(completed.status, 200);
   assert.equal(completed.body.status, 'completed');
+  assert.equal(completed.body.premiumAccessToken, premiumAccessToken);
   assert.equal(completed.body.result.extractedCount, 1);
   assert.ok(completed.body.result.exhibitPacket.exhibitIndex[0].startsWith('Exhibit '));
 });
 
 test('submission bundle generation returns a zip package with bundle metadata', async () => {
-  const event = {
-    type: 'checkout.session.completed',
-    data: {
-      object: {
-        id: 'cs_bundle_123',
-        payment_status: 'paid',
-        amount_total: 699,
-        customer_email: 'bundle@example.com',
-        metadata: {
-          email: 'bundle@example.com',
-          source: 'gpt',
-          intent: 'full-dispute-kit',
-          product: 'winmydispute-full-dispute-kit',
-          amount: '699'
-        }
-      }
-    }
-  };
-
-  await request(app)
-    .post('/api/v1/stripe-webhook')
-    .set('stripe-signature', 'good-signature')
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify(event));
+  const premiumAccessToken = await grantPremiumAccess('bundle@example.com', 'cs_bundle_123');
 
   const response = await request(app)
     .post('/api/v1/generate-submission-bundle')
     .set(authHeader())
     .send({
+      premiumAccessToken,
       email: 'bundle@example.com',
       network: 'visa',
       issuer: 'Chase',
@@ -981,6 +911,7 @@ test('submission bundle generation returns a zip package with bundle metadata', 
     });
 
   assert.equal(response.status, 200);
+  assert.equal(response.body.premiumAccessToken, premiumAccessToken);
   assert.equal(response.body.format, 'zip');
   assert.match(response.body.url, /^\/api\/v1\/artifacts\/.+\?expires=\d+&signature=/);
   assert.ok(response.body.bundleItems.includes('submission-plan.txt'));
@@ -993,35 +924,13 @@ test('submission bundle generation returns a zip package with bundle metadata', 
 });
 
 test('denial response endpoint generates a reconsideration package', async () => {
-  const event = {
-    type: 'checkout.session.completed',
-    data: {
-      object: {
-        id: 'cs_denial_123',
-        payment_status: 'paid',
-        amount_total: 699,
-        customer_email: 'denial@example.com',
-        metadata: {
-          email: 'denial@example.com',
-          source: 'gpt',
-          intent: 'full-dispute-kit',
-          product: 'winmydispute-full-dispute-kit',
-          amount: '699'
-        }
-      }
-    }
-  };
-
-  await request(app)
-    .post('/api/v1/stripe-webhook')
-    .set('stripe-signature', 'good-signature')
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify(event));
+  const premiumAccessToken = await grantPremiumAccess('denial@example.com', 'cs_denial_123');
 
   const response = await request(app)
     .post('/api/v1/denials/respond')
     .set(authHeader())
     .send({
+      premiumAccessToken,
       email: 'denial@example.com',
       network: 'visa',
       issuer: 'Chase',
@@ -1034,6 +943,7 @@ test('denial response endpoint generates a reconsideration package', async () =>
     });
 
   assert.equal(response.status, 200);
+  assert.equal(response.body.premiumAccessToken, premiumAccessToken);
   assert.equal(typeof response.body.counterLetter, 'string');
   assert.ok(Array.isArray(response.body.rebuttalTargets));
   assert.ok(Array.isArray(response.body.additionalEvidenceRequests));
@@ -1041,35 +951,13 @@ test('denial response endpoint generates a reconsideration package', async () =>
 });
 
 test('saved case history can be listed and fetched by premium email', async () => {
-  const event = {
-    type: 'checkout.session.completed',
-    data: {
-      object: {
-        id: 'cs_case_123',
-        payment_status: 'paid',
-        amount_total: 699,
-        customer_email: 'case@example.com',
-        metadata: {
-          email: 'case@example.com',
-          source: 'gpt',
-          intent: 'full-dispute-kit',
-          product: 'winmydispute-full-dispute-kit',
-          amount: '699'
-        }
-      }
-    }
-  };
-
-  await request(app)
-    .post('/api/v1/stripe-webhook')
-    .set('stripe-signature', 'good-signature')
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify(event));
+  const premiumAccessToken = await grantPremiumAccess('case@example.com', 'cs_case_123');
 
   const premium = await request(app)
     .post('/api/v1/generate-letter')
     .set(authHeader())
     .send({
+      premiumAccessToken,
       email: 'case@example.com',
       network: 'visa',
       issuer: 'Chase',
@@ -1085,21 +973,31 @@ test('saved case history can be listed and fetched by premium email', async () =
   const listed = await request(app)
     .get('/api/v1/cases')
     .set(authHeader())
-    .query({ email: 'case@example.com' });
+    .query({ email: 'case@example.com', premiumAccessToken });
 
   assert.equal(listed.status, 200);
   assert.equal(listed.body.count, 1);
   assert.equal(listed.body.cases[0].caseId, premium.body.caseFile.caseId);
   assert.deepEqual(listed.body.cases[0].latestArtifactFileIds, []);
+  assert.equal(listed.body.premiumAccessToken, premiumAccessToken);
 
   const detail = await request(app)
     .get(`/api/v1/cases/${premium.body.caseFile.caseId}`)
     .set(authHeader())
-    .query({ email: 'case@example.com' });
+    .query({ email: 'case@example.com', premiumAccessToken });
 
   assert.equal(detail.status, 200);
   assert.ok(Array.isArray(detail.body.versions));
   assert.ok(detail.body.versions.length >= 1);
+  assert.equal(detail.body.premiumAccessToken, premiumAccessToken);
+
+  const unauthorizedList = await request(app)
+    .get('/api/v1/cases')
+    .set(authHeader())
+    .query({ email: 'case@example.com' });
+
+  assert.equal(unauthorizedList.status, 401);
+  assert.equal(unauthorizedList.body.accessTokenRequired, true);
 
   const directCases = await loadCaseMetadataForEmail('case@example.com');
   assert.equal(directCases.length, 1);
