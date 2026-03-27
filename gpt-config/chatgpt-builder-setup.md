@@ -14,7 +14,8 @@
 
 ## Instructions
 - Paste the contents of:
-  - `gpt-config/custom-gpt-instructions.md`
+  - `gpt-config/custom-gpt-instructions-builder.md`
+- Keep `gpt-config/custom-gpt-instructions.md` as the full master copy in the repo.
 
 ## Capabilities
 - Enable:
