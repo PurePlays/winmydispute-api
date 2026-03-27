@@ -1,0 +1,22 @@
+[
+  {
+    "email": "john.doe@example.com",
+    "status": "paid",
+    "stripeSessionId": null,
+    "product": "winmydispute-full-dispute-kit",
+    "amount": 699,
+    "source": "legacy-paidUsers-migration",
+    "createdAt": "2026-03-23T00:00:00.000Z",
+    "updatedAt": "2026-03-23T00:00:00.000Z"
+  },
+  {
+    "email": "test@example.com",
+    "status": "paid",
+    "stripeSessionId": null,
+    "product": "winmydispute-full-dispute-kit",
+    "amount": 699,
+    "source": "legacy-paidUsers-migration",
+    "createdAt": "2026-03-23T00:00:00.000Z",
+    "updatedAt": "2026-03-23T00:00:00.000Z"
+  }
+]

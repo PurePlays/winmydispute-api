@@ -1,205 +1,215 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import pdf from 'html-pdf';
+import { createSignedArtifactAccess } from './artifactAccessService.js';
+import {
+  getBinMetadata,
+  getIssuerRecord,
+  getReasonNode,
+  getRebuttalStrategy as getSchemaRebuttalStrategy,
+  lookupReasonCodeByScenario as lookupFromSchema,
+  normalizeNetwork
+} from './disputeSchemaService.js';
+import { storeBuffer } from './fileStorageService.js';
+import { summarizeOutcomeFeedback } from './outcomeFeedbackService.js';
 
-// Derive __dirname in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Define directories
-const DATA_DIR = path.join(__dirname, '..', 'mock-data');
-const DOWNLOADS_DIR = path.join(__dirname, '..', 'static', 'downloads');
-
-// Ensure downloads folder exists
-if (!fs.existsSync(DOWNLOADS_DIR)) {
-  fs.mkdirSync(DOWNLOADS_DIR, { recursive: true });
+function uniqueItems(items = []) {
+  return Array.from(new Set(items.filter(Boolean)));
 }
 
-/**
- * Load JSON from disk asynchronously, returning defaultValue on any error.
- * @template T
- * @param {string} filename     File under mock-data/
- * @param {T}        defaultValue
- * @returns {Promise<T>}
- */
-async function loadJsonAsync(filename, defaultValue) {
-  const filePath = path.join(DATA_DIR, filename);
-  try {
-    const raw = await fs.promises.readFile(filePath, 'utf8');
-    const trimmed = raw.trim();
-    return trimmed ? JSON.parse(trimmed) : defaultValue;
-  } catch (err) {
-    console.warn(`⚠️ [disputeService] could not load ${filename}: ${err.message}`);
-    return defaultValue;
+function formatAmount(value) {
+  const numeric = Number(value);
+  if (Number.isFinite(numeric)) {
+    return `$${numeric.toFixed(2)}`;
   }
+  return value || 'the transaction amount';
 }
 
-// Core datasets (loaded asynchronously)
-let bins = {};
-let issuers = {};
-let reasonScenarios = {};
-let reasonDetails = {};
-let rebuttalDB = {};
-
-async function initializeData() {
-  bins = await loadJsonAsync('bins.json', {});
-  issuers = await loadJsonAsync('issuers.json', {});
-  reasonScenarios = await loadJsonAsync('reasonScenarios.json', {});
-  reasonDetails = await loadJsonAsync('reasonDetails.json', {});
-  rebuttalDB = await loadJsonAsync('rebuttalStrategies.json', {});
-}
-
-initializeData();
-
-/**
- * Map a BIN to issuer metadata asynchronously.
- * @param {string} bin
- * @returns {Promise<object>}
- */
 export async function resolveBinToIssuer(bin) {
-  return bins[bin] || { bin, network: null, issuer: null, cardType: null, cardSubType: null, country: null };
+  return await getBinMetadata(bin) || {
+    bin,
+    network: null,
+    rawBrand: null,
+    issuer: null,
+    issuerPhone: null,
+    issuerUrl: null,
+    cardType: null,
+    cardSubType: null,
+    country: null,
+    countryCode3: null,
+    countryName: null
+  };
 }
 
-/**
- * Retrieve dispute contact info for an issuer asynchronously.
- * @param {string} name
- * @returns {Promise<object>}
- */
 export async function getIssuerContact(name) {
-  return issuers[name] || {
-    issuer: name,
-    phoneSupport: null,
-    fax: null,
-    uploadPortal: null,
-    mailingAddress: null,
-    submissionNotes: []
-  };
-}
-
-/**
- * Suggest a reason code by searching scenario patterns asynchronously.
- * @param {string} network
- * @param {string} scenario
- * @returns {Promise<{reasonCode: string|null, title: string|null, description: string|null, network: string}>}
- */
-export async function lookupReasonCodeByScenario(network, scenario) {
-  const patterns = reasonScenarios[network] || [];
-  const text = (scenario || '').toLowerCase();
-  const match = patterns.find(r =>
-    (r.scenarioPattern || '').toLowerCase().split('|').some(p => text.includes(p.trim()))
-  );
-  return match || { reasonCode: null, title: null, description: null, network };
-}
-
-/**
- * Fetch full reason-code details asynchronously.
- * @param {string} network
- * @param {string} code
- * @returns {Promise<object>}
- */
-export async function getReasonCodeDetails(network, code) {
-  const details = (reasonDetails[network] || {})[code];
-  if (!details) {
-    throw new Error(`⚠️ Reason code not found: ${network}/${code}`);
+  const issuer = getIssuerRecord(name);
+  if (!issuer) {
+    return {
+      issuer: name,
+      phoneSupport: null,
+      fax: null,
+      uploadPortal: null,
+      mailingAddress: null,
+      submissionNotes: []
+    };
   }
-  return { reasonCode: code, ...details };
-}
 
-/**
- * Build an evidence packet for a dispute asynchronously.
- * @param {{network: string, reasonCode: string}} opts
- * @returns {Promise<{compiledEvidence: string[], submissionTips: string[], estimatedSuccessRate: number}>}
- */
-export async function buildEvidencePacket({ network, reasonCode }) {
-  const details = await getReasonCodeDetails(network, reasonCode);
   return {
-    compiledEvidence: details.evidenceRequirements || [],
-    submissionTips: details.strategyTips || [],
-    estimatedSuccessRate: 0.8
+    issuer: issuer.name,
+    ...issuer.contact
   };
 }
 
-/**
- * Generate a simple text dispute letter asynchronously.
- * @param {{cardholderName: string, issuer: string, merchantName: string, transactionAmount: number, transactionDate: string, reasonCode: string}} params
- * @returns {Promise<{letterText: string, recommendedSubjectLine: string, letterPdfUrl: string|null}>}
- */
+export async function lookupReasonCodeByScenario(network, scenario) {
+  return lookupFromSchema(network, scenario);
+}
+
+export async function getReasonCodeDetails(network, code) {
+  const reasonNode = getReasonNode(network, code);
+  if (!reasonNode) {
+    throw new Error(`Reason code not found: ${network}/${code}`);
+  }
+
+  return reasonNode;
+}
+
+export async function buildEvidencePacket({ network, reasonCode, transactionAmount, transactionDate, merchantResponse, consumerEvidence }) {
+  const reasonNode = await getReasonCodeDetails(network, reasonCode);
+  const strategy = getSchemaRebuttalStrategy(network, reasonCode) || {
+    strategyTips: [],
+    evidenceToFocusOn: [],
+    commonMerchantRebuttals: [],
+    customerStrategy: ''
+  };
+
+  return {
+    compiledEvidence: uniqueItems([
+      ...reasonNode.evidenceRequirements,
+      ...strategy.evidenceToFocusOn,
+      transactionAmount ? `Documentation showing the disputed amount: ${formatAmount(transactionAmount)}` : null,
+      transactionDate ? `Timeline proof for the disputed date: ${transactionDate}` : null,
+      merchantResponse ? 'Merchant response or denial message' : null,
+      consumerEvidence ? 'Consumer-supplied supporting evidence' : null
+    ]),
+    submissionTips: uniqueItems([
+      ...strategy.strategyTips,
+      ...(reasonNode.preventionSteps || [])
+    ]).slice(0, 8),
+    estimatedSuccessRate: strategy.customerStrategy ? 0.82 : 0.68
+  };
+}
+
 export async function generateDisputeLetter({
   cardholderName,
   issuer,
   merchantName,
   transactionAmount,
   transactionDate,
-  reasonCode
+  reasonCode,
+  network
 }) {
-  const dateFormatted = new Date(transactionDate).toLocaleDateString('en-US') || transactionDate;
-  const body = `Dear ${issuer},\n\nI am writing to dispute a charge of \$${transactionAmount} on ${dateFormatted} from ${merchantName} (Reason Code: ${reasonCode}).\nPlease investigate and reverse this charge in accordance with applicable regulations.\n\nThank you for your prompt attention.\n\nSincerely,\n${cardholderName}`;
+  const reasonNode = getReasonNode(network, reasonCode);
+  const issuerContact = await getIssuerContact(issuer);
+  const dateFormatted = transactionDate
+    ? new Date(`${transactionDate}T00:00:00Z`).toLocaleDateString('en-US')
+    : 'the transaction date';
+
+  const body = [
+    `Dear ${issuer} Disputes Department,`,
+    '',
+    `I am writing to dispute a charge of ${formatAmount(transactionAmount)} on ${dateFormatted} from ${merchantName}.`,
+    `The transaction aligns most closely with reason code ${reasonCode}${reasonNode?.title ? ` (${reasonNode.title})` : ''}.`,
+    '',
+    `Please review this matter and reverse the charge in accordance with the applicable dispute rules.`,
+    issuerContact.mailingAddress ? `Supporting documents may be sent to: ${issuerContact.mailingAddress}` : null,
+    '',
+    'Sincerely,',
+    cardholderName
+  ].filter(Boolean).join('\n');
 
   return {
     letterText: body,
-    recommendedSubjectLine: `Dispute of Charge – ${reasonCode}`,
+    recommendedSubjectLine: `Dispute of Charge - ${reasonCode}`,
     letterPdfUrl: null
   };
 }
 
-/**
- * Estimate dispute success based on consumer evidence and prior attempts to resolve.
- * @param {{consumerEvidence?: boolean, priorAttemptsToResolve?: boolean}} opts
- * @returns {Promise<{estimatedSuccessRate: number, rationale: string}>}
- */
-export async function estimateDisputeSuccess({ consumerEvidence, priorAttemptsToResolve }) {
-  let score = 0.5;
-  if (consumerEvidence) score += 0.3;
-  if (priorAttemptsToResolve) score += 0.1;
+export async function estimateDisputeSuccess({
+  network,
+  reasonCode,
+  consumerEvidence,
+  priorAttemptsToResolve,
+  merchantResponse,
+  transactionAmount,
+  issuer,
+  merchantVertical
+}) {
+  const hasReasonProfile = Boolean(getReasonNode(network, reasonCode));
+  let score = hasReasonProfile ? 0.68 : 0.5;
+  if (consumerEvidence) score += 0.15;
+  if (priorAttemptsToResolve) score += 0.08;
+  if (merchantResponse) score += 0.03;
+  if (Number(transactionAmount) > 1000) score -= 0.02;
+
+  const outcomeSummary = await summarizeOutcomeFeedback({
+    network,
+    reasonCode,
+    issuer,
+    merchantVertical
+  });
+  if (outcomeSummary.hasEnoughData && typeof outcomeSummary.winRate === 'number') {
+    score = (score * 0.55) + (outcomeSummary.winRate * 0.45);
+  }
+
+  const estimatedSuccessRate = Math.max(0.2, Math.min(Number(score.toFixed(2)), 0.95));
 
   return {
-    estimatedSuccessRate: Math.min(score, 0.99),
-    rationale: 'Heuristic-based estimate: evidence and resolution attempts boost success odds.'
+    estimatedSuccessRate,
+    rationale: outcomeSummary.hasEnoughData
+      ? 'Estimate blends heuristic dispute signals with anonymized historical outcome feedback for similar disputes.'
+      : hasReasonProfile
+        ? 'Estimate is boosted by a canonical reason-code profile plus the evidence supplied.'
+        : 'Estimate is based on generic dispute heuristics because no canonical reason profile matched.',
+    modelType: outcomeSummary.hasEnoughData ? 'blended-historical-and-heuristic' : 'heuristic',
+    sampleSize: outcomeSummary.sampleSize
   };
 }
 
-/**
- * Return merchant rebuttal strategy for a reason code asynchronously.
- * @param {{network: string, reasonCode: string}} opts
- * @returns {Promise<object>}
- */
 export async function getRebuttalStrategy({ network, reasonCode }) {
-  const strat = (rebuttalDB[network] || {})[reasonCode];
-  if (!strat) {
-    throw new Error(`⚠️ No rebuttal strategy for ${network}/${reasonCode}`);
+  const strategy = getSchemaRebuttalStrategy(network, reasonCode);
+  if (!strategy) {
+    throw new Error(`No rebuttal strategy for ${network}/${reasonCode}`);
   }
-  return strat;
+
+  return strategy;
 }
 
-/**
- * Generate a CFPB complaint summary for escalation asynchronously.
- * @param {{network: string, issuer: string, transaction: {date: string, amount: number, merchant: string}, summary: string}} opts
- * @returns {Promise<string>}
- */
-export async function generateCfpbComplaintSummary({ network, issuer, transaction, summary }) {
-  return (
-    `Complaint Summary:\n\n` +
-    `On ${transaction.date}, a \$${transaction.amount} charge at ${transaction.merchant} was disputed but unresolved.\n\n` +
-    `Details: ${summary}\nIssuer: ${issuer}\nNetwork: ${network}`
-  );
+export async function generateCfpbComplaintSummary({ network, issuer, transaction = {}, summary }) {
+  const networkLabel = normalizeNetwork(network) || 'unknown network';
+  return [
+    `Complaint Summary:`,
+    `On ${transaction.date || 'the transaction date'}, a charge of ${formatAmount(transaction.amount)} at ${transaction.merchant || 'the merchant'} remained unresolved.`,
+    `Details: ${summary}`,
+    `Issuer: ${issuer}`,
+    `Network: ${networkLabel}`
+  ].join('\n');
 }
 
-/**
- * Generate and save a PDF dispute letter asynchronously.
- * @param {string} letterHtml
- * @returns {Promise<string>} URL path to download
- */
-export async function downloadDisputeLetter(letterHtml) {
+export async function downloadDisputeLetter(letterHtml, { email = null } = {}) {
   const html = `<html><head><meta charset="utf-8"><title>Dispute Letter</title></head><body>${letterHtml}</body></html>`;
   const buffer = await new Promise((resolve, reject) => {
-    pdf.create(html, { format: 'Letter' }).toBuffer((err, buf) => err ? reject(err) : resolve(buf));
+    pdf.create(html, { format: 'Letter' }).toBuffer((error, buf) => (error ? reject(error) : resolve(buf)));
   });
 
   const filename = `dispute-letter-${Date.now()}.pdf`;
-  const filePath = path.join(DOWNLOADS_DIR, filename);
-  fs.writeFileSync(filePath, buffer);
+  const stored = await storeBuffer({
+    kind: 'artifact',
+    email,
+    originalFilename: filename,
+    declaredContentType: 'application/pdf',
+    buffer,
+    metadata: {
+      artifactType: 'legacy-letter-download'
+    }
+  });
 
-  // This path is served by your static middleware
-  return `/downloads/${filename}`;
+  return createSignedArtifactAccess({ fileId: stored.fileId }).url;
 }

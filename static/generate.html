@@ -1,84 +1,150 @@
-<!-- static/generate.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generate Dispute Letter</title>
+  <title>WinMyDispute Premium Access</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; }
-    label { display: block; margin-top: 20px; }
-    input, textarea { width: 100%; padding: 10px; margin-top: 5px; }
-    button { margin-top: 20px; padding: 10px 20px; background: #0070f3; color: white; border: none; cursor: pointer; }
-    button:hover { background: #005bb5; }
-    pre { background: #f4f4f4; padding: 10px; margin-top: 20px; }
+    :root {
+      --bg: #f7f3ea;
+      --panel: rgba(255, 252, 246, 0.92);
+      --ink: #1f2a2c;
+      --muted: #5f6d70;
+      --accent: #0d6b5f;
+      --accent-soft: #d8efe8;
+      --border: rgba(31, 42, 44, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(13, 107, 95, 0.15), transparent 36%),
+        radial-gradient(circle at bottom right, rgba(171, 123, 53, 0.12), transparent 30%),
+        linear-gradient(180deg, #fbf7ef 0%, var(--bg) 100%);
+      display: grid;
+      place-items: center;
+      padding: 32px 20px;
+    }
+
+    main {
+      width: min(720px, 100%);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 36px 28px;
+      box-shadow: 0 24px 60px rgba(38, 48, 49, 0.08);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.05;
+    }
+
+    p {
+      margin: 0 0 16px;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .panel {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 18px;
+      background: white;
+      border: 1px solid var(--border);
+    }
+
+    .steps {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--ink);
+    }
+
+    .steps li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .status {
+      margin-top: 20px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #fff9ef;
+      border: 1px solid rgba(171, 123, 53, 0.2);
+      color: #7d5b2a;
+      display: none;
+    }
+
+    .links {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-  <h1>Dispute Letter Generator</h1>
-  <form id="generate-form">
-    <label>Token (from payment)</label>
-    <input type="text" id="token" required>
+  <main>
+    <div class="eyebrow">Premium Access</div>
+    <h1>Return to your GPT chat to continue.</h1>
+    <p>
+      WinMyDispute premium output unlocks by email after checkout. There is no separate token or download code.
+    </p>
 
-    <label>Cardholder Name</label>
-    <input type="text" id="cardholderName" required>
+    <div class="panel">
+      <ol class="steps">
+        <li>Complete payment using the same email address you provided in the GPT.</li>
+        <li>Return to the same GPT conversation.</li>
+        <li>Tell the GPT you completed payment with that email.</li>
+        <li>The GPT will re-check your license and unlock the full dispute kit automatically.</li>
+      </ol>
+    </div>
 
-    <label>Issuer</label>
-    <input type="text" id="issuer" required>
+    <div class="status" id="status"></div>
 
-    <label>Merchant Name</label>
-    <input type="text" id="merchantName" required>
-
-    <label>Statement Date</label>
-    <input type="date" id="statementDate" required>
-
-    <label>Reason Code</label>
-    <input type="text" id="reasonCode" required>
-
-    <label>Transaction Amount</label>
-    <input type="number" id="transactionAmount" step="0.01" required>
-
-    <label>Transaction Date</label>
-    <input type="date" id="transactionDate" required>
-
-    <button type="submit">Generate Letter</button>
-  </form>
-
-  <div id="result" style="display:none;">
-    <h2>Generated Letter</h2>
-    <pre id="letterText"></pre>
-  </div>
+    <div class="links">
+      <a href="/success">Payment success page</a>
+      <a href="/terms">Terms</a>
+      <a href="/privacy">Privacy</a>
+    </div>
+  </main>
 
   <script>
-    document.getElementById('generate-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
+    const params = new URLSearchParams(window.location.search);
+    const status = document.getElementById('status');
 
-      const payload = {
-        token:            document.getElementById('token').value,
-        cardholderName:   document.getElementById('cardholderName').value,
-        issuer:           document.getElementById('issuer').value,
-        merchantName:     document.getElementById('merchantName').value,
-        statementDate:    document.getElementById('statementDate').value,
-        reasonCode:       document.getElementById('reasonCode').value,
-        transactionAmount: document.getElementById('transactionAmount').value,
-        transactionDate:  document.getElementById('transactionDate').value
-      };
-
-      const res = await fetch('/letter/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      const data = await res.json();
-      if (data.letterText) {
-        document.getElementById('result').style.display = 'block';
-        document.getElementById('letterText').textContent = data.letterText;
-      } else {
-        alert('Error: ' + (data.message || JSON.stringify(data)));
-      }
-    });
+    if (params.get('canceled') === 'true') {
+      status.style.display = 'block';
+      status.textContent = 'Checkout was canceled. No premium access was activated. You can return to the GPT and request a new checkout link whenever you are ready.';
+    }
   </script>
 </body>
 </html>
-ß

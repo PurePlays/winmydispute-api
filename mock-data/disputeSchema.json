@@ -1,0 +1,4274 @@
+{
+  "schemaVersion": "2026-03-23",
+  "generatedAt": "2026-03-23T10:04:54.383Z",
+  "scenarios": [
+    {
+      "network": "visa",
+      "scenarioPattern": "unauthorized",
+      "reasonCode": "10.4"
+    },
+    {
+      "network": "visa",
+      "scenarioPattern": "counterfeit",
+      "reasonCode": "10.1"
+    },
+    {
+      "network": "visa",
+      "scenarioPattern": "chip",
+      "reasonCode": "10.2"
+    },
+    {
+      "network": "visa",
+      "scenarioPattern": "key-entered",
+      "reasonCode": "10.3"
+    },
+    {
+      "network": "visa",
+      "scenarioPattern": "not receive",
+      "reasonCode": "13.1"
+    },
+    {
+      "network": "visa",
+      "scenarioPattern": "cancel",
+      "reasonCode": "13.2"
+    },
+    {
+      "network": "visa",
+      "scenarioPattern": "not as described",
+      "reasonCode": "13.3"
+    },
+    {
+      "network": "visa",
+      "scenarioPattern": "counterfeit merchandise",
+      "reasonCode": "13.4"
+    },
+    {
+      "network": "visa",
+      "scenarioPattern": "misrepresent",
+      "reasonCode": "13.5"
+    },
+    {
+      "network": "visa",
+      "scenarioPattern": "credit not processed",
+      "reasonCode": "13.6"
+    },
+    {
+      "network": "visa",
+      "scenarioPattern": "duplicate",
+      "reasonCode": "12.6.1"
+    },
+    {
+      "network": "mastercard",
+      "scenarioPattern": "unauthorized",
+      "reasonCode": "4837"
+    },
+    {
+      "network": "mastercard",
+      "scenarioPattern": "duplicate",
+      "reasonCode": "4834"
+    },
+    {
+      "network": "mastercard",
+      "scenarioPattern": "not receive",
+      "reasonCode": "4853"
+    },
+    {
+      "network": "mastercard",
+      "scenarioPattern": "not as described",
+      "reasonCode": "4853"
+    },
+    {
+      "network": "mastercard",
+      "scenarioPattern": "forced auth",
+      "reasonCode": "4808"
+    },
+    {
+      "network": "amex",
+      "scenarioPattern": "unauthorized",
+      "reasonCode": "F29"
+    },
+    {
+      "network": "amex",
+      "scenarioPattern": "not receive",
+      "reasonCode": "C08"
+    },
+    {
+      "network": "amex",
+      "scenarioPattern": "not as described",
+      "reasonCode": "C31"
+    },
+    {
+      "network": "amex",
+      "scenarioPattern": "missing imprint",
+      "reasonCode": "F10"
+    },
+    {
+      "network": "amex",
+      "scenarioPattern": "duplicate",
+      "reasonCode": "P08"
+    },
+    {
+      "network": "discover",
+      "scenarioPattern": "unauthorized",
+      "reasonCode": "UA02"
+    },
+    {
+      "network": "discover",
+      "scenarioPattern": "not receive",
+      "reasonCode": "RG"
+    },
+    {
+      "network": "discover",
+      "scenarioPattern": "not as described",
+      "reasonCode": "RM"
+    },
+    {
+      "network": "discover",
+      "scenarioPattern": "duplicate",
+      "reasonCode": "DP"
+    }
+  ],
+  "networks": {
+    "visa": {
+      "reasonCodes": {
+        "30": {
+          "title": "Services Not Provided / Merchandise Not Received",
+          "description": "Paid but neither goods nor services delivered.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant failed to deliver or notify customer."
+          ],
+          "preventionSteps": [
+            "Communicate delivery status; use tracking."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "41": {
+          "title": "Cancelled Recurring Transaction",
+          "description": "Recurring charge after cancelation or closure.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant failed to honor cancellation."
+          ],
+          "preventionSteps": [
+            "Stop billing immediately on cancel."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "53": {
+          "title": "Not as Described / Defective Merchandise",
+          "description": "Goods differ from description or are defective.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Misleading terms or damaged goods."
+          ],
+          "preventionSteps": [
+            "Provide accurate descriptions; inspect items."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "57": {
+          "title": "Fraudulent Multiple Transactions",
+          "description": "Multiple unauthorized charges on same card.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Duplicate authorization attempts.",
+            "Intentional or error-based multiple charges."
+          ],
+          "preventionSteps": [
+            "Void redundant transactions immediately.",
+            "Issue refunds on duplicates.",
+            "Train staff on void procedures."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "62": {
+          "title": "Counterfeit Transaction",
+          "description": "Counterfeit card used in person.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Non-EMV terminal acceptance of fake cards."
+          ],
+          "preventionSteps": [
+            "Use chip readers on all POS.",
+            "Train staff on counterfeit detection."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "70": {
+          "title": "Card Recovery Bulletin / Exception File",
+          "description": "Below-floor-limit sale on card in recovery bulletin.",
+          "category": "Authorization",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "No auth for bulletin-listed account."
+          ],
+          "preventionSteps": [
+            "Check CRB before floor-limit sales."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "71": {
+          "title": "Declined Authorization",
+          "description": "Sale completed after decline/pickup response.",
+          "category": "Authorization",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant forced transaction post-decline."
+          ],
+          "preventionSteps": [
+            "Terminate sale if declined."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "72": {
+          "title": "No Authorization",
+          "description": "No valid auth request sent.",
+          "category": "Authorization",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Auth omitted entirely."
+          ],
+          "preventionSteps": [
+            "Always request auth before sale."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "73": {
+          "title": "Expired Card",
+          "description": "Card expired without re-auth before sale.",
+          "category": "Authorization",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant used expired account data."
+          ],
+          "preventionSteps": [
+            "Verify card expiry on every transaction."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "74": {
+          "title": "Late Presentment",
+          "description": "Transaction submitted outside allowable window.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Batch delay >180 days or out-of-window capture."
+          ],
+          "preventionSteps": [
+            "Submit batch daily; avoid long delays."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "75": {
+          "title": "Transaction Not Recognized",
+          "description": "Cardholder does not recognize the charge.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Obscure billing descriptor."
+          ],
+          "preventionSteps": [
+            "Use clear, consistent merchant descriptors."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "76": {
+          "title": "Incorrect Currency or Transaction Code",
+          "description": "Wrong currency or code used at POS.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant selected wrong currency.",
+            "DCC offered without consent."
+          ],
+          "preventionSteps": [
+            "Train staff on correct DCC and codes."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "77": {
+          "title": "Non-Matching Account Number",
+          "description": "Posted account number does not match issuer records.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Typo in key-entry."
+          ],
+          "preventionSteps": [
+            "Use mag-stripe/chip read where possible."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "78": {
+          "title": "Service Code Violation",
+          "description": "Mag-stripe used despite service code requiring chip/online auth.",
+          "category": "Authorization",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Terminal fallback used improperly."
+          ],
+          "preventionSteps": [
+            "Honor service-code requirements."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "80": {
+          "title": "Incorrect Transaction Amount or Account Number",
+          "description": "ATM or POS adjustment errors.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "ATM mis-dispense or post to closed account."
+          ],
+          "preventionSteps": [
+            "Reconcile ATM disbursements; verify adjustments."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "81": {
+          "title": "Fraud – Card-Present Environment",
+          "description": "In-person fraud with invalid card.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Stolen or unauthorized in-person use."
+          ],
+          "preventionSteps": [
+            "Verify ID and chip read on every sale."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "82": {
+          "title": "Duplicate Processing (ATM/Terminal)",
+          "description": "Transaction processed more than once at POI.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Repeated batch submission."
+          ],
+          "preventionSteps": [
+            "Implement duplicate detection; train staff."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "83": {
+          "title": "Fraud – Card-Absent Environment",
+          "description": "Unauthorized CNP transaction using invalid card.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Stolen credentials used online."
+          ],
+          "preventionSteps": [
+            "Implement strong CNP fraud controls."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "85": {
+          "title": "Credit Not Processed",
+          "description": "Refund or credit never posted.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant delay or system failure."
+          ],
+          "preventionSteps": [
+            "Issue credits promptly; confirm posting."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "86": {
+          "title": "Paid by Other Means",
+          "description": "Customer paid via alternate method post-charge.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Alternate payment not voiding original."
+          ],
+          "preventionSteps": [
+            "Void original sale when alternate payment used."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "90": {
+          "title": "Non-Receipt of Cash / Load at ATM",
+          "description": "ATM did not dispense full amount.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "ATM malfunction."
+          ],
+          "preventionSteps": [
+            "Reconcile and credit as needed."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "93": {
+          "title": "Visa Fraud Monitoring Program",
+          "description": "VFMP-flagged fraud not under another code.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "High-fraud ratio merchants enrolled in VFMP."
+          ],
+          "preventionSteps": [
+            "Maintain low fraud rates; respond to inquiries."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "10.1": {
+          "title": "EMV Liability Shift Counterfeit Fraud",
+          "description": "Counterfeit chip card used on non-EMV terminal.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Counterfeit chip transaction at legacy terminal.",
+            "Chip data not fully transmitted."
+          ],
+          "preventionSteps": [
+            "Use EMV-compliant terminals.",
+            "Obtain proper Cardholder Verification Method (PIN/signature).",
+            "Take electronic or manual imprints on fallback."
+          ],
+          "evidenceRequirements": [
+            "Terminal logs with chip-read failure",
+            "Transaction receipt",
+            "Issuer fraud report showing clone activity"
+          ],
+          "commonMerchantRebuttals": [
+            "EMV chip not required on legacy terminals",
+            "Terminal was up to code",
+            "Customer authorized transaction"
+          ],
+          "strategyTips": [
+            "Prove chip was never read despite requirement",
+            "Emphasize use of counterfeit card",
+            "Show absence of 3D Secure or PIN"
+          ],
+          "evidenceToFocusOn": [
+            "Terminal logs with chip-read failure",
+            "Transaction receipt",
+            "Issuer fraud report showing clone activity"
+          ],
+          "customerStrategy": "Show that the merchant processed a chip card without a chip-read, allowing a counterfeit transaction to go through improperly.",
+          "labeledExamples": []
+        },
+        "10.2": {
+          "title": "EMV Liability Shift Non-Counterfeit Fraud",
+          "description": "Lost/stolen chip card used without cardholder’s knowledge.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Unauthorized use of valid chip card data.",
+            "Terminal did not capture full chip information."
+          ],
+          "preventionSteps": [
+            "Upgrade to EMV-PIN-capable terminals.",
+            "Always obtain correct CVM.",
+            "Train staff on chip handling."
+          ],
+          "evidenceRequirements": [
+            "Lost/stolen card report",
+            "Transaction time vs. card block time",
+            "Terminal chip read logs"
+          ],
+          "commonMerchantRebuttals": [
+            "Chip transaction processed properly",
+            "PIN verified at terminal",
+            "Cardholder failed to report card stolen"
+          ],
+          "strategyTips": [
+            "Show transaction occurred on a lost or stolen chip card",
+            "Highlight fraud report timing",
+            "Use issuer data on EMV shift rules"
+          ],
+          "evidenceToFocusOn": [
+            "Lost/stolen card report",
+            "Transaction time vs. card block time",
+            "Terminal chip read logs"
+          ],
+          "customerStrategy": "Prove the card was compromised and used despite being reported lost/stolen, and that the merchant failed to follow EMV liability protocols.",
+          "labeledExamples": []
+        },
+        "10.3": {
+          "title": "Other Fraud — Card-Present Environment",
+          "description": "Key-entered card-present transaction disputed as unauthorized.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant failed to swipe/dip or imprint card.",
+            "Key-entered transaction not clearly flagged."
+          ],
+          "preventionSteps": [
+            "Ensure chip or mag-stripe read on every sale.",
+            "Obtain manual imprint when fallback is used."
+          ],
+          "evidenceRequirements": [
+            "Receipt without chip/swipe",
+            "Lack of signature confirmation",
+            "Issuer dispute form"
+          ],
+          "commonMerchantRebuttals": [
+            "Manual entry approved with verification",
+            "Customer signature matched",
+            "Device imprint used"
+          ],
+          "strategyTips": [
+            "Highlight that manual entry skips fraud checks",
+            "Request copy of signature or receipt",
+            "Show card was never in your possession"
+          ],
+          "evidenceToFocusOn": [
+            "Receipt without chip/swipe",
+            "Lack of signature confirmation",
+            "Issuer dispute form"
+          ],
+          "customerStrategy": "State that the card was not used properly (no chip/swipe) and the charge was unauthorized or manipulated.",
+          "labeledExamples": []
+        },
+        "10.4": {
+          "title": "Other Fraud — Card-Absent Environment",
+          "description": "Card-not-present transaction denied by cardholder.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Fraudulent online/mail/phone order.",
+            "Descriptor confusing or mismatched."
+          ],
+          "preventionSteps": [
+            "Always request authorization for CNP/recurring orders.",
+            "Use 3-D Secure/CVV2/AVS.",
+            "Tag CNP vs. card-present in clearing."
+          ],
+          "evidenceRequirements": [
+            "Device‐fingerprint logs showing new/unrecognized device",
+            "IP geolocation vs. your known locations",
+            "Formal fraud report or incident number from issuer",
+            "Screenshots of SecureCode 3DS failures or lack thereof"
+          ],
+          "commonMerchantRebuttals": [
+            "IP/AVS data match billed address",
+            "Successful SecureCode or 3D Secure authentication",
+            "Frequent transactions on file with same merchant"
+          ],
+          "strategyTips": [
+            "Highlight anomalies in device fingerprint or IP geolocation",
+            "Show block lists or fraud flags you submitted",
+            "Provide local police or bank fraud report",
+            "Illustrate lack of purchase context or order history"
+          ],
+          "evidenceToFocusOn": [
+            "Device‐fingerprint logs showing new/unrecognized device",
+            "IP geolocation vs. your known locations",
+            "Formal fraud report or incident number from issuer",
+            "Screenshots of SecureCode 3DS failures or lack thereof"
+          ],
+          "customerStrategy": "Position the charge as completely outside your normal usage patterns. Leverage geolocation, device logs, and formal fraud reports to prove you never initiated or approved the transaction.",
+          "labeledExamples": [
+            "I never made this online purchase and do not recognize the merchant or charge.",
+            "My card details were used on a website without my permission.",
+            "This card-not-present transaction was fraudulent and I received no benefit from it."
+          ]
+        },
+        "10.5": {
+          "title": "Visa Fraud Monitoring Program",
+          "description": "Transaction flagged by Visa Fraud Monitoring Program.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant entered into VFMP due to high fraud ratio."
+          ],
+          "preventionSteps": [
+            "Maintain low fraud-to-transaction ratios.",
+            "Respond promptly to retrieval requests."
+          ],
+          "evidenceRequirements": [
+            "Multiple charges from flagged merchant",
+            "Issuer notice of VFMP status",
+            "Correspondence showing fraud escalation"
+          ],
+          "commonMerchantRebuttals": [
+            "Merchant not part of VFMP",
+            "Charge was valid and authorized",
+            "Customer disputed outside allowed window"
+          ],
+          "strategyTips": [
+            "Emphasize fraud pattern if multiple charges occurred",
+            "Check if merchant appears on VFMP",
+            "Note your timely fraud report"
+          ],
+          "evidenceToFocusOn": [
+            "Multiple charges from flagged merchant",
+            "Issuer notice of VFMP status",
+            "Correspondence showing fraud escalation"
+          ],
+          "customerStrategy": "Demonstrate that this transaction occurred with a merchant under Visa’s fraud monitoring watch, and you were a victim of related unauthorized activity.",
+          "labeledExamples": []
+        },
+        "11.1": {
+          "title": "Card Recovery Bulletin",
+          "description": "No auth for transaction listed in CRB.",
+          "category": "Authorization",
+          "timeLimitIssuer": "75 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "75 days",
+          "typicalCauses": [
+            "Merchant didn’t check Card Recovery Bulletin."
+          ],
+          "preventionSteps": [
+            "Always verify against CRB when required."
+          ],
+          "evidenceRequirements": [
+            "CRB record at date/time of sale",
+            "Authorization denial details",
+            "Fraud report"
+          ],
+          "commonMerchantRebuttals": [
+            "CRB check was not required at time of sale",
+            "Customer presented valid card",
+            "Transaction had no authorization issues"
+          ],
+          "strategyTips": [
+            "Show that the merchant failed to check CRB",
+            "Request CRB log at time of transaction",
+            "Cite issuer policy on blocked cards"
+          ],
+          "evidenceToFocusOn": [
+            "CRB record at date/time of sale",
+            "Authorization denial details",
+            "Fraud report"
+          ],
+          "customerStrategy": "Prove that the transaction was processed without authorization and the card was listed in the recovery bulletin at the time.",
+          "labeledExamples": []
+        },
+        "11.2": {
+          "title": "Declined Authorization",
+          "description": "Transaction forced after a decline or pickup response.",
+          "category": "Authorization",
+          "timeLimitIssuer": "75 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "75 days",
+          "typicalCauses": [
+            "Merchant submitted after receiving a decline."
+          ],
+          "preventionSteps": [
+            "Discontinue if auth is declined.",
+            "Ask for alternate payment."
+          ],
+          "evidenceRequirements": [
+            "Decline message screenshot",
+            "Authorization record",
+            "Bank support correspondence"
+          ],
+          "commonMerchantRebuttals": [
+            "Authorization override approved",
+            "Customer insisted on completion",
+            "Decline code resolved on retry"
+          ],
+          "strategyTips": [
+            "Show the merchant completed the charge after a clear decline",
+            "Ask for authorization logs",
+            "Compare decline vs. post-settlement timestamps"
+          ],
+          "evidenceToFocusOn": [
+            "Decline message screenshot",
+            "Authorization record",
+            "Bank support correspondence"
+          ],
+          "customerStrategy": "State that the charge was forced after a decline and was never approved or authorized properly.",
+          "labeledExamples": []
+        },
+        "11.3": {
+          "title": "No Authorization / Late Presentment",
+          "description": "Auth missing, expired, or submitted late.",
+          "category": "Authorization",
+          "timeLimitIssuer": "75 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "75 days",
+          "typicalCauses": [
+            "No auth requested or auth expired before capture.",
+            "Transaction submitted past allowed timeframe."
+          ],
+          "preventionSteps": [
+            "Obtain auth on day of sale.",
+            "Submit in-window captures promptly."
+          ],
+          "evidenceRequirements": [
+            "Transaction and auth timestamps",
+            "Visa policy screenshots",
+            "Statement showing delay"
+          ],
+          "commonMerchantRebuttals": [
+            "Auth still valid during settlement",
+            "Tip added with consent",
+            "Customer did not dispute at time"
+          ],
+          "strategyTips": [
+            "Compare time between auth and charge",
+            "Show auth was expired or reused",
+            "Request Visa rules on settlement timing"
+          ],
+          "evidenceToFocusOn": [
+            "Transaction and auth timestamps",
+            "Visa policy screenshots",
+            "Statement showing delay"
+          ],
+          "customerStrategy": "Prove the merchant submitted the charge after the authorization window expired or without proper approval.",
+          "labeledExamples": []
+        },
+        "12.2": {
+          "title": "Incorrect Transaction Code",
+          "description": "Debit vs. credit mis-processed.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Operator selected wrong transaction type."
+          ],
+          "preventionSteps": [
+            "Double-check transaction type before finalizing."
+          ],
+          "evidenceRequirements": [
+            "POS logs",
+            "Statement showing wrong type (e.g., credit processed as debit)",
+            "Merchant reply email"
+          ],
+          "commonMerchantRebuttals": [
+            "Customer selected transaction type",
+            "Refund method explained at checkout",
+            "Transaction processed correctly"
+          ],
+          "strategyTips": [
+            "Point out mismatch between intended and actual transaction type",
+            "Request breakdown of credit vs. debit",
+            "Note errors in merchant’s POS settings"
+          ],
+          "evidenceToFocusOn": [
+            "POS logs",
+            "Statement showing wrong type (e.g., credit processed as debit)",
+            "Merchant reply email"
+          ],
+          "customerStrategy": "State the wrong transaction type was used (e.g., credit instead of refund), leading to billing or refund issues.",
+          "labeledExamples": []
+        },
+        "12.3": {
+          "title": "Incorrect Currency",
+          "description": "Wrong currency or DCC without consent.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Auto-applied DCC or manual currency entry error."
+          ],
+          "preventionSteps": [
+            "Offer DCC opt-in; disclose all fees clearly."
+          ],
+          "evidenceRequirements": [
+            "Transaction currency logs",
+            "Receipt with conversion details",
+            "Screenshots of conversion prompt (or lack of)"
+          ],
+          "commonMerchantRebuttals": [
+            "DCC terms presented to customer",
+            "Exchange rate aligned with policy",
+            "Customer accepted currency choice"
+          ],
+          "strategyTips": [
+            "Show currency mismatch on receipt vs. account",
+            "Highlight lack of DCC opt-in confirmation",
+            "Request merchant rate documentation"
+          ],
+          "evidenceToFocusOn": [
+            "Transaction currency logs",
+            "Receipt with conversion details",
+            "Screenshots of conversion prompt (or lack of)"
+          ],
+          "customerStrategy": "Prove you were charged in the wrong currency without proper disclosure or approval.",
+          "labeledExamples": []
+        },
+        "12.4": {
+          "title": "Incorrect Account Number",
+          "description": "Settlement to wrong account or closed account.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Manual entry mistakes.",
+            "Adjustment posted late or to closed account."
+          ],
+          "preventionSteps": [
+            "Swipe/dip cards when possible.",
+            "Verify adjustments and batch promptly."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "12.5": {
+          "title": "Incorrect Amount",
+          "description": "Settled amount differs from auth.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Post-auth tip added or input typo."
+          ],
+          "preventionSteps": [
+            "Confirm final amount with cardholder before capture."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "12.6.1": {
+          "title": "Duplicate Processing",
+          "description": "Single transaction settled multiple times.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "System/batch replay or operator re-submission."
+          ],
+          "preventionSteps": [
+            "Implement duplicate-check at batch submission.",
+            "Void and refund duplicates immediately."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": [
+            "I was charged twice for the same purchase.",
+            "The transaction posted two times even though I only bought it once.",
+            "This is a duplicate billing error."
+          ]
+        },
+        "12.6.2": {
+          "title": "Paid by Other Means",
+          "description": "Card charged after alternative payment used.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Customer switched payment mid-transaction; original not voided."
+          ],
+          "preventionSteps": [
+            "Void original sale when alternate payment chosen."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "12.7": {
+          "title": "Invalid Data",
+          "description": "Auth request contained malformed or missing fields.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "75 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "75 days",
+          "typicalCauses": [
+            "Missing required auth data (MCC, country code, date)."
+          ],
+          "preventionSteps": [
+            "Validate all auth fields before submission."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "13.1": {
+          "title": "Merchandise/Services Not Received",
+          "description": "Customer paid but goods/services never delivered.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant failed to ship or notify delays.",
+            "Carrier delivery failure."
+          ],
+          "preventionSteps": [
+            "Provide tracking links and delivery confirmations.",
+            "Communicate proactively on any delays."
+          ],
+          "evidenceRequirements": [
+            "Detailed carrier GPS/scan logs",
+            "Full signature capture and release documentation",
+            "Screenshots of digital service access attempts",
+            "Customer’s own correspondence confirming non-receipt"
+          ],
+          "commonMerchantRebuttals": [
+            "Carrier tracking confirms delivery",
+            "Signature release authorizes drop-off",
+            "Digital platform logs show access",
+            "Package handed to someone at the address"
+          ],
+          "strategyTips": [
+            "Scrutinize carrier GPS timestamps vs. claimant’s timeline",
+            "Request full signature release forms from the merchant",
+            "Flag any address mismatches or incomplete delivery scans",
+            "Call out gaps in delivery windows or handoff procedures"
+          ],
+          "evidenceToFocusOn": [
+            "Detailed carrier GPS/scan logs",
+            "Full signature capture and release documentation",
+            "Screenshots of digital service access attempts",
+            "Customer’s own correspondence confirming non-receipt"
+          ],
+          "customerStrategy": "Emphasize that no authorized signature or delivery occurred at your address. Highlight any discrepancies between carrier logs and the merchant’s claim, and show your timely attempts to resolve directly with the seller.",
+          "labeledExamples": [
+            "The merchant charged me but the item never arrived.",
+            "Tracking says delivered, but I never received the package at my address.",
+            "I paid for the service and it was never provided."
+          ]
+        },
+        "13.2": {
+          "title": "Canceled Recurring Transaction",
+          "description": "Cardholder charged after canceling subscription.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant neglected subscription cancellation.",
+            "Rebilling after account closure."
+          ],
+          "preventionSteps": [
+            "Terminate recurring billing immediately upon request.",
+            "Notify cardholder of upcoming charges."
+          ],
+          "evidenceRequirements": [
+            "Email headers and timestamps of cancellation",
+            "Screenshots of subscription management page",
+            "Server logs showing no login/activity post-renewal",
+            "Communication showing refund refusal or delay"
+          ],
+          "commonMerchantRebuttals": [
+            "User credentials confirm account access",
+            "Subscription terms displayed clearly",
+            "Billing descriptor includes renewal notice"
+          ],
+          "strategyTips": [
+            "Provide timestamps of your cancellation request (email/chat logs)",
+            "Show hidden or hard-to-reach cancellation links",
+            "Demonstrate zero usage after the renewal date",
+            "Compare renewal notifications against your statement date"
+          ],
+          "evidenceToFocusOn": [
+            "Email headers and timestamps of cancellation",
+            "Screenshots of subscription management page",
+            "Server logs showing no login/activity post-renewal",
+            "Communication showing refund refusal or delay"
+          ],
+          "customerStrategy": "Stress that you followed all published cancellation steps before renewal, yet were still billed. Use exact timestamps and platform logs to prove you never accessed or benefited from the renewed service.",
+          "labeledExamples": [
+            "I canceled before the renewal date but they billed me anyway.",
+            "The subscription kept charging after I ended it.",
+            "I stopped the recurring service and they still ran another charge."
+          ]
+        },
+        "13.3": {
+          "title": "Not As Described / Defective",
+          "description": "Goods/services differ from description or are defective.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Misleading listings.",
+            "Damaged item on arrival."
+          ],
+          "preventionSteps": [
+            "Use detailed, accurate descriptions.",
+            "Inspect and package items carefully."
+          ],
+          "evidenceRequirements": [
+            "High-resolution photos/videos of the defect/mismatch",
+            "Product listing screenshots from date of purchase",
+            "Customer service transcripts with your complaints",
+            "Return instructions you followed (tracking info)"
+          ],
+          "commonMerchantRebuttals": [
+            "Product matches advertised specifications",
+            "No defect reported within warranty period",
+            "Customer gave no prior notice to merchant"
+          ],
+          "strategyTips": [
+            "Side-by-side photo/video comparisons of advertised vs delivered",
+            "Highlight any differences in size, model, or features",
+            "Show timestamped messages requesting repair or return",
+            "Obtain a neutral expert appraisal if needed"
+          ],
+          "evidenceToFocusOn": [
+            "High-resolution photos/videos of the defect/mismatch",
+            "Product listing screenshots from date of purchase",
+            "Customer service transcripts with your complaints",
+            "Return instructions you followed (tracking info)"
+          ],
+          "customerStrategy": "Demonstrate how the item materially deviates from the listing. Present clear visual proof, document your early return/resolution efforts, and cite any expert opinions or third-party reports.",
+          "labeledExamples": [
+            "The product I received was not what the listing promised.",
+            "The item was defective and the seller would not resolve it.",
+            "What arrived was materially different from what I paid for."
+          ]
+        },
+        "13.4": {
+          "title": "Counterfeit Merchandise",
+          "description": "Goods found to be counterfeit by authority or expert.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant unknowingly selling fakes."
+          ],
+          "preventionSteps": [
+            "Source only authentic products.",
+            "Document authenticity before shipping."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "13.5": {
+          "title": "Misrepresentation",
+          "description": "Merchant’s advertising or disclosures were misleading.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Vague or hidden terms.",
+            "False marketing claims."
+          ],
+          "preventionSteps": [
+            "Publish clear, honest terms and pricing.",
+            "Provide detailed product/service information."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "13.6": {
+          "title": "Credit Not Processed",
+          "description": "Promised refund/credit not posted.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant delay or system error."
+          ],
+          "preventionSteps": [
+            "Issue credits promptly.",
+            "Confirm posting to customer statements."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": [
+            "The merchant promised a refund but the credit never posted.",
+            "I returned the item and still have not received the credit.",
+            "The seller said they refunded me but nothing appeared on my statement."
+          ]
+        },
+        "13.7": {
+          "title": "Cancelled Merchandise/Services",
+          "description": "Returned or canceled but no credit applied.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant failed to process credit."
+          ],
+          "preventionSteps": [
+            "Document return policies clearly.",
+            "Post credits immediately."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "13.8": {
+          "title": "Original Credit Transaction Not Accepted",
+          "description": "Issuer refused or disallowed OCT.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Local laws prohibit OCT.",
+            "Cardholder opted out."
+          ],
+          "preventionSteps": [
+            "Maintain accurate OCT documentation.",
+            "Verify OCT rules per region."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "13.9": {
+          "title": "Non-Receipt of Cash at ATM",
+          "description": "ATM did not dispense full withdrawal.",
+          "category": "Consumer Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "30 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "ATM malfunction or reconciliation error."
+          ],
+          "preventionSteps": [
+            "Reconcile ATM balances regularly.",
+            "Issue reversal/credit promptly."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        }
+      }
+    },
+    "mastercard": {
+      "reasonCodes": {
+        "4807": {
+          "title": "Warning Bulletin File",
+          "description": "Deprecated – use 4808.",
+          "category": "Authorization",
+          "timeLimitIssuer": "45 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "45 days",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Follow 4808 guidelines."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "4808": {
+          "title": "Authorization-Related Chargeback",
+          "description": "No or forced auth after decline.",
+          "category": "Authorization",
+          "timeLimitIssuer": "90 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "90 days",
+          "typicalCauses": [
+            "Forced post-decline."
+          ],
+          "preventionSteps": [
+            "Never override declines; obtain valid auth."
+          ],
+          "evidenceRequirements": [
+            "Decline logs or failed auth screenshots",
+            "Terminal logs without authorization code",
+            "Issuer communication confirming no auth"
+          ],
+          "commonMerchantRebuttals": [
+            "Authorization was confirmed",
+            "Transaction processed within allowed time",
+            "Customer received goods/services"
+          ],
+          "strategyTips": [
+            "Point out lack of valid authorization before transaction",
+            "Show that charge occurred after a decline",
+            "Cite Mastercard guidelines on forced authorizations"
+          ],
+          "evidenceToFocusOn": [
+            "Decline logs or failed auth screenshots",
+            "Terminal logs without authorization code",
+            "Issuer communication confirming no auth"
+          ],
+          "customerStrategy": "Prove the merchant processed the charge without proper authorization, in violation of Mastercard policy.",
+          "labeledExamples": []
+        },
+        "4812": {
+          "title": "Account Number Not On File",
+          "description": "Deprecated – merged into 4808.",
+          "category": "Authorization",
+          "timeLimitIssuer": "45 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "45 days",
+          "typicalCauses": [],
+          "preventionSteps": [],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "4831": {
+          "title": "Transaction Amount Differs",
+          "description": "Deprecated – merged into 4834.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [],
+          "preventionSteps": [],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "4834": {
+          "title": "Point-of-Interaction Error",
+          "description": "Batch or receipt submitted multiple times or data mismatch.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Duplicate submissions; key-entry errors."
+          ],
+          "preventionSteps": [
+            "Implement duplicate checks; train staff."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": [
+            "The same transaction posted twice to my account.",
+            "I was billed two times for one purchase.",
+            "This appears to be a duplicate charge."
+          ]
+        },
+        "4837": {
+          "title": "No Cardholder Authorization",
+          "description": "Cardholder denies participation in transaction.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Unauthorized use of account data."
+          ],
+          "preventionSteps": [
+            "Use CVC2, AVS, SecureCode.",
+            "Display clear billing descriptors."
+          ],
+          "evidenceRequirements": [
+            "Photos/videos highlighting defect/incorrect item",
+            "Screenshots of the merchant’s return policy page at time of sale",
+            "Tracking proof of return shipment or refusal",
+            "Support ticket logs and merchant acknowledgement"
+          ],
+          "commonMerchantRebuttals": [
+            "Final sale/no returns policy applied",
+            "Return window has closed",
+            "Customer didn’t follow specified return procedure"
+          ],
+          "strategyTips": [
+            "Pinpoint inconsistencies in return policy disclosures",
+            "Show defect or mis-description evidence beyond minor wear",
+            "Include proof of attempted returns within allowed window",
+            "Obtain third-party damage or authenticity report if applicable"
+          ],
+          "evidenceToFocusOn": [
+            "Photos/videos highlighting defect/incorrect item",
+            "Screenshots of the merchant’s return policy page at time of sale",
+            "Tracking proof of return shipment or refusal",
+            "Support ticket logs and merchant acknowledgement"
+          ],
+          "customerStrategy": "Argue that the product was unfit or not as represented, and that the merchant’s restrictive return policy was not properly disclosed or applied. Leverage your own documentation and timelines to force a resolution.",
+          "labeledExamples": [
+            "I did not authorize this charge and do not recognize it.",
+            "This purchase was made without my permission.",
+            "The transaction was fraudulent and not approved by me."
+          ]
+        },
+        "4840": {
+          "title": "Fraudulent Processing of Transactions",
+          "description": "Additional unauthorized charges after a valid auth.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Rapid successive charges without separate auths."
+          ],
+          "preventionSteps": [
+            "Void duplicates; monitor for rapid‐fire charges."
+          ],
+          "evidenceRequirements": [
+            "Statement with grouped charges",
+            "Screenshots of single authorization flow",
+            "Communication showing confusion or lack of consent"
+          ],
+          "commonMerchantRebuttals": [
+            "Charge was pre-authorized by customer",
+            "Multiple charges were separate valid purchases",
+            "Customer failed to report dispute promptly"
+          ],
+          "strategyTips": [
+            "Highlight the rapid timing of duplicate or excessive charges",
+            "Compare transaction timestamps and merchant descriptors",
+            "Show contradiction with your spending pattern or history"
+          ],
+          "evidenceToFocusOn": [
+            "Statement with grouped charges",
+            "Screenshots of single authorization flow",
+            "Communication showing confusion or lack of consent"
+          ],
+          "customerStrategy": "Argue that this charge was part of a batch of fraudulent or excessive transactions improperly processed after a single approval.",
+          "labeledExamples": []
+        },
+        "4841": {
+          "title": "Canceled Recurring or Digital Goods Transactions",
+          "description": "Deprecated – use 4853.",
+          "category": "Cardholder Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [],
+          "preventionSteps": [],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "4842": {
+          "title": "Late Presentment",
+          "description": "Presented past card or batch window.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [],
+          "preventionSteps": [],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "4846": {
+          "title": "Incorrect Transaction Currency Code",
+          "description": "Wrong currency or improper DCC handling.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Offer DCC opt-in; disclose fees."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "4849": {
+          "title": "Questionable Merchant Activity",
+          "description": "Flagged by Global Merchant Audit Program.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Non-compliance with Mastercard security rules."
+          ],
+          "preventionSteps": [
+            "Adhere to GMAP/QMAP bulletins."
+          ],
+          "evidenceRequirements": [
+            "Similar prior disputes with merchant",
+            "Merchant’s standing with Mastercard (if disclosed)",
+            "Screenshots of red flags on merchant platform"
+          ],
+          "commonMerchantRebuttals": [
+            "Merchant passed compliance audit",
+            "Transaction matched customer profile",
+            "Service/product was delivered as described"
+          ],
+          "strategyTips": [
+            "Point out GMAP/QMAP flags or policy issues with merchant",
+            "Use historical complaints or disputes",
+            "Show deviations from expected behavior"
+          ],
+          "evidenceToFocusOn": [
+            "Similar prior disputes with merchant",
+            "Merchant’s standing with Mastercard (if disclosed)",
+            "Screenshots of red flags on merchant platform"
+          ],
+          "customerStrategy": "Emphasize that the merchant has a history of questionable activity and that your charge fits the pattern of abuse or policy violation.",
+          "labeledExamples": []
+        },
+        "4850": {
+          "title": "Installment Billing Dispute",
+          "description": "Incorrectly processed installment transaction.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "45 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "45 days",
+          "typicalCauses": [],
+          "preventionSteps": [],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "4853": {
+          "title": "Cardholder Dispute – Wrong Item / Quality Issue",
+          "description": "Wrong, defective, or mis-described goods/services.",
+          "category": "Cardholder Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Damaged or incorrect merchandise."
+          ],
+          "preventionSteps": [
+            "Inspect items; confirm accuracy before shipping."
+          ],
+          "evidenceRequirements": [
+            "Screenshots of cancellation workflow with timestamps",
+            "Emails/chat logs with support acknowledging your cancellation",
+            "Usage logs showing no access after cancellation",
+            "Archived policy page as it appeared at time of purchase"
+          ],
+          "commonMerchantRebuttals": [
+            "Service was rendered per policy",
+            "Cancellation link was obvious",
+            "Terms required notice period"
+          ],
+          "strategyTips": [
+            "Document every step of your cancellation process",
+            "Capture ambiguous or buried policy language",
+            "Show complete inactivity logs post-cancellation",
+            "Compare email alerts vs. actual service cut-off"
+          ],
+          "evidenceToFocusOn": [
+            "Screenshots of cancellation workflow with timestamps",
+            "Emails/chat logs with support acknowledging your cancellation",
+            "Usage logs showing no access after cancellation",
+            "Archived policy page as it appeared at time of purchase"
+          ],
+          "customerStrategy": "Prove that you cancelled in strict accordance with their own policy yet still got charged. Emphasize confusion in their UI, and highlight the disparity between their stated terms and your real-world experience.",
+          "labeledExamples": [
+            "I canceled the service and they kept billing me.",
+            "The item or service was never delivered after I paid.",
+            "The merchant failed to provide what I purchased and would not fix it."
+          ]
+        },
+        "4854": {
+          "title": "Cardholder Dispute—Not Elsewhere Classified",
+          "description": "Good-faith attempt to resolve before chargeback.",
+          "category": "Cardholder Disputes",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Resolve complaints promptly."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "4863": {
+          "title": "Cardholder Does Not Recognize—Potential Fraud",
+          "description": "Unfamiliar CNP transaction disputed.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Unrecognized online/mail order."
+          ],
+          "preventionSteps": [
+            "Use fraud-detection tools; clear descriptors."
+          ],
+          "evidenceRequirements": [
+            "Statement showing unrecognized descriptor",
+            "Device/IP login audit logs",
+            "Screenshots or receipts from known purchases"
+          ],
+          "commonMerchantRebuttals": [
+            "Descriptor clearly reflects merchant identity",
+            "Transaction processed per customer authorization",
+            "Prior purchases from same merchant on file"
+          ],
+          "strategyTips": [
+            "Highlight descriptor confusion and mismatch",
+            "Demonstrate you’ve never interacted with this merchant before",
+            "Show location/IP mismatch or device fingerprint mismatch"
+          ],
+          "evidenceToFocusOn": [
+            "Statement showing unrecognized descriptor",
+            "Device/IP login audit logs",
+            "Screenshots or receipts from known purchases"
+          ],
+          "customerStrategy": "Claim the charge appears completely unfamiliar and show it doesn’t match your prior purchase history or device access records.",
+          "labeledExamples": []
+        },
+        "4870": {
+          "title": "Chip Liability Shift",
+          "description": "Counterfeit chip at non-EMV terminal.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Processed chip transaction on legacy POS."
+          ],
+          "preventionSteps": [
+            "Use EMV-compliant terminals."
+          ],
+          "evidenceRequirements": [
+            "Issuer fraud analysis report",
+            "Card replacement logs",
+            "Device compatibility verification"
+          ],
+          "commonMerchantRebuttals": [
+            "EMV chip read confirmed",
+            "Customer present with valid ID",
+            "Transaction approved through valid channel"
+          ],
+          "strategyTips": [
+            "Prove EMV chip misuse or counterfeit usage",
+            "Show skimming or compromised device history",
+            "Challenge the legitimacy of the EMV read process"
+          ],
+          "evidenceToFocusOn": [
+            "Issuer fraud analysis report",
+            "Card replacement logs",
+            "Device compatibility verification"
+          ],
+          "customerStrategy": "Demonstrate that the transaction relied on counterfeit EMV data, processed at a terminal that shouldn't have allowed it.",
+          "labeledExamples": []
+        },
+        "4871": {
+          "title": "Chip/PIN Liability Shift",
+          "description": "Chip-and-PIN card processed without PIN.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "PIN not captured on chip sale."
+          ],
+          "preventionSteps": [
+            "Enforce PIN on chip transactions."
+          ],
+          "evidenceRequirements": [
+            "Transaction geolocation vs. known user location",
+            "Fraud affidavit",
+            "Card usage logs before/after dispute"
+          ],
+          "commonMerchantRebuttals": [
+            "PIN successfully entered",
+            "Chip authenticated without failure",
+            "Customer present and verified"
+          ],
+          "strategyTips": [
+            "Argue that PIN entry occurred without your knowledge",
+            "Point out device mismatch, stolen card use, or fraud pattern",
+            "Use evidence showing you weren’t present"
+          ],
+          "evidenceToFocusOn": [
+            "Transaction geolocation vs. known user location",
+            "Fraud affidavit",
+            "Card usage logs before/after dispute"
+          ],
+          "customerStrategy": "Explain how the chip/PIN was bypassed or used fraudulently, despite appearing secure on paper.",
+          "labeledExamples": []
+        },
+        "4999": {
+          "title": "Domestic Chargeback Dispute",
+          "description": "Filtered for Europe region only.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "45 days",
+          "timeLimitAcquirer": "45 days",
+          "maxDisputeWindow": "45 days",
+          "typicalCauses": [],
+          "preventionSteps": [],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        }
+      }
+    },
+    "amex": {
+      "reasonCodes": {
+        "F10": {
+          "title": "Missing Imprint",
+          "description": "Mag-stripe not read; no imprint or chip read.",
+          "category": "Fraud",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Fallback used without imprint."
+          ],
+          "preventionSteps": [
+            "Capture imprint or chip data on every sale."
+          ],
+          "evidenceRequirements": [
+            "Receipt showing method of authorization",
+            "Terminal transaction audit logs",
+            "Issuer guidance on imprint requirement"
+          ],
+          "commonMerchantRebuttals": [
+            "Imprint not required on chip-enabled terminals",
+            "Customer was present and signed receipt",
+            "Transaction approved electronically"
+          ],
+          "strategyTips": [
+            "Confirm if chip or contactless transaction occurred",
+            "Highlight lack of imprint requirement per device type",
+            "Request terminal logs if available"
+          ],
+          "evidenceToFocusOn": [
+            "Receipt showing method of authorization",
+            "Terminal transaction audit logs",
+            "Issuer guidance on imprint requirement"
+          ],
+          "customerStrategy": "Explain why the missing imprint indicates a fraudulent or unauthorized transaction, particularly if card was not physically present or authorization process was abnormal.",
+          "labeledExamples": []
+        },
+        "F14": {
+          "title": "Missing Signature",
+          "description": "Signed receipt missing or illegible.",
+          "category": "Fraud",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Faded or blank signature line."
+          ],
+          "preventionSteps": [
+            "Ensure clear signature on all receipts."
+          ],
+          "evidenceRequirements": [
+            "Copy of unsigned receipt",
+            "Travel records or phone location data",
+            "Bank statement showing transaction geography"
+          ],
+          "commonMerchantRebuttals": [
+            "Signature was captured electronically",
+            "Cardholder identity verified at checkout",
+            "No discrepancy raised at time of purchase"
+          ],
+          "strategyTips": [
+            "Call out lack of signature on key documents",
+            "Show your card wasn’t in your possession",
+            "Use location/IP mismatch to discredit merchant"
+          ],
+          "evidenceToFocusOn": [
+            "Copy of unsigned receipt",
+            "Travel records or phone location data",
+            "Bank statement showing transaction geography"
+          ],
+          "customerStrategy": "Argue that no valid signature was obtained, and that your card was either not present or not used by you at the time of charge.",
+          "labeledExamples": []
+        },
+        "F24": {
+          "title": "No Card Member Authorization",
+          "description": "Cardholder denies specific approved transaction.",
+          "category": "Fraud",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Authorized merchant but denies charge."
+          ],
+          "preventionSteps": [
+            "Use AVS/CID and clear descriptors."
+          ],
+          "evidenceRequirements": [
+            "Bank fraud claim receipt",
+            "SecureCode or 3DS enrollment screenshots",
+            "Chat/email logs where you reported unauthorized activity"
+          ],
+          "commonMerchantRebuttals": [
+            "Authorization code was issued",
+            "Transaction approved by issuer",
+            "Cardholder participated in purchase"
+          ],
+          "strategyTips": [
+            "Emphasize you never consented to this transaction",
+            "Request issuer logs to show lack of CVV or OTP use",
+            "Note absence of SecureCode/3DS authentication"
+          ],
+          "evidenceToFocusOn": [
+            "Bank fraud claim receipt",
+            "SecureCode or 3DS enrollment screenshots",
+            "Chat/email logs where you reported unauthorized activity"
+          ],
+          "customerStrategy": "State that this charge was unauthorized, and back it with formal fraud reports, card security settings, and your contact with the bank.",
+          "labeledExamples": []
+        },
+        "F29": {
+          "title": "Card Not Present",
+          "description": "CNP order denied by cardholder.",
+          "category": "Fraud",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "CNP sale without cardholder involvement."
+          ],
+          "preventionSteps": [
+            "Require CID/AVS/signature for mail orders."
+          ],
+          "evidenceRequirements": [
+            "IP geolocation analysis",
+            "Device logs or screenshots",
+            "Police or bank fraud reports"
+          ],
+          "commonMerchantRebuttals": [
+            "Order placed through verified online account",
+            "CVV and billing zip matched",
+            "Cardholder IP address logged"
+          ],
+          "strategyTips": [
+            "Point out mismatch between your usual IP/location",
+            "Show lack of 2FA or fraud filters",
+            "Provide proof of physical card possession during transaction"
+          ],
+          "evidenceToFocusOn": [
+            "IP geolocation analysis",
+            "Device logs or screenshots",
+            "Police or bank fraud reports"
+          ],
+          "customerStrategy": "Show that this card-not-present charge originated from a device or region unrelated to you, and that no additional verification was triggered.",
+          "labeledExamples": [
+            "I do not recognize this charge and did not authorize it.",
+            "My card was used fraudulently without my permission.",
+            "This transaction was unauthorized."
+          ]
+        },
+        "F30": {
+          "title": "EMV Counterfeit",
+          "description": "Counterfeit chip used without chip read.",
+          "category": "Fraud",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Non-EMV terminal at chip card sale."
+          ],
+          "preventionSteps": [
+            "Use EMV-compliant POS devices."
+          ],
+          "evidenceRequirements": [
+            "Fraud report with EMV misuse details",
+            "Card replacement history",
+            "Chip tampering records if available"
+          ],
+          "commonMerchantRebuttals": [
+            "Chip was read successfully",
+            "Customer entered PIN or signed",
+            "Transaction logged as valid EMV"
+          ],
+          "strategyTips": [
+            "Challenge the authenticity of chip data used",
+            "Point out stolen card usage or skimming signs",
+            "Request forensic review if applicable"
+          ],
+          "evidenceToFocusOn": [
+            "Fraud report with EMV misuse details",
+            "Card replacement history",
+            "Chip tampering records if available"
+          ],
+          "customerStrategy": "Explain this charge used cloned or counterfeited EMV data and that you were not in control of the card or device during the transaction.",
+          "labeledExamples": []
+        },
+        "F31": {
+          "title": "EMV Lost/Stolen/Non-Received",
+          "description": "Lost/stolen chip card keyed in.",
+          "category": "Fraud",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Manual key-entry at non-chip/PIN terminal."
+          ],
+          "preventionSteps": [
+            "Use chip-and-PIN terminals."
+          ],
+          "evidenceRequirements": [
+            "Bank letter showing non-receipt report",
+            "Account notes or fraud alert history",
+            "Delivery confirmation failures"
+          ],
+          "commonMerchantRebuttals": [
+            "PIN was entered correctly",
+            "Card was physically present",
+            "Transaction was chip-verified"
+          ],
+          "strategyTips": [
+            "Establish you never received or lost the card",
+            "Show issue date and delivery failure logs",
+            "Use activity timestamps to prove non-ownership"
+          ],
+          "evidenceToFocusOn": [
+            "Bank letter showing non-receipt report",
+            "Account notes or fraud alert history",
+            "Delivery confirmation failures"
+          ],
+          "customerStrategy": "Make it clear the card was lost or stolen before you could activate or use it, and that this charge was made fraudulently with no valid consent.",
+          "labeledExamples": []
+        },
+        "A01": {
+          "title": "Charge > Auth Amount",
+          "description": "Settled amount exceeds auth approval.",
+          "category": "Authorization",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Added tip/adjustment beyond tolerance."
+          ],
+          "preventionSteps": [
+            "Do not alter auth amount post-approval."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "A02": {
+          "title": "No Valid Authorization",
+          "description": "No auth obtained or expired/declined.",
+          "category": "Authorization",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Used declined or expired auth."
+          ],
+          "preventionSteps": [
+            "Authorize before every sale; abort on decline."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "A08": {
+          "title": "Auth Approval Expired",
+          "description": "Auth expired before capture.",
+          "category": "Authorization",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Delay between auth and settlement."
+          ],
+          "preventionSteps": [
+            "Capture on day of sale."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "P01": {
+          "title": "Unassigned Card Number",
+          "description": "Invalid/unassigned number used.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Typo or expired account number."
+          ],
+          "preventionSteps": [
+            "Swipe/dip only; fallback as last resort."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "P03": {
+          "title": "Credit Processed as Charge",
+          "description": "Refund processed as sale.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Operator/system error on type."
+          ],
+          "preventionSteps": [
+            "Verify transaction type before processing."
+          ],
+          "evidenceRequirements": [
+            "Statement showing charge instead of credit",
+            "Refund confirmation or credit memo",
+            "Merchant email acknowledging refund"
+          ],
+          "commonMerchantRebuttals": [
+            "Transaction reflected as intended",
+            "Merchant processed correct transaction type",
+            "Customer misread statement"
+          ],
+          "strategyTips": [
+            "Highlight account debit where a credit was expected",
+            "Provide invoice or email confirming refund",
+            "Compare original and reversal transaction IDs"
+          ],
+          "evidenceToFocusOn": [
+            "Statement showing charge instead of credit",
+            "Refund confirmation or credit memo",
+            "Merchant email acknowledging refund"
+          ],
+          "customerStrategy": "Prove that the transaction processed was the opposite of what was promised — you were owed a credit but charged again instead.",
+          "labeledExamples": []
+        },
+        "P04": {
+          "title": "Charge Processed as Credit",
+          "description": "Sale processed as refund.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Incorrect transaction type selection."
+          ],
+          "preventionSteps": [
+            "Double-check before finalizing."
+          ],
+          "evidenceRequirements": [
+            "Transaction logs or merchant confirmation",
+            "Statement showing balance behavior",
+            "Prior charge and related correspondence"
+          ],
+          "commonMerchantRebuttals": [
+            "Credit issued properly",
+            "Transaction misinterpreted by customer",
+            "System reflected refund as expected"
+          ],
+          "strategyTips": [
+            "Show that a credit listed was actually a new charge",
+            "Compare amounts and reference IDs to prior orders",
+            "Provide account impact view (balance change)"
+          ],
+          "evidenceToFocusOn": [
+            "Transaction logs or merchant confirmation",
+            "Statement showing balance behavior",
+            "Prior charge and related correspondence"
+          ],
+          "customerStrategy": "Demonstrate that a refund was promised but instead a new debit occurred, disguised as a credit.",
+          "labeledExamples": []
+        },
+        "P05": {
+          "title": "Incorrect Charge Amount",
+          "description": "Settled amount ≠ agreed amount.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Manual entry mistake."
+          ],
+          "preventionSteps": [
+            "Confirm with cardholder prior to capture."
+          ],
+          "evidenceRequirements": [
+            "Receipt or invoice with price",
+            "Final transaction amount screenshot",
+            "Merchant correspondence"
+          ],
+          "commonMerchantRebuttals": [
+            "Amount matched order confirmation",
+            "Tips or fees disclosed at checkout",
+            "Customer approved revised total"
+          ],
+          "strategyTips": [
+            "Compare expected vs. charged amount",
+            "Show pricing breakdown from receipt or checkout page",
+            "Include any merchant promises or promotional pricing"
+          ],
+          "evidenceToFocusOn": [
+            "Receipt or invoice with price",
+            "Final transaction amount screenshot",
+            "Merchant correspondence"
+          ],
+          "customerStrategy": "Point out the exact dollar difference and show that you never approved or were informed of the final higher charge.",
+          "labeledExamples": []
+        },
+        "P07": {
+          "title": "Late Submission",
+          "description": "Submitted past allowed timeframe.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Submit same-day if possible."
+          ],
+          "evidenceRequirements": [
+            "Bank statement with post date",
+            "Order receipt or in-store timestamp",
+            "Network policy on timely submissions"
+          ],
+          "commonMerchantRebuttals": [
+            "Authorization was still valid",
+            "Delayed due to third-party processor",
+            "Terms disclosed late billing timeline"
+          ],
+          "strategyTips": [
+            "Compare transaction date vs. posting date",
+            "Highlight merchant delay or system lag",
+            "Show timeframe violated network standards"
+          ],
+          "evidenceToFocusOn": [
+            "Bank statement with post date",
+            "Order receipt or in-store timestamp",
+            "Network policy on timely submissions"
+          ],
+          "customerStrategy": "Explain the charge posted far too late to be recognized or authorized, and violated charge timeliness standards.",
+          "labeledExamples": []
+        },
+        "P08": {
+          "title": "Duplicate Charge",
+          "description": "Same sale submitted more than once.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Batch resubmission."
+          ],
+          "preventionSteps": [
+            "Void original before reprocessing."
+          ],
+          "evidenceRequirements": [
+            "Side-by-side transaction screenshots",
+            "Email or support logs disputing duplicate",
+            "Shipping or fulfillment records showing one item"
+          ],
+          "commonMerchantRebuttals": [
+            "Customer placed multiple orders",
+            "Amounts reflected different items or services",
+            "Order system logs show separate authorizations"
+          ],
+          "strategyTips": [
+            "Match timestamps and dollar amounts",
+            "Point out same merchant, card, and value",
+            "Request explanation from merchant on duplication"
+          ],
+          "evidenceToFocusOn": [
+            "Side-by-side transaction screenshots",
+            "Email or support logs disputing duplicate",
+            "Shipping or fulfillment records showing one item"
+          ],
+          "customerStrategy": "Show that you were charged twice for the same transaction or order, and only received one product/service.",
+          "labeledExamples": []
+        },
+        "P22": {
+          "title": "Non-Matching Card Number",
+          "description": "Submitted number ≠ original.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Hand-key typo."
+          ],
+          "preventionSteps": [
+            "Use chip/swipe data when possible."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "P23": {
+          "title": "Currency Discrepancy",
+          "description": "Incorrect currency used.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Train staff on currency selection."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "C02": {
+          "title": "Credit Not Processed",
+          "description": "Promised refund not posted.",
+          "category": "Card Member Disputes",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Process refunds promptly."
+          ],
+          "evidenceRequirements": [
+            "Shipping receipt with tracking",
+            "Email/chat confirming return",
+            "Statement screenshot showing refund missing"
+          ],
+          "commonMerchantRebuttals": [
+            "Refund was already issued",
+            "No return received from customer",
+            "Customer misunderstood refund timeline"
+          ],
+          "strategyTips": [
+            "Highlight lack of refund posted despite return confirmation",
+            "Include return tracking and merchant acknowledgment",
+            "Show merchant’s policy promising refund"
+          ],
+          "evidenceToFocusOn": [
+            "Shipping receipt with tracking",
+            "Email/chat confirming return",
+            "Statement screenshot showing refund missing"
+          ],
+          "customerStrategy": "Prove that you followed all return steps and that the merchant failed to issue the promised refund in a timely manner.",
+          "labeledExamples": []
+        },
+        "C04": {
+          "title": "Goods/Services Returned or Refused",
+          "description": "Returned merchandise not credited.",
+          "category": "Card Member Disputes",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Honor return policies promptly."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "C05": {
+          "title": "Goods/Services Canceled",
+          "description": "Canceled order without refund.",
+          "category": "Card Member Disputes",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Process cancellations immediately."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "C08": {
+          "title": "Goods/Services Not Received or Partially Received",
+          "description": "Non-receipt or partial receipt.",
+          "category": "Card Member Disputes",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [
+            "Merchant shipping failure."
+          ],
+          "preventionSteps": [
+            "Provide tracking; confirm delivery/pick-up."
+          ],
+          "evidenceRequirements": [
+            "Carrier delivery confirmation vs. no-show reports",
+            "Signed delivery logs or lack thereof",
+            "Emails confirming non-delivery or reschedule requests",
+            "Witness statements if possible"
+          ],
+          "commonMerchantRebuttals": [
+            "Item/service was fulfilled",
+            "Delivery proof was sufficient",
+            "Customer signed acceptance form"
+          ],
+          "strategyTips": [
+            "Request full delivery manifest and proof of signature",
+            "Highlight lack of delivery notification or attempt",
+            "Document any discrepancies in shipping address or carrier logs"
+          ],
+          "evidenceToFocusOn": [
+            "Carrier delivery confirmation vs. no-show reports",
+            "Signed delivery logs or lack thereof",
+            "Emails confirming non-delivery or reschedule requests",
+            "Witness statements if possible"
+          ],
+          "customerStrategy": "Undermine the merchant’s delivery claim by exposing missing or incomplete proof. Combine carrier records with your own communications to show the service/item was never received.",
+          "labeledExamples": [
+            "I paid for the service but never received it.",
+            "The merchant kept charging me after cancellation.",
+            "The goods or service were not provided as promised."
+          ]
+        },
+        "C14": {
+          "title": "Paid by Other Means",
+          "description": "Alternate payment used before credit.",
+          "category": "Card Member Disputes",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Void original sale if other payment chosen."
+          ],
+          "evidenceRequirements": [
+            "Bank statement or payment receipt from alternate method",
+            "Invoice showing payment marked as complete",
+            "Customer service acknowledgment of duplicate payment"
+          ],
+          "commonMerchantRebuttals": [
+            "Alternative payment method not verified",
+            "Duplicate transactions intentional or confirmed",
+            "Customer failed to provide alternate payment receipt"
+          ],
+          "strategyTips": [
+            "Show matching receipt from another payment method",
+            "Provide date, time, and method of original transaction",
+            "Compare item descriptions and amounts"
+          ],
+          "evidenceToFocusOn": [
+            "Bank statement or payment receipt from alternate method",
+            "Invoice showing payment marked as complete",
+            "Customer service acknowledgment of duplicate payment"
+          ],
+          "customerStrategy": "Show that you already paid through another method, and that this charge was mistakenly duplicated. Use receipts and timestamps to differentiate.",
+          "labeledExamples": []
+        },
+        "C18": {
+          "title": "\"No Show\" or Card Deposit Canceled",
+          "description": "Lodging no-show billed despite cancellation.",
+          "category": "Card Member Disputes",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Follow lodging program cancellation rules."
+          ],
+          "evidenceRequirements": [
+            "Cancellation email or screenshot with timestamp",
+            "Booking terms from time of reservation",
+            "Statement showing charge after cancellation"
+          ],
+          "commonMerchantRebuttals": [
+            "No-show policy clearly disclosed",
+            "Reservation not canceled in time",
+            "Customer agreed to non-refundable terms"
+          ],
+          "strategyTips": [
+            "Prove cancellation or change was submitted within window",
+            "Show unclear or inaccessible cancellation policy",
+            "Highlight inability to use the service"
+          ],
+          "evidenceToFocusOn": [
+            "Cancellation email or screenshot with timestamp",
+            "Booking terms from time of reservation",
+            "Statement showing charge after cancellation"
+          ],
+          "customerStrategy": "Show that you canceled properly or never received the service. Emphasize confusing terms, early cancellation, or denial of use.",
+          "labeledExamples": []
+        },
+        "C28": {
+          "title": "Canceled Recurring Billing",
+          "description": "Recurring charge after cancelation request.",
+          "category": "Card Member Disputes",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Stop billing immediately on request."
+          ],
+          "evidenceRequirements": [
+            "Email cancel confirmation",
+            "Screenshot of confusing cancellation UI",
+            "Account logs showing no login after renewal"
+          ],
+          "commonMerchantRebuttals": [
+            "Subscription terms shown and accepted",
+            "Recurring charge authorized through login",
+            "Customer failed to follow cancellation steps"
+          ],
+          "strategyTips": [
+            "Document subscription cancellation before billing date",
+            "Show lack of clear renewal notice or cancel link",
+            "Demonstrate no account activity after billing"
+          ],
+          "evidenceToFocusOn": [
+            "Email cancel confirmation",
+            "Screenshot of confusing cancellation UI",
+            "Account logs showing no login after renewal"
+          ],
+          "customerStrategy": "Prove you canceled your subscription as instructed, or that you were misled or blocked from doing so. Document timeline and digital proof.",
+          "labeledExamples": []
+        },
+        "C31": {
+          "title": "Goods/Services Not As Described",
+          "description": "Received item differs from description.",
+          "category": "Card Member Disputes",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Ensure listings match shipped items."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": [
+            "The item was not as described in the listing.",
+            "The product I received was defective or materially different.",
+            "The seller misrepresented what I was buying."
+          ]
+        },
+        "C32": {
+          "title": "Goods/Services Damaged or Defective",
+          "description": "Received defective goods/services.",
+          "category": "Card Member Disputes",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Package securely; inspect before dispatch."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "M10": {
+          "title": "Vehicle Rental – Capital Damages",
+          "description": "Dispute over billed capital damages.",
+          "category": "Inquiry/Miscellaneous",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Obtain signed damage acknowledgement."
+          ],
+          "evidenceRequirements": [
+            "Before-and-after photos",
+            "Signed rental condition report",
+            "Repair estimate breakdown"
+          ],
+          "commonMerchantRebuttals": [
+            "Customer signed damage waiver",
+            "Photos confirm vehicle condition at return",
+            "Charge assessed per rental agreement"
+          ],
+          "strategyTips": [
+            "Dispute the claimed damage origin and timing",
+            "Highlight clean inspection at drop-off",
+            "Challenge validity of damage estimate"
+          ],
+          "evidenceToFocusOn": [
+            "Before-and-after photos",
+            "Signed rental condition report",
+            "Repair estimate breakdown"
+          ],
+          "customerStrategy": "Prove you returned the vehicle in good condition and the damage was either pre-existing or fabricated.",
+          "labeledExamples": []
+        },
+        "M49": {
+          "title": "Vehicle Rental – Theft or Loss of Use",
+          "description": "Dispute for theft or loss-of-use fees.",
+          "category": "Inquiry/Miscellaneous",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Document valid charges vs. credits."
+          ],
+          "evidenceRequirements": [
+            "Police report or insurance claim",
+            "Rental agreement with liability terms",
+            "Timeline of vehicle recovery"
+          ],
+          "commonMerchantRebuttals": [
+            "Loss terms disclosed in rental agreement",
+            "Customer responsible under policy",
+            "Vehicle not recovered in time window"
+          ],
+          "strategyTips": [
+            "Check liability waiver and insurance status",
+            "Request proof of loss, theft report",
+            "Evaluate how merchant calculated loss-of-use fees"
+          ],
+          "evidenceToFocusOn": [
+            "Police report or insurance claim",
+            "Rental agreement with liability terms",
+            "Timeline of vehicle recovery"
+          ],
+          "customerStrategy": "Argue that theft or loss-of-use fees were excessive, unverified, or not your contractual responsibility.",
+          "labeledExamples": []
+        },
+        "M01": {
+          "title": "Chargeback Authorization",
+          "description": "Merchant authorized AmEx to proceed with chargeback.",
+          "category": "Inquiry/Miscellaneous",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Keep complete transaction records."
+          ],
+          "evidenceRequirements": [
+            "Dispute processing timeline",
+            "Chargeback system response",
+            "Bank communication records"
+          ],
+          "commonMerchantRebuttals": [
+            "Authorization not required under policy",
+            "Merchant cooperated with issuer request",
+            "Transaction exempt from special approval"
+          ],
+          "strategyTips": [
+            "Highlight lack of required chargeback authorization record",
+            "Show merchant processed reversal without proper flow",
+            "Include network rules requiring pre-approval"
+          ],
+          "evidenceToFocusOn": [
+            "Dispute processing timeline",
+            "Chargeback system response",
+            "Bank communication records"
+          ],
+          "customerStrategy": "Show that this chargeback lacked the required pre-authorization and was processed without your knowledge or consent.",
+          "labeledExamples": []
+        },
+        "R03": {
+          "title": "Insufficient Reply",
+          "description": "Response lacked sufficient detail.",
+          "category": "Inquiry/Miscellaneous",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Provide full documentation promptly."
+          ],
+          "evidenceRequirements": [
+            "Issuer correspondence requesting info",
+            "Merchant reply comparison",
+            "Email logs or ticket ID history"
+          ],
+          "commonMerchantRebuttals": [
+            "All required documentation submitted",
+            "Reply met content requirements",
+            "Delay caused by issuer system"
+          ],
+          "strategyTips": [
+            "Show you didn’t receive requested documentation",
+            "Highlight incomplete or irrelevant response",
+            "Timeline showing late or evasive reply"
+          ],
+          "evidenceToFocusOn": [
+            "Issuer correspondence requesting info",
+            "Merchant reply comparison",
+            "Email logs or ticket ID history"
+          ],
+          "customerStrategy": "Demonstrate that the reply lacked critical info needed to resolve the issue, delaying your refund or resolution.",
+          "labeledExamples": []
+        },
+        "R13": {
+          "title": "No Reply",
+          "description": "No response to inquiry.",
+          "category": "Inquiry/Miscellaneous",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Respond within stated timeframes."
+          ],
+          "evidenceRequirements": [
+            "Your email or chat attempts",
+            "Timestamped messages with no reply",
+            "Issuer notification of unresolved issue"
+          ],
+          "commonMerchantRebuttals": [
+            "Merchant responded through alternate channel",
+            "Reply may have gone to spam/junk",
+            "Customer didn’t check portal or email"
+          ],
+          "strategyTips": [
+            "Show lack of reply within timeframe",
+            "Document your repeated follow-ups",
+            "Highlight radio silence despite clear issue"
+          ],
+          "evidenceToFocusOn": [
+            "Your email or chat attempts",
+            "Timestamped messages with no reply",
+            "Issuer notification of unresolved issue"
+          ],
+          "customerStrategy": "Prove the merchant ignored or refused to respond, even after you made multiple legitimate attempts to reach a resolution.",
+          "labeledExamples": []
+        },
+        "FR2": {
+          "title": "Fraud Full Recourse Program",
+          "description": "Merchant in full recourse fraud program.",
+          "category": "Inquiry/Miscellaneous",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Show proof of offset credit or non-enrollment."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "FR4": {
+          "title": "Immediate Chargeback Program",
+          "description": "Merchant in immediate chargeback program.",
+          "category": "Inquiry/Miscellaneous",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Issue refunds within 7 days."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "FR6": {
+          "title": "Partial Immediate Chargeback Program",
+          "description": "Merchant in partial immediate CB program.",
+          "category": "Inquiry/Miscellaneous",
+          "timeLimitIssuer": "Varies",
+          "timeLimitAcquirer": "20 days",
+          "maxDisputeWindow": "Varies",
+          "typicalCauses": [],
+          "preventionSteps": [
+            "Issue refunds within 7 days."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        }
+      }
+    },
+    "discover": {
+      "reasonCodes": {
+        "5": {
+          "title": "Good Faith Investigation",
+          "description": "Merchant accepted responsibility in good faith.",
+          "category": "Services",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant conceded liability."
+          ],
+          "preventionSteps": [],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "UA01": {
+          "title": "Fraud – Card Present Transaction",
+          "description": "In-person fraudulent transaction with real card.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Card swiped without holder’s knowledge."
+          ],
+          "preventionSteps": [
+            "Wait for proper authorization.",
+            "Use fraud-prevention policies."
+          ],
+          "evidenceRequirements": [
+            "Police or fraud report",
+            "Card activity timeline",
+            "Geolocation or ATM logs"
+          ],
+          "commonMerchantRebuttals": [
+            "Transaction processed with valid card swipe",
+            "Authorization received at point of sale",
+            "Customer did not report card stolen"
+          ],
+          "strategyTips": [
+            "Show card was in your possession at time of charge",
+            "Highlight location mismatch or travel restrictions",
+            "Submit fraud affidavit if unauthorized"
+          ],
+          "evidenceToFocusOn": [
+            "Police or fraud report",
+            "Card activity timeline",
+            "Geolocation or ATM logs"
+          ],
+          "customerStrategy": "Prove that this transaction was made without your knowledge or presence, even though the card was used in person.",
+          "labeledExamples": []
+        },
+        "UA02": {
+          "title": "Fraud – Card Not Present Transaction",
+          "description": "CNP transaction denied by cardholder.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "No CNP authorization requested."
+          ],
+          "preventionSteps": [
+            "Obtain CNP authorization; never force auth."
+          ],
+          "evidenceRequirements": [
+            "Device/IP mismatch data",
+            "Screenshots of no login or usage",
+            "Fraud report filed with bank"
+          ],
+          "commonMerchantRebuttals": [
+            "AVS/CVV matched at checkout",
+            "Digital receipt emailed to customer",
+            "Transaction completed with 3D Secure"
+          ],
+          "strategyTips": [
+            "Point out lack of device/IP recognition",
+            "Cite evidence of fraud or compromised credentials",
+            "Use logs showing no platform access"
+          ],
+          "evidenceToFocusOn": [
+            "Device/IP mismatch data",
+            "Screenshots of no login or usage",
+            "Fraud report filed with bank"
+          ],
+          "customerStrategy": "Emphasize that this card-not-present charge occurred without your authorization, and no platform or account usage supports it.",
+          "labeledExamples": [
+            "I did not authorize this Discover transaction.",
+            "This was a fraudulent charge on my card.",
+            "I do not recognize this merchant or purchase."
+          ]
+        },
+        "UA05": {
+          "title": "Fraud – Chip Counterfeit Transaction",
+          "description": "Counterfeit chip use on non-EMV POS.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Terminal not configured for EMV."
+          ],
+          "preventionSteps": [
+            "Upgrade to EMV-compliant devices."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "UA06": {
+          "title": "Fraud – Chip and PIN Transaction",
+          "description": "Chip-and-PIN card used on signature-only POS.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Terminal not accepting PIN CVM."
+          ],
+          "preventionSteps": [
+            "Use PIN-capable EMV terminals."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "UA10": {
+          "title": "Request Transaction Receipt",
+          "description": "Issuer requests receipt for suspected fraud.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Signature mismatch on receipt."
+          ],
+          "preventionSteps": [
+            "Capture legible signed receipts."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "UA11": {
+          "title": "Cardholder Claims Fraud (No Signature)",
+          "description": "Swipe transaction without signature disputed as fraud.",
+          "category": "Fraud",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "No signature on slip."
+          ],
+          "preventionSteps": [
+            "Obtain signature or imprint on every transaction."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "NA": {
+          "title": "No Authorization",
+          "description": "Transaction processed without any authorization.",
+          "category": "Authorization",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Auth omitted or expired."
+          ],
+          "preventionSteps": [
+            "Always obtain auth before sale."
+          ],
+          "evidenceRequirements": [
+            "Transaction vs. authorization timestamps",
+            "Processor or gateway log (if available)",
+            "Statement showing unauthorized charge"
+          ],
+          "commonMerchantRebuttals": [
+            "Authorization obtained via fallback method",
+            "Authorization delayed due to gateway issues",
+            "Amount within tolerance of pre-auth"
+          ],
+          "strategyTips": [
+            "Compare timestamp of charge vs. auth",
+            "Show no authorization ever received",
+            "Highlight that fallback wasn’t disclosed"
+          ],
+          "evidenceToFocusOn": [
+            "Transaction vs. authorization timestamps",
+            "Processor or gateway log (if available)",
+            "Statement showing unauthorized charge"
+          ],
+          "customerStrategy": "Argue that no proper authorization occurred before the charge, which should invalidate it per network rules.",
+          "labeledExamples": []
+        },
+        "DA": {
+          "title": "Declined Authorization",
+          "description": "Forced transaction after decline.",
+          "category": "Authorization",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant ignored decline."
+          ],
+          "preventionSteps": [
+            "Terminate on decline or request alternate payment."
+          ],
+          "evidenceRequirements": [
+            "Decline message screenshots",
+            "Statement logs of repeated attempts",
+            "Support emails about payment failure"
+          ],
+          "commonMerchantRebuttals": [
+            "Authorization override allowed per policy",
+            "Customer approved at time of transaction",
+            "Decline was temporary or network-related"
+          ],
+          "strategyTips": [
+            "Highlight repeated decline attempts",
+            "Show no later valid auth occurred",
+            "Demonstrate lack of fallback logic"
+          ],
+          "evidenceToFocusOn": [
+            "Decline message screenshots",
+            "Statement logs of repeated attempts",
+            "Support emails about payment failure"
+          ],
+          "customerStrategy": "Prove the charge occurred after your card was declined, without your approval or retry.",
+          "labeledExamples": []
+        },
+        "AT": {
+          "title": "Authorization Noncompliance",
+          "description": "Processed with expired or no positive auth.",
+          "category": "Authorization",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Forced post-decline or expired auth."
+          ],
+          "preventionSteps": [
+            "Adhere to auth amount tolerances."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "IN": {
+          "title": "Invalid Card Number",
+          "description": "Unassigned or expired number.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Typo or expired card used."
+          ],
+          "preventionSteps": [
+            "Double-check card data."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "LP": {
+          "title": "Late Presentation",
+          "description": "Submitted past allowed timeframe.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Batch delay or POS issues."
+          ],
+          "preventionSteps": [
+            "Submit transactions same day."
+          ],
+          "evidenceRequirements": [
+            "POS receipt date vs. statement post date",
+            "Merchant support logs",
+            "Timeline showing settlement gap"
+          ],
+          "commonMerchantRebuttals": [
+            "System delay caused late batch submission",
+            "Authorization was still valid",
+            "Customer notified of delay"
+          ],
+          "strategyTips": [
+            "Compare transaction date and post date",
+            "Show expired authorization window",
+            "Point out confusion caused by late posting"
+          ],
+          "evidenceToFocusOn": [
+            "POS receipt date vs. statement post date",
+            "Merchant support logs",
+            "Timeline showing settlement gap"
+          ],
+          "customerStrategy": "Prove the charge was processed too late to be valid or recognizable, and settlement window expired.",
+          "labeledExamples": []
+        },
+        "NC": {
+          "title": "Not Classified",
+          "description": "Does not fit other categories.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Catch-all for misc disputes."
+          ],
+          "preventionSteps": [],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "EX": {
+          "title": "Expired Card",
+          "description": "Card expired before settlement.",
+          "category": "Processing Errors",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant processed expired card."
+          ],
+          "preventionSteps": [
+            "Verify expiry on every sale."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "AA": {
+          "title": "Does Not Recognize",
+          "description": "Cardholder doesn’t recognize charge.",
+          "category": "Services",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Unfamiliar descriptor used."
+          ],
+          "preventionSteps": [
+            "Use clear billing descriptors."
+          ],
+          "evidenceRequirements": [
+            "Statement highlighting unrecognizable charge",
+            "Chat logs seeking clarification",
+            "Screenshots of descriptor display"
+          ],
+          "commonMerchantRebuttals": [
+            "Descriptor clearly reflects business name",
+            "Support contact info provided",
+            "Customer previously purchased"
+          ],
+          "strategyTips": [
+            "Request descriptor breakdown from bank",
+            "Show merchant name mismatch",
+            "Compare descriptor with past transactions"
+          ],
+          "evidenceToFocusOn": [
+            "Statement highlighting unrecognizable charge",
+            "Chat logs seeking clarification",
+            "Screenshots of descriptor display"
+          ],
+          "customerStrategy": "Explain that the charge appeared under an unfamiliar name or code, and you had no knowledge or context of the transaction.",
+          "labeledExamples": []
+        },
+        "AP": {
+          "title": "Recurring Payments",
+          "description": "Charge after cancellation request.",
+          "category": "Services",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Subscription not terminated promptly."
+          ],
+          "preventionSteps": [
+            "Honor cancelations immediately."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "AW": {
+          "title": "Altered Amount",
+          "description": "Settled amount differs from auth.",
+          "category": "Services",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "ATM/POS dispensed wrong amount."
+          ],
+          "preventionSteps": [
+            "Verify final amount before posting."
+          ],
+          "evidenceRequirements": [
+            "Initial authorization or receipt",
+            "Final posted charge",
+            "Chat/email confirming disputed amount"
+          ],
+          "commonMerchantRebuttals": [
+            "Amount changed with customer approval",
+            "System auto-adjusted during settlement",
+            "Customer tipped and acknowledged"
+          ],
+          "strategyTips": [
+            "Compare initial auth with final posted amount",
+            "Confirm no secondary approval occurred",
+            "Reference receipt with original pricing"
+          ],
+          "evidenceToFocusOn": [
+            "Initial authorization or receipt",
+            "Final posted charge",
+            "Chat/email confirming disputed amount"
+          ],
+          "customerStrategy": "Show that the amount was altered from what you approved, and no updated consent was captured before processing.",
+          "labeledExamples": []
+        },
+        "CD": {
+          "title": "Credit/Debit Posted Incorrectly",
+          "description": "Debit vs. credit mis-posted.",
+          "category": "Services",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Reversal vs. credit confusion."
+          ],
+          "preventionSteps": [
+            "Train staff on credit/debit workflows."
+          ],
+          "evidenceRequirements": [
+            "Refund agreement or merchant note",
+            "Bank statement with charge not credit",
+            "Merchant correspondence"
+          ],
+          "commonMerchantRebuttals": [
+            "Correct transaction type processed",
+            "Customer requested refund reversal",
+            "Transaction labeled accurately"
+          ],
+          "strategyTips": [
+            "Prove you were due a credit but a debit was applied",
+            "Use merchant confirmation as supporting evidence",
+            "Highlight reversal mismatch"
+          ],
+          "evidenceToFocusOn": [
+            "Refund agreement or merchant note",
+            "Bank statement with charge not credit",
+            "Merchant correspondence"
+          ],
+          "customerStrategy": "Show that a refund was expected but instead a debit was applied in error, causing double billing or negative balance.",
+          "labeledExamples": []
+        },
+        "DP": {
+          "title": "Duplicate Processing",
+          "description": "Same transaction settled twice.",
+          "category": "Services",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Batch or system replay."
+          ],
+          "preventionSteps": [
+            "Implement duplicate-detection checks."
+          ],
+          "evidenceRequirements": [
+            "Statement showing duplicate charges",
+            "Proof only one item was delivered",
+            "Customer communication with merchant"
+          ],
+          "commonMerchantRebuttals": [
+            "Customer placed multiple orders",
+            "Different authorizations used",
+            "Customer approved both charges"
+          ],
+          "strategyTips": [
+            "Compare timestamps and descriptions",
+            "Highlight identical amounts for same service",
+            "Show only one item or service was received"
+          ],
+          "evidenceToFocusOn": [
+            "Statement showing duplicate charges",
+            "Proof only one item was delivered",
+            "Customer communication with merchant"
+          ],
+          "customerStrategy": "Prove that two identical charges were made for the same transaction, and that you only received the service once.",
+          "labeledExamples": [
+            "I was charged twice for the same order.",
+            "This is a duplicate posting for one purchase.",
+            "The merchant ran the same charge more than once."
+          ]
+        },
+        "IC": {
+          "title": "Illegible Sales Data",
+          "description": "Requested receipt unreadable.",
+          "category": "Services",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Poor scan or fading ink."
+          ],
+          "preventionSteps": [],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "NF": {
+          "title": "Non-Receipt of Cash from ATM",
+          "description": "ATM did not dispense cash.",
+          "category": "Services",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "ATM malfunction."
+          ],
+          "preventionSteps": [
+            "Reconcile ATM balances; credit discrepancies."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "PM": {
+          "title": "Paid by Other Means",
+          "description": "Customer paid by alternate method.",
+          "category": "Services",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Alternate payment not voided."
+          ],
+          "preventionSteps": [
+            "Void original sale on alternate payment."
+          ],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        },
+        "RG": {
+          "title": "Non-Receipt of Goods/Services/Cash",
+          "description": "Paid but no delivery or pick-up occurred.",
+          "category": "Services",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Merchant delayed or failed delivery."
+          ],
+          "preventionSteps": [
+            "Deliver or notify delays proactively."
+          ],
+          "evidenceRequirements": [
+            "Carrier logs or confirmation gaps",
+            "Support tickets showing service outage",
+            "Customer correspondence showing complaint"
+          ],
+          "commonMerchantRebuttals": [
+            "Delivery confirmation provided",
+            "Service delivered as agreed",
+            "Customer failed to follow up"
+          ],
+          "strategyTips": [
+            "Highlight that delivery or service was never completed",
+            "Document delivery delays or misrouting",
+            "Provide timestamps showing non-fulfillment"
+          ],
+          "evidenceToFocusOn": [
+            "Carrier logs or confirmation gaps",
+            "Support tickets showing service outage",
+            "Customer correspondence showing complaint"
+          ],
+          "customerStrategy": "Prove you paid for something that was never delivered, by showing tracking or fulfillment breakdown.",
+          "labeledExamples": [
+            "I paid but never received the goods or service.",
+            "I canceled the subscription and was still charged.",
+            "The merchant failed to deliver what I purchased."
+          ]
+        },
+        "RM": {
+          "title": "Cardholder Disputes Quality",
+          "description": "Defective or mis-described goods/services.",
+          "category": "Services",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Damaged item; poor service."
+          ],
+          "preventionSteps": [
+            "Inspect goods; document quality."
+          ],
+          "evidenceRequirements": [
+            "Visual proof of defect or service issue",
+            "Listing vs. item received comparison",
+            "Support tickets raising concerns"
+          ],
+          "commonMerchantRebuttals": [
+            "Product met specifications",
+            "Service rendered in full",
+            "No complaint received before charge"
+          ],
+          "strategyTips": [
+            "Provide photos or transcripts proving poor quality",
+            "Compare actual result to promised outcome",
+            "Highlight attempts to resolve issue"
+          ],
+          "evidenceToFocusOn": [
+            "Visual proof of defect or service issue",
+            "Listing vs. item received comparison",
+            "Support tickets raising concerns"
+          ],
+          "customerStrategy": "Show the goods/services were not as advertised or poorly executed. Use visual proof and your resolution attempts.",
+          "labeledExamples": [
+            "The item was not what the seller described.",
+            "What arrived was damaged, defective, or materially different.",
+            "The seller misrepresented the purchase."
+          ]
+        },
+        "RN2": {
+          "title": "Credit Not Processed",
+          "description": "Returned/refused goods not credited.",
+          "category": "Services",
+          "timeLimitIssuer": "120 days",
+          "timeLimitAcquirer": "120 days",
+          "maxDisputeWindow": "120 days",
+          "typicalCauses": [
+            "Refund not issued post-return."
+          ],
+          "preventionSteps": [
+            "Process credits promptly."
+          ],
+          "evidenceRequirements": [
+            "Return tracking details",
+            "Email confirming item receipt",
+            "Statement missing refund"
+          ],
+          "commonMerchantRebuttals": [
+            "Return policy disallows refund",
+            "Credit issued after cutoff",
+            "Customer failed to complete return"
+          ],
+          "strategyTips": [
+            "Show tracking confirming return received",
+            "Highlight merchant acknowledgment of return",
+            "Prove credit not issued despite confirmation"
+          ],
+          "evidenceToFocusOn": [
+            "Return tracking details",
+            "Email confirming item receipt",
+            "Statement missing refund"
+          ],
+          "customerStrategy": "Show the item was returned per policy and the merchant failed to process the refund as promised.",
+          "labeledExamples": []
+        },
+        "DC": {
+          "title": "Dispute Compliance",
+          "description": "Merchant non-compliance with Discover rules.",
+          "category": "Dispute Compliance",
+          "timeLimitIssuer": null,
+          "timeLimitAcquirer": null,
+          "maxDisputeWindow": null,
+          "typicalCauses": [
+            "Failure to follow operating regulations."
+          ],
+          "preventionSteps": [],
+          "evidenceRequirements": [],
+          "commonMerchantRebuttals": [],
+          "strategyTips": [],
+          "evidenceToFocusOn": [],
+          "customerStrategy": null,
+          "labeledExamples": []
+        }
+      }
+    }
+  },
+  "issuers": {
+    "american express": {
+      "name": "American Express",
+      "contact": {
+        "phoneSupport": "800-528-4800",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 981535, El Paso, TX 79998",
+        "submissionNotes": [
+          "Include a copy of the front and back of the statement page showing the charge",
+          "Send via certified mail for proof of delivery"
+        ],
+        "verifiedAt": "2026-03-23",
+        "sourceUrl": "https://www.americanexpress.com/us/customer-service/faq.dispute-a-charge.html",
+        "preferredSubmissionChannels": [
+          "online account transaction view",
+          "customer service"
+        ],
+        "disputeEntryPoint": "Sign in, open your transaction history, select the charge, and choose 'Dispute this Charge'.",
+        "evidenceExamples": [
+          "merchant communications",
+          "receipts or invoices",
+          "proof of cancellation",
+          "delivery or non-delivery proof"
+        ],
+        "filingWindowNote": "Consumers should gather documents before starting the online dispute flow and contact the merchant first when possible.",
+        "statusTracking": "Monitor the dispute through the Amex account experience after submission."
+      }
+    },
+    "bank of america": {
+      "name": "Bank of America",
+      "contact": {
+        "phoneSupport": "800-732-9194",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 672050, Dallas, TX 75267-2050",
+        "submissionNotes": [
+          "Provide account number and statement date",
+          "Attach copies of receipts or emails with the merchant"
+        ],
+        "verifiedAt": "2026-03-23",
+        "sourceUrl": "https://www.bankofamerica.com/customer-service/contact-us/credit-card-dispute/",
+        "preferredSubmissionChannels": [
+          "online banking",
+          "customer service"
+        ],
+        "disputeEntryPoint": "Start from the credit card dispute area inside Bank of America online banking.",
+        "evidenceExamples": [
+          "billing statement excerpts",
+          "merchant emails",
+          "receipts",
+          "return or cancellation proof"
+        ],
+        "filingWindowNote": "Before opening the dispute, try to resolve the issue with the merchant and collect documents that support the claim.",
+        "statusTracking": "Track updates inside the online banking dispute workflow."
+      }
+    },
+    "capital one": {
+      "name": "Capital One",
+      "contact": {
+        "phoneSupport": "800-227-4825",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "ATTN: Disputes P.O. Box 30279, Salt Lake City, UT 84130-0279",
+        "submissionNotes": [
+          "Reference the transaction date and amount",
+          "Include screenshots of any cancellation confirmations"
+        ],
+        "verifiedAt": "2026-03-23",
+        "sourceUrl": "https://www.capitalone.com/help-center/credit-cards/dispute-transaction/",
+        "preferredSubmissionChannels": [
+          "online account center",
+          "phone support"
+        ],
+        "disputeEntryPoint": "Open the charge details in your Capital One account and follow the online dispute prompts.",
+        "evidenceExamples": [
+          "merchant correspondence",
+          "receipts",
+          "proof of non-delivery",
+          "proof of cancellation"
+        ],
+        "filingWindowNote": "Capital One advises reviewing the transaction details, contacting the merchant first, and gathering documentation before filing.",
+        "statusTracking": "Customers can generally review dispute status through their online account experience."
+      }
+    },
+    "chase": {
+      "name": "Chase",
+      "contact": {
+        "phoneSupport": "800-432-3117",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 15299, Wilmington, DE 19850-5299",
+        "submissionNotes": [
+          "List the session ID or reference number from checkout",
+          "Include proof of attempted resolution with the merchant"
+        ],
+        "verifiedAt": "2026-03-23",
+        "sourceUrl": "https://www.chase.com/personal/credit-cards/education/basics/how-to-dispute-a-credit-card-charge",
+        "preferredSubmissionChannels": [
+          "online account",
+          "phone support",
+          "mail"
+        ],
+        "disputeEntryPoint": "Start from the transaction details in your Chase card account or contact Chase disputes support.",
+        "evidenceExamples": [
+          "receipts",
+          "order confirmations",
+          "merchant communications",
+          "delivery records"
+        ],
+        "filingWindowNote": "Chase recommends contacting the merchant first and collecting supporting documents before disputing.",
+        "statusTracking": "Status may be reviewed through Chase account channels once the dispute is opened."
+      }
+    },
+    "citi": {
+      "name": "Citi",
+      "contact": {
+        "phoneSupport": "800-950-5114",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 6241, Sioux Falls, SD 57117",
+        "submissionNotes": [
+          "Enclose a copy of the billing statement highlighting the disputed charge",
+          "Send via certified mail to track delivery"
+        ],
+        "verifiedAt": "2026-03-23",
+        "sourceUrl": "https://www.citi.com/credit-cards/understanding-credit-cards/what-is-provisional-credit",
+        "preferredSubmissionChannels": [
+          "phone support",
+          "online servicing"
+        ],
+        "disputeEntryPoint": "Begin the investigation through Citi servicing channels after gathering the transaction details and dispute basis.",
+        "evidenceExamples": [
+          "merchant emails",
+          "receipts",
+          "proof of fraud or non-delivery",
+          "documentation supporting the billing error"
+        ],
+        "filingWindowNote": "Citi explains that disputes may result in provisional credit during the investigation, depending on the case.",
+        "statusTracking": "Customers should monitor the case through Citi servicing communications and account updates."
+      }
+    },
+    "discover": {
+      "name": "Discover",
+      "contact": {
+        "phoneSupport": "800-347-2683",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 30945, Salt Lake City, UT 84130-0945",
+        "submissionNotes": [
+          "Include your Discover card number",
+          "Attach any related transaction receipts or communications"
+        ]
+      }
+    },
+    "wells fargo": {
+      "name": "Wells Fargo",
+      "contact": {
+        "phoneSupport": "800-642-4720",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 51193, Los Angeles, CA 90051-5493",
+        "submissionNotes": [
+          "Reference the disputed transaction date in your cover letter",
+          "Provide clear copies of any supporting documents"
+        ],
+        "verifiedAt": "2026-03-23",
+        "sourceUrl": "https://www.wellsfargo.com/help/credit-cards/transactions-and-fees/",
+        "preferredSubmissionChannels": [
+          "online banking",
+          "phone support"
+        ],
+        "disputeEntryPoint": "Use Wells Fargo account servicing options for transaction help and dispute initiation.",
+        "evidenceExamples": [
+          "account statement excerpts",
+          "merchant correspondence",
+          "receipts",
+          "proof of return or cancellation"
+        ],
+        "filingWindowNote": "Customers should review the posted transaction, attempt merchant resolution when appropriate, and keep supporting documents ready.",
+        "statusTracking": "Check for updates through account servicing and dispute follow-up communications."
+      }
+    },
+    "barclays": {
+      "name": "Barclays",
+      "contact": {
+        "phoneSupport": "888-232-0780",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 8803, Wilmington, DE 19899-8803",
+        "submissionNotes": [
+          "Include your account number and details of the disputed transaction",
+          "Attach any supporting documentation"
+        ]
+      }
+    },
+    "synchrony": {
+      "name": "Synchrony",
+      "contact": {
+        "phoneSupport": "877-295-2080",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 965035, Orlando, FL 32896-5035",
+        "submissionNotes": [
+          "Provide account details and transaction information",
+          "Include copies of any relevant receipts or correspondence"
+        ]
+      }
+    },
+    "u.s. bank": {
+      "name": "U.S. Bank",
+      "contact": {
+        "phoneSupport": "800-872-2657",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 6353, Fargo, ND 58125-6353",
+        "submissionNotes": [
+          "Include your account number and details of the disputed charge",
+          "Attach any supporting documents"
+        ]
+      }
+    },
+    "pnc bank": {
+      "name": "PNC Bank",
+      "contact": {
+        "phoneSupport": "888-762-2265",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 3429, Pittsburgh, PA 15230-3429",
+        "submissionNotes": [
+          "Provide account and transaction details",
+          "Include any relevant documentation"
+        ]
+      }
+    },
+    "usaa": {
+      "name": "USAA",
+      "contact": {
+        "phoneSupport": "800-531-8722",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "10750 McDermott Freeway, San Antonio, TX 78288",
+        "submissionNotes": [
+          "Include your member number and transaction details",
+          "Attach any supporting evidence"
+        ]
+      }
+    },
+    "comerica": {
+      "name": "Comerica",
+      "contact": {
+        "phoneSupport": "866-486-1015",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 650785, Dallas, TX 75265-0785",
+        "submissionNotes": [
+          "Provide account number and details of the disputed transaction",
+          "Include any relevant documentation"
+        ]
+      }
+    },
+    "ally bank": {
+      "name": "Ally Bank",
+      "contact": {
+        "phoneSupport": "877-247-2559",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 951, Horsham, PA 19044",
+        "submissionNotes": [
+          "Include your account number and transaction date",
+          "Attach receipts or proof of communication with the merchant"
+        ]
+      }
+    },
+    "hsbc": {
+      "name": "HSBC",
+      "contact": {
+        "phoneSupport": "800-975-4722",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 52513, New Orleans, LA 70153",
+        "submissionNotes": [
+          "Provide your card number and date of the disputed charge",
+          "Include any relevant emails or order confirmations"
+        ]
+      }
+    },
+    "td bank": {
+      "name": "TD Bank",
+      "contact": {
+        "phoneSupport": "888-751-9000",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 84037, Columbus, GA 31908-4037",
+        "submissionNotes": [
+          "Include your account number and details of the disputed transaction",
+          "Attach any supporting documentation"
+        ]
+      }
+    },
+    "truist": {
+      "name": "Truist",
+      "contact": {
+        "phoneSupport": "800-354-3946",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 105262, Atlanta, GA 30348",
+        "submissionNotes": [
+          "List the disputed charge details clearly",
+          "Attach proof of attempted resolution with the merchant"
+        ]
+      }
+    },
+    "fifth third bank": {
+      "name": "Fifth Third Bank",
+      "contact": {
+        "phoneSupport": "800-972-3030",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "Fifth Third Bank, P.O. Box 630778, Cincinnati, OH 45263-0778",
+        "submissionNotes": [
+          "Provide account and transaction details",
+          "Include any relevant documentation"
+        ]
+      }
+    },
+    "regions bank": {
+      "name": "Regions Bank",
+      "contact": {
+        "phoneSupport": "800-417-2859",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "Regions Bank, P.O. Box 11007, Birmingham, AL 35202-1007",
+        "submissionNotes": [
+          "Call 1-800-295-8472 to open a dispute case",
+          "Include clear copies of receipts and transaction records"
+        ]
+      }
+    },
+    "sofi": {
+      "name": "SoFi",
+      "contact": {
+        "phoneSupport": "855-456-7634",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 741512, Los Angeles, CA 90074",
+        "submissionNotes": [
+          "Provide your member ID and disputed charge details",
+          "Include proof of purchase and communication logs"
+        ]
+      }
+    },
+    "affirm": {
+      "name": "Affirm",
+      "contact": {
+        "phoneSupport": "855-423-3729",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "650 California St, Floor 12, San Francisco, CA 94108",
+        "submissionNotes": [
+          "Include your account/reference number",
+          "Attach order confirmations and payment screenshots"
+        ]
+      }
+    },
+    "klarna": {
+      "name": "Klarna",
+      "contact": {
+        "phoneSupport": "855-632-5272",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 1600, Clifton, NJ 07015",
+        "submissionNotes": [
+          "Reference your Klarna purchase ID",
+          "Attach any delivery or payment communications"
+        ]
+      }
+    },
+    "afterpay": {
+      "name": "Afterpay",
+      "contact": {
+        "phoneSupport": "855-500-1777",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 700, Irvine, CA 92614",
+        "submissionNotes": [
+          "Include your Afterpay order number",
+          "Provide proof of non-delivery or defective item"
+        ]
+      }
+    },
+    "sezzle": {
+      "name": "Sezzle",
+      "contact": {
+        "phoneSupport": "952-666-7399",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "2140 Xenium Ln N #300, Plymouth, MN 55441",
+        "submissionNotes": [
+          "Provide your Sezzle transaction ID",
+          "Attach any relevant receipts or chat logs"
+        ]
+      }
+    },
+    "upstart": {
+      "name": "Upstart",
+      "contact": {
+        "phoneSupport": "855-340-5139",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 5127, Hayward, CA 94540",
+        "submissionNotes": [
+          "Reference your loan or purchase agreement",
+          "Include proof of default or non-delivery"
+        ]
+      }
+    },
+    "chime": {
+      "name": "Chime",
+      "contact": {
+        "phoneSupport": "844-244-6363",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 417, San Bruno, CA 94066",
+        "submissionNotes": [
+          "Include your Chime account and transaction details",
+          "Attach any supporting documentation"
+        ]
+      }
+    },
+    "apple card (goldman sachs)": {
+      "name": "Apple Card (Goldman Sachs)",
+      "contact": {
+        "phoneSupport": "877-255-5923",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 7247-6198, Philadelphia, PA 19170",
+        "submissionNotes": [
+          "Include your Apple Card number",
+          "Attach proof of attempted merchant resolution"
+        ]
+      }
+    },
+    "marcus by goldman sachs": {
+      "name": "Marcus by Goldman Sachs",
+      "contact": {
+        "phoneSupport": "855-730-7283",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 45400, Salt Lake City, UT 84145",
+        "submissionNotes": [
+          "Reference your Marcus account number",
+          "Include any receipts or email correspondence"
+        ]
+      }
+    },
+    "paypal credit": {
+      "name": "PayPal Credit",
+      "contact": {
+        "phoneSupport": "800-236-7977",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "P.O. Box 45950, Omaha, NE 68145",
+        "submissionNotes": [
+          "Include your PayPal Credit account number",
+          "Attach related transaction receipts or communications"
+        ]
+      }
+    },
+    "credit one bank": {
+      "name": "Credit One Bank",
+      "contact": {
+        "phoneSupport": "877-825-3242",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "ATTN: Dispute Dept., P.O. Box 98876, Las Vegas, NV 89193-8876",
+        "submissionNotes": [
+          "Reference the transaction date and amount",
+          "Include copies of any related email or cancellation confirmations"
+        ]
+      }
+    },
+    "navy federal credit union": {
+      "name": "Navy Federal Credit Union",
+      "contact": {
+        "phoneSupport": "888-842-6328",
+        "fax": null,
+        "uploadPortal": "https://www.navyfederal.org/account/cards/disputes.html",
+        "mailingAddress": "Navy Federal, P.O. Box 3000, Merrifield, VA 22119-3000",
+        "submissionNotes": [
+          "Use the Dispute Center in online banking first",
+          "Send all supporting docs via certified mail to track delivery"
+        ]
+      }
+    },
+    "huntington national bank": {
+      "name": "Huntington National Bank",
+      "contact": {
+        "phoneSupport": "800-340-4165",
+        "fax": "877-211-1631",
+        "uploadPortal": null,
+        "mailingAddress": "Huntington National Bank, P.O. Box 1558, GW4W26, Columbus, OH 43216",
+        "submissionNotes": [
+          "Include your account number and transaction date",
+          "Fax documentation to 877-211-1631 or mail to above address"
+        ]
+      }
+    },
+    "truist (formerly suntrust & bb&t)": {
+      "name": "Truist (formerly SunTrust & BB&T)",
+      "contact": {
+        "phoneSupport": "800-685-8860",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "Truist Bank, P.O. Box 530885, Atlanta, GA 30353-0885",
+        "submissionNotes": [
+          "Reference your card number and statement date",
+          "Attach any proof of attempted resolution with merchant"
+        ]
+      }
+    },
+    "sofi bank": {
+      "name": "SoFi Bank",
+      "contact": {
+        "phoneSupport": "855-456-7634",
+        "fax": null,
+        "uploadPortal": "https://www.sofi.com/legal/dispute-center/",
+        "mailingAddress": "SoFi Bank, Attn: Disputes, 234 1st Street, San Francisco, CA 94105",
+        "submissionNotes": [
+          "Use the online Dispute Center for fastest processing",
+          "Include transaction details and any merchant correspondence"
+        ]
+      }
+    },
+    "chime bank": {
+      "name": "Chime Bank",
+      "contact": {
+        "phoneSupport": "844-244-6363",
+        "fax": null,
+        "uploadPortal": "https://help.chime.com/hc/en-us/articles/360058223294-Disputing-Transactions",
+        "mailingAddress": "Chime, P.O. Box 417, San Francisco, CA 94104",
+        "submissionNotes": [
+          "Disputes filed via online help portal are prioritized",
+          "List the date, amount, and merchant name clearly"
+        ]
+      }
+    },
+    "varo bank": {
+      "name": "Varo Bank",
+      "contact": {
+        "phoneSupport": "800-981-9130",
+        "fax": null,
+        "uploadPortal": "https://www.varomoney.com/dispute/",
+        "mailingAddress": "Varo Bank, Attn: Dispute Dept., P.O. Box 12345, San Francisco, CA 94104",
+        "submissionNotes": [
+          "Submit disputes via the Varo mobile app or link above",
+          "Provide card-last-4, transaction date, and reason code"
+        ]
+      }
+    },
+    "comenity bank": {
+      "name": "Comenity Bank",
+      "contact": {
+        "phoneSupport": "866-547-1556",
+        "fax": null,
+        "uploadPortal": "https://customer.comenity.net/",
+        "mailingAddress": "Comenity Bank, P.O. Box 182273, Columbus, OH 43218-2273",
+        "submissionNotes": [
+          "Log into Comenity customer portal to start dispute",
+          "Attach screenshots of receipts or order confirmations"
+        ]
+      }
+    },
+    "credit union of america": {
+      "name": "Credit Union of America",
+      "contact": {
+        "phoneSupport": "800-233-2328",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "Credit Union of America, P.O. Box 1028, Kingston, NY 12402",
+        "submissionNotes": [
+          "Call member services to initiate a dispute",
+          "Mail signed dispute letter with account details"
+        ]
+      }
+    },
+    "keybank": {
+      "name": "KeyBank",
+      "contact": {
+        "phoneSupport": "800-539-2968",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "KeyBank, Attn: Card Disputes, P.O. Box 95982, Cleveland, OH 44101-4982",
+        "submissionNotes": [
+          "Include copy of your statement highlighting the charge",
+          "Reference card-last-4 and date of transaction"
+        ]
+      }
+    },
+    "citizens bank": {
+      "name": "Citizens Bank",
+      "contact": {
+        "phoneSupport": "800-922-9999",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "Citizens Bank, P.O. Box 42010, Providence, RI 02940-2010",
+        "submissionNotes": [
+          "Include your account number and details of the disputed charge",
+          "Attach any supporting documents"
+        ]
+      }
+    },
+    "m&t bank": {
+      "name": "M&T Bank",
+      "contact": {
+        "phoneSupport": "800-724-2440",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "M&T Bank, P.O. Box 900, Millsboro, DE 19966",
+        "submissionNotes": [
+          "Provide account details and transaction information",
+          "Include copies of any relevant receipts or correspondence"
+        ]
+      }
+    },
+    "becu (boeing employees credit union)": {
+      "name": "BECU (Boeing Employees Credit Union)",
+      "contact": {
+        "phoneSupport": "800-233-2328",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "BECU, P.O. Box 97050, Seattle, WA 98124-9750",
+        "submissionNotes": [
+          "Provide account and transaction details",
+          "Include any relevant documentation"
+        ]
+      }
+    },
+    "first citizens bank": {
+      "name": "First Citizens Bank",
+      "contact": {
+        "phoneSupport": "800-423-1602",
+        "fax": null,
+        "uploadPortal": null,
+        "mailingAddress": "First Citizens Bank, P.O. Box 27131, Raleigh, NC 27611-7131",
+        "submissionNotes": [
+          "Include your account number and details of the disputed charge",
+          "Attach any supporting documents"
+        ]
+      }
+    },
+    "brex": {
+      "name": "Brex",
+      "contact": {
+        "phoneSupport": "844-725-3739",
+        "fax": null,
+        "uploadPortal": "https://support.brex.com",
+        "mailingAddress": "Brex Inc., 430 California Street, San Francisco, CA 94104",
+        "submissionNotes": [
+          "Use the online support portal for dispute submissions",
+          "Provide transaction details and any supporting documentation"
+        ]
+      }
+    },
+    "divvy": {
+      "name": "Divvy",
+      "contact": {
+        "phoneSupport": "855-229-3111",
+        "fax": null,
+        "uploadPortal": "https://help.divvy.co",
+        "mailingAddress": "Divvy Inc., 13707 S 200 W, Suite 100, Draper, UT 84020",
+        "submissionNotes": [
+          "Submit disputes through the online help center",
+          "Include transaction details and any relevant documentation"
+        ]
+      }
+    },
+    "bluevine": {
+      "name": "Bluevine",
+      "contact": {
+        "phoneSupport": "888-216-9619",
+        "fax": null,
+        "uploadPortal": "https://www.bluevine.com/contact-us/",
+        "mailingAddress": "Bluevine Inc., 401 Warren St, Redwood City, CA 94063",
+        "submissionNotes": [
+          "Use the contact form on the website for dispute submissions",
+          "Provide transaction details and any supporting documentation"
+        ]
+      }
+    },
+    "ramp": {
+      "name": "Ramp",
+      "contact": {
+        "phoneSupport": "855-746-7754",
+        "fax": null,
+        "uploadPortal": "https://support.ramp.com",
+        "mailingAddress": "Ramp Business Corporation, 71 Broadway, Floor 3, New York, NY 10006",
+        "submissionNotes": [
+          "Submit disputes through the online support portal",
+          "Include transaction details and any relevant documentation"
+        ]
+      }
+    },
+    "stripe": {
+      "name": "Stripe",
+      "contact": {
+        "phoneSupport": "888-963-8955",
+        "fax": null,
+        "uploadPortal": "https://support.stripe.com",
+        "mailingAddress": "Stripe Inc., 354 Oyster Point Blvd, South San Francisco, CA 94080",
+        "submissionNotes": [
+          "Use the online support portal for dispute submissions",
+          "Provide transaction details and any supporting documentation"
+        ]
+      }
+    },
+    "cred.ai": {
+      "name": "Cred.ai",
+      "contact": {
+        "phoneSupport": "888-219-5988",
+        "fax": null,
+        "uploadPortal": "https://support.cred.ai",
+        "mailingAddress": "Cred.ai Inc., 1234 Market Street, Philadelphia, PA 19107",
+        "submissionNotes": [
+          "Submit disputes through the online support portal",
+          "Include transaction details and any relevant documentation"
+        ]
+      }
+    }
+  },
+  "bins": {}
+}

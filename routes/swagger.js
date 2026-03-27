@@ -27,22 +27,14 @@ const loadSpec = () => {
   }
 };
 
-// Load the OpenAPI spec
-const spec = loadSpec();
-
 // Define routes
-router.get('/api/v1/openapi.json', (req, res) => {
-  if (req.redis && !req.redis.isOpen) {
-    return res.status(503).json({ error: 'Redis unavailable' });
-  }
-  return res.json(spec);
+router.get('/api/v1/openapi.json', (_req, res) => {
+  return res.json(loadSpec());
 });
 
-router.use('/api/v1/docs', (req, res, next) => {
-  if (req.redis && !req.redis.isOpen) {
-    return res.status(503).json({ error: 'Redis unavailable' });
-  }
-  next();
-}, swaggerUi.serve, swaggerUi.setup(spec, { explorer: true }));
+router.use('/api/v1/docs', swaggerUi.serve, (_req, res, next) => {
+  const spec = loadSpec();
+  return swaggerUi.setup(spec, { explorer: true })(_req, res, next);
+});
 
 export default router;

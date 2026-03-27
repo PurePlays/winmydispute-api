@@ -15,19 +15,27 @@ import * as Sentry from '@sentry/node';
 
 // Routers
 import apiRouter from './routes/api.js';
+import artifactsRouter from './routes/artifacts.js';
 import binLookupRouter from './routes/binLookup.js';
+import casesRouter from './routes/cases.js';
 import checkoutRouter from './routes/checkout.js';
+import denialRouter from './routes/denial.js';
+import evidenceRouter from './routes/evidence.js';
 import generateLetterRouter from './routes/generateLetter.js';
 import intakeRouter from './routes/intake.js';
-import letterRouter from './routes/letter.js';
+import jobsRouter from './routes/jobs.js';
+import licenseRouter from './routes/license.js';
+import metaRouter from './routes/meta.js';
 import strategyRouter from './routes/strategy.js';
 import swaggerRouter from './routes/swagger.js';
 import webhookRouter from './routes/stripeWebhook.js';
 import searchStrategyRouter from './routes/searchStrategy.js';
+import requestContext from './middleware/requestContext.js';
+import './services/registerJobProcessors.js';
 
 // Services
-import { findReasonByKeyword } from './services/reasonService.js';
-import { matchScenarioToReasonCode } from './services/matchScenarioToReasonCode.js';
+import { getSchemaSummary } from './services/disputeSchemaService.js';
+import { resumePendingJobs } from './services/jobQueueService.js';
 
 const authFromToken = (req, _res, next) => {
   const authHeader = req.headers.authorization;
@@ -40,23 +48,6 @@ const authFromToken = (req, _res, next) => {
   }
   next();
 };
-
-// OpenAI Plugin Token Verification Middleware
-function verifyOpenAIPluginToken(req, res, next) {
-  const authHeader = req.headers.authorization;
-  const expectedToken = process.env.OPENAI_BEARER;
-
-  if (!authHeader || !authHeader.startsWith('Bearer ') || !expectedToken) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-
-  const provided = authHeader.replace('Bearer ', '');
-  if (provided !== expectedToken) {
-    return res.status(403).json({ error: 'Invalid or missing verification token' });
-  }
-
-  next();
-}
 
 dotenv.config();
 
@@ -72,18 +63,51 @@ const __dirname  = path.dirname(__filename);
 const app        = express();
 const port       = process.env.PORT || 3000;
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  console.error('❌ Missing STRIPE_SECRET_KEY. Exiting.');
-  process.exit(1);
+function hasValue(value) {
+  return Boolean(String(value || '').trim());
 }
 
-const TOKENS_FILE = path.join(__dirname, 'tokens.json');
+function getMissingRequiredConfiguration() {
+  const requiredChecks = [
+    { label: 'BASE_URL', present: hasValue(process.env.BASE_URL) },
+    { label: 'STRIPE_SECRET_KEY', present: hasValue(process.env.STRIPE_SECRET_KEY) },
+    { label: 'STRIPE_WEBHOOK_SECRET', present: hasValue(process.env.STRIPE_WEBHOOK_SECRET) },
+    { label: 'ARTIFACT_TOKEN_SECRET', present: hasValue(process.env.ARTIFACT_TOKEN_SECRET) },
+    {
+      label: 'OPENAI_BEARER or OPENAI_BEARERS_JSON',
+      present: hasValue(process.env.OPENAI_BEARER) || hasValue(process.env.OPENAI_BEARERS_JSON)
+    }
+  ];
+
+  return requiredChecks
+    .filter(check => !check.present)
+    .map(check => check.label);
+}
+
+function assertRequiredConfiguration() {
+  const missingEnvVars = getMissingRequiredConfiguration();
+  if (missingEnvVars.length > 0) {
+    throw new Error(`Missing required environment variables: ${missingEnvVars.join(', ')}`);
+  }
+}
+
+const jsonBodyParser = express.json({
+  verify: (req, _res, buf) => { req.rawBody = buf; }
+});
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
 app.use(helmet());
-app.use(express.json({
-  verify: (req, _res, buf) => { req.rawBody = buf; }
-}));
+app.use(requestContext);
+
+// Stripe webhook must receive the raw request body for signature validation.
+app.use('/', webhookRouter);
+app.use((req, res, next) => {
+  if (req.originalUrl.startsWith('/api/v1/stripe-webhook')) {
+    return next();
+  }
+
+  return jsonBodyParser(req, res, next);
+});
 
 // Sentry request handler (should be before all other middleware)
 if (Sentry.Handlers?.requestHandler && Sentry.Handlers?.tracingHandler) {
@@ -92,10 +116,6 @@ if (Sentry.Handlers?.requestHandler && Sentry.Handlers?.tracingHandler) {
 }
 
 app.use(authFromToken); // Inject req.user if token is valid
-// ─── Sentry Test Route ───────────────────────────────────────────────────────
-app.get('/test-sentry', (_req, res) => {
-  throw new Error('Test Sentry error');
-});
 
 // ─── Static Assets & Legal Pages ──────────────────────────────────────────────
 const staticDir = path.join(__dirname, 'static');
@@ -103,6 +123,7 @@ app.use(express.static(staticDir, { dotfiles: 'allow' }));
 
 app.get('/terms', (_req, res) => res.sendFile(path.join(staticDir, 'terms.html')));
 app.get('/privacy', (_req, res) => res.sendFile(path.join(staticDir, 'privacy.html')));
+app.get('/generate', (_req, res) => res.sendFile(path.join(staticDir, 'generate.html')));
 app.get('/success', (_req, res) => res.sendFile(path.join(staticDir, 'success.html')));
 app.get('/privacy-policy.txt', (_req, res) => res.sendFile(path.join(staticDir, 'privacy-policy.txt')));
 app.get('/.well-known/openai-plugin.json', (_req, res) => res.sendFile(path.join(__dirname, 'gpt-config', 'ai-plugin.json')));
@@ -118,53 +139,19 @@ app.get('/openapi.yaml', (_req, res) => res.sendFile(path.join(__dirname, 'opena
 
 // ─── Health Check ─────────────────────────────────────────────────────────────
 app.get('/health', (_req, res) => {
+  const missingConfiguration = getMissingRequiredConfiguration();
+  const schemaSummary = getSchemaSummary();
+
   res.status(200).json({
-    status: 'ok',
+    status: missingConfiguration.length === 0 ? 'ok' : 'degraded',
     uptime: process.uptime(),
-    timestamp: new Date().toISOString()
-  });
-});
-
-// ─── Testing Endpoints ────────────────────────────────────────────────────────
-app.get('/test/visa/keyword/:keyword', (req, res) => {
-  const results = findReasonByKeyword('visa', req.params.keyword);
-  return results.length
-    ? res.json(results)
-    : res.status(404).json({ error: 'No matching reasons found' });
-});
-
-app.post('/test/match-scenario', (req, res) => {
-  const { description } = req.body;
-  if (!description) {
-    return res.status(400).json({ error: 'Missing description field' });
-  }
-  const matched = matchScenarioToReasonCode(description);
-  return matched.reasonCode
-    ? res.json(matched)
-    : res.status(404).json({ error: 'No suitable reason code found' });
-});
-
-// ─── Token Verification Endpoint ──────────────────────────────────────────────
-app.post('/auth/verify-token', async (req, res) => {
-  const token = req.headers.authorization?.replace('Bearer ', '');
-  if (!token) return res.status(400).json({ error: 'Missing token' });
-
-  try {
-    // Check if the file exists before reading
-    let content;
-    try {
-      content = await fs.readFile(TOKENS_FILE, 'utf-8');
-    } catch (e) {
-      return res.status(500).json({ error: 'Token file missing' });
+    timestamp: new Date().toISOString(),
+    schemaVersion: schemaSummary.schemaVersion,
+    configuration: {
+      status: missingConfiguration.length === 0 ? 'ok' : 'missing-required-env',
+      missing: missingConfiguration
     }
-    const tokens = JSON.parse(content);
-    const entry = tokens.find(t => t.token === token);
-    if (!entry) return res.status(404).json({ error: 'Token not found' });
-    res.json({ token: entry.token, used: entry.used });
-  } catch (err) {
-    console.error('❌ Token verify error:', err);
-    res.status(500).json({ error: 'Internal error verifying token' });
-  }
+  });
 });
 
 // ─── Admin-only: View all Dispute Sessions ───────────────────────────────────
@@ -202,108 +189,19 @@ app.get('/api/v1/disputes', async (req, res) => {
 
 // ─── Core API Routers ─────────────────────────────────────────────────────────
 app.use('/', apiRouter);
-// Protect premium plugin API routes with OpenAI plugin token verification
-// Updated generateLetterRouter POST route to support PDF & DOCX generation, evidence bundling, and paywall logic
-app.post('/api/v1/generate-letter', verifyOpenAIPluginToken, async (req, res, next) => {
-  try {
-    const { includePdf = true, includeDocx = true, paywallUnlocked = false, evidence = [], rebuttalStrategy = null, ...rest } = req.body;
-
-    // Prepare evidence to include based on paywall status
-    let includedEvidence;
-    if (paywallUnlocked) {
-      includedEvidence = evidence; // Include all evidence
-    } else {
-      includedEvidence = evidence.length > 0 ? [evidence[0]] : []; // Only 1 free piece of evidence
-    }
-
-    // Prepare strategy tips based on paywall
-    let strategyTips;
-    if (paywallUnlocked && rebuttalStrategy) {
-      strategyTips = rebuttalStrategy;
-    } else {
-      strategyTips = rest.strategyTips ? rest.strategyTips.slice(0,1) : []; // Only 1 strategy tip if paywall locked
-    }
-
-    // Generate letter content (pseudo code, replace with actual generation logic)
-    const letterContent = `Letter content with strategy tips and evidence.\n\nStrategy Tips:\n${strategyTips.join('\n')}\n\nEvidence:\n${includedEvidence.map((e, i) => `Exhibit ${String.fromCharCode(65 + i)}: ${e.description || 'Evidence item'}`).join('\n')}`;
-
-    const cfpbComplaint = paywallUnlocked
-      ? `If your dispute is denied or ignored, you may file a formal complaint with the Consumer Financial Protection Bureau (CFPB) at https://www.consumerfinance.gov/complaint/. Include the dispute letter and reference this merchant: ${rest.merchantName || 'the merchant'}.`
-      : null;
-
-    // Generate PDF and DOCX files (pseudo implementation)
-    const outputFiles = [];
-    const tempDir = path.join(__dirname, 'temp');
-    await fs.mkdir(tempDir, { recursive: true });
-
-    if (includePdf) {
-      // Generate PDF file path and content
-      const pdfPath = path.join(tempDir, `letter_${Date.now()}.pdf`);
-      // TODO: Add actual PDF generation logic here
-      await fs.writeFile(pdfPath, Buffer.from(letterContent)); // Placeholder write
-      outputFiles.push({ path: pdfPath, name: path.basename(pdfPath) });
-    }
-
-    if (includeDocx) {
-      // Generate DOCX file path and content
-      const docxPath = path.join(tempDir, `letter_${Date.now()}.docx`);
-      // TODO: Add actual DOCX generation logic here
-      await fs.writeFile(docxPath, Buffer.from(letterContent)); // Placeholder write
-      outputFiles.push({ path: docxPath, name: path.basename(docxPath) });
-    }
-
-    // Bundle evidence files as exhibits (pseudo logic)
-    // Rename uploaded files as Exhibit A, B, etc.
-    // Since upload logic not added yet, just prepare for bundling
-
-    // Create ZIP archive containing generated files and evidence (pseudo implementation)
-    // TODO: Implement ZIP bundling logic and respond with download link or file buffer
-
-    // ─── Save Session to File for Memory/Analytics ─────────────────────────────
-    const sessionLog = {
-      sessionId: rest.sessionId || `sess_${Date.now()}`,
-      timestamp: new Date().toISOString(),
-      merchant: rest.merchantName || '',
-      amount: rest.transactionAmount || '',
-      network: rest.network || '',
-      reasonCode: rest.reasonCode || '',
-      strategyTips: strategyTips,
-      paywallUnlocked,
-      transactionDate: rest.transactionDate || '',
-      outcome: 'pending'
-    };
-
-    const sessionFile = path.resolve(__dirname, 'mock-data/disputeSessions.json');
-    let existing = [];
-    try {
-      const content = await fs.readFile(sessionFile, 'utf-8');
-      existing = JSON.parse(content);
-    } catch (err) {
-      existing = [];
-    }
-    existing.push(sessionLog);
-    await fs.writeFile(sessionFile, JSON.stringify(existing, null, 2));
-
-    // For now, respond with success and file names
-    res.json({
-      message: 'Letter generated with requested formats and evidence bundling prepared.',
-      files: outputFiles.map(f => f.name),
-      exhibits: includedEvidence.map((e, i) => ({ label: `Exhibit ${String.fromCharCode(65 + i)}`, description: e.description || 'Evidence item' })),
-      cfpbComplaint
-    });
-
-  } catch (err) {
-    next(err);
-  }
-});
-app.use('/api/v1/generate-letter', generateLetterRouter);
-app.use('/api/v1/strategy', verifyOpenAIPluginToken, strategyRouter);
+app.use('/', artifactsRouter);
+app.use('/', casesRouter);
+app.use('/', denialRouter);
+app.use('/', evidenceRouter);
+app.use('/', generateLetterRouter);
+app.use('/', jobsRouter);
+app.use('/', checkoutRouter);
+app.use('/', licenseRouter);
+app.use('/', metaRouter);
+app.use('/', strategyRouter);
 
 // Other routers (open or not requiring plugin token)
-app.use('/intake', intakeRouter);
-app.use('/checkout', checkoutRouter);
-app.use('/letter', letterRouter);
-app.use('/webhook', webhookRouter);
+app.use('/', intakeRouter);
 app.use('/', swaggerRouter);
 app.use('/', binLookupRouter);
 app.use('/', searchStrategyRouter);
@@ -317,10 +215,28 @@ app.use((err, _req, res, _next) => {
     user: _req.user?.id || 'anonymous',
   });
   Sentry.captureException(err);  // Log the error in Sentry
-  res.status(500).json({ error: 'Internal server error' });
+  res.status(500).json({
+    error: 'Internal server error',
+    requestId: _req.requestId || null
+  });
 });
 
-// ─── Start Server ─────────────────────────────────────────────────────────────
-app.listen(port, () => {
-  console.log(`✅ WinMyDispute API running on port ${port}`);
-});
+function startServer() {
+  assertRequiredConfiguration();
+  resumePendingJobs();
+  return app.listen(port, () => {
+    console.log(`✅ WinMyDispute API running on port ${port}`);
+  });
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === __filename) {
+  try {
+    startServer();
+  } catch (error) {
+    console.error(`❌ ${error.message}`);
+    process.exit(1);
+  }
+}
+
+export { app, startServer };
+export default app;

@@ -1,0 +1,105 @@
+{
+  "american express": {
+    "verifiedAt": "2026-03-23",
+    "sourceUrl": "https://www.americanexpress.com/us/customer-service/faq.dispute-a-charge.html",
+    "preferredSubmissionChannels": [
+      "online account transaction view",
+      "customer service"
+    ],
+    "disputeEntryPoint": "Sign in, open your transaction history, select the charge, and choose 'Dispute this Charge'.",
+    "evidenceExamples": [
+      "merchant communications",
+      "receipts or invoices",
+      "proof of cancellation",
+      "delivery or non-delivery proof"
+    ],
+    "filingWindowNote": "Consumers should gather documents before starting the online dispute flow and contact the merchant first when possible.",
+    "statusTracking": "Monitor the dispute through the Amex account experience after submission."
+  },
+  "bank of america": {
+    "verifiedAt": "2026-03-23",
+    "sourceUrl": "https://www.bankofamerica.com/customer-service/contact-us/credit-card-dispute/",
+    "preferredSubmissionChannels": [
+      "online banking",
+      "customer service"
+    ],
+    "disputeEntryPoint": "Start from the credit card dispute area inside Bank of America online banking.",
+    "evidenceExamples": [
+      "billing statement excerpts",
+      "merchant emails",
+      "receipts",
+      "return or cancellation proof"
+    ],
+    "filingWindowNote": "Before opening the dispute, try to resolve the issue with the merchant and collect documents that support the claim.",
+    "statusTracking": "Track updates inside the online banking dispute workflow."
+  },
+  "capital one": {
+    "verifiedAt": "2026-03-23",
+    "sourceUrl": "https://www.capitalone.com/help-center/credit-cards/dispute-transaction/",
+    "preferredSubmissionChannels": [
+      "online account center",
+      "phone support"
+    ],
+    "disputeEntryPoint": "Open the charge details in your Capital One account and follow the online dispute prompts.",
+    "evidenceExamples": [
+      "merchant correspondence",
+      "receipts",
+      "proof of non-delivery",
+      "proof of cancellation"
+    ],
+    "filingWindowNote": "Capital One advises reviewing the transaction details, contacting the merchant first, and gathering documentation before filing.",
+    "statusTracking": "Customers can generally review dispute status through their online account experience."
+  },
+  "chase": {
+    "verifiedAt": "2026-03-23",
+    "sourceUrl": "https://www.chase.com/personal/credit-cards/education/basics/how-to-dispute-a-credit-card-charge",
+    "preferredSubmissionChannels": [
+      "online account",
+      "phone support",
+      "mail"
+    ],
+    "disputeEntryPoint": "Start from the transaction details in your Chase card account or contact Chase disputes support.",
+    "evidenceExamples": [
+      "receipts",
+      "order confirmations",
+      "merchant communications",
+      "delivery records"
+    ],
+    "filingWindowNote": "Chase recommends contacting the merchant first and collecting supporting documents before disputing.",
+    "statusTracking": "Status may be reviewed through Chase account channels once the dispute is opened."
+  },
+  "citi": {
+    "verifiedAt": "2026-03-23",
+    "sourceUrl": "https://www.citi.com/credit-cards/understanding-credit-cards/what-is-provisional-credit",
+    "preferredSubmissionChannels": [
+      "phone support",
+      "online servicing"
+    ],
+    "disputeEntryPoint": "Begin the investigation through Citi servicing channels after gathering the transaction details and dispute basis.",
+    "evidenceExamples": [
+      "merchant emails",
+      "receipts",
+      "proof of fraud or non-delivery",
+      "documentation supporting the billing error"
+    ],
+    "filingWindowNote": "Citi explains that disputes may result in provisional credit during the investigation, depending on the case.",
+    "statusTracking": "Customers should monitor the case through Citi servicing communications and account updates."
+  },
+  "wells fargo": {
+    "verifiedAt": "2026-03-23",
+    "sourceUrl": "https://www.wellsfargo.com/help/credit-cards/transactions-and-fees/",
+    "preferredSubmissionChannels": [
+      "online banking",
+      "phone support"
+    ],
+    "disputeEntryPoint": "Use Wells Fargo account servicing options for transaction help and dispute initiation.",
+    "evidenceExamples": [
+      "account statement excerpts",
+      "merchant correspondence",
+      "receipts",
+      "proof of return or cancellation"
+    ],
+    "filingWindowNote": "Customers should review the posted transaction, attempt merchant resolution when appropriate, and keep supporting documents ready.",
+    "statusTracking": "Check for updates through account servicing and dispute follow-up communications."
+  }
+}

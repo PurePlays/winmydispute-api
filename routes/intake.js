@@ -6,22 +6,24 @@ const router = express.Router();
 const intakeStore = new Map();
 
 let redisClient = null;
-try {
-  const redis = await import('redis');
-  redisClient = redis.createClient({
-    socket: {
-      host: process.env.REDIS_HOST || '127.0.0.1',
-      port: Number(process.env.REDIS_PORT || 6379),
-      tls: process.env.REDIS_TLS === 'true'
-    },
-    password: process.env.REDIS_PASSWORD || undefined
-  });
-  redisClient.connect().catch(err => {
-    console.warn('⚠️ Redis connection failed, using in-memory intake store:', err.message);
-    redisClient = null;
-  });
-} catch (_err) {
-  console.warn('⚠️ redis package not installed, using in-memory intake store.');
+if (process.env.ENABLE_REDIS_INTAKE === 'true') {
+  try {
+    const redis = await import('redis');
+    redisClient = redis.createClient({
+      socket: {
+        host: process.env.REDIS_HOST || '127.0.0.1',
+        port: Number(process.env.REDIS_PORT || 6379),
+        tls: process.env.REDIS_TLS === 'true'
+      },
+      password: process.env.REDIS_PASSWORD || undefined
+    });
+    redisClient.connect().catch(err => {
+      console.warn('⚠️ Redis connection failed, using in-memory intake store:', err.message);
+      redisClient = null;
+    });
+  } catch (_err) {
+    console.warn('⚠️ ENABLE_REDIS_INTAKE is true but the redis package is not installed. Falling back to the in-memory intake store.');
+  }
 }
 
 router.post('/api/v1/intake', express.json(), async (req, res) => {

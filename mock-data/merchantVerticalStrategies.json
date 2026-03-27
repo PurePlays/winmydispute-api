@@ -1,0 +1,166 @@
+{
+  "subscription": {
+    "keywords": [
+      "subscription",
+      "membership",
+      "renewal",
+      "auto renew",
+      "recurring",
+      "trial",
+      "monthly"
+    ],
+    "commonMerchantRebuttals": [
+      "The customer agreed to recurring billing terms",
+      "The account remained accessible after renewal",
+      "Cancellation was not completed under the merchant's process"
+    ],
+    "strategyTips": [
+      "Pin the timeline to the exact cancellation request and renewal date",
+      "Show that any cancellation flow was hidden, broken, or confusing",
+      "Demonstrate that the customer did not use the service after the disputed renewal"
+    ],
+    "evidenceToFocusOn": [
+      "timestamped cancellation emails or chats",
+      "screenshots of subscription settings and cancellation flow",
+      "usage logs showing no post-renewal activity"
+    ],
+    "customerStrategy": "Frame the dispute around cancellation timing, lack of post-renewal benefit, and any merchant friction that prevented a clean cancellation."
+  },
+  "travel": {
+    "keywords": [
+      "flight",
+      "airline",
+      "hotel",
+      "resort",
+      "booking",
+      "travel",
+      "rental car",
+      "vacation"
+    ],
+    "commonMerchantRebuttals": [
+      "The booking was nonrefundable",
+      "The traveler accepted the fare or lodging rules",
+      "The service was available even if the customer chose not to use it"
+    ],
+    "strategyTips": [
+      "Separate non-use from non-delivery and focus on what the merchant failed to provide",
+      "Capture schedule changes, cancellations, or substitute services that materially altered the booking",
+      "Use booking confirmations and policy snapshots from the purchase date"
+    ],
+    "evidenceToFocusOn": [
+      "booking confirmation and itinerary",
+      "cancellation or change notices",
+      "policy language in effect on the purchase date"
+    ],
+    "customerStrategy": "Travel disputes are strongest when they show a concrete service failure, a material change, or a promised refund that never posted."
+  },
+  "digital-goods": {
+    "keywords": [
+      "software",
+      "download",
+      "digital",
+      "course",
+      "app",
+      "streaming",
+      "ebook",
+      "license key"
+    ],
+    "commonMerchantRebuttals": [
+      "The content was delivered or accessible",
+      "The account shows logins or downloads",
+      "Digital sales were final under the merchant's policy"
+    ],
+    "strategyTips": [
+      "Challenge access logs when the account holder never successfully used the product",
+      "Distinguish a failed login or broken activation from valid delivery",
+      "Document defects, missing features, or an inability to access the purchased item"
+    ],
+    "evidenceToFocusOn": [
+      "failed access screenshots",
+      "support tickets showing activation or login problems",
+      "merchant product promises captured at checkout"
+    ],
+    "customerStrategy": "For digital goods, prove either that access never truly worked or that the product materially failed to match what was promised."
+  },
+  "coaching": {
+    "keywords": [
+      "coaching",
+      "mentor",
+      "mentorship",
+      "consulting",
+      "program",
+      "mastermind",
+      "done for you"
+    ],
+    "commonMerchantRebuttals": [
+      "The customer received access to the program",
+      "The service was delivered as described",
+      "The agreement disclaimed results and refunds"
+    ],
+    "strategyTips": [
+      "Separate access from delivery of the promised service scope",
+      "Compare the sales claims to what was actually provided session by session",
+      "Preserve refund requests and merchant responses that admit delays or omissions"
+    ],
+    "evidenceToFocusOn": [
+      "sales page or offer screenshots",
+      "session schedule or missed-delivery timeline",
+      "messages requesting delivery, cancellation, or refund"
+    ],
+    "customerStrategy": "Coaching disputes work best when the evidence shows a gap between the promised scope and the actual service delivered, not just dissatisfaction with results."
+  },
+  "event-tickets": {
+    "keywords": [
+      "ticket",
+      "concert",
+      "festival",
+      "event",
+      "venue",
+      "admission",
+      "show"
+    ],
+    "commonMerchantRebuttals": [
+      "The tickets were delivered",
+      "The event terms restricted refunds",
+      "The seller fulfilled the purchase by transferring admission rights"
+    ],
+    "strategyTips": [
+      "Focus on invalid, unusable, or undelivered tickets rather than a general refund desire",
+      "Document venue notices, event cancellation details, or transfer failures",
+      "Preserve order history and support responses from both the platform and the seller"
+    ],
+    "evidenceToFocusOn": [
+      "ticket delivery or transfer records",
+      "event cancellation or venue notices",
+      "proof that the ticket barcode or admission credential failed"
+    ],
+    "customerStrategy": "Ticket disputes are strongest when they show the buyer did not receive valid admission rights or the event materially changed or failed."
+  },
+  "marketplace": {
+    "keywords": [
+      "etsy",
+      "ebay",
+      "marketplace",
+      "seller",
+      "platform",
+      "facebook marketplace",
+      "poshmark"
+    ],
+    "commonMerchantRebuttals": [
+      "The seller fulfilled the order and the marketplace only facilitated the transaction",
+      "Tracking or delivery confirms shipment",
+      "The platform's internal case process was not completed"
+    ],
+    "strategyTips": [
+      "Keep seller conduct and platform responses separate in the evidence timeline",
+      "Show every attempt to resolve through the marketplace's internal process",
+      "Highlight platform messages, seller promises, and delivery inconsistencies side by side"
+    ],
+    "evidenceToFocusOn": [
+      "marketplace message history",
+      "seller listing screenshots",
+      "internal case or claim records from the platform"
+    ],
+    "customerStrategy": "Marketplace disputes need a clean chronology showing what the seller promised, how the platform responded, and why the final outcome still failed the buyer."
+  }
+}

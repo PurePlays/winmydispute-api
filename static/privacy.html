@@ -2,74 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Privacy Policy – WinMyDispute GPT</title>
+  <title>Privacy Policy - WinMyDispute GPT</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
-    h1, h2 { margin-top: 1.5em; }
+    body {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 20px 40px;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.7;
+      color: #1f2a2c;
+      background: #faf7f0;
+    }
+
+    h1, h2 {
+      color: #17393b;
+    }
+
+    a {
+      color: #0d6b5f;
+    }
   </style>
 </head>
 <body>
   <h1>Privacy Policy</h1>
-  <p>Last updated: April 26, 2025</p>
+  <p>Last updated: March 23, 2026</p>
 
   <h2>1. Introduction</h2>
   <p>
-    WinMyDispute GPT (“we,” “our,” or “us”) provides an AI-powered chargeback dispute service via our website and API. This Privacy Policy explains how we collect, use, share, and protect your personal information.
+    WinMyDispute GPT provides dispute analysis and premium dispute-kit generation through a custom GPT and supporting API infrastructure. This policy explains what information we process, why we process it, and the third parties involved in delivery of the service.
   </p>
 
-  <h2>2. Information We Collect</h2>
+  <h2>2. Information We Process</h2>
   <ul>
-    <li><strong>Email address:</strong> Collected when you initiate a checkout session or create a letter.</li>
-    <li><strong>Payment data:</strong> Processed by our payment provider (Stripe). We never store your full card details on our servers.</li>
-    <li><strong>Usage data:</strong> Logs, IP addresses, and session IDs to maintain and secure the service.</li>
-    <li><strong>Generated tokens:</strong> One-time access tokens for letter generation (stored for up to 7 days).</li>
+    <li><strong>Dispute intake details:</strong> facts you provide about the merchant, charge, timeline, and supporting evidence.</li>
+    <li><strong>Email address:</strong> collected only when needed for checkout creation or license lookup.</li>
+    <li><strong>Payment data:</strong> processed by Stripe. We do not store full card numbers on our servers.</li>
+    <li><strong>Operational metadata:</strong> request IDs, limited logs, and abuse-prevention telemetry needed to operate and secure the API.</li>
+    <li><strong>License records:</strong> email-based entitlement records stored in our license file for premium access control.</li>
   </ul>
 
-  <h2>3. How We Use Your Data</h2>
+  <h2>3. How We Use Information</h2>
   <ul>
-    <li>To process payments and grant access to the dispute-letter generation service.</li>
-    <li>To generate and deliver dispute letters and related documents.</li>
-    <li>To monitor and improve service quality and performance.</li>
-    <li>To comply with legal obligations, resolve disputes, and enforce our terms.</li>
+    <li>To deliver free preview analysis and premium dispute-kit generation.</li>
+    <li>To create Stripe checkout sessions and confirm payment fulfillment.</li>
+    <li>To verify whether an email address has premium access.</li>
+    <li>To maintain reliability, security, fraud prevention, and debugging of the API.</li>
+    <li>To comply with legal obligations and enforce our terms.</li>
   </ul>
 
-  <h2>4. Data Sharing & Third Parties</h2>
-  <p>We share your data only with:</p>
+  <h2>4. Third Parties</h2>
+  <p>We share information only with service providers required to operate the product, such as:</p>
   <ul>
-    <li><strong>Stripe:</strong> for payment processing (PCI-compliant).</li>
-    <li><strong>Cloud hosting providers:</strong> for API and static file serving.</li>
-    <li>Law enforcement or legal authorities, if required by law.</li>
+    <li><strong>Stripe</strong> for payment processing and checkout fulfillment.</li>
+    <li><strong>Hosting and infrastructure providers</strong> for API delivery and availability.</li>
+    <li><strong>Optional Google Sheets sync</strong> if enabled for internal operational logging of paid licenses.</li>
   </ul>
 
   <h2>5. Data Retention</h2>
   <p>
-    We retain access tokens for up to <strong>7 days</strong> or until they are used, and store payment logs for up to <strong>90 days</strong> to comply with financial regulations.
+    Premium entitlement is stored by email so a paid user can return to the same GPT flow later and be recognized immediately. Operational logs and request metadata may be retained for security, debugging, and financial recordkeeping for a limited period consistent with business and legal needs.
   </p>
 
-  <h2>6. Your Rights</h2>
+  <h2>6. Security</h2>
   <p>
-    You have the right to access, correct, or delete your personal data. To request changes or deletion, contact us at <a href="mailto:support@winthisdispute.com">support@winthisdispute.com</a>.
+    We use bearer-authenticated API access, Stripe webhook signature verification, basic rate limiting, and request tracing to protect the service. No system can be guaranteed perfectly secure, but we work to minimize unnecessary data collection and exposure.
   </p>
 
-  <h2>7. Security</h2>
+  <h2>7. Your Rights</h2>
   <p>
-    We implement industry-standard security measures (encryption, secure servers) to protect your data. However, no system is 100% secure.
+    To request access, correction, or deletion of personal information we control, contact <a href="mailto:support@winthisdispute.com">support@winthisdispute.com</a>.
   </p>
 
-  <h2>8. Children’s Privacy</h2>
+  <h2>8. Changes</h2>
   <p>
-    Our service is not directed at children under 13. We do not knowingly collect data from minors.
+    We may update this policy as the product evolves. Material changes will be reflected by updating the date above.
   </p>
 
-  <h2>9. Changes to This Policy</h2>
+  <h2>9. Contact</h2>
   <p>
-    We may update this policy periodically. When we do, we’ll post the new version with an updated “Last updated” date.
-  </p>
-
-  <h2>10. Contact Us</h2>
-  <p>
-    If you have any questions or concerns about this policy, please email us at  
-    <a href="mailto:support@winthisdispute.com">support@winthisdispute.com</a>.
+    Questions about this policy can be sent to <a href="mailto:support@winthisdispute.com">support@winthisdispute.com</a>.
   </p>
 </body>
 </html>

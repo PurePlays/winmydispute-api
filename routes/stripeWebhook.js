@@ -1,155 +1,164 @@
-import fs from 'fs/promises';
-import path from 'path';
-import Stripe from 'stripe';
 import express from 'express';
+import { createRateLimit } from '../middleware/rateLimit.js';
+import { recordAuditEvent } from '../services/auditLogService.js';
+import { getStripeClient } from '../services/stripeClient.js';
+import { CHECKOUT_INTENT } from '../services/checkoutService.js';
+import {
+  LICENSE_AMOUNT,
+  LICENSE_PRODUCT,
+  LICENSE_STATUS_PAID,
+  normalizeEmail,
+  upsertLicense
+} from '../services/licenseStore.js';
 
 const router = express.Router();
 
-// Initialize Stripe with the secret key from environment variables
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2022-11-15',
+const webhookLimiter = createRateLimit({
+  name: 'stripe-webhook',
+  max: 600,
+  windowMs: 60 * 60 * 1000,
+  keyFn: req => req.headers['stripe-signature'] || req.ip || 'anonymous',
+  envMax: process.env.WEBHOOK_RATE_LIMIT_MAX,
+  envWindowMs: process.env.WEBHOOK_RATE_LIMIT_WINDOW_MS
 });
 
-// Map each product to a corresponding sheet and tab name
-const productMap = {
-  'prod_SJ8hXpOpveuJER': {
-    sheetId: '1_LH7NDq2aW5RjrWLIBluRxFSDv8kgjzEP4Cz5dSfbfQ',
-    sheetTab: 'SheetFormatter_Licenses',
-    label: 'Sheet Formatter Pro'
-  },
-  'prod_WINMYDISPUTEGPT': {
-    sheetId: '1abcXYZwinmydisputesheetid', // Replace with actual ID
-    sheetTab: 'WinMyDispute_Licenses',
-    label: 'WinMyDispute Pro'
-  }
-};
+async function syncLicenseToGoogleSheet(license) {
+  const spreadsheetId = process.env.GOOGLE_SHEETS_LICENSE_SHEET_ID;
+  const sheetTab = process.env.GOOGLE_SHEETS_LICENSE_SHEET_TAB;
 
-// Function to save license information to the Google Sheets document
-async function saveToLicenseSheet(productId, email, stripeId) {
-  const config = productMap[productId];
-  if (!config) {
-    console.error(`❌ Unknown product ID: ${productId}`);
-    throw new Error('Unknown product ID');
+  if (!spreadsheetId || !sheetTab) {
+    return;
   }
 
   let google;
   try {
     ({ google } = await import('googleapis'));
-  } catch (_err) {
+  } catch (_error) {
     console.warn('⚠️ googleapis not installed. Skipping Google Sheets sync.');
     return;
   }
 
-  // Setup Google Sheets authentication and client
   const auth = new google.auth.GoogleAuth({
-    keyFile: './service-accounts/sheet-writer.json',
+    keyFile: process.env.GOOGLE_SERVICE_ACCOUNT_KEY_FILE || './service-accounts/sheet-writer.json',
     scopes: ['https://www.googleapis.com/auth/spreadsheets']
   });
 
   const client = await auth.getClient();
   const sheets = google.sheets({ version: 'v4', auth: client });
-  const now = new Date().toISOString();
-
-  try {
-    // Append the license data to the corresponding sheet
-    await sheets.spreadsheets.values.append({
-      spreadsheetId: config.sheetId,
-      range: `${config.sheetTab}!A:D`,
-      valueInputOption: 'USER_ENTERED',
-      insertDataOption: 'INSERT_ROWS',
-      requestBody: {
-        values: [[email, now, stripeId, 'TRUE']],
-      },
-    });
-    console.log(`✅ License recorded for: ${email} under ${config.label}`);
-  } catch (err) {
-    console.error(`🔥 Error saving to Google Sheets: ${err.message}`);
-    throw new Error('Error saving to Google Sheets');
-  }
+  await sheets.spreadsheets.values.append({
+    spreadsheetId,
+    range: `${sheetTab}!A:G`,
+    valueInputOption: 'USER_ENTERED',
+    insertDataOption: 'INSERT_ROWS',
+    requestBody: {
+      values: [[
+        license.email,
+        license.status,
+        license.product,
+        license.amount,
+        license.source,
+        license.stripeSessionId,
+        license.updatedAt
+      ]]
+    }
+  });
 }
 
-// Webhook endpoint to handle Stripe events
-router.post('/api/v1/stripe-webhook', express.raw({ type: 'application/json' }), async (req, res) => {
-  if (req.redis && !req.redis.isOpen) {
-    console.error('❌ Redis unavailable');
-    return res.status(503).send('Redis unavailable');
+async function fulfillCheckoutSession(session) {
+  const metadata = session.metadata || {};
+  const email = normalizeEmail(metadata.email || session.customer_details?.email || session.customer_email);
+
+  if (!email) {
+    throw new Error('Missing email in checkout session metadata.');
+  }
+
+  if (metadata.intent && metadata.intent !== CHECKOUT_INTENT) {
+    return { skipped: true, reason: 'unsupported-intent' };
+  }
+
+  if (session.payment_status !== 'paid') {
+    return { skipped: true, reason: 'payment-not-complete' };
+  }
+
+  const license = await upsertLicense({
+    email,
+    status: LICENSE_STATUS_PAID,
+    stripeSessionId: session.id,
+    product: metadata.product || LICENSE_PRODUCT,
+    amount: Number(metadata.amount || session.amount_total || LICENSE_AMOUNT),
+    source: metadata.source || 'gpt'
+  });
+
+  try {
+    await syncLicenseToGoogleSheet(license);
+  } catch (error) {
+    console.warn(`⚠️ Google Sheets sync failed for ${license.email}: ${error.message}`);
+  }
+
+  return { skipped: false, license };
+}
+
+router.post('/api/v1/stripe-webhook', express.raw({ type: 'application/json' }), webhookLimiter, async (req, res) => {
+  if (!process.env.STRIPE_WEBHOOK_SECRET) {
+    return res.status(500).send('Missing STRIPE_WEBHOOK_SECRET configuration.');
+  }
+
+  const signature = req.headers['stripe-signature'];
+  if (!signature) {
+    return res.status(400).send('Missing Stripe signature');
   }
 
   let event;
   try {
-    const signature = req.headers['stripe-signature'];
-    if (!signature) {
-      return res.status(400).send('Missing Stripe signature');
-    }
-    event = stripe.webhooks.constructEvent(req.body, signature, process.env.STRIPE_WEBHOOK_SECRET);
-  } catch (err) {
-    console.error('❌ Webhook signature verification failed.', err.message);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
-  }
-
-  // Process successful checkout sessions
-  if (event.type === 'checkout.session.completed') {
-    const session = event.data.object;
-
-    try {
-      // Fetch line items to identify the purchased product
-      const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 });
-
-      // Find the purchased product in the line items
-      const match = lineItems.data.find(item =>
-        Object.keys(productMap).includes(item.price.product)
-      );
-
-      if (match) {
-        const email = session.customer_details?.email;
-        const stripeId = session.id;
-        if (!email || !stripeId) {
-          console.error('❌ Missing email or session ID in checkout session');
-          return res.status(400).send('Invalid checkout session data');
-        }
-
-        await saveToLicenseSheet(match.price.product, email, stripeId);
-
-        // Also store license in Redis
-        try {
-          if (req.redis?.isOpen) {
-            await req.redis.set(`license:${email}`, 'true');
-            console.log(`✅ Redis: stored license for ${email}`);
-          } else {
-            console.warn('⚠️ Redis not available, skipped storing license');
-          }
-        } catch (redisErr) {
-          console.error('❌ Redis store error:', redisErr.message);
-        }
-
-        // Fallback: add email to local paidUsers.json for license check redundancy
-        const PAID_FILE = path.resolve('./mock-data/paidUsers.json');
-        try {
-          const current = JSON.parse(await fs.readFile(PAID_FILE, 'utf8'));
-          if (!current.includes(email)) {
-            current.push(email);
-            await fs.writeFile(PAID_FILE, JSON.stringify(current, null, 2));
-            console.log(`✅ Email added to local paid users file: ${email}`);
-          } else {
-            console.log(`ℹ️ Email already in local paid users file: ${email}`);
-          }
-        } catch (writeErr) {
-          console.error('❌ Error updating paidUsers.json:', writeErr.message);
-        }
-      } else {
-        console.warn('⚠️ No matching product found in line items');
+    event = getStripeClient().webhooks.constructEvent(req.body, signature, process.env.STRIPE_WEBHOOK_SECRET);
+  } catch (error) {
+    console.error('❌ Webhook signature verification failed:', error.message);
+    await recordAuditEvent({
+      eventType: 'stripe.webhook_signature_failed',
+      category: 'payment',
+      severity: 'warning',
+      requestId: req.requestId,
+      actorType: 'stripe',
+      status: 'failed',
+      message: error.message,
+      metadata: {
+        signature
       }
-    } catch (err) {
-      console.error('🔥 Error processing purchase:', err.message);
-    }
-  } else {
-    // Handle unsupported event types
-    console.warn(`⚠️ Unsupported event type: ${event.type}`);
-    return res.status(400).send('Unsupported event type');
+    });
+    return res.status(400).send(`Webhook Error: ${error.message}`);
   }
 
-  // Respond to Stripe that the event was received successfully
-  res.status(200).send('Event received');
+  try {
+    switch (event.type) {
+      case 'checkout.session.completed':
+      case 'checkout.session.async_payment_succeeded':
+        {
+          const result = await fulfillCheckoutSession(event.data.object);
+          await recordAuditEvent({
+            eventType: 'stripe.webhook_fulfilled',
+            category: 'payment',
+            requestId: req.requestId,
+            actorType: 'stripe',
+            email: result.license?.email || event.data.object?.customer_email || null,
+            status: result.skipped ? 'skipped' : 'success',
+            message: result.skipped ? `Stripe webhook skipped: ${result.reason}` : 'Stripe webhook fulfilled license.',
+            metadata: {
+              eventType: event.type,
+              stripeSessionId: event.data.object?.id || null
+            }
+          });
+        }
+        break;
+      default:
+        console.log(`ℹ️ Ignoring Stripe event type ${event.type}`);
+        break;
+    }
+  } catch (error) {
+    console.error('❌ Stripe webhook fulfillment failed:', error.message);
+    return res.status(500).send('Webhook processing failed');
+  }
+
+  return res.status(200).json({ received: true });
 });
 
 export default router;
