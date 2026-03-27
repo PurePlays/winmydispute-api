@@ -248,21 +248,13 @@ paths:
       tags:
       - disputes
       summary: Generate the full premium dispute kit
-      description: |
-        Requires a paid email license plus either a signed premium access token or the matching
-        Stripe checkout session ID. When unpaid, the endpoint returns HTTP 402 with a checkout URL.
-        When paid, the endpoint returns the full premium package in one response, including issuer submission guidance,
-        an exhibit packet, and a submission-ready action plan.
+      description: Requires a paid email plus a premium token or matching Stripe session ID. Returns the full premium dispute kit or an upgrade-required response with a checkout URL.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              allOf:
-              - "$ref": "#/components/schemas/DisputeInput"
-              - type: object
-                required:
-                - email
+              "$ref": "#/components/schemas/PremiumActionRequest"
       responses:
         '200':
           description: Full premium response
@@ -290,21 +282,13 @@ paths:
       tags:
       - disputes
       summary: Generate a premium dispute report document
-      description: |
-        Requires a paid email license plus either a signed premium access token or the matching
-        Stripe checkout session ID. Produces a downloadable, professionally formatted report package.
-        Supported formats are PDF, DOCX, Word-compatible RTF, and plain text. The endpoint can also
-        generate a second redacted copy for privacy-safe sharing.
+      description: Requires a paid email plus a premium token or matching Stripe session ID. Produces a downloadable report in PDF, DOCX, RTF, or text, with optional redaction.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              allOf:
-              - "$ref": "#/components/schemas/DisputeInput"
-              - type: object
-                required:
-                - email
+              "$ref": "#/components/schemas/PremiumActionRequest"
       responses:
         '200':
           description: Report document metadata
@@ -338,20 +322,13 @@ paths:
       tags:
       - disputes
       summary: Generate a downloadable submission bundle
-      description: |
-        Requires a paid email license plus either a signed premium access token or the matching
-        Stripe checkout session ID. Produces a ZIP package with the generated report,
-        submission plan, exhibit index, and a compact case summary.
+      description: Requires a paid email plus a premium token or matching Stripe session ID. Produces a ZIP bundle with the report, submission plan, exhibit index, and case summary.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              allOf:
-              - "$ref": "#/components/schemas/DisputeInput"
-              - type: object
-                required:
-                - email
+              "$ref": "#/components/schemas/PremiumActionRequest"
       responses:
         '200':
           description: Submission bundle metadata
@@ -385,32 +362,13 @@ paths:
       tags:
       - disputes
       summary: Generate a follow-up response after a denial
-      description: |
-        Requires a paid email license plus either a signed premium access token or the matching
-        Stripe checkout session ID. Builds a reconsideration package after an issuer or merchant denial.
+      description: Requires a paid email plus a premium token or matching Stripe session ID. Builds a reconsideration package after an issuer or merchant denial.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              allOf:
-              - "$ref": "#/components/schemas/DisputeInput"
-              - type: object
-                required:
-                - email
-                properties:
-                  denialSummary:
-                    type: string
-                  denialReason:
-                    type: string
-                  issuerFinding:
-                    type: string
-                  merchantResponseText:
-                    type: string
-                  denialEvidence:
-                    type: string
-                  issuerReferenceNumber:
-                    type: string
+              "$ref": "#/components/schemas/DenialActionRequest"
       responses:
         '200':
           description: Denial response package
@@ -629,21 +587,13 @@ paths:
       tags:
       - disputes
       summary: Score how submission-ready the current evidence package is
-      description: |
-        Gives the GPT a structured readiness check before premium generation or filing.
-        The endpoint scores evidence completeness, compares provided material to the
-        strongest expected evidence, and returns the highest-priority missing items.
+      description: Scores evidence completeness, readiness, and highest-priority missing items before filing or premium document generation.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              allOf:
-              - "$ref": "#/components/schemas/DisputeInput"
-              - type: object
-                properties:
-                  reasonCode:
-                    type: string
+              "$ref": "#/components/schemas/EvidenceQualityScoreRequest"
       responses:
         '200':
           description: Evidence-quality summary
@@ -1059,6 +1009,208 @@ components:
           description: When true, the report-document endpoint returns both a full
             copy and a redacted copy.
           example: true
+      required:
+      - description
+    PremiumActionRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        email:
+          type: string
+          format: email
+        premiumAccessToken:
+          type: string
+        checkoutSessionId:
+          type: string
+        sessionId:
+          type: string
+        network:
+          type: string
+          enum:
+          - visa
+          - mastercard
+          - amex
+          - discover
+        issuer:
+          type: string
+        cardholderName:
+          type: string
+        merchantName:
+          type: string
+        merchantVertical:
+          type: string
+        transactionAmount:
+          type: string
+          example: "$89.99"
+        transactionDate:
+          type: string
+          example: 03/01/2026
+        description:
+          type: string
+        evidenceSummary:
+          type: string
+        evidenceItems:
+          type: array
+          items:
+            type: string
+        timelineItems:
+          type: array
+          items:
+            type: string
+        merchantRebuttalConcerns:
+          type: array
+          items:
+            type: string
+        desiredOutcome:
+          type: string
+        tone:
+          type: string
+          enum:
+          - formal
+          - assertive
+          - concise
+          - empathetic
+        lengthPreference:
+          type: string
+          enum:
+          - short
+          - standard
+          - detailed
+        outputFormat:
+          type: string
+          enum:
+          - pdf
+          - docx
+          - word-compatible-rtf
+          - text
+        async:
+          type: boolean
+        redactionMode:
+          type: string
+          enum:
+          - none
+          - standard
+          - strict
+        includeRedactedVersion:
+          type: boolean
+      required:
+      - email
+      - description
+    DenialActionRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        email:
+          type: string
+          format: email
+        premiumAccessToken:
+          type: string
+        checkoutSessionId:
+          type: string
+        sessionId:
+          type: string
+        network:
+          type: string
+          enum:
+          - visa
+          - mastercard
+          - amex
+          - discover
+        issuer:
+          type: string
+        cardholderName:
+          type: string
+        merchantName:
+          type: string
+        merchantVertical:
+          type: string
+        transactionAmount:
+          type: string
+        transactionDate:
+          type: string
+        description:
+          type: string
+        evidenceSummary:
+          type: string
+        evidenceItems:
+          type: array
+          items:
+            type: string
+        timelineItems:
+          type: array
+          items:
+            type: string
+        merchantRebuttalConcerns:
+          type: array
+          items:
+            type: string
+        desiredOutcome:
+          type: string
+        tone:
+          type: string
+        lengthPreference:
+          type: string
+        denialSummary:
+          type: string
+        denialReason:
+          type: string
+        issuerFinding:
+          type: string
+        merchantResponseText:
+          type: string
+        denialEvidence:
+          type: string
+        issuerReferenceNumber:
+          type: string
+      required:
+      - email
+      - description
+    EvidenceQualityScoreRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        email:
+          type: string
+          format: email
+        premiumAccessToken:
+          type: string
+        checkoutSessionId:
+          type: string
+        sessionId:
+          type: string
+        network:
+          type: string
+          enum:
+          - visa
+          - mastercard
+          - amex
+          - discover
+        issuer:
+          type: string
+        merchantName:
+          type: string
+        transactionAmount:
+          type: string
+        transactionDate:
+          type: string
+        description:
+          type: string
+        evidenceSummary:
+          type: string
+        evidenceItems:
+          type: array
+          items:
+            type: string
+        timelineItems:
+          type: array
+          items:
+            type: string
+        merchantRebuttalConcerns:
+          type: array
+          items:
+            type: string
+        reasonCode:
+          type: string
       required:
       - description
     NormalizedIntake:
