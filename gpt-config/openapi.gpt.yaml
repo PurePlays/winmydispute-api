@@ -1,0 +1,2566 @@
+---
+openapi: 3.1.0
+info:
+  title: WinMyDispute GPT Actions API
+  version: 3.1.0
+  description: Curated action schema for the WinMyDispute Custom GPT. Includes only
+    conversation-facing endpoints.
+  contact:
+    name: Daniel Neville
+    email: pureplays@icloud.com
+    url: https://pure-plays.com
+  license:
+    name: Proprietary
+    url: https://pure-plays.com/terms
+servers:
+- url: https://api.pure-plays.com
+  description: Production custom domain
+tags:
+- name: health
+- name: disputes
+- name: issuers
+- name: reasons
+- name: intake
+- name: billing
+- name: auth
+- name: analytics
+security:
+- bearerAuth: []
+paths:
+  "/api/v1/intake/normalize":
+    post:
+      tags:
+      - intake
+      summary: Normalize messy intake into canonical API fields
+      description: |
+        Helps the GPT turn inconsistent customer answers into the API's canonical
+        structure. The endpoint normalizes flexible date and amount formats, infers
+        merchant vertical when possible, and returns missing fields plus a likely
+        reason-code match for follow-up questions.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/DisputeInput"
+      responses:
+        '200':
+          description: Normalized intake and follow-up guidance
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NormalizedIntakeResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: normalizeIntake
+  "/api/v1/disputes/preview":
+    post:
+      tags:
+      - disputes
+      summary: Return the free dispute preview
+      description: |
+        This is the GPT's free-value endpoint. It returns the likely dispute reason,
+        a confidence score, exactly one preview tip, and the list of premium features.
+        Inputs may contain flexible date and amount formats plus lightly misspelled consumer descriptions.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/DisputeInput"
+      responses:
+        '200':
+          description: Free preview response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PreviewResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: previewDispute
+  "/api/v1/create-checkout-session":
+    post:
+      tags:
+      - billing
+      summary: Create a Stripe Checkout session for the premium upgrade
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CheckoutRequest"
+      responses:
+        '200':
+          description: Checkout session created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CheckoutResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '409':
+          description: The email is already licensed
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/AlreadyLicensedResponse"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: createCheckoutSession
+  "/auth/check-license":
+    get:
+      tags:
+      - auth
+      summary: Check whether an email has premium access
+      parameters:
+      - name: email
+        in: query
+        required: true
+        schema:
+          type: string
+          format: email
+          example: user@example.com
+      - name: sessionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Matching Stripe Checkout session ID used to exchange a paid license
+          for a premium access token.
+      - name: checkoutSessionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Alias for sessionId.
+      responses:
+        '200':
+          description: License state for the email
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/LicenseCheckResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: checkLicense
+  "/api/v1/issuers/{issuer}/profile":
+    get:
+      tags:
+      - issuers
+      summary: Return richer issuer filing guidance and profile data
+      parameters:
+      - name: issuer
+        in: path
+        required: true
+        schema:
+          type: string
+        example: Chase
+      responses:
+        '200':
+          description: Issuer profile
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/IssuerProfile"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '404':
+          description: Issuer profile not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: getIssuerProfile
+  "/api/v1/reasons/search":
+    get:
+      tags:
+      - reasons
+      summary: Search reason-code profiles by natural language query
+      parameters:
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+        example: canceled subscription renewed anyway
+      - name: network
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - visa
+          - mastercard
+          - amex
+          - discover
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 20
+          default: 8
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ReasonSearchResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: searchReasons
+  "/api/v1/generate-letter":
+    post:
+      tags:
+      - disputes
+      summary: Generate the full premium dispute kit
+      description: |
+        Requires a paid email license plus either a signed premium access token or the matching
+        Stripe checkout session ID. When unpaid, the endpoint returns HTTP 402 with a checkout URL.
+        When paid, the endpoint returns the full premium package in one response, including issuer submission guidance,
+        an exhibit packet, and a submission-ready action plan.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - "$ref": "#/components/schemas/DisputeInput"
+              - type: object
+                required:
+                - email
+      responses:
+        '200':
+          description: Full premium response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PremiumResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '402':
+          description: Upgrade required before premium generation
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UpgradeRequiredResponse"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: generatePremiumLetter
+  "/api/v1/generate-report-document":
+    post:
+      tags:
+      - disputes
+      summary: Generate a premium dispute report document
+      description: |
+        Requires a paid email license plus either a signed premium access token or the matching
+        Stripe checkout session ID. Produces a downloadable, professionally formatted report package.
+        Supported formats are PDF, DOCX, Word-compatible RTF, and plain text. The endpoint can also
+        generate a second redacted copy for privacy-safe sharing.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - "$ref": "#/components/schemas/DisputeInput"
+              - type: object
+                required:
+                - email
+      responses:
+        '200':
+          description: Report document metadata
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ReportDocumentResponse"
+        '202':
+          description: Report generation queued asynchronously
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/JobAcceptedResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '402':
+          description: Upgrade required before premium generation
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UpgradeRequiredResponse"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: generateReportDocument
+  "/api/v1/generate-submission-bundle":
+    post:
+      tags:
+      - disputes
+      summary: Generate a downloadable submission bundle
+      description: |
+        Requires a paid email license plus either a signed premium access token or the matching
+        Stripe checkout session ID. Produces a ZIP package with the generated report,
+        submission plan, exhibit index, and a compact case summary.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - "$ref": "#/components/schemas/DisputeInput"
+              - type: object
+                required:
+                - email
+      responses:
+        '200':
+          description: Submission bundle metadata
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/SubmissionBundleResponse"
+        '202':
+          description: Bundle generation queued asynchronously
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/JobAcceptedResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '402':
+          description: Upgrade required before bundle generation
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UpgradeRequiredResponse"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: generateSubmissionBundle
+  "/api/v1/denials/respond":
+    post:
+      tags:
+      - disputes
+      summary: Generate a follow-up response after a denial
+      description: |
+        Requires a paid email license plus either a signed premium access token or the matching
+        Stripe checkout session ID. Builds a reconsideration package after an issuer or merchant denial.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - "$ref": "#/components/schemas/DisputeInput"
+              - type: object
+                required:
+                - email
+                properties:
+                  denialSummary:
+                    type: string
+                  denialReason:
+                    type: string
+                  issuerFinding:
+                    type: string
+                  merchantResponseText:
+                    type: string
+                  denialEvidence:
+                    type: string
+                  issuerReferenceNumber:
+                    type: string
+      responses:
+        '200':
+          description: Denial response package
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DenialResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '402':
+          description: Upgrade required before denial-response generation
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UpgradeRequiredResponse"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: generateDenialResponse
+  "/api/v1/cases":
+    get:
+      tags:
+      - disputes
+      summary: List saved premium case files for an email
+      parameters:
+      - name: email
+        in: query
+        required: true
+        schema:
+          type: string
+          format: email
+      - name: premiumAccessToken
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Signed premium access token returned by /auth/check-license after
+          payment.
+      - name: sessionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Matching Stripe Checkout session ID for token exchange.
+      - name: checkoutSessionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Alias for sessionId.
+      responses:
+        '200':
+          description: Saved case list
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ListCasesResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '402':
+          description: Upgrade required before case access
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UpgradeRequiredResponse"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: listSavedCases
+  "/api/v1/cases/{caseId}":
+    get:
+      tags:
+      - disputes
+      summary: Retrieve a saved premium case file
+      parameters:
+      - name: caseId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: email
+        in: query
+        required: true
+        schema:
+          type: string
+          format: email
+      - name: premiumAccessToken
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Signed premium access token returned by /auth/check-license after
+          payment.
+      - name: sessionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Matching Stripe Checkout session ID for token exchange.
+      - name: checkoutSessionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Alias for sessionId.
+      responses:
+        '200':
+          description: Saved case detail
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CaseFileDetail"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '402':
+          description: Upgrade required before case access
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UpgradeRequiredResponse"
+        '404':
+          description: Case file not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: getSavedCase
+  "/api/v1/evidence/extract":
+    post:
+      tags:
+      - disputes
+      summary: Extract structured evidence from uploaded files
+      description: |
+        Premium endpoint for evidence ingestion. Requires a paid email license plus either a signed
+        premium access token or the matching Stripe checkout session ID. Accepts multipart uploads and returns structured
+        evidence items, timeline entries, rebuttal concerns, extracted text, and a combined summary.
+        Text-like files are parsed directly, PDFs are parsed for embedded text when possible, and
+        image/PDF OCR uses the configured OCR provider when available. Uploaded files are also turned
+        into a labeled exhibit packet for downstream report generation.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - email
+              - files
+              properties:
+                email:
+                  type: string
+                  format: email
+                premiumAccessToken:
+                  type: string
+                checkoutSessionId:
+                  type: string
+                sessionId:
+                  type: string
+                description:
+                  type: string
+                merchantName:
+                  type: string
+                issuer:
+                  type: string
+                network:
+                  type: string
+                async:
+                  type: boolean
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: Structured evidence extraction response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/EvidenceExtractionResponse"
+        '202':
+          description: Evidence extraction queued asynchronously
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/JobAcceptedResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '402':
+          description: Upgrade required before evidence extraction
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UpgradeRequiredResponse"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: extractEvidence
+  "/api/v1/evidence/quality-score":
+    post:
+      tags:
+      - disputes
+      summary: Score how submission-ready the current evidence package is
+      description: |
+        Gives the GPT a structured readiness check before premium generation or filing.
+        The endpoint scores evidence completeness, compares provided material to the
+        strongest expected evidence, and returns the highest-priority missing items.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - "$ref": "#/components/schemas/DisputeInput"
+              - type: object
+                properties:
+                  reasonCode:
+                    type: string
+      responses:
+        '200':
+          description: Evidence-quality summary
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/EvidenceQualityScoreResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: scoreEvidenceQuality
+  "/api/v1/jobs/{jobId}":
+    get:
+      tags:
+      - disputes
+      summary: Retrieve an asynchronous job result
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: email
+        in: query
+        required: true
+        schema:
+          type: string
+          format: email
+      - name: premiumAccessToken
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Signed premium access token returned by /auth/check-license after
+          payment.
+      - name: sessionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Matching Stripe Checkout session ID for token exchange.
+      - name: checkoutSessionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Alias for sessionId.
+      responses:
+        '200':
+          description: Job status
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/JobStatusResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '402':
+          description: Upgrade required before job access
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UpgradeRequiredResponse"
+        '404':
+          description: Job not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: getJobStatus
+  "/api/v1/disputes/estimate-success":
+    post:
+      tags:
+      - disputes
+      summary: Estimate the likelihood of dispute success
+      description: |
+        Returns a heuristic estimate by default and blends in anonymized historical outcome feedback
+        when there is enough matching data for the same reason code, issuer, or merchant vertical.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/EstimateSuccessRequest"
+      responses:
+        '200':
+          description: Success estimate response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/EstimateSuccessResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: estimateDisputeSuccess
+  "/api/v1/disputes/outcome-feedback":
+    post:
+      tags:
+      - analytics
+      summary: Record anonymized dispute outcome feedback
+      description: 'Stores outcome data that can later improve success-estimate quality
+        for similar disputes.
+
+'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/OutcomeFeedbackRequest"
+      responses:
+        '201':
+          description: Outcome feedback recorded
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/OutcomeFeedbackResponse"
+        '400':
+          "$ref": "#/components/responses/BadRequest"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '403':
+          "$ref": "#/components/responses/Forbidden"
+        '429':
+          "$ref": "#/components/responses/TooManyRequests"
+      operationId: submitOutcomeFeedback
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque
+  responses:
+    BadRequest:
+      description: Invalid request input
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/Error"
+    Unauthorized:
+      description: Missing bearer token
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/Error"
+    Forbidden:
+      description: Invalid bearer token
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/Error"
+    TooManyRequests:
+      description: Request limit exceeded for the current rate-limit window
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/RateLimitError"
+  schemas:
+    Health:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
+        uptime:
+          type: number
+          example: 123.45
+        timestamp:
+          type: string
+          format: date-time
+        schemaVersion:
+          type: string
+          example: 2026-03-23
+        configuration:
+          type: object
+          properties:
+            status:
+              type: string
+              example: ok
+            missing:
+              type: array
+              items:
+                type: string
+      required:
+      - status
+      - uptime
+      - timestamp
+      - schemaVersion
+      - configuration
+    SchemaMeta:
+      type: object
+      properties:
+        schemaVersion:
+          type: string
+          example: 2026-03-23
+        generatedAt:
+          type: string
+          format: date-time
+          nullable: true
+        networks:
+          type: array
+          items:
+            type: string
+        scenarioCount:
+          type: integer
+          example: 24
+        reasonCodeCount:
+          type: integer
+          example: 42
+        issuerCount:
+          type: integer
+          example: 25
+        binCount:
+          type: integer
+          example: 98560
+        binDataSource:
+          type: string
+          example: bins.json
+      required:
+      - schemaVersion
+      - generatedAt
+      - networks
+      - scenarioCount
+      - reasonCodeCount
+      - issuerCount
+      - binCount
+      - binDataSource
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: A valid email address is required.
+        requestId:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - error
+    RateLimitError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Too many requests
+        requestId:
+          type: string
+          format: uuid
+          nullable: true
+        retryAfterSeconds:
+          type: integer
+          minimum: 1
+          example: 42
+      required:
+      - error
+      - requestId
+      - retryAfterSeconds
+    EvidenceItem:
+      oneOf:
+      - type: string
+      - type: object
+        additionalProperties: true
+        properties:
+          summary:
+            type: string
+          description:
+            type: string
+          text:
+            type: string
+          filename:
+            type: string
+          fileType:
+            type: string
+          type:
+            type: string
+          extractedText:
+            type: string
+    DisputeInput:
+      type: object
+      additionalProperties: true
+      properties:
+        email:
+          type: string
+          format: email
+          description: Optional for preview, required for premium generation and license
+            lookup.
+        premiumAccessToken:
+          type: string
+          description: Signed premium access token returned by /auth/check-license
+            after payment.
+        checkoutSessionId:
+          type: string
+          description: Matching Stripe Checkout session ID that can be exchanged for
+            a premium access token.
+        sessionId:
+          type: string
+          description: Alias for checkoutSessionId.
+        network:
+          type: string
+          enum:
+          - visa
+          - mastercard
+          - amex
+          - discover
+        issuer:
+          type: string
+          example: Chase
+        cardholderName:
+          type: string
+          example: Jane Doe
+        addressLine1:
+          type: string
+          example: 123 Main St
+        addressLine2:
+          type: string
+          example: Miami, FL 33101
+        phone:
+          type: string
+          example: '3055551212'
+        merchantName:
+          type: string
+          example: Example Merchant
+        merchantVertical:
+          type: string
+          example: subscription
+        transactionAmount:
+          oneOf:
+          - type: number
+          - type: string
+          example: "$1,234.56"
+          description: Flexible amount input. The API normalizes common U.S. and international
+            display formats.
+        transactionDate:
+          type: string
+          example: 03/01/2026
+          description: Flexible date input. The API normalizes common slash, dash,
+            dot, and month-name formats.
+        description:
+          type: string
+          description: Primary dispute summary used for reason-code matching.
+          example: I cancelled before renewal but the merchant chargd me anyway.
+        evidenceSummary:
+          type: string
+          example: I have cancellation emails and screenshots of the account page.
+        evidenceItems:
+          type: array
+          items:
+            "$ref": "#/components/schemas/EvidenceItem"
+        timelineItems:
+          type: array
+          items:
+            "$ref": "#/components/schemas/EvidenceItem"
+        merchantRebuttalConcerns:
+          type: array
+          items:
+            "$ref": "#/components/schemas/EvidenceItem"
+        desiredOutcome:
+          type: string
+          example: Reverse the charge and confirm the billing correction in writing.
+        tone:
+          type: string
+          enum:
+          - formal
+          - assertive
+          - concise
+          - empathetic
+          example: formal
+        lengthPreference:
+          type: string
+          enum:
+          - short
+          - standard
+          - detailed
+          example: detailed
+        outputFormat:
+          type: string
+          enum:
+          - pdf
+          - docx
+          - word-compatible-rtf
+          - text
+          example: pdf
+        async:
+          type: boolean
+          description: When true on supported premium endpoints, the server returns
+            a queued job instead of waiting for completion.
+          example: true
+        redactionMode:
+          type: string
+          enum:
+          - none
+          - standard
+          - strict
+          description: Optional privacy mode for generated report artifacts.
+          example: standard
+        includeRedactedVersion:
+          type: boolean
+          description: When true, the report-document endpoint returns both a full
+            copy and a redacted copy.
+          example: true
+      required:
+      - description
+    NormalizedIntake:
+      type: object
+      properties:
+        caseId:
+          type: string
+        email:
+          type: string
+          format: email
+          nullable: true
+        network:
+          type: string
+          nullable: true
+        issuer:
+          type: string
+        merchantName:
+          type: string
+        merchantVertical:
+          type: string
+          nullable: true
+        transactionAmount:
+          type: string
+        transactionAmountValue:
+          type: number
+          nullable: true
+        transactionDate:
+          type: string
+        transactionDateIso:
+          type: string
+          nullable: true
+        description:
+          type: string
+        evidenceSummary:
+          type: string
+        evidenceItems:
+          type: array
+          items:
+            type: string
+        timelineItems:
+          type: array
+          items:
+            type: string
+        merchantRebuttalConcerns:
+          type: array
+          items:
+            type: string
+        desiredOutcome:
+          type: string
+        tone:
+          type: string
+        lengthPreference:
+          type: string
+        outputFormat:
+          type: string
+        redactionMode:
+          type: string
+        includeRedactedVersion:
+          type: boolean
+      required:
+      - caseId
+      - network
+      - issuer
+      - merchantName
+      - transactionAmount
+      - transactionDate
+      - description
+      - evidenceItems
+      - timelineItems
+      - merchantRebuttalConcerns
+      - desiredOutcome
+      - tone
+      - lengthPreference
+      - outputFormat
+      - redactionMode
+      - includeRedactedVersion
+    NormalizedIntakeResponse:
+      type: object
+      properties:
+        normalizedIntake:
+          "$ref": "#/components/schemas/NormalizedIntake"
+        missingFields:
+          type: array
+          items:
+            type: string
+        normalizationNotes:
+          type: array
+          items:
+            type: string
+        reasonMatch:
+          "$ref": "#/components/schemas/ReasonMatchSummary"
+        requestId:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - normalizedIntake
+      - missingFields
+      - normalizationNotes
+      - reasonMatch
+    ReasonMatchSummary:
+      type: object
+      properties:
+        reasonCode:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        network:
+          type: string
+          nullable: true
+        confidence:
+          type: integer
+      required:
+      - reasonCode
+      - title
+      - description
+      - network
+      - confidence
+    ReasonSearchResult:
+      type: object
+      properties:
+        network:
+          type: string
+        reasonCode:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        strategyTips:
+          type: array
+          items:
+            type: string
+        evidenceRequirements:
+          type: array
+          items:
+            type: string
+        score:
+          type: integer
+      required:
+      - network
+      - reasonCode
+      - title
+      - strategyTips
+      - evidenceRequirements
+      - score
+    ReasonSearchResponse:
+      type: object
+      properties:
+        query:
+          type: string
+        network:
+          type: string
+          nullable: true
+        results:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ReasonSearchResult"
+        requestId:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - query
+      - network
+      - results
+    PreviewResponse:
+      type: object
+      properties:
+        reasonCode:
+          type: string
+          nullable: true
+          example: 13.2
+        network:
+          type: string
+          example: visa
+        merchantVertical:
+          type: string
+          nullable: true
+          example: subscription
+        confidence:
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: 82
+        confidenceNote:
+          type: string
+          example: This confidence measures how strongly the facts match the likely
+            dispute reason. It is not a guaranteed outcome score.
+        previewTip:
+          type: string
+          description: Exactly one free preview tip.
+          example: Lead with the exact date and proof that you cancelled before the
+            billing date.
+        successEstimate:
+          "$ref": "#/components/schemas/SuccessEstimate"
+        reviewFlags:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ReviewFlag"
+        upgradeRequired:
+          type: boolean
+          example: true
+        premiumFeatures:
+          type: array
+          items:
+            type: string
+          example:
+          - full-letter
+          - full-strategy-set
+          - evidence-checklist
+          - cfpb-summary
+      required:
+      - reasonCode
+      - network
+      - confidence
+      - confidenceNote
+      - previewTip
+      - successEstimate
+      - reviewFlags
+      - upgradeRequired
+      - premiumFeatures
+    IssuerProfile:
+      type: object
+      properties:
+        issuer:
+          type: string
+        aliases:
+          type: array
+          items:
+            type: string
+        supportedNetworks:
+          type: array
+          items:
+            type: string
+        contact:
+          "$ref": "#/components/schemas/IssuerGuidance"
+        notes:
+          type: array
+          items:
+            type: string
+        evidenceExamples:
+          type: array
+          items:
+            type: string
+        preferredSubmissionChannels:
+          type: array
+          items:
+            type: string
+      required:
+      - issuer
+      - aliases
+      - supportedNetworks
+      - contact
+      - notes
+      - evidenceExamples
+      - preferredSubmissionChannels
+    ReviewFlag:
+      type: object
+      properties:
+        code:
+          type: string
+        severity:
+          type: string
+          enum:
+          - low
+          - medium
+          - high
+        message:
+          type: string
+        recommendation:
+          type: string
+      required:
+      - code
+      - severity
+      - message
+      - recommendation
+    SuccessEstimate:
+      type: object
+      properties:
+        estimatedSuccessRate:
+          type: number
+          minimum: 0
+          maximum: 1
+        modelType:
+          type: string
+          enum:
+          - heuristic
+          - blended-historical-and-heuristic
+        sampleSize:
+          type: integer
+        rationale:
+          type: string
+      required:
+      - estimatedSuccessRate
+      - modelType
+      - sampleSize
+      - rationale
+    FilingReadiness:
+      type: object
+      properties:
+        readyForSubmission:
+          type: boolean
+        readinessLevel:
+          type: string
+          enum:
+          - ready
+          - almost-ready
+          - needs-review
+          - needs-evidence
+        summary:
+          type: string
+        strongestSignals:
+          type: array
+          items:
+            type: string
+        blockers:
+          type: array
+          items:
+            type: string
+        missingCriticalItems:
+          type: array
+          items:
+            type: string
+        recommendedNextAction:
+          type: string
+        recommendedSubmissionChannel:
+          oneOf:
+          - type: string
+          - type: 'null'
+      required:
+      - readyForSubmission
+      - readinessLevel
+      - summary
+      - strongestSignals
+      - blockers
+      - missingCriticalItems
+      - recommendedNextAction
+      - recommendedSubmissionChannel
+    CheckoutRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        source:
+          type: string
+          enum:
+          - gpt
+          example: gpt
+        intent:
+          type: string
+          enum:
+          - full-dispute-kit
+          example: full-dispute-kit
+      required:
+      - email
+      - source
+      - intent
+    CheckoutResponse:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          example: cs_test_123
+        url:
+          type: string
+          format: uri
+          example: https://checkout.stripe.com/pay/cs_test_123
+        expiresAt:
+          type: string
+          format: date-time
+          nullable: true
+      required:
+      - sessionId
+      - url
+      - expiresAt
+    AlreadyLicensedResponse:
+      type: object
+      properties:
+        licensed:
+          type: boolean
+          example: true
+        status:
+          type: string
+          example: paid
+        email:
+          type: string
+          format: email
+        message:
+          type: string
+          example: This email already has premium access.
+        requestId:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - licensed
+      - status
+      - email
+      - message
+    LicenseCheckResponse:
+      type: object
+      properties:
+        licensed:
+          type: boolean
+          example: false
+        status:
+          type: string
+          example: unpaid
+        email:
+          type: string
+          format: email
+        premiumAccessToken:
+          type: string
+          nullable: true
+          description: Returned only when the caller provides the matching Stripe
+            session ID for a paid license.
+      required:
+      - licensed
+      - status
+      - email
+    StrategySet:
+      type: object
+      properties:
+        customerStrategy:
+          type: string
+        strategyTips:
+          type: array
+          items:
+            type: string
+        commonMerchantRebuttals:
+          type: array
+          items:
+            type: string
+        evidenceToFocusOn:
+          type: array
+          items:
+            type: string
+        merchantVertical:
+          type: string
+          nullable: true
+        verticalStrategy:
+          type: string
+          nullable: true
+      required:
+      - customerStrategy
+      - strategyTips
+      - commonMerchantRebuttals
+      - evidenceToFocusOn
+    EvidencePacket:
+      type: object
+      properties:
+        userProvidedEvidence:
+          type: array
+          items:
+            type: string
+        recommendedEvidence:
+          type: array
+          items:
+            type: string
+        timeline:
+          type: array
+          items:
+            type: string
+        rebuttalConcerns:
+          type: array
+          items:
+            type: string
+        evidenceFocus:
+          type: array
+          items:
+            type: string
+      required:
+      - userProvidedEvidence
+      - recommendedEvidence
+      - timeline
+      - rebuttalConcerns
+      - evidenceFocus
+    Exhibit:
+      type: object
+      properties:
+        label:
+          type: string
+          example: Exhibit A
+        title:
+          type: string
+        description:
+          type: string
+        filename:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum:
+          - provided
+          - suggested
+      required:
+      - label
+      - title
+      - description
+      - status
+    ExhibitPacket:
+      type: object
+      properties:
+        exhibits:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Exhibit"
+        exhibitIndex:
+          type: array
+          items:
+            type: string
+        providedCount:
+          type: integer
+        suggestedCount:
+          type: integer
+        recommendedPackageOrder:
+          type: array
+          items:
+            type: string
+      required:
+      - exhibits
+      - exhibitIndex
+      - providedCount
+      - suggestedCount
+      - recommendedPackageOrder
+    ExtractedEvidenceFile:
+      type: object
+      properties:
+        filename:
+          type: string
+        mimeType:
+          type: string
+        size:
+          type: integer
+        sourceType:
+          type: string
+          enum:
+          - text
+          - pdf
+          - image
+          - binary
+        extractionMode:
+          type: string
+          example: openai-ocr
+        ocrApplied:
+          type: boolean
+        documentType:
+          type: string
+        summary:
+          type: string
+        extractedText:
+          type: string
+        evidenceItems:
+          type: array
+          items:
+            type: string
+        timelineItems:
+          type: array
+          items:
+            type: string
+        rebuttalConcerns:
+          type: array
+          items:
+            type: string
+        warnings:
+          type: array
+          items:
+            type: string
+      required:
+      - filename
+      - mimeType
+      - size
+      - sourceType
+      - extractionMode
+      - ocrApplied
+      - documentType
+      - summary
+      - extractedText
+      - evidenceItems
+      - timelineItems
+      - rebuttalConcerns
+      - warnings
+    EvidenceExtractionCombined:
+      type: object
+      properties:
+        summary:
+          type: string
+        evidenceItems:
+          type: array
+          items:
+            type: string
+        timelineItems:
+          type: array
+          items:
+            type: string
+        rebuttalConcerns:
+          type: array
+          items:
+            type: string
+        warnings:
+          type: array
+          items:
+            type: string
+        recommendedNextSteps:
+          type: array
+          items:
+            type: string
+      required:
+      - summary
+      - evidenceItems
+      - timelineItems
+      - rebuttalConcerns
+      - warnings
+      - recommendedNextSteps
+    EvidenceExtractionResponse:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        premiumAccessToken:
+          type: string
+          nullable: true
+        extractedCount:
+          type: integer
+        files:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ExtractedEvidenceFile"
+        combined:
+          "$ref": "#/components/schemas/EvidenceExtractionCombined"
+        exhibitPacket:
+          "$ref": "#/components/schemas/ExhibitPacket"
+        storedFiles:
+          type: array
+          items:
+            "$ref": "#/components/schemas/StoredFileSummary"
+        caseFile:
+          "$ref": "#/components/schemas/CaseFileSummary"
+        caseVersion:
+          "$ref": "#/components/schemas/CaseVersion"
+      required:
+      - email
+      - extractedCount
+      - files
+      - combined
+      - exhibitPacket
+      - storedFiles
+      - caseFile
+      - caseVersion
+    EvidenceQualityScoreResponse:
+      type: object
+      properties:
+        reasonCode:
+          type: string
+          nullable: true
+        reasonTitle:
+          type: string
+          nullable: true
+        merchantVertical:
+          type: string
+          nullable: true
+        evidenceQualityScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        readinessLevel:
+          type: string
+          enum:
+          - strong
+          - good
+          - needs-more-evidence
+          - thin
+        providedEvidenceCount:
+          type: integer
+        timelineItemCount:
+          type: integer
+        recommendedEvidence:
+          type: array
+          items:
+            type: string
+        coveredRecommendations:
+          type: array
+          items:
+            type: string
+        missingPriorityEvidence:
+          type: array
+          items:
+            type: string
+        warnings:
+          type: array
+          items:
+            type: string
+        requestId:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - reasonCode
+      - reasonTitle
+      - merchantVertical
+      - evidenceQualityScore
+      - readinessLevel
+      - providedEvidenceCount
+      - timelineItemCount
+      - recommendedEvidence
+      - coveredRecommendations
+      - missingPriorityEvidence
+      - warnings
+    StoredFileSummary:
+      type: object
+      properties:
+        fileId:
+          type: string
+        originalFilename:
+          type: string
+        contentType:
+          type: string
+        sizeBytes:
+          type: integer
+        sha256:
+          type: string
+      required:
+      - fileId
+      - originalFilename
+      - contentType
+      - sizeBytes
+      - sha256
+    IssuerGuidance:
+      type: object
+      properties:
+        issuer:
+          type: string
+        phoneSupport:
+          type: string
+          nullable: true
+        fax:
+          type: string
+          nullable: true
+        uploadPortal:
+          type: string
+          nullable: true
+        mailingAddress:
+          type: string
+          nullable: true
+        preferredSubmissionChannels:
+          type: array
+          items:
+            type: string
+        disputeEntryPoint:
+          type: string
+          nullable: true
+        evidenceExamples:
+          type: array
+          items:
+            type: string
+        filingWindowNote:
+          type: string
+          nullable: true
+        statusTracking:
+          type: string
+          nullable: true
+        submissionNotes:
+          type: array
+          items:
+            type: string
+      required:
+      - issuer
+      - preferredSubmissionChannels
+      - evidenceExamples
+      - submissionNotes
+    DocumentPreferences:
+      type: object
+      properties:
+        tone:
+          type: string
+        lengthPreference:
+          type: string
+        preferredOutputFormat:
+          type: string
+          enum:
+          - pdf
+          - docx
+          - word-compatible-rtf
+          - text
+        preferredRedactionMode:
+          type: string
+          enum:
+          - none
+          - standard
+          - strict
+        includeRedactedVersion:
+          type: boolean
+        supportedDocumentFormats:
+          type: array
+          items:
+            type: string
+        supportedRedactionModes:
+          type: array
+          items:
+            type: string
+        supportedToneOptions:
+          type: array
+          items:
+            type: string
+        supportedLengthOptions:
+          type: array
+          items:
+            type: string
+        formattingStyle:
+          type: string
+          example: standard-professional
+      required:
+      - tone
+      - lengthPreference
+      - preferredOutputFormat
+      - preferredRedactionMode
+      - includeRedactedVersion
+      - supportedDocumentFormats
+      - supportedRedactionModes
+      - supportedToneOptions
+      - supportedLengthOptions
+      - formattingStyle
+    SubmissionPlanStep:
+      type: object
+      properties:
+        order:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+      required:
+      - order
+      - title
+      - description
+    SubmissionPlan:
+      type: object
+      properties:
+        recommendedPackageOrder:
+          type: array
+          items:
+            type: string
+        steps:
+          type: array
+          items:
+            "$ref": "#/components/schemas/SubmissionPlanStep"
+        qualityChecks:
+          type: array
+          items:
+            type: string
+      required:
+      - recommendedPackageOrder
+      - steps
+      - qualityChecks
+    CaseFileSummary:
+      type: object
+      properties:
+        caseId:
+          type: string
+        email:
+          type: string
+          format: email
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        latestStage:
+          type: string
+        versionCount:
+          type: integer
+        merchantName:
+          type: string
+        issuer:
+          type: string
+        network:
+          type: string
+          nullable: true
+        reasonCode:
+          type: string
+          nullable: true
+        confidence:
+          type: integer
+          nullable: true
+        merchantVertical:
+          type: string
+          nullable: true
+        latestArtifactFileIds:
+          type: array
+          items:
+            type: string
+        latestArtifactFormats:
+          type: array
+          items:
+            type: string
+        latestArtifactUrls:
+          type: array
+          items:
+            type: string
+      required:
+      - caseId
+      - email
+      - createdAt
+      - updatedAt
+      - latestStage
+      - versionCount
+      - latestArtifactFileIds
+      - latestArtifactFormats
+      - latestArtifactUrls
+    CaseVersion:
+      type: object
+      properties:
+        versionId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        stage:
+          type: string
+      required:
+      - versionId
+      - createdAt
+      - stage
+    CaseVersionSummary:
+      type: object
+      properties:
+        versionId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        stage:
+          type: string
+        source:
+          type: string
+        notes:
+          type: string
+      required:
+      - versionId
+      - createdAt
+      - stage
+    JobStatusResponse:
+      type: object
+      properties:
+        jobId:
+          type: string
+        kind:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - running
+          - completed
+          - failed
+        email:
+          type: string
+          format: email
+          nullable: true
+        caseId:
+          type: string
+          nullable: true
+        requestId:
+          type: string
+          nullable: true
+        premiumAccessToken:
+          type: string
+          nullable: true
+        input:
+          type: object
+          additionalProperties: true
+        result:
+          oneOf:
+          - type: object
+            additionalProperties: true
+          - type: 'null'
+        errorMessage:
+          oneOf:
+          - type: string
+          - type: 'null'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        startedAt:
+          oneOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+        completedAt:
+          oneOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+      required:
+      - jobId
+      - kind
+      - status
+      - input
+      - createdAt
+      - updatedAt
+    JobAcceptedResponse:
+      type: object
+      properties:
+        jobId:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - running
+        email:
+          type: string
+          format: email
+        premiumAccessToken:
+          type: string
+          nullable: true
+        requestId:
+          type: string
+          nullable: true
+        storedFiles:
+          type: array
+          items:
+            "$ref": "#/components/schemas/StoredFileSummary"
+      required:
+      - jobId
+      - status
+      - email
+    ReportArtifact:
+      type: object
+      properties:
+        kind:
+          type: string
+          enum:
+          - artifact
+        fileId:
+          type: string
+        format:
+          type: string
+          example: docx
+        filename:
+          type: string
+        url:
+          type: string
+          format: uri-reference
+          example: "/api/v1/artifacts/abc123?expires=1711203600000&signature=deadbeef"
+        expiresAt:
+          type: string
+          description: Signed download expiry as a Unix epoch timestamp in milliseconds.
+        contentType:
+          type: string
+        variant:
+          type: string
+          enum:
+          - full
+          - redacted
+        redactionMode:
+          type: string
+          enum:
+          - none
+          - standard
+          - strict
+      required:
+      - kind
+      - fileId
+      - format
+      - filename
+      - url
+      - expiresAt
+      - contentType
+      - variant
+      - redactionMode
+    ListCasesResponse:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        premiumAccessToken:
+          type: string
+          nullable: true
+        count:
+          type: integer
+        cases:
+          type: array
+          items:
+            "$ref": "#/components/schemas/CaseFileSummary"
+      required:
+      - email
+      - count
+      - cases
+    CaseFileDetail:
+      allOf:
+      - "$ref": "#/components/schemas/CaseFileSummary"
+      - type: object
+        properties:
+          premiumAccessToken:
+            type: string
+            nullable: true
+          versions:
+            type: array
+            items:
+              "$ref": "#/components/schemas/CaseVersionSummary"
+        required:
+        - versions
+    PremiumResponse:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        premiumAccessToken:
+          type: string
+          nullable: true
+        reasonCode:
+          type: string
+          nullable: true
+        network:
+          type: string
+        merchantVertical:
+          type: string
+          nullable: true
+        confidence:
+          type: integer
+          minimum: 0
+          maximum: 100
+        letter:
+          type: string
+        strategySet:
+          "$ref": "#/components/schemas/StrategySet"
+        evidenceChecklist:
+          type: array
+          items:
+            type: string
+        evidencePacket:
+          "$ref": "#/components/schemas/EvidencePacket"
+        exhibitPacket:
+          "$ref": "#/components/schemas/ExhibitPacket"
+        issuerGuidance:
+          "$ref": "#/components/schemas/IssuerGuidance"
+        submissionPlan:
+          "$ref": "#/components/schemas/SubmissionPlan"
+        cfpbSummary:
+          type: string
+        successEstimate:
+          "$ref": "#/components/schemas/SuccessEstimate"
+        reviewFlags:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ReviewFlag"
+        filingReadiness:
+          "$ref": "#/components/schemas/FilingReadiness"
+        documentPreferences:
+          "$ref": "#/components/schemas/DocumentPreferences"
+        caseFile:
+          "$ref": "#/components/schemas/CaseFileSummary"
+        caseVersion:
+          "$ref": "#/components/schemas/CaseVersion"
+      required:
+      - email
+      - reasonCode
+      - network
+      - confidence
+      - letter
+      - strategySet
+      - evidenceChecklist
+      - evidencePacket
+      - exhibitPacket
+      - issuerGuidance
+      - submissionPlan
+      - cfpbSummary
+      - successEstimate
+      - reviewFlags
+      - filingReadiness
+      - documentPreferences
+      - caseFile
+      - caseVersion
+    ReportDocumentResponse:
+      type: object
+      properties:
+        premiumAccessToken:
+          type: string
+          nullable: true
+        kind:
+          type: string
+          enum:
+          - artifact
+        fileId:
+          type: string
+        format:
+          type: string
+          example: docx
+        filename:
+          type: string
+          example: winmydispute-report-1711200000000.docx
+        url:
+          type: string
+          format: uri-reference
+          example: "/api/v1/artifacts/abc123?expires=1711203600000&signature=deadbeef"
+        expiresAt:
+          type: string
+        contentType:
+          type: string
+          example: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+        variant:
+          type: string
+          enum:
+          - full
+          - redacted
+        redactionMode:
+          type: string
+          enum:
+          - none
+          - standard
+          - strict
+        requestedRedactionMode:
+          type: string
+          enum:
+          - none
+          - standard
+          - strict
+        includeRedactedVersion:
+          type: boolean
+        artifacts:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ReportArtifact"
+        redactedArtifact:
+          oneOf:
+          - "$ref": "#/components/schemas/ReportArtifact"
+          - type: 'null'
+        caseFile:
+          "$ref": "#/components/schemas/CaseFileSummary"
+        caseVersion:
+          "$ref": "#/components/schemas/CaseVersion"
+      required:
+      - kind
+      - fileId
+      - format
+      - filename
+      - url
+      - expiresAt
+      - contentType
+      - variant
+      - redactionMode
+      - requestedRedactionMode
+      - includeRedactedVersion
+      - artifacts
+      - caseFile
+      - caseVersion
+    SubmissionBundleResponse:
+      type: object
+      properties:
+        premiumAccessToken:
+          type: string
+          nullable: true
+        kind:
+          type: string
+          enum:
+          - artifact
+        fileId:
+          type: string
+        format:
+          type: string
+          enum:
+          - zip
+        filename:
+          type: string
+        url:
+          type: string
+          format: uri-reference
+        expiresAt:
+          type: string
+        contentType:
+          type: string
+        bundleItems:
+          type: array
+          items:
+            type: string
+        sourceArtifacts:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ReportArtifact"
+        requestedOutputFormat:
+          type: string
+        caseFile:
+          "$ref": "#/components/schemas/CaseFileSummary"
+        caseVersion:
+          "$ref": "#/components/schemas/CaseVersion"
+      required:
+      - kind
+      - fileId
+      - format
+      - filename
+      - url
+      - expiresAt
+      - contentType
+      - bundleItems
+      - sourceArtifacts
+      - requestedOutputFormat
+      - caseFile
+      - caseVersion
+    DenialResponse:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        premiumAccessToken:
+          type: string
+          nullable: true
+        caseId:
+          oneOf:
+          - type: string
+          - type: 'null'
+        reasonCode:
+          type: string
+          nullable: true
+        network:
+          type: string
+        denialSummary:
+          oneOf:
+          - type: string
+          - type: 'null'
+        counterLetter:
+          type: string
+        rebuttalTargets:
+          type: array
+          items:
+            type: string
+        counterStrategy:
+          type: array
+          items:
+            type: string
+        additionalEvidenceRequests:
+          type: array
+          items:
+            type: string
+        submissionPlan:
+          "$ref": "#/components/schemas/SubmissionPlan"
+        reviewFlags:
+          type: array
+          items:
+            type: string
+        caseFile:
+          "$ref": "#/components/schemas/CaseFileSummary"
+        caseVersion:
+          "$ref": "#/components/schemas/CaseVersion"
+      required:
+      - email
+      - network
+      - counterLetter
+      - rebuttalTargets
+      - counterStrategy
+      - additionalEvidenceRequests
+      - submissionPlan
+      - reviewFlags
+      - caseFile
+      - caseVersion
+    EstimateSuccessRequest:
+      type: object
+      properties:
+        network:
+          type: string
+          enum:
+          - visa
+          - mastercard
+          - amex
+          - discover
+        reasonCode:
+          type: string
+        issuer:
+          type: string
+        merchantVertical:
+          type: string
+        consumerEvidence:
+          type: string
+        priorAttemptsToResolve:
+          type: boolean
+        merchantResponse:
+          type: string
+        transactionAmount:
+          oneOf:
+          - type: number
+          - type: string
+      required:
+      - network
+      - reasonCode
+    EstimateSuccessResponse:
+      type: object
+      properties:
+        estimatedSuccessRate:
+          type: number
+          minimum: 0
+          maximum: 1
+          example: 0.73
+        rationale:
+          type: string
+        modelType:
+          type: string
+          enum:
+          - heuristic
+          - blended-historical-and-heuristic
+        sampleSize:
+          type: integer
+          example: 5
+      required:
+      - estimatedSuccessRate
+      - rationale
+      - modelType
+      - sampleSize
+    OutcomeFeedbackRequest:
+      type: object
+      properties:
+        network:
+          type: string
+          enum:
+          - visa
+          - mastercard
+          - amex
+          - discover
+        reasonCode:
+          type: string
+        issuer:
+          type: string
+        merchantVertical:
+          type: string
+        merchantType:
+          type: string
+        outcome:
+          type: string
+          enum:
+          - won
+          - lost
+          - partial
+          - reversed
+          - denied
+        amount:
+          oneOf:
+          - type: number
+          - type: string
+        notes:
+          type: string
+      required:
+      - network
+      - reasonCode
+      - outcome
+    OutcomeFeedbackResponse:
+      type: object
+      properties:
+        recorded:
+          type: boolean
+          example: true
+        outcome:
+          type: string
+          example: won
+        reasonCode:
+          type: string
+          example: 13.2
+        network:
+          type: string
+          example: visa
+        requestId:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - recorded
+      - outcome
+      - reasonCode
+      - network
+      - requestId
+    UpgradeRequiredResponse:
+      type: object
+      properties:
+        upgradeRequired:
+          type: boolean
+          example: true
+        checkoutUrl:
+          type: string
+          format: uri
+          example: https://checkout.stripe.com/pay/cs_test_123
+        checkoutSessionId:
+          type: string
+          example: cs_test_123
+        message:
+          type: string
+          example: Premium access requires a one-time $6.99 payment.
+      required:
+      - upgradeRequired
+      - checkoutUrl
+      - checkoutSessionId
+      - message

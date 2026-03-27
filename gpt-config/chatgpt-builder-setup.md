@@ -47,7 +47,8 @@
 ## Action Setup
 - In the GPT editor, open `Configure` → `Actions`
 - Import schema from:
-  - `https://api.pure-plays.com/openapi.yaml`
+  - `https://api.pure-plays.com/openapi.gpt.yaml`
+- This GPT-specific schema hides internal endpoints like the Stripe webhook and gives cleaner action names.
 
 ## Action Authentication
 - Authentication type: `API Key`

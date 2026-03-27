@@ -129,6 +129,7 @@ app.get('/.well-known/security.txt', (_req, res) => res.type('text/plain').send(
 
 // ─── Serve OpenAPI Spec ───────────────────────────────────────────────────────
 app.get('/openapi.yaml', (_req, res) => res.sendFile(path.join(__dirname, 'openapi.yaml')));
+app.get('/openapi.gpt.yaml', (_req, res) => res.sendFile(path.join(__dirname, 'gpt-config', 'openapi.gpt.yaml')));
 
 // ─── Health Check ─────────────────────────────────────────────────────────────
 app.get('/health', (_req, res) => {
