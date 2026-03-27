@@ -10,6 +10,7 @@ const DEFAULT_BINS_FILE = path.join(__dirname, '..', 'mock-data', 'bins.json');
 const DEFAULT_BIN_CSV_FILE = path.join(__dirname, '..', 'mock-data', 'bin-list.csv');
 
 let binMapCache = null;
+let binSummaryCache = null;
 let csvLookupCache = new Map();
 
 function getBinsFilePath() {
@@ -22,6 +23,7 @@ function getBinCsvFilePath() {
 
 export function resetBinDataForTesting() {
   binMapCache = null;
+  binSummaryCache = null;
   csvLookupCache = new Map();
 }
 
@@ -183,11 +185,68 @@ async function findBinInCsv(bin) {
   return match || null;
 }
 
-export function getBinDataSummary() {
-  const binMap = getBinMap();
+function countJsonBinEntries(filePath) {
+  try {
+    const raw = fs.readFileSync(filePath, 'utf8');
+    const matches = raw.match(/"\d{6}"\s*:/g);
+    return matches ? matches.length : 0;
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      console.warn(`⚠️ Failed to summarize bins.json: ${error.message}`);
+    }
+    return 0;
+  }
+}
+
+function countCsvEntries(filePath) {
+  try {
+    const raw = fs.readFileSync(filePath, 'utf8');
+    const lines = raw
+      .split(/\r?\n/g)
+      .map(line => line.trim())
+      .filter(Boolean);
+
+    return lines.length > 1 ? lines.length - 1 : 0;
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      console.warn(`⚠️ Failed to summarize BIN CSV: ${error.message}`);
+    }
+    return 0;
+  }
+}
+
+function loadBinSummary() {
+  const binsFilePath = getBinsFilePath();
+  const jsonCount = countJsonBinEntries(binsFilePath);
+  if (jsonCount > 0) {
+    return {
+      count: jsonCount,
+      source: 'bins.json'
+    };
+  }
+
+  const csvPath = getBinCsvFilePath();
+  if (!fs.existsSync(csvPath)) {
+    return {
+      count: 0,
+      source: fs.existsSync(binsFilePath) ? 'bins.json' : 'none'
+    };
+  }
+
   return {
-    count: binMap.size,
-    source: binMap.size > 0 ? 'bins.json' : (fs.existsSync(getBinCsvFilePath()) ? 'bin-list.csv-fallback' : 'none')
+    count: countCsvEntries(csvPath),
+    source: 'bin-list.csv-fallback'
+  };
+}
+
+export function getBinDataSummary() {
+  if (!binSummaryCache) {
+    binSummaryCache = loadBinSummary();
+  }
+
+  return {
+    count: binSummaryCache.count,
+    source: binSummaryCache.source
   };
 }
 

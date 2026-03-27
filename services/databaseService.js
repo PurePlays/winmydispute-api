@@ -159,6 +159,9 @@ function createSchema(db) {
     CREATE INDEX IF NOT EXISTS idx_audit_events_case_id ON audit_events(case_id, created_at DESC);
     CREATE INDEX IF NOT EXISTS idx_audit_events_email ON audit_events(email, created_at DESC);
     CREATE INDEX IF NOT EXISTS idx_audit_events_type ON audit_events(event_type, created_at DESC);
+    CREATE INDEX IF NOT EXISTS idx_audit_events_created_at_id ON audit_events(created_at DESC, id DESC);
+    CREATE INDEX IF NOT EXISTS idx_audit_events_email_created_at_id ON audit_events(email, created_at DESC, id DESC);
+    CREATE INDEX IF NOT EXISTS idx_audit_events_case_id_created_at_id ON audit_events(case_id, created_at DESC, id DESC);
 
     CREATE TABLE IF NOT EXISTS jobs (
       job_id TEXT PRIMARY KEY,
@@ -178,6 +181,7 @@ function createSchema(db) {
 
     CREATE INDEX IF NOT EXISTS idx_jobs_status ON jobs(status, created_at);
     CREATE INDEX IF NOT EXISTS idx_jobs_email ON jobs(email, created_at DESC);
+    CREATE INDEX IF NOT EXISTS idx_jobs_status_created_at_job_id ON jobs(status, created_at ASC, job_id ASC);
 
     CREATE TABLE IF NOT EXISTS stored_files (
       file_id TEXT PRIMARY KEY,
@@ -196,6 +200,7 @@ function createSchema(db) {
 
     CREATE INDEX IF NOT EXISTS idx_stored_files_case_id ON stored_files(case_id, created_at DESC);
     CREATE INDEX IF NOT EXISTS idx_stored_files_email ON stored_files(email, created_at DESC);
+    CREATE INDEX IF NOT EXISTS idx_cases_email_updated_at ON cases(email, updated_at DESC);
   `);
 }
 

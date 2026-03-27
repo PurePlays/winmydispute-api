@@ -208,7 +208,7 @@ export async function saveCaseVersion({
 export async function loadCaseMetadataForEmail(email) {
   const normalizedEmail = normalizeEmail(email);
   const rows = getDatabase()
-    .prepare('SELECT * FROM cases WHERE email = ? ORDER BY datetime(updated_at) DESC')
+    .prepare('SELECT * FROM cases WHERE email = ? ORDER BY updated_at DESC')
     .all(normalizedEmail);
 
   return rows.map(buildCaseSummary);
@@ -228,7 +228,7 @@ export async function loadCaseById(caseId) {
       SELECT version_id, created_at, stage, source, notes
       FROM case_versions
       WHERE case_id = ?
-      ORDER BY datetime(created_at) DESC
+      ORDER BY created_at DESC
     `)
     .all(caseId)
     .map(row => ({

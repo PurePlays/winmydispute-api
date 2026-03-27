@@ -58,7 +58,7 @@ async function processPendingJobs() {
                created_at, updated_at, started_at, completed_at
         FROM jobs
         WHERE status = 'pending'
-        ORDER BY datetime(created_at) ASC, job_id ASC
+        ORDER BY created_at ASC, job_id ASC
         LIMIT 1
       `).get();
 
