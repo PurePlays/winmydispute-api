@@ -52,7 +52,7 @@ const authFromToken = (req, _res, next) => {
 dotenv.config();
 
 Sentry.init({
-  dsn: process.env.SENTRY_DSN,
+  dsn: process.env.SENTRY_DSN?.trim() || undefined,
   tracesSampleRate: 1.0, // Capture 100% of transactions for performance monitoring
   sendDefaultPii: false, // Avoid sending PII unless required
   environment: process.env.NODE_ENV || 'development'

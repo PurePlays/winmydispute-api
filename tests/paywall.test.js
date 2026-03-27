@@ -203,6 +203,79 @@ test('schema metadata is available even before disputeSchema.json is generated',
   assert.ok(response.body.binCount > 0);
 });
 
+test('intake normalization standardizes messy dates and amounts for GPT follow-up', async () => {
+  const response = await request(app)
+    .post('/api/v1/intake/normalize')
+    .set(authHeader())
+    .send({
+      network: 'visa',
+      issuer: 'Chase',
+      merchant: 'Netflix',
+      date: '03/01/2026',
+      amount: '1,234.56',
+      description: 'i cancld the subscrption before renewel but they chargd me again'
+    });
+
+  assert.equal(response.status, 200);
+  assert.equal(response.body.normalizedIntake.transactionDateIso, '2026-03-01');
+  assert.equal(response.body.normalizedIntake.transactionAmountValue, 1234.56);
+  assert.equal(response.body.normalizedIntake.merchantVertical, 'subscription');
+  assert.equal(response.body.reasonMatch.reasonCode, '13.2');
+  assert.ok(Array.isArray(response.body.normalizationNotes));
+});
+
+test('issuer profile returns richer filing guidance for GPT orchestration', async () => {
+  const response = await request(app)
+    .get('/api/v1/issuers/Chase/profile')
+    .set(authHeader());
+
+  assert.equal(response.status, 200);
+  assert.equal(response.body.issuer, 'Chase');
+  assert.match(response.body.contact.mailingAddress, /Wilmington/i);
+  assert.ok(response.body.preferredSubmissionChannels.includes('online account'));
+  assert.ok(response.body.evidenceExamples.includes('receipts'));
+});
+
+test('reason search returns ranked matches for faster GPT tool use', async () => {
+  const response = await request(app)
+    .get('/api/v1/reasons/search')
+    .set(authHeader())
+    .query({
+      network: 'visa',
+      query: 'canceled subscription renewed anyway',
+      limit: 3
+    });
+
+  assert.equal(response.status, 200);
+  assert.equal(response.body.query, 'canceled subscription renewed anyway');
+  assert.equal(response.body.network, 'visa');
+  assert.ok(Array.isArray(response.body.results));
+  assert.ok(response.body.results.length > 0);
+  assert.equal(response.body.results[0].reasonCode, '13.2');
+});
+
+test('evidence quality scoring highlights missing proof before filing', async () => {
+  const response = await request(app)
+    .post('/api/v1/evidence/quality-score')
+    .set(authHeader())
+    .send({
+      network: 'visa',
+      issuer: 'Chase',
+      merchantName: 'Netflix',
+      transactionDate: '03/01/2026',
+      transactionAmount: '1,234.56',
+      description: 'I canceled before renewal but they charged me again.',
+      evidenceItems: ['Cancellation email', 'Account screenshot'],
+      timelineItems: ['02/25 canceled service', '03/01 charge posted']
+    });
+
+  assert.equal(response.status, 200);
+  assert.equal(response.body.reasonCode, '13.2');
+  assert.ok(response.body.evidenceQualityScore >= 60);
+  assert.ok(Array.isArray(response.body.recommendedEvidence));
+  assert.ok(Array.isArray(response.body.missingPriorityEvidence));
+});
+
 test('bin lookup returns canonical metadata from the configured bin store', async () => {
   const response = await request(app).get('/api/v1/bins/414720');
 

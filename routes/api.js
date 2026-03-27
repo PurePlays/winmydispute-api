@@ -15,6 +15,12 @@ import {
   generateCfpbComplaintSummary
 } from '../services/disputeService.js';
 import { recordOutcomeFeedback } from '../services/outcomeFeedbackService.js';
+import {
+  getIssuerProfile,
+  normalizeDisputeIntakePayload,
+  scoreEvidenceQuality,
+  searchReasonProfiles
+} from '../services/gptAssistService.js';
 
 const router = express.Router();
 
@@ -25,6 +31,14 @@ const writeLimiter = createRateLimit({
   keyFn: req => req.body?.email || req.ip || 'anonymous',
   envMax: process.env.API_WRITE_RATE_LIMIT_MAX,
   envWindowMs: process.env.API_WRITE_RATE_LIMIT_WINDOW_MS
+});
+const readLimiter = createRateLimit({
+  name: 'api-read',
+  max: 240,
+  windowMs: 60 * 1000,
+  keyFn: req => req.query?.email || req.ip || 'anonymous',
+  envMax: process.env.API_READ_RATE_LIMIT_MAX,
+  envWindowMs: process.env.API_READ_RATE_LIMIT_WINDOW_MS
 });
 
 function ensureJsonObject(req, res) {
@@ -56,22 +70,66 @@ router.get('/api/v1/bins/:bin', asyncHandler(async (req, res) => {
 }));
 
 // GET /api/v1/issuers/:issuer/contact - get issuer contact info
-router.get('/api/v1/issuers/:issuer/contact', asyncHandler(async (req, res) => {
+router.get('/api/v1/issuers/:issuer/contact', readLimiter, asyncHandler(async (req, res) => {
   const contact = await getIssuerContact(req.params.issuer);
   res.json(contact);
 }));
 
+router.get('/api/v1/issuers/:issuer/profile', verifyOpenAIBearer, readLimiter, asyncHandler(async (req, res) => {
+  const profile = getIssuerProfile(req.params.issuer);
+  if (!profile) {
+    return res.status(404).json({
+      error: 'Issuer profile not found',
+      requestId: req.requestId || null
+    });
+  }
+
+  return res.json(profile);
+}));
+
 // GET /api/v1/reasons/lookup?network=&scenario= - suggest reason code
-router.get('/api/v1/reasons/lookup', asyncHandler(async (req, res) => {
+router.get('/api/v1/reasons/lookup', readLimiter, asyncHandler(async (req, res) => {
   const { network, scenario } = req.query;
   const reason = await lookupReasonCodeByScenario(network, scenario);
   res.json(reason);
 }));
 
+router.get('/api/v1/reasons/search', verifyOpenAIBearer, readLimiter, asyncHandler(async (req, res) => {
+  const query = String(req.query.query || '').trim();
+  const network = String(req.query.network || '').trim();
+  const limit = Number(req.query.limit || 8);
+
+  if (query.length < 2) {
+    return res.status(400).json({
+      error: 'query must be at least 2 characters',
+      requestId: req.requestId || null
+    });
+  }
+
+  return res.json({
+    query,
+    network: network || null,
+    results: searchReasonProfiles({ query, network, limit }),
+    requestId: req.requestId || null
+  });
+}));
+
 // GET /api/v1/reasons/:network/:code - get reason code details
-router.get('/api/v1/reasons/:network/:code', asyncHandler(async (req, res) => {
+router.get('/api/v1/reasons/:network/:code', readLimiter, asyncHandler(async (req, res) => {
   const details = await getReasonCodeDetails(req.params.network, req.params.code);
   res.json(details);
+}));
+
+router.post('/api/v1/intake/normalize', verifyOpenAIBearer, readLimiter, asyncHandler(async (req, res) => {
+  const body = ensureJsonObject(req, res);
+  if (!body) {
+    return;
+  }
+
+  return res.json({
+    ...normalizeDisputeIntakePayload(body),
+    requestId: req.requestId || null
+  });
 }));
 
 // POST /api/v1/builder/evidence-packet - build evidence checklist
@@ -83,6 +141,18 @@ router.post('/api/v1/builder/evidence-packet', verifyOpenAIBearer, writeLimiter,
 
   const packet = await buildEvidencePacket(body);
   res.json(packet);
+}));
+
+router.post('/api/v1/evidence/quality-score', verifyOpenAIBearer, writeLimiter, asyncHandler(async (req, res) => {
+  const body = ensureJsonObject(req, res);
+  if (!body) {
+    return;
+  }
+
+  return res.json({
+    ...scoreEvidenceQuality(body),
+    requestId: req.requestId || null
+  });
 }));
 
 // POST /api/v1/letter/generate - generate dispute letter (JSON)

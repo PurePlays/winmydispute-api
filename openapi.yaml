@@ -16,16 +16,19 @@ info:
     url: https://pure-plays.com/terms
 
 servers:
-  - url: https://winmydispute-api.onrender.com
-    description: Live Render deployment
-  - url: https://pure-plays.com
+  - url: https://api.pure-plays.com
     description: Production custom domain
+  - url: https://winmydispute-api.onrender.com
+    description: Render deployment
   - url: http://localhost:3000
     description: Local development
 
 tags:
   - name: health
   - name: disputes
+  - name: issuers
+  - name: reasons
+  - name: intake
   - name: billing
   - name: auth
   - name: analytics
@@ -59,6 +62,37 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SchemaMeta"
+
+  /api/v1/intake/normalize:
+    post:
+      tags: [intake]
+      summary: Normalize messy intake into canonical API fields
+      description: |
+        Helps the GPT turn inconsistent customer answers into the API's canonical
+        structure. The endpoint normalizes flexible date and amount formats, infers
+        merchant vertical when possible, and returns missing fields plus a likely
+        reason-code match for follow-up questions.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DisputeInput"
+      responses:
+        "200":
+          description: Normalized intake and follow-up guidance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NormalizedIntakeResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
 
   /api/v1/disputes/preview:
     post:
@@ -192,6 +226,78 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/LicenseCheckResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+
+  /api/v1/issuers/{issuer}/profile:
+    get:
+      tags: [issuers]
+      summary: Return richer issuer filing guidance and profile data
+      parameters:
+        - name: issuer
+          in: path
+          required: true
+          schema:
+            type: string
+          example: Chase
+      responses:
+        "200":
+          description: Issuer profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IssuerProfile"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          description: Issuer profile not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+
+  /api/v1/reasons/search:
+    get:
+      tags: [reasons]
+      summary: Search reason-code profiles by natural language query
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+          example: canceled subscription renewed anyway
+        - name: network
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [visa, mastercard, amex, discover]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 20
+            default: 8
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReasonSearchResponse"
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -517,6 +623,41 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UpgradeRequiredResponse"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+
+  /api/v1/evidence/quality-score:
+    post:
+      tags: [disputes]
+      summary: Score how submission-ready the current evidence package is
+      description: |
+        Gives the GPT a structured readiness check before premium generation or filing.
+        The endpoint scores evidence completeness, compares provided material to the
+        strongest expected evidence, and returns the highest-priority missing items.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/DisputeInput"
+                - type: object
+                  properties:
+                    reasonCode:
+                      type: string
+      responses:
+        "200":
+          description: Evidence-quality summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EvidenceQualityScoreResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
         "429":
           $ref: "#/components/responses/TooManyRequests"
 
@@ -897,6 +1038,163 @@ components:
           example: true
       required: [description]
 
+    NormalizedIntake:
+      type: object
+      properties:
+        caseId:
+          type: string
+        email:
+          type: string
+          format: email
+          nullable: true
+        network:
+          type: string
+          nullable: true
+        issuer:
+          type: string
+        merchantName:
+          type: string
+        merchantVertical:
+          type: string
+          nullable: true
+        transactionAmount:
+          type: string
+        transactionAmountValue:
+          type: number
+          nullable: true
+        transactionDate:
+          type: string
+        transactionDateIso:
+          type: string
+          nullable: true
+        description:
+          type: string
+        evidenceSummary:
+          type: string
+        evidenceItems:
+          type: array
+          items:
+            type: string
+        timelineItems:
+          type: array
+          items:
+            type: string
+        merchantRebuttalConcerns:
+          type: array
+          items:
+            type: string
+        desiredOutcome:
+          type: string
+        tone:
+          type: string
+        lengthPreference:
+          type: string
+        outputFormat:
+          type: string
+        redactionMode:
+          type: string
+        includeRedactedVersion:
+          type: boolean
+      required:
+        - caseId
+        - network
+        - issuer
+        - merchantName
+        - transactionAmount
+        - transactionDate
+        - description
+        - evidenceItems
+        - timelineItems
+        - merchantRebuttalConcerns
+        - desiredOutcome
+        - tone
+        - lengthPreference
+        - outputFormat
+        - redactionMode
+        - includeRedactedVersion
+
+    NormalizedIntakeResponse:
+      type: object
+      properties:
+        normalizedIntake:
+          $ref: "#/components/schemas/NormalizedIntake"
+        missingFields:
+          type: array
+          items:
+            type: string
+        normalizationNotes:
+          type: array
+          items:
+            type: string
+        reasonMatch:
+          $ref: "#/components/schemas/ReasonMatchSummary"
+        requestId:
+          type: string
+          format: uuid
+          nullable: true
+      required: [normalizedIntake, missingFields, normalizationNotes, reasonMatch]
+
+    ReasonMatchSummary:
+      type: object
+      properties:
+        reasonCode:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        network:
+          type: string
+          nullable: true
+        confidence:
+          type: integer
+      required: [reasonCode, title, description, network, confidence]
+
+    ReasonSearchResult:
+      type: object
+      properties:
+        network:
+          type: string
+        reasonCode:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        strategyTips:
+          type: array
+          items:
+            type: string
+        evidenceRequirements:
+          type: array
+          items:
+            type: string
+        score:
+          type: integer
+      required: [network, reasonCode, title, strategyTips, evidenceRequirements, score]
+
+    ReasonSearchResponse:
+      type: object
+      properties:
+        query:
+          type: string
+        network:
+          type: string
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReasonSearchResult"
+        requestId:
+          type: string
+          format: uuid
+          nullable: true
+      required: [query, network, results]
+
     PreviewResponse:
       type: object
       properties:
@@ -942,6 +1240,42 @@ components:
             - evidence-checklist
             - cfpb-summary
       required: [reasonCode, network, confidence, confidenceNote, previewTip, successEstimate, reviewFlags, upgradeRequired, premiumFeatures]
+
+    IssuerProfile:
+      type: object
+      properties:
+        issuer:
+          type: string
+        aliases:
+          type: array
+          items:
+            type: string
+        supportedNetworks:
+          type: array
+          items:
+            type: string
+        contact:
+          $ref: "#/components/schemas/IssuerGuidance"
+        notes:
+          type: array
+          items:
+            type: string
+        evidenceExamples:
+          type: array
+          items:
+            type: string
+        preferredSubmissionChannels:
+          type: array
+          items:
+            type: string
+      required:
+        - issuer
+        - aliases
+        - supportedNetworks
+        - contact
+        - notes
+        - evidenceExamples
+        - preferredSubmissionChannels
 
     ReviewFlag:
       type: object
@@ -1279,6 +1613,62 @@ components:
         caseVersion:
           $ref: "#/components/schemas/CaseVersion"
       required: [email, extractedCount, files, combined, exhibitPacket, storedFiles, caseFile, caseVersion]
+
+    EvidenceQualityScoreResponse:
+      type: object
+      properties:
+        reasonCode:
+          type: string
+          nullable: true
+        reasonTitle:
+          type: string
+          nullable: true
+        merchantVertical:
+          type: string
+          nullable: true
+        evidenceQualityScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        readinessLevel:
+          type: string
+          enum: [strong, good, needs-more-evidence, thin]
+        providedEvidenceCount:
+          type: integer
+        timelineItemCount:
+          type: integer
+        recommendedEvidence:
+          type: array
+          items:
+            type: string
+        coveredRecommendations:
+          type: array
+          items:
+            type: string
+        missingPriorityEvidence:
+          type: array
+          items:
+            type: string
+        warnings:
+          type: array
+          items:
+            type: string
+        requestId:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+        - reasonCode
+        - reasonTitle
+        - merchantVertical
+        - evidenceQualityScore
+        - readinessLevel
+        - providedEvidenceCount
+        - timelineItemCount
+        - recommendedEvidence
+        - coveredRecommendations
+        - missingPriorityEvidence
+        - warnings
 
     StoredFileSummary:
       type: object
