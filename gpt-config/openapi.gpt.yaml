@@ -95,6 +95,7 @@ paths:
       tags:
       - billing
       summary: Create a Stripe Checkout session for the premium upgrade
+      description: Returns a fresh Stripe Checkout session and a session-specific checkout URL. The GPT should present the returned `url` exactly as received and save the returned `sessionId`.
       requestBody:
         required: true
         content:
@@ -128,6 +129,7 @@ paths:
       tags:
       - auth
       summary: Check whether an email has premium access
+      description: Use this before premium endpoints. If `licensed` is false, call createCheckoutSession. If a matching paid `sessionId` is provided, the response can return a `premiumAccessToken` for later premium requests.
       parameters:
       - name: email
         in: query
@@ -202,6 +204,7 @@ paths:
       tags:
       - reasons
       summary: Search reason-code profiles by natural language query
+      description: Use this instead of guessing when the user asks for matching reason codes or comparable reason-code options.
       parameters:
       - name: query
         in: query
@@ -513,7 +516,7 @@ paths:
       tags:
       - disputes
       summary: Extract structured evidence from uploaded files
-      description: Requires a paid email plus a premium token or matching Stripe session ID. Accepts multipart uploads and returns extracted text, structured evidence, rebuttal concerns, timeline items, and exhibit-ready file summaries.
+      description: Requires a paid email plus a premium token or matching Stripe session ID. Returns extracted text, evidence items, timeline items, rebuttal concerns, and exhibit-ready file summaries from uploads.
       requestBody:
         required: true
         content:
