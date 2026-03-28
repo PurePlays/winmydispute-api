@@ -513,13 +513,7 @@ paths:
       tags:
       - disputes
       summary: Extract structured evidence from uploaded files
-      description: |
-        Premium endpoint for evidence ingestion. Requires a paid email license plus either a signed
-        premium access token or the matching Stripe checkout session ID. Accepts multipart uploads and returns structured
-        evidence items, timeline entries, rebuttal concerns, extracted text, and a combined summary.
-        Text-like files are parsed directly, PDFs are parsed for embedded text when possible, and
-        image/PDF OCR uses the configured OCR provider when available. Uploaded files are also turned
-        into a labeled exhibit packet for downstream report generation.
+      description: Requires a paid email plus a premium token or matching Stripe session ID. Accepts multipart uploads and returns extracted text, structured evidence, rebuttal concerns, timeline items, and exhibit-ready file summaries.
       requestBody:
         required: true
         content:
