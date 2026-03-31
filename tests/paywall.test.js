@@ -271,6 +271,15 @@ test('schema metadata is available even before disputeSchema.json is generated',
   assert.ok(response.body.binCount > 0);
 });
 
+test('GPT schema endpoint exposes cross-origin headers for builder URL imports', async () => {
+  const response = await request(app).get('/openapi.gpt.yaml');
+
+  assert.equal(response.status, 200);
+  assert.match(response.headers['content-type'], /^text\/yaml\b/i);
+  assert.equal(response.headers['access-control-allow-origin'], '*');
+  assert.equal(response.headers['cross-origin-resource-policy'], 'cross-origin');
+});
+
 test('intake normalization standardizes messy dates and amounts for GPT follow-up', async () => {
   const response = await request(app)
     .post('/api/v1/intake/normalize')
@@ -495,9 +504,9 @@ test('checkout creates a Stripe URL for a valid unpaid email', async () => {
   assert.deepEqual(lastCheckoutPayload.line_items[0].price_data.product_data.images, ['https://example.test/stripe-product.png']);
 });
 
-test('checkout ignores an invalid product image url instead of failing session creation', async () => {
+test('checkout ignores a non-direct product image url instead of failing session creation', async () => {
   const originalImageUrl = process.env.CHECKOUT_PRODUCT_IMAGE_URL;
-  process.env.CHECKOUT_PRODUCT_IMAGE_URL = 'not-a-valid-url';
+  process.env.CHECKOUT_PRODUCT_IMAGE_URL = 'https://stripe-camo.global.ssl.fastly.net/opaque-image-proxy';
 
   try {
     const response = await request(app)

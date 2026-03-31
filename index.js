@@ -142,8 +142,18 @@ app.get('/.well-known/security.txt', (_req, res) => res.type('text/plain').send(
 ].join('\n')));
 
 // ─── Serve OpenAPI Spec ───────────────────────────────────────────────────────
-app.get('/openapi.yaml', (_req, res) => res.sendFile(path.join(__dirname, 'openapi.yaml')));
-app.get('/openapi.gpt.yaml', (_req, res) => res.sendFile(path.join(__dirname, 'gpt-config', 'openapi.gpt.yaml')));
+function sendSchemaFile(res, filePath) {
+  res.set({
+    'Content-Type': 'text/yaml; charset=UTF-8',
+    'Access-Control-Allow-Origin': '*',
+    'Cross-Origin-Resource-Policy': 'cross-origin'
+  });
+
+  return res.sendFile(filePath);
+}
+
+app.get('/openapi.yaml', (_req, res) => sendSchemaFile(res, path.join(__dirname, 'openapi.yaml')));
+app.get('/openapi.gpt.yaml', (_req, res) => sendSchemaFile(res, path.join(__dirname, 'gpt-config', 'openapi.gpt.yaml')));
 
 // ─── Health Check ─────────────────────────────────────────────────────────────
 app.get('/health', (_req, res) => {

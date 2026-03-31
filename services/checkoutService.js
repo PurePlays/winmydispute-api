@@ -31,6 +31,20 @@ function isValidPublicUrl(value) {
   }
 }
 
+function looksLikeDirectImageUrl(value) {
+  const normalized = normalizeText(value);
+  if (!isValidPublicUrl(normalized)) {
+    return false;
+  }
+
+  try {
+    const parsed = new URL(normalized);
+    return /\.(png|jpe?g|gif|webp|avif|svg)$/i.test(parsed.pathname);
+  } catch {
+    return false;
+  }
+}
+
 function getValidatedBaseUrl() {
   const normalized = normalizeText(process.env.BASE_URL);
   if (!isValidPublicUrl(normalized)) {
@@ -48,7 +62,7 @@ function buildCheckoutProductData() {
   };
 
   const imageUrl = normalizeText(process.env.CHECKOUT_PRODUCT_IMAGE_URL);
-  if (isValidPublicUrl(imageUrl)) {
+  if (looksLikeDirectImageUrl(imageUrl)) {
     productData.images = [imageUrl];
   }
 
