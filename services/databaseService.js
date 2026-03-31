@@ -201,6 +201,31 @@ function createSchema(db) {
     CREATE INDEX IF NOT EXISTS idx_stored_files_case_id ON stored_files(case_id, created_at DESC);
     CREATE INDEX IF NOT EXISTS idx_stored_files_email ON stored_files(email, created_at DESC);
     CREATE INDEX IF NOT EXISTS idx_cases_email_updated_at ON cases(email, updated_at DESC);
+
+    CREATE TABLE IF NOT EXISTS bin_metadata (
+      bin TEXT PRIMARY KEY,
+      network TEXT,
+      raw_brand TEXT,
+      issuer TEXT,
+      issuer_phone TEXT,
+      issuer_url TEXT,
+      card_type TEXT,
+      card_sub_type TEXT,
+      country TEXT,
+      country_code3 TEXT,
+      country_name TEXT,
+      source_kind TEXT NOT NULL,
+      loaded_at TEXT NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_bin_metadata_network ON bin_metadata(network);
+
+    CREATE TABLE IF NOT EXISTS bin_usage_stats (
+      bin TEXT PRIMARY KEY,
+      lookup_count INTEGER NOT NULL DEFAULT 0,
+      last_accessed_at TEXT NOT NULL,
+      FOREIGN KEY(bin) REFERENCES bin_metadata(bin) ON DELETE CASCADE
+    );
   `);
 }
 
