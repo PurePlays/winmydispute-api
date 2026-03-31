@@ -3,6 +3,7 @@ import JSZip from 'jszip';
 import { createSignedArtifactAccess } from './artifactAccessService.js';
 import { getStoredFilesByIds, storeBuffer } from './fileStorageService.js';
 import { createPremiumReportDocument } from './reportDocumentService.js';
+import { applyRedactionToCase } from './redactionService.js';
 
 function normalizeText(value = '') {
   return String(value || '').trim();
@@ -28,6 +29,29 @@ function buildExhibitIndexText(premium = {}) {
   ].join('\n');
 }
 
+function buildCaseSummaryPayload(intake = {}, premium = {}) {
+  return {
+    intake,
+    premium: {
+      email: premium.email,
+      reasonCode: premium.reasonCode,
+      network: premium.network,
+      merchantVertical: premium.merchantVertical,
+      successEstimate: premium.successEstimate,
+      reviewFlags: premium.reviewFlags,
+      filingReadiness: premium.filingReadiness,
+      documentPreferences: premium.documentPreferences
+    }
+  };
+}
+
+function normalizeRedactionMode(value = '') {
+  const mode = String(value || '').trim().toLowerCase();
+  if (mode === 'strict') return 'strict';
+  if (mode === 'standard' || mode === 'redacted') return 'standard';
+  return 'none';
+}
+
 export async function createSubmissionBundle({ intake, premium, format = 'pdf' }) {
   const document = await createPremiumReportDocument({ intake, premium, format });
   const artifacts = Array.isArray(document.artifacts) && document.artifacts.length > 0
@@ -49,17 +73,17 @@ export async function createSubmissionBundle({ intake, premium, format = 'pdf' }
 
   zip.file('submission-plan.txt', `${buildSubmissionPlanText(premium)}\n`);
   zip.file('exhibit-index.txt', `${buildExhibitIndexText(premium)}\n`);
-  zip.file('case-summary.json', `${JSON.stringify({
-    intake,
-    premium: {
-      email: premium.email,
-      reasonCode: premium.reasonCode,
-      network: premium.network,
-      merchantVertical: premium.merchantVertical,
-      successEstimate: premium.successEstimate,
-      reviewFlags: premium.reviewFlags
-    }
-  }, null, 2)}\n`);
+  zip.file('case-summary.json', `${JSON.stringify(buildCaseSummaryPayload(intake, premium), null, 2)}\n`);
+
+  const requestedRedactionMode = normalizeRedactionMode(intake?.redactionMode || 'none');
+  if (document.includeRedactedVersion || requestedRedactionMode !== 'none') {
+    const redactedMode = requestedRedactionMode === 'none' ? 'standard' : requestedRedactionMode;
+    const redacted = applyRedactionToCase({ intake, premium, mode: redactedMode });
+    zip.file('case-summary-redacted.json', `${JSON.stringify(buildCaseSummaryPayload({
+      ...redacted.intake,
+      redactionMode: redactedMode
+    }, redacted.premium), null, 2)}\n`);
+  }
 
   const bundleFilename = `winmydispute-submission-bundle-${Date.now()}.zip`;
   const bundleBuffer = await zip.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' });
@@ -89,7 +113,8 @@ export async function createSubmissionBundle({ intake, premium, format = 'pdf' }
       ...artifacts.map(artifact => artifact.filename),
       'submission-plan.txt',
       'exhibit-index.txt',
-      'case-summary.json'
+      'case-summary.json',
+      ...(document.includeRedactedVersion || requestedRedactionMode !== 'none' ? ['case-summary-redacted.json'] : [])
     ],
     sourceArtifacts: artifacts.map(artifact => ({
       filename: artifact.filename,

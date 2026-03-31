@@ -126,6 +126,45 @@ function buildExhibitSummary(packet = null) {
   return `${packet.providedCount || 0} provided exhibits, ${packet.suggestedCount || 0} suggested exhibits.`;
 }
 
+function buildReviewFlagLines(flags = []) {
+  if (!Array.isArray(flags) || flags.length === 0) {
+    return ['No active review flags.'];
+  }
+
+  return flags.map(flag => {
+    if (!flag || typeof flag !== 'object') {
+      return String(flag || '');
+    }
+
+    const severity = String(flag.severity || 'info').toUpperCase();
+    const message = String(flag.message || '').trim();
+    const recommendation = String(flag.recommendation || '').trim();
+    return recommendation
+      ? `${severity}: ${message} Recommendation: ${recommendation}`
+      : `${severity}: ${message}`;
+  }).filter(Boolean);
+}
+
+function buildReadinessLines(readiness = {}) {
+  if (!readiness || typeof readiness !== 'object') {
+    return ['Readiness data is not available.'];
+  }
+
+  const lines = [
+    `Ready for submission: ${readiness.readyForSubmission ? 'Yes' : 'No'}`,
+    `Readiness level: ${String(readiness.readinessLevel || 'unknown')}`,
+    String(readiness.summary || '').trim(),
+    readiness.recommendedNextAction ? `Recommended next action: ${readiness.recommendedNextAction}` : null,
+    readiness.recommendedSubmissionChannel ? `Recommended submission channel: ${readiness.recommendedSubmissionChannel}` : null
+  ].filter(Boolean);
+
+  const blockers = asArray(readiness.blockers).map(item => `Blocker: ${item}`);
+  const missing = asArray(readiness.missingCriticalItems).map(item => `Missing critical item: ${item}`);
+  const strongestSignals = asArray(readiness.strongestSignals).map(item => `Strong signal: ${item}`);
+
+  return [...lines, ...blockers, ...missing, ...strongestSignals];
+}
+
 function buildDocxDocument({ intake, premium }) {
   return new Document({
     sections: [
@@ -189,6 +228,10 @@ function buildDocxDocument({ intake, premium }) {
           ...bulletParagraphs((premium.submissionPlan?.steps || []).map(step => `${step.order}. ${step.title}: ${step.description}`)),
           subHeading('Quality Checks'),
           ...bulletParagraphs(premium.submissionPlan?.qualityChecks || []),
+          sectionHeading('Filing Readiness'),
+          ...bulletParagraphs(buildReadinessLines(premium.filingReadiness)),
+          sectionHeading('Review Flags'),
+          ...bulletParagraphs(buildReviewFlagLines(premium.reviewFlags)),
           sectionHeading('Dispute Letter'),
           ...String(premium.letter || '')
             .split('\n')
@@ -294,6 +337,16 @@ function buildReportHtml({ intake, premium }) {
     ${buildList(premium.submissionPlan?.qualityChecks || [])}
   </div>
 
+  <h2>Filing Readiness</h2>
+  <div class="card">
+    ${buildList(buildReadinessLines(premium.filingReadiness))}
+  </div>
+
+  <h2>Review Flags</h2>
+  <div class="card">
+    ${buildList(buildReviewFlagLines(premium.reviewFlags))}
+  </div>
+
   <h2>Dispute Letter</h2>
   <div class="letter">${escapeHtml(premium.letter || '')}</div>
 
@@ -345,6 +398,12 @@ function buildRtf({ intake, premium }) {
     ...(premium.submissionPlan?.steps || []).map(step => `- ${escapeRtf(`${step.order}. ${step.title}: ${step.description}`)}\\par`),
     ...(premium.submissionPlan?.qualityChecks || []).map(item => `- ${escapeRtf(item)}\\par`),
     '\\par',
+    '\\b Filing Readiness\\b0\\par',
+    ...buildReadinessLines(premium.filingReadiness).map(item => `${escapeRtf(item)}\\par`),
+    '\\par',
+    '\\b Review Flags\\b0\\par',
+    ...buildReviewFlagLines(premium.reviewFlags).map(item => `${escapeRtf(item)}\\par`),
+    '\\par',
     '\\b Dispute Letter\\b0\\par',
     `${escapeRtf(premium.letter || '')}\\par`,
     '\\par',
@@ -365,6 +424,12 @@ function buildTextReport({ intake, premium }) {
     `Amount: ${intake.transactionAmount || ''}`,
     `Transaction Date: ${intake.transactionDateIso || intake.transactionDate || ''}`,
     `Privacy Mode: ${intake.redactionMode || 'none'}`,
+    '',
+    'Filing Readiness:',
+    ...buildReadinessLines(premium.filingReadiness),
+    '',
+    'Review Flags:',
+    ...buildReviewFlagLines(premium.reviewFlags),
     '',
     'Exhibit Index:',
     ...(premium.exhibitPacket?.exhibitIndex || ['No exhibit packet available.']),

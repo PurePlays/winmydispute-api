@@ -4,6 +4,7 @@ import fs from 'fs/promises';
 import os from 'os';
 import path from 'path';
 import request from 'supertest';
+import JSZip from 'jszip';
 
 const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'winmydispute-tests-'));
 const licensesFile = path.join(tempRoot, 'licenses.json');
@@ -51,6 +52,7 @@ const {
   loadCaseMetadataForEmail,
   resetCaseFilesForTesting
 } = await import('../services/caseFileService.js');
+const { getStoredFile } = await import('../services/fileStorageService.js');
 const {
   resetEvidenceAiClientForTesting,
   setEvidenceAiClientForTesting
@@ -876,6 +878,8 @@ test('report generation can return both full and redacted artifacts for shareabl
   assert.equal(redactedDownload.status, 200);
   assert.match(redactedDownload.text, /\[REDACTED_PHONE\]/);
   assert.match(redactedDownload.text, /\[REDACTED_ADDRESS\]/);
+  assert.match(redactedDownload.text, /Filing Readiness:/);
+  assert.match(redactedDownload.text, /Review Flags:/);
 });
 
 test('evidence extraction returns 402 plus checkout URL when unpaid', async () => {
@@ -1007,6 +1011,19 @@ test('submission bundle generation returns a zip package with bundle metadata', 
   const download = await request(app).get(response.body.url);
   assert.equal(download.status, 200);
   assert.equal(download.headers['content-type'], 'application/zip');
+
+  const storedBundle = await getStoredFile(response.body.fileId);
+  const zipBuffer = await fs.readFile(storedBundle.storagePath);
+  const zip = await JSZip.loadAsync(zipBuffer);
+  const bundleItems = Object.keys(zip.files);
+  assert.ok(bundleItems.includes('case-summary-redacted.json'));
+
+  const redactedCaseSummary = JSON.parse(await zip.file('case-summary-redacted.json').async('string'));
+  assert.equal(redactedCaseSummary.intake.email, '[REDACTED_EMAIL]');
+  assert.equal(redactedCaseSummary.intake.phone, '[REDACTED_PHONE]');
+  assert.equal(redactedCaseSummary.intake.addressLine1, '[REDACTED_ADDRESS]');
+  assert.equal(typeof redactedCaseSummary.premium.filingReadiness.readyForSubmission, 'boolean');
+  assert.equal(typeof redactedCaseSummary.premium.filingReadiness.readinessLevel, 'string');
 });
 
 test('denial response endpoint generates a reconsideration package', async () => {
