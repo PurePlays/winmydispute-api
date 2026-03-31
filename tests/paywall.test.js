@@ -246,6 +246,22 @@ test('health endpoint degrades when the dedicated artifact signing secret is mis
   }
 });
 
+test('health endpoint degrades when BASE_URL is not a valid public url', async () => {
+  const originalBaseUrl = process.env.BASE_URL;
+  process.env.BASE_URL = 'not-a-valid-url';
+
+  try {
+    const response = await request(app).get('/health');
+
+    assert.equal(response.status, 200);
+    assert.equal(response.body.status, 'degraded');
+    assert.equal(response.body.configuration.status, 'missing-required-env');
+    assert.ok(response.body.configuration.missing.includes('BASE_URL'));
+  } finally {
+    process.env.BASE_URL = originalBaseUrl;
+  }
+});
+
 test('schema metadata is available even before disputeSchema.json is generated', async () => {
   const response = await request(app).get('/api/v1/meta/schema');
 
@@ -477,6 +493,29 @@ test('checkout creates a Stripe URL for a valid unpaid email', async () => {
   assert.match(lastCheckoutPayload.line_items[0].price_data.product_data.description, /One-time unlock for the full WinMyDispute premium kit/i);
   assert.equal(lastCheckoutPayload.line_items[0].price_data.product_data.unit_label, 'Dispute kit');
   assert.deepEqual(lastCheckoutPayload.line_items[0].price_data.product_data.images, ['https://example.test/stripe-product.png']);
+});
+
+test('checkout ignores an invalid product image url instead of failing session creation', async () => {
+  const originalImageUrl = process.env.CHECKOUT_PRODUCT_IMAGE_URL;
+  process.env.CHECKOUT_PRODUCT_IMAGE_URL = 'not-a-valid-url';
+
+  try {
+    const response = await request(app)
+      .post('/api/v1/create-checkout-session')
+      .set(authHeader())
+      .send({
+        email: 'bad-image@example.com',
+        source: 'gpt',
+        intent: 'full-dispute-kit'
+      });
+
+    assert.equal(response.status, 200);
+    assert.match(response.body.sessionId, /^cs_test_/);
+    assert.match(response.body.url, /^https:\/\/checkout\.stripe\.com\/pay\//);
+    assert.equal(lastCheckoutPayload.line_items[0].price_data.product_data.images, undefined);
+  } finally {
+    process.env.CHECKOUT_PRODUCT_IMAGE_URL = originalImageUrl;
+  }
 });
 
 test('checkout limiter returns 429 after repeated requests for the same email', async () => {

@@ -67,9 +67,23 @@ function hasValue(value) {
   return Boolean(String(value || '').trim());
 }
 
+function hasValidPublicUrl(value) {
+  const normalized = String(value || '').trim();
+  if (!normalized) {
+    return false;
+  }
+
+  try {
+    const parsed = new URL(normalized);
+    return ['http:', 'https:'].includes(parsed.protocol) && Boolean(parsed.hostname);
+  } catch {
+    return false;
+  }
+}
+
 function getMissingRequiredConfiguration() {
   const requiredChecks = [
-    { label: 'BASE_URL', present: hasValue(process.env.BASE_URL) },
+    { label: 'BASE_URL', present: hasValidPublicUrl(process.env.BASE_URL) },
     { label: 'STRIPE_SECRET_KEY', present: hasValue(process.env.STRIPE_SECRET_KEY) },
     { label: 'STRIPE_WEBHOOK_SECRET', present: hasValue(process.env.STRIPE_WEBHOOK_SECRET) },
     { label: 'ARTIFACT_TOKEN_SECRET', present: hasValue(process.env.ARTIFACT_TOKEN_SECRET) },

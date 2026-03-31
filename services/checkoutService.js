@@ -17,6 +17,29 @@ function normalizeText(value = '') {
   return String(value || '').trim();
 }
 
+function isValidPublicUrl(value) {
+  const normalized = normalizeText(value);
+  if (!normalized) {
+    return false;
+  }
+
+  try {
+    const parsed = new URL(normalized);
+    return ['http:', 'https:'].includes(parsed.protocol) && Boolean(parsed.hostname);
+  } catch {
+    return false;
+  }
+}
+
+function getValidatedBaseUrl() {
+  const normalized = normalizeText(process.env.BASE_URL);
+  if (!isValidPublicUrl(normalized)) {
+    throw new Error('Missing or invalid BASE_URL configuration.');
+  }
+
+  return normalized.replace(/\/+$/, '');
+}
+
 function buildCheckoutProductData() {
   const productData = {
     name: normalizeText(process.env.CHECKOUT_PRODUCT_NAME) || CHECKOUT_PRODUCT_NAME,
@@ -25,7 +48,7 @@ function buildCheckoutProductData() {
   };
 
   const imageUrl = normalizeText(process.env.CHECKOUT_PRODUCT_IMAGE_URL);
-  if (imageUrl) {
+  if (isValidPublicUrl(imageUrl)) {
     productData.images = [imageUrl];
   }
 
@@ -56,9 +79,7 @@ export function validateCheckoutPayload(input = {}) {
 }
 
 export async function createCheckoutSession({ email, source = LICENSE_SOURCE_GPT, intent = CHECKOUT_INTENT }) {
-  if (!process.env.BASE_URL) {
-    throw new Error('Missing BASE_URL configuration.');
-  }
+  const baseUrl = getValidatedBaseUrl();
 
   const existingLicense = await getLicenseByEmail(email);
   if (existingLicense?.status === 'paid') {
@@ -90,8 +111,8 @@ export async function createCheckoutSession({ email, source = LICENSE_SOURCE_GPT
       product: LICENSE_PRODUCT,
       amount: String(LICENSE_AMOUNT)
     },
-    success_url: `${process.env.BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.BASE_URL}/generate?canceled=true`
+    success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${baseUrl}/generate?canceled=true`
   });
 
   return {
