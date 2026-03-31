@@ -56,7 +56,38 @@ GET /health
 
 ## GPT Action Setup
 - Use the bearer token you configured in `OPENAI_BEARER` or one of the rotated tokens in `OPENAI_BEARERS_JSON`.
-- Keep the Custom GPT action spec in sync with [openapi.yaml](/Users/danielneville/Downloads/winmydispute-api-main/openapi.yaml).
+- Prefer `OPENAI_BEARERS_JSON` in production so the GPT token can be route-scoped instead of acting as one global bearer forever.
+- Example scoped bearer config for the Custom GPT:
+
+```json
+[
+  {
+    "tokenId": "winmydispute-gpt",
+    "token": "replace-with-a-strong-random-secret",
+    "allow": [
+      "GET /auth/check-license",
+      "GET /api/v1/issuers/:issuer/profile",
+      "GET /api/v1/reasons/search",
+      "GET /api/v1/cases",
+      "GET /api/v1/cases/:caseId",
+      "GET /api/v1/jobs/:jobId",
+      "POST /api/v1/intake/normalize",
+      "POST /api/v1/disputes/preview",
+      "POST /api/v1/create-checkout-session",
+      "POST /api/v1/generate-letter",
+      "POST /api/v1/generate-report-document",
+      "POST /api/v1/generate-submission-bundle",
+      "POST /api/v1/denials/respond",
+      "POST /api/v1/evidence/extract",
+      "POST /api/v1/evidence/quality-score",
+      "POST /api/v1/disputes/estimate-success",
+      "POST /api/v1/disputes/outcome-feedback"
+    ]
+  }
+]
+```
+
+- Keep the Custom GPT action spec in sync with [openapi.gpt.yaml](/Users/danielneville/Downloads/winmydispute-api-canonical/gpt-config/openapi.gpt.yaml).
 - Artifact download URLs are signed and expiring; if a link expires, regenerate the report or bundle from the saved case.
 
 ## Before Going Live

@@ -230,6 +230,44 @@ test('health endpoint returns request tracing and schema status', async () => {
   assert.ok(response.headers['x-request-id']);
 });
 
+test('scoped GPT bearer tokens are blocked from routes outside their allowlist', async () => {
+  const originalBearersJson = process.env.OPENAI_BEARERS_JSON;
+
+  process.env.OPENAI_BEARERS_JSON = JSON.stringify([
+    {
+      tokenId: 'scoped-gpt',
+      token: 'scoped-token',
+      allow: [
+        'GET /auth/check-license',
+        'POST /api/v1/disputes/preview'
+      ]
+    }
+  ]);
+
+  try {
+    const blocked = await request(app)
+      .post('/api/v1/create-checkout-session')
+      .set('Authorization', 'Bearer scoped-token')
+      .send({
+        email: 'scope@example.com',
+        source: 'gpt',
+        intent: 'full-dispute-kit'
+      });
+
+    assert.equal(blocked.status, 403);
+    assert.equal(blocked.body.error, 'Bearer token is not allowed to access this route');
+
+    const allowed = await request(app)
+      .get('/auth/check-license')
+      .set('Authorization', 'Bearer scoped-token')
+      .query({ email: 'scope@example.com' });
+
+    assert.equal(allowed.status, 200);
+  } finally {
+    process.env.OPENAI_BEARERS_JSON = originalBearersJson;
+  }
+});
+
 test('health endpoint degrades when the dedicated artifact signing secret is missing', async () => {
   const originalSecret = process.env.ARTIFACT_TOKEN_SECRET;
   delete process.env.ARTIFACT_TOKEN_SECRET;
