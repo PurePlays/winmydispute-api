@@ -25,60 +25,73 @@
 </head>
 <body>
   <h1>Privacy Policy</h1>
-  <p>Last updated: March 23, 2026</p>
+  <p>Last updated: April 2, 2026</p>
 
-  <h2>1. Introduction</h2>
+  <h2>1. What This Product Does</h2>
   <p>
-    WinMyDispute GPT provides dispute analysis and premium dispute-kit generation through a custom GPT and supporting API infrastructure. This policy explains what information we process, why we process it, and the third parties involved in delivery of the service.
+    WinMyDispute provides a dispute-assistance workflow through a custom GPT and supporting API. It helps users organize facts, identify possible credit-card dispute categories, and generate user-reviewable dispute materials. It is not a law firm and does not process card payments directly; checkout is handled by Stripe.
   </p>
 
   <h2>2. Information We Process</h2>
   <ul>
-    <li><strong>Dispute intake details:</strong> facts you provide about the merchant, charge, timeline, and supporting evidence.</li>
-    <li><strong>Email address:</strong> collected only when needed for checkout creation or license lookup.</li>
-    <li><strong>Payment data:</strong> processed by Stripe. We do not store full card numbers on our servers.</li>
-    <li><strong>Operational metadata:</strong> request IDs, limited logs, and abuse-prevention telemetry needed to operate and secure the API.</li>
-    <li><strong>License records:</strong> email-based entitlement records stored in our license file for premium access control.</li>
+    <li><strong>Dispute details:</strong> merchant names, amounts, dates, timelines, descriptions, and other facts you provide.</li>
+    <li><strong>Evidence files:</strong> screenshots, PDFs, emails, receipts, chats, statements, and other files you upload for extraction or premium packaging.</li>
+    <li><strong>Email address:</strong> used for license lookup, checkout creation, and saved premium case access.</li>
+    <li><strong>Payment event data:</strong> Stripe checkout session IDs, payment status, and related metadata needed to fulfill premium access.</li>
+    <li><strong>Operational metadata:</strong> request IDs, audit events, limited logs, and abuse-prevention telemetry.</li>
   </ul>
 
-  <h2>3. How We Use Information</h2>
+  <h2>3. How Information Flows</h2>
   <ul>
-    <li>To deliver free preview analysis and premium dispute-kit generation.</li>
-    <li>To create Stripe checkout sessions and confirm payment fulfillment.</li>
-    <li>To verify whether an email address has premium access.</li>
-    <li>To maintain reliability, security, fraud prevention, and debugging of the API.</li>
+    <li><strong>OpenAI:</strong> if evidence extraction/OCR is used, supported files may be sent to OpenAI so the service can extract structured evidence details.</li>
+    <li><strong>Stripe:</strong> checkout creation and payment confirmation are handled by Stripe. We do not store full card numbers on our servers.</li>
+    <li><strong>Local case persistence:</strong> intake details, extraction output, premium output, case versions, and file metadata are stored in our SQLite-backed case system so paid users can return to saved work.</li>
+    <li><strong>File storage:</strong> uploaded evidence and generated artifacts are stored on disk in our secured storage area, then exposed through signed, time-limited artifact links when needed.</li>
+    <li><strong>Optional Google Sheets sync:</strong> if enabled by us for internal operations, paid license events may be appended to a Google Sheet.</li>
+  </ul>
+
+  <h2>4. How We Use Information</h2>
+  <ul>
+    <li>To provide free preview analysis and premium dispute-material generation.</li>
+    <li>To extract structured evidence details from uploaded files.</li>
+    <li>To create Stripe checkout sessions and confirm premium fulfillment.</li>
+    <li>To let paid users return to saved case versions and generated artifacts.</li>
+    <li>To operate, secure, debug, and audit the API.</li>
     <li>To comply with legal obligations and enforce our terms.</li>
   </ul>
 
-  <h2>4. Third Parties</h2>
-  <p>We share information only with service providers required to operate the product, such as:</p>
-  <ul>
-    <li><strong>Stripe</strong> for payment processing and checkout fulfillment.</li>
-    <li><strong>Hosting and infrastructure providers</strong> for API delivery and availability.</li>
-    <li><strong>Optional Google Sheets sync</strong> if enabled for internal operational logging of paid licenses.</li>
-  </ul>
-
-  <h2>5. Data Retention</h2>
+  <h2>5. Retention</h2>
   <p>
-    Premium entitlement is stored by email so a paid user can return to the same GPT flow later and be recognized immediately. Operational logs and request metadata may be retained for security, debugging, and financial recordkeeping for a limited period consistent with business and legal needs.
+    We currently retain saved case data, associated evidence metadata, generated artifacts, and premium entitlement records until they are manually deleted by us, no longer needed for operations, or required to be retained for legal, tax, accounting, fraud-prevention, or security reasons. We do not currently offer an in-product self-service deletion tool.
+  </p>
+  <p>
+    Signed artifact links expire automatically, but expiration of a link does not itself delete the underlying stored file.
   </p>
 
   <h2>6. Security</h2>
   <p>
-    We use bearer-authenticated API access, Stripe webhook signature verification, basic rate limiting, and request tracing to protect the service. No system can be guaranteed perfectly secure, but we work to minimize unnecessary data collection and exposure.
+    We use bearer-authenticated API access, scoped GPT bearer tokens, Stripe webhook signature verification, signed artifact links, request tracing, and rate limiting to reduce exposure. No system can be guaranteed perfectly secure, so users should avoid uploading full SSNs, full card numbers, passwords, one-time codes, or unrelated sensitive data.
   </p>
 
-  <h2>7. Your Rights</h2>
+  <h2>7. Deletion and Access Requests</h2>
   <p>
-    To request access, correction, or deletion of personal information we control, contact <a href="mailto:support@winthisdispute.com">support@winthisdispute.com</a>.
+    To request access, correction, or deletion of personal information we control, contact <a href="mailto:support@winthisdispute.com">support@winthisdispute.com</a>. Because the product does not yet provide self-service deletion, requests are currently handled manually. Some records may need to be retained when required for legal, accounting, security, or fraud-prevention reasons.
   </p>
 
-  <h2>8. Changes</h2>
+  <h2>8. Third Parties</h2>
+  <ul>
+    <li><strong>OpenAI</strong> for supported OCR/evidence extraction workflows.</li>
+    <li><strong>Stripe</strong> for checkout and payment fulfillment.</li>
+    <li><strong>Hosting and infrastructure providers</strong> for API delivery and storage.</li>
+    <li><strong>Google Sheets</strong> only if we enable internal license-event sync.</li>
+  </ul>
+
+  <h2>9. Changes</h2>
   <p>
     We may update this policy as the product evolves. Material changes will be reflected by updating the date above.
   </p>
 
-  <h2>9. Contact</h2>
+  <h2>10. Contact</h2>
   <p>
     Questions about this policy can be sent to <a href="mailto:support@winthisdispute.com">support@winthisdispute.com</a>.
   </p>

@@ -1,89 +1,94 @@
 # WinMyDispute ChatGPT Builder Setup
 
 ## Builder URL
-- https://chatgpt.com/gpts/editor
+- [https://chatgpt.com/gpts/editor](https://chatgpt.com/gpts/editor)
 
 ## GPT Basics
 - Name: `WinMyDispute`
-- Description: `Helps users assess credit-card disputes, preview likely reason codes, and generate a premium dispute kit after upgrade.`
-- Visibility for now: `Private`
+- Description: `Helps users assess credit-card disputes, preview likely dispute categories, and generate a premium dispute kit after upgrade.`
+- Visibility during testing: `Only me` or `Anyone with the link`
+- Do not publish to the GPT Store until the live paid flow, evidence extraction, and privacy copy are rechecked.
 
 ## Recommended Model
-- Use the default recommended model in the GPT editor for now.
-- Keep the GPT private until the action flow is fully tested.
+- Use `GPT-5.4 Thinking`
 
 ## Instructions
 - Paste the contents of:
-  - `gpt-config/custom-gpt-instructions-builder.md`
-- Keep `gpt-config/custom-gpt-instructions.md` as the full master copy in the repo.
+  - `/Users/danielneville/Downloads/winmydispute-api-canonical/gpt-config/custom-gpt-instructions-builder.md`
+- Keep `/Users/danielneville/Downloads/winmydispute-api-canonical/gpt-config/custom-gpt-instructions.md` as the full master copy in the repo.
 
 ## Capabilities
 - Enable:
-  - Web search
+  - Actions
+- Disable:
+  - Web Search
   - Code Interpreter & Data Analysis
-- Leave Apps disabled.
-- Use Actions, not Apps, for this GPT.
+  - Canva
+  - Image Generation
 
 ## Knowledge Uploads
-- Upload these files from:
-  - `/Users/danielneville/Documents/WinMyDispute-GPT-Knowledge-Pack`
-
-### Upload first
-- `README.md`
-- `reference-data/chargeback_reason_codes_FULL_COMPILED.json`
-- `templates/Credit_Card_Dispute_Cover_Summary_Template.docx`
-- `templates/Credit_Card_Dispute_Evidence_Index_Template.docx`
-
-### Upload second
-- `examples/Download Chase_Dispute_Full_Package.pdf`
-- `examples/SoFi_Dispute_Report_FINAL.docx`
-- `examples/Amex_Modo_Dispute_Packet.pdf`
-- `examples/DingDingDing_Amex_Dispute_Packet.pdf`
-- `examples/Final_Dispute_Report_With_Exhibits.docx`
-
-### Optional
-- `instructions/WinmydisputeGPT Instructions 2.2.pages`
+- Default for testing: leave Knowledge empty.
+- Safe optional uploads:
+  - blank internal templates you created for this product
+  - public reference material you would be comfortable exposing to users
+- Do not upload:
+  - real customer dispute packets
+  - internal strategy docs
+  - prompt files
+  - secrets
+  - raw examples containing sensitive personal data
 
 ## Action Setup
 - In the GPT editor, open `Configure` → `Actions`
 - Import schema from:
-  - `https://api.pure-plays.com/openapi.gpt.yaml`
-- This GPT-specific schema hides internal endpoints like the Stripe webhook and gives cleaner action names.
+  - [https://api.pure-plays.com/openapi.gpt.yaml](https://api.pure-plays.com/openapi.gpt.yaml)
+- If URL import fails, paste the contents of:
+  - `/Users/danielneville/Downloads/winmydispute-api-canonical/gpt-config/openapi.gpt.yaml`
 
 ## Action Authentication
 - Authentication type: `API Key`
 - Auth scheme: `Bearer`
-- Secret value: use the same random value stored in Render as `OPENAI_BEARER`
+- Render env uses:
+  - `OPENAI_BEARERS_JSON`
+- GPT action secret must be the single scoped token value inside that JSON, not the whole JSON blob.
 
 ## Action Notes
-- The API base URL is:
-  - `https://api.pure-plays.com`
-- The live health check is:
-  - `https://api.pure-plays.com/health`
+- API base URL:
+  - [https://api.pure-plays.com](https://api.pure-plays.com)
+- Health check:
+  - [https://api.pure-plays.com/health](https://api.pure-plays.com/health)
 - Premium routes require either:
   - `premiumAccessToken`
   - or the matching Stripe `sessionId` / `checkoutSessionId`
 
 ## Suggested Conversation Starters
 - `I was charged for something I never received. Can you preview the best dispute reason?`
-- `Help me figure out whether this charge sounds like fraud, a billing error, or a service dispute.`
+- `Help me figure out whether this sounds like fraud, a billing error, or a service dispute.`
 - `I already paid. Help me generate the full dispute kit for this charge.`
 - `I got denied after filing my dispute. Help me prepare a rebuttal response.`
 
-## Test Flow
-1. Ask for a free preview.
-2. Confirm the GPT uses `/api/v1/disputes/preview`.
-3. Ask for premium output.
-4. Confirm the GPT asks for email and uses `/auth/check-license`.
-5. If unpaid, confirm it returns a Stripe checkout URL.
-6. After payment, confirm it exchanges the saved `sessionId` for `premiumAccessToken`.
-7. Confirm premium routes work:
+## Live Test Flow
+1. Ask for a free preview with normal user language.
+2. If issuer/network is missing, confirm the GPT asks one short follow-up.
+3. Confirm the GPT uses `/api/v1/disputes/preview`.
+4. Ask for premium output.
+5. Confirm the GPT asks for email and uses `/auth/check-license`.
+6. If unpaid, confirm it returns a live Stripe checkout URL from `/api/v1/create-checkout-session`.
+7. After payment, confirm it exchanges the saved `sessionId` for `premiumAccessToken`.
+8. Confirm premium routes work:
    - `/api/v1/generate-letter`
    - `/api/v1/generate-report-document`
+   - `/api/v1/generate-submission-bundle`
    - `/api/v1/evidence/extract`
    - `/api/v1/denials/respond`
    - `/api/v1/cases`
    - `/api/v1/jobs/{jobId}`
 
-## Publish Later
-- If you ever want to publish publicly, add a valid Privacy Policy URL for the action and verify your domain in the builder profile first.
+## Privacy Policy
+- Action privacy URL:
+  - [https://www.pure-plays.com/privacy](https://www.pure-plays.com/privacy)
+
+## Release Notes
+- Keep one source of truth:
+  - `/Users/danielneville/Downloads/winmydispute-api-canonical`
+- Do not use the older `winmydispute-api-main` repo as release guidance.
